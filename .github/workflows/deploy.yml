@@ -1,0 +1,26 @@
+name: deploy-azure
+
+on:
+  workflow_dispatch: {}   # manual button only
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+
+jobs:
+  deploy:
+    # Deployment is DISABLED until you set a repo variable ENABLE_DEPLOY=true
+    if: ${{ vars.ENABLE_DEPLOY == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show deploy is disabled
+        run: |
+          echo "Deployment is disabled. To enable:"
+          echo "  1) In GitHub: Settings → Secrets and variables → Actions → Variables"
+          echo "  2) Create variable: ENABLE_DEPLOY=true"
+          echo "  3) Add your Azure secrets (publish profile, etc.)"
+          echo "Then re-run this workflow."

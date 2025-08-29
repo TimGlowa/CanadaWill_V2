@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+
+jobs:
+  build:
+    name: Build (backend + dashboards)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - backend
+          - admin-dashboard
+          - public-dashboard
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        working-directory: ${{ matrix.app }}
+        run: |
+          if [ -f package.json ]; then
+            npm ci || npm install
+          else
+            echo "No package.json in ${{ matrix.app }} — skipping"
+          fi
+
+      - name: Build
+        working-directory: ${{ matrix.app }}
+        run: |
+          if [ -f package.json ]; then
+            npm run build --if-present
+          else
+            echo "No package.json in ${{ matrix.app }} — skipping"
+          fi
