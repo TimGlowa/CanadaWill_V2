@@ -1,26 +1,46 @@
-name: deploy-azure
+name: deploy-backend
 
 on:
-  workflow_dispatch: {}   # manual button only
   push:
     branches: [ main ]
     paths-ignore:
       - "docs/**"
       - "**/*.md"
+  workflow_dispatch: {}
 
 jobs:
-  deploy:
-    # Deployment is DISABLED until you set a repo variable ENABLE_DEPLOY=true
-    if: ${{ vars.ENABLE_DEPLOY == 'true' }}
+  deploy-backend:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Show deploy is disabled
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps (backend)
+        working-directory: backend
         run: |
-          echo "Deployment is disabled. To enable:"
-          echo "  1) In GitHub: Settings → Secrets and variables → Actions → Variables"
-          echo "  2) Create variable: ENABLE_DEPLOY=true"
-          echo "  3) Add your Azure secrets (publish profile, etc.)"
-          echo "Then re-run this workflow."
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+      - name: Build (backend)
+        working-directory: backend
+        run: npm run build --if-present
+
+      - name: Zip artifact (backend)
+        run: |
+          cd backend
+          zip -r ../backend-artifact.zip . \
+            -x "node_modules/**" \
+            -x "**/*.map"
+          ls -lh ../backend-artifact.zip
+
+      - name: Deploy to Azure Web App (backend)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: canadawill-ingest-ave2f8fjcxeuaehz
+          publish-profile: ${{ secrets.PUBLISH_PROFILE_BACKEND }}
+          package: backend-artifact.zip
