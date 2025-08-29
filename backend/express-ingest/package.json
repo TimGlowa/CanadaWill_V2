@@ -1,0 +1,19 @@
+{
+  "name": "express-ingest",
+  "version": "1.0.0",
+  "description": "Simple Express API to replace broken Azure Functions",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "capture:all": "node scripts/captureAll.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "@azure/storage-blob": "^12.17.0",
+    "axios": "^1.11.0"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}

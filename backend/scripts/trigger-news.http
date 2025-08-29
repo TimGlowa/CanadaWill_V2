@@ -1,0 +1,21 @@
+### API-only deep scrape (bypasses Playwright)
+POST https://canadawill-api3-dzeqebevgsb2gxf8.canadacentral-01.azurewebsites.net/storageHealth
+x-functions-key: {{FUNCTION_KEY}}
+Content-Type: application/json
+
+{
+  "targets": [
+    "Danielle Smith",
+    "Brian Jean",
+    "Devin Dreeshen",
+    "Angela Pitt",
+    "Jason Nixon",
+    "Todd Loewen",
+    "Rebecca Schulz",
+    "Ric McIver",
+    "Rachel Notley",
+    "Kathleen Ganley",
+    "Myles McDougall",
+    "Naheed Nenshi"
+  ]
+} 

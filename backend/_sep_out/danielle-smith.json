@@ -1,0 +1,584 @@
+{
+  "slug": "danielle-smith",
+  "name": "Danielle Smith",
+  "from": "2025-07-19",
+  "newsapi": {
+    "status": "ok",
+    "totalResults": 44,
+    "articles": [
+      {
+        "source": {
+          "id": null,
+          "name": "Yahoo Entertainment"
+        },
+        "author": "Khac Phu Nguyen",
+        "title": "Alberta's $334 Billion Power Play Could Blow Up Canada's Pension System",
+        "description": "Danielle Smith is taking on Ottawa, slashing Aimco, and eyeing a CPP exit that could reshape the nation's finances.",
+        "url": "https://finance.yahoo.com/news/albertas-334-billion-power-play-192941030.html",
+        "urlToImage": "https://media.zenfs.com/en/us.finance.gurufocus/b34031adc4a9b76ff2ad9dfb5f5d1f87",
+        "publishedAt": "2025-07-29T19:29:41Z",
+        "content": "Alberta is rattling the foundations of Canada's pension modeland investors are watching closely. Premier Danielle Smith has fired the entire board of Alberta Investment Management Corp. (Aimco), elim… [+1877 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Judge to proceed with review of Alberta separation question",
+        "description": "A judge says he must hear arguments and rule on whether a proposed referendum question on separating from Canada is constitutional because it's important for democracy.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/judge-to-proceed-with-review-of-alberta-separation-question-1.7608741",
+        "urlToImage": "https://i.cbc.ca/1.7498540.1743461602!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/edmonton-courthouse.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-14T14:12:57Z",
+        "content": "A judge says he must hear arguments and rule on whether a proposed Alberta referendum question on separating from Canada is constitutional because it's important for democracy.\r\n\"The citizens of Albe… [+5800 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Judge to go ahead with review of Alberta separation question",
+        "description": "A judge has denied an application to quash a review of a proposed Alberta referendum question on separation.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/judge-to-go-ahead-with-review-of-alberta-separation-question-1.7608741",
+        "urlToImage": "https://i.cbc.ca/1.7498540.1743461602!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/edmonton-courthouse.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-14T14:12:57Z",
+        "content": "A judge has denied an application to quash a review of a proposed Alberta referendum question on separation.\r\nCourt of King's Bench Justice Colin Feasby says it will benefit democracy to have a full … [+2461 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Alberta separation referendum question to be reviewed by Edmonton judge today",
+        "description": "A special court proceeding on a proposed Alberta separation referendum question is scheduled to get underway today in Edmonton.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/alta-separation-question-1.7603069",
+        "urlToImage": "https://i.cbc.ca/1.7498540.1743461602!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/edmonton-courthouse.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-07T13:47:14Z",
+        "content": "A special court proceeding on a proposed Alberta separation referendum question is scheduled to get underway today in Edmonton.\r\nA hearing at the Court of King's Bench is expected to begin Thursday m… [+2331 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Ontario, Alberta, Saskatchewan want to study feasibility of west-east pipeline",
+        "description": "Premiers say a pipeline would connect western oil and gas to Ontario ports and refineries, boosting self-reliance in Canada’s energy industry which is closely tied to U.S. markets and vulnerable to tariffs.",
+        "url": "https://www.cbc.ca/news/canada/toronto/ontario-alberta-saskatchewan-rfp-study-east-west-pipeline-1.7603451",
+        "urlToImage": "https://i.cbc.ca/1.7578956.1751910532!/fileImage/httpImage/image.JPG_gen/derivatives/16x9_1180/alta-ont-mou-20250707.JPG?im=Resize%3D620",
+        "publishedAt": "2025-08-07T18:19:44Z",
+        "content": "The government of Ontario, working with Alberta and Saskatchewan, wants to explore the feasibility of a new west-east pipeline to bring western oil and gas to southern Ontario refineries and ports.\r\n… [+2837 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Judge's decision on future of Alberta separation question review expected today",
+        "description": "A judge is expected to decide today whether a special court review of a proposed Alberta referendum question on separation should go ahead.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/judge-s-decision-on-future-of-alberta-separation-question-review-expected-today-1.7608741",
+        "urlToImage": "https://i.cbc.ca/1.7498540.1743461602!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/edmonton-courthouse.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-14T14:12:57Z",
+        "content": "A judge is expected to decide today whether a special court review of a proposed Alberta referendum question on separation should go ahead.\r\nGordon McClure, Alberta's chief electoral officer, referre… [+2314 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Plan to accept newcomer parents and grandparents will strain health services, Alberta warns",
+        "description": "Alberta's immigration minister says he's concerned about the federal government's plan this year to accept thousands of parents and grandparents of immigrants already in Canada.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/plan-to-accept-newcomer-parents-and-grandparents-will-strain-health-services-alberta-warns-1.7592815",
+        "urlToImage": "https://i.cbc.ca/1.7377283.1731013656!/cumulusImage/httpImage/image.jpg_gen/derivatives/16x9_1180/alberta-legislature.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-24T13:38:31Z",
+        "content": "Alberta's immigration minister says he's concerned about the federal government's plan this year to accept thousands of parents and grandparents of immigrants already in Canada.\r\nJoseph Schow respond… [+4818 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Ford walks back pledge to issue work permits to asylum seekers",
+        "description": "Ontario Premier Doug Ford has walked back last week's pledge to issue work permits to asylum seekers. Ford and the rest of the country's premiers said at their gathering last week they wanted more control over immigration, usually a purview of the federal gov…",
+        "url": "https://www.cbc.ca/news/canada/toronto/premier-doug-ford-walks-back-pledge-work-permits-asylum-seekers-1.7595515",
+        "urlToImage": "https://i.cbc.ca/1.7595524.1753720925!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/ont-ford-20250728.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-28T16:48:43Z",
+        "content": "Ontario Premier Doug Ford has walked back last week's pledge to issue work permits to asylum seekers.\r\nFord and the rest of the country's premiers said at their gathering last week they wanted more c… [+685 chars]"
+      },
+      {
+        "source": {
+          "id": "financial-post",
+          "name": "Financial Post"
+        },
+        "author": "The Canadian Press",
+        "title": "Environmental group seeks ethics investigation into Alberta Premier Smith adviser",
+        "description": "EDMONTON — Environmental lawyers are asking Alberta’s ethics commissioner to investigate an energy regulator board member and adviser to Premier Danielle Smith for conflicts of interest. The adviser, David Yager, also has his own oil and gas consulting compan…",
+        "url": "https://financialpost.com/pmn/environmental-group-seeks-ethics-investigation-into-alberta-premier-smith-adviser",
+        "urlToImage": null,
+        "publishedAt": "2025-07-22T19:08:14Z",
+        "content": "EDMONTON Environmental lawyers are asking Albertas ethics commissioner to investigate an energy regulator board member and adviser to Premier Danielle Smith for conflicts of interest.\r\nTHIS CONTENT I… [+5180 chars]"
+      },
+      {
+        "source": {
+          "id": "financial-post",
+          "name": "Financial Post"
+        },
+        "author": "The Canadian Press",
+        "title": "Environmental group seeks ethics investigation into Alberta Premier Smith adviser",
+        "description": "EDMONTON — Environmental lawyers are asking Alberta’s ethics commissioner to investigate an energy regulator board member and adviser to Premier Danielle Smith for conflicts of interest. The adviser, David Yager, also has his own oil and gas consulting compan…",
+        "url": "https://financialpost.com/pmn/environmental-group-seeks-ethics-investigation-into-alberta-premier-smith-adviser-2",
+        "urlToImage": null,
+        "publishedAt": "2025-07-22T21:16:22Z",
+        "content": "EDMONTON Environmental lawyers are asking Albertas ethics commissioner to investigate an energy regulator board member and adviser to Premier Danielle Smith for conflicts of interest.\r\nTHIS CONTENT I… [+5186 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Medicine Hat Pride group protests premier's parade appearance",
+        "description": "Back in her home riding on Thursday after high-profile trade meetings in Ontario this week, Premier Danielle Smith served as honorary parade marshal for the Medicine Hat Exhibition and Stampede.",
+        "url": "https://www.cbc.ca/news/canada/calgary/medicine-hat-stampede-parade-pride-protest-1.7593550",
+        "urlToImage": "https://i.cbc.ca/1.7593566.1753395657!/fileImage/httpImage/image.JPG_gen/derivatives/16x9_1180/smith-medicine-hat-parade.JPG?im=Resize%3D620",
+        "publishedAt": "2025-07-24T23:13:21Z",
+        "content": "Back in her home riding on Thursday after high-profile trade meetings in Ontario this week, Premier Danielle Smith served as honorary parade marshal for the Medicine Hat Exhibition and Stampede and o… [+3121 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Why Danielle Smith has eased off the 'Kill Bill C-69' language in the Carney era",
+        "description": "After long demanding repeal of the federal project review law, Alberta premier shifts to calling for 'substantive' changes.",
+        "url": "https://www.cbc.ca/news/canada/calgary/impact-assessment-act-danielle-smith-alberta-mark-carney-analysis-1.7591286",
+        "urlToImage": "https://i.cbc.ca/1.4949808.1753217004!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/kill-bill-c-69.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-23T08:00:00Z",
+        "content": "Premier Danielle Smith wasn't doing anything politically revolutionary when she demanded the repeal of Ottawa's environmental assessments act during the federal election campaign. Then she demanded i… [+8109 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Alberta no longer sure about big savings from auto insurance reforms",
+        "description": "Danielle Smith said the new system would cut premiums by up to $400. But rising insurance costs, hail storms and tariffs are putting that claim in doubt.",
+        "url": "https://www.cbc.ca/news/canada/calgary/alberta-insurance-savings-400-doubtful-analysis-1.7603277",
+        "urlToImage": "https://i.cbc.ca/1.2825507.1754585035!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/north-end-crash.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-07T18:16:07Z",
+        "content": "When Premier Danielle Smith announced a dramatic shift to a new auto insurance system that largely removes Albertans' rights to sue at-fault drivers for compensation, she and her ministers dangled th… [+7064 chars]"
+      },
+      {
+        "source": {
+          "id": "financial-post",
+          "name": "Financial Post"
+        },
+        "author": "Bloomberg News",
+        "title": "Alberta Bolsters Canada-Mexico Energy Ties as Trump Upends Trade",
+        "description": "The leader of Canada’s main oil-producing province visited Mexico in a bid to help reset relations with Latin America’s second-largest economy, with a particular eye to promoting energy projects.",
+        "url": "https://financialpost.com/pmn/business-pmn/alberta-bolsters-canada-mexico-energy-ties-as-trump-upends-trade",
+        "urlToImage": "https://smartcdn.gprod.postmedia.digital/financialpost/wp-content/uploads/2025/08/776295232.jpg",
+        "publishedAt": "2025-08-12T15:08:39Z",
+        "content": "(Bloomberg) The leader of Canadas main oil-producing province visited Mexico in a bid to help reset relations with Latin Americas second-largest economy, with a particular eye to promoting energy pro… [+5349 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Alberta immigrant support groups seeing recent uptick in anger, rise of racist narratives",
+        "description": "Alberta resident Shamaila Akram says she can handle the increase in racial slurs and derogatory comments being thrown at her, but she worries about her newcomer and immigrant clients.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/alberta-immigrant-support-groups-seeing-recent-uptick-in-anger-rise-of-racist-narratives-1.7594798",
+        "urlToImage": "https://i.cbc.ca/1.7586742.1752698239!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/alberta-next-town-hall-hands.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-26T16:38:13Z",
+        "content": "Alberta resident Shamaila Akram says she can handle the increase in racial slurs and derogatory comments being thrown at her, but she worries about her newcomer and immigrant clients.\r\nAs debates unf… [+6444 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Alberta Next panel returns to Edmonton to get feedback at third town hall",
+        "description": "A travelling panel collecting public feedback on Alberta's grievances with Ottawa is set to make its third summer town hall stop tonight.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/alberta-next-panel-returns-to-edmonton-to-get-feedback-at-third-town-hall-1.7608745",
+        "urlToImage": "https://i.cbc.ca/1.7586082.1752641120!/fileImage/httpImage/image.JPG_gen/derivatives/16x9_1180/alberta-next-panel.JPG?im=Resize%3D620",
+        "publishedAt": "2025-08-14T14:04:49Z",
+        "content": "A travelling panel collecting public feedback on Alberta's grievances with Ottawa is set to make its third summer town hall stop tonight.\r\nPremier Danielle Smith and 15 other members of her Alberta N… [+1748 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Open for business? B.C. wineries call out high fees charged by Alberta",
+        "description": "Three months after Alberta introduced new fees on wine sales, B.C. wineries are feeling the pinch as the amount of lost sales add up.",
+        "url": "https://www.cbc.ca/news/canada/calgary/bakx-bc-wine-alberta-aglc-fee-tax-1.7596265",
+        "urlToImage": "https://i.cbc.ca/1.7596267.1753799813!/fileImage/httpImage/image.jpeg_gen/derivatives/16x9_1180/lightning-rock-winery.jpeg?im=Resize%3D620",
+        "publishedAt": "2025-07-30T08:00:00Z",
+        "content": "Three months after Alberta's new fees on wine were introduced, B.C. wineries are starting to feel the pinch as the amount of lost sales add up that's despite a trade deal between the provinces that a… [+4527 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "Freerepublic.com"
+        },
+        "author": "X",
+        "title": "Pipeline agreement between the USA and Alberta, Canada on July 29, 2025.",
+        "description": "Pipeline agreement between the USA and Alberta, Canada on July 29, 2025. The agreement, led by Alberta Premier Danielle Smith, deliberately bypassed federal approval from Ottawa Preliminary work on the pipeline is expected to begin within months, positioning …",
+        "url": "https://freerepublic.com/focus/f-news/4332420/posts",
+        "urlToImage": null,
+        "publishedAt": "2025-08-03T16:53:56Z",
+        "content": "Skip to comments.\r\nPipeline agreement between the USA and Alberta, Canada on July 29, 2025.X ^\r\n | 08/01/2025\r\n | Daniel Meier\r\nPosted on 08/03/2025 9:53:56 AM PDT by SmokingJoe\r\nPipeline agreement b… [+1925 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Coastal First Nations in B.C. issue open letter to Carney opposing suggested northern pipeline",
+        "description": "Coastal First Nations in British Columbia have issued an open letter to Prime Minister Mark Carney, asking him to reject any new proposal for a crude oil pipeline to the northwest coast.",
+        "url": "https://www.cbc.ca/news/canada/british-columbia/coastal-first-nations-pipeline-letter-mark-carney-1.7591364",
+        "urlToImage": "https://i.cbc.ca/1.7352193.1750973052!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/chief-marilyn-slett.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-22T21:47:09Z",
+        "content": "Coastal First Nations in British Columbia have issued an open letter to Prime Minister Mark Carney, asking him to reject any new proposal for a crude oil pipeline to the northwest coast.\r\nThe move co… [+2769 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "gcaptain.com"
+        },
+        "author": "Bloomberg",
+        "title": "Canada Eyes Arctic Ocean Port to Ship Gas, Commodities to Europe",
+        "description": "The Canadian government is looking hard at developing a remote northern port on Hudson Bay as a conduit for exporting natural gas, potash, canola and other commodities as the country tries to reduce its economic dependence on the US.",
+        "url": "https://gcaptain.com/canada-eyes-arctic-ocean-port-to-ship-gas-commodities-to-europe-2/",
+        "urlToImage": "https://gcaptain.com/wp-content/uploads/2022/03/shutterstock_464835863.jpg",
+        "publishedAt": "2025-08-08T16:02:36Z",
+        "content": "By Brian Platt (Bloomberg) — The Canadian government is looking hard at developing a remote northern port on Hudson Bay as a conduit for exporting natural gas, potash, canola and other commodities as… [+6834 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "gcaptain.com"
+        },
+        "author": "Bloomberg",
+        "title": "Canada Eyes Arctic Ocean Port to Ship Gas, Commodities to Europe",
+        "description": "The Canadian government is looking hard at developing a remote northern port on Hudson Bay as a conduit for exporting natural gas, potash, canola and other commodities as the country tries to reduce its economic dependence on the US.",
+        "url": "https://gcaptain.com/canada-eyes-arctic-ocean-port-to-ship-gas-commodities-to-europe/",
+        "urlToImage": "https://gcaptain.com/wp-content/uploads/2025/07/LNG-canada-scaled.jpg",
+        "publishedAt": "2025-08-07T10:18:00Z",
+        "content": "By Brian Platt\r\nAug 7, 2025 (Bloomberg) –The Canadian government is looking hard at developing a remote northern port on Hudson Bay as a conduit for exporting natural gas, potash, canola and other co… [+6846 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Alberta government changes expense disclosure policy, removes eight years of records",
+        "description": "Key changes to Alberta’s expense disclosure policy mean that the receipts of senior government officials, including the premier, will no longer be public.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/alberta-government-changes-expense-disclosure-policy-removes-eight-years-of-records-1.7604279",
+        "urlToImage": "https://i.cbc.ca/1.7377283.1731013656!/cumulusImage/httpImage/image.jpg_gen/derivatives/16x9_1180/alberta-legislature.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-10T12:00:00Z",
+        "content": "While many Albertans were preparing for a long weekend last Friday, the provincial government published changes to its rules for disclosing expense claims made by senior officials.\r\nThe new policy, p… [+5967 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "U.S. commerce secretary dismisses question that free trade with Canada is dead",
+        "description": "U.S. Commerce Secretary Howard Lutnick dismissed the question of whether U.S. free trade with Canada is dead, calling the notion “silly” because a substantial amount of Canadian goods enter the U.S. tariff-free under the North American free trade deal. But he…",
+        "url": "https://www.cbc.ca/news/politics/u-s-commerce-secretary-dismisses-question-that-free-trade-with-canada-is-dead-1.7589616",
+        "urlToImage": "https://i.cbc.ca/1.7477344.1744237807!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/howard-lutnick-us-commerce-secretary.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-20T18:10:48Z",
+        "content": "U.S. Commerce Secretary Howard Lutnick is dismissing the question of whether U.S. free trade with Canada is dead, calling the notion \"silly\" and saying a substantial amount of Canadian goods enter th… [+4887 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Former Wildrose MLA, ex-police chief among those running for Medicine Hat mayor",
+        "description": "Two high-profile candidates — one a former three-time Wildrose MLA and the other the city’s former chief of police — have thrown their hats into the ring to run for mayor of Medicine Hat.",
+        "url": "https://www.cbc.ca/news/canada/calgary/former-wildrose-mla-ex-police-chief-among-those-running-for-medicine-hat-mayor-1.7602377",
+        "urlToImage": "https://i.cbc.ca/1.7602437.1754502779!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/medicine-hat-candidates.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-06T18:25:31Z",
+        "content": "Two high-profile candidates one a former three-time Wildrose MLA and the other the city's former chief of police have thrown their hats into the ring to run for mayor of Medicine Hat. \r\nOne candidate… [+5368 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Poilievre says Carney's moving in the 'wrong direction,' pledges to 'legalize' pipelines",
+        "description": "Conservative Leader Pierre Poilievre says Prime Minister Mark Carney's development agenda is stalled — and he's promising to \"legalize\" pipelines through new legislation to speed things up.",
+        "url": "https://www.cbc.ca/news/politics/poilievre-canadian-sovereignty-act-1.7603382",
+        "urlToImage": "https://i.cbc.ca/1.7603396.1754589231!/fileImage/httpImage/image.JPG_gen/derivatives/16x9_1180/alta-byelection-poilievre-20250807.JPG?im=Resize%3D620",
+        "publishedAt": "2025-08-07T18:04:23Z",
+        "content": "Conservative Leader Pierre Poilievre says Prime Minister Mark Carney's development agenda is stalled and he's promising to \"legalize\" pipelines through new legislation to speed things up.\r\nPoilievre … [+4080 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Jack Farrell",
+        "title": "Hearing for Alberta separation referendum question will be held in court",
+        "description": "A special court proceeding on a proposed Alberta separation referendum question is scheduled to get underway today in Edmonton.",
+        "url": "https://www.nationalobserver.com/2025/08/07/news/hearing-alberta-separation-referendum-question-will-be-held-court",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/08/07/30abc1f0d64d474a543d29f451bf5e558c771f270f2a31a31766da5819d1b0e3.jpg",
+        "publishedAt": "2025-08-07T13:05:09Z",
+        "content": "A special court proceeding on a proposed Alberta separation referendum question is scheduled to get underway today in Edmonton.\r\nAlberta's chief electoral officer, Gordon McClure, referred the propos… [+2369 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Jack Farrell",
+        "title": "Judge reserves decision on whether to strike review of Alberta's separation question",
+        "description": "A judge has reserved his decision on whether to review a proposed Alberta separation referendum question.",
+        "url": "https://www.nationalobserver.com/2025/08/08/news/judge-reserves-decision-whether-strike-review-albertas-separation-question",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/08/08/16fe7dbe8318f1a73784367bb3f2d7d7543d52690e16f41db084c9c0b273134c.jpg",
+        "publishedAt": "2025-08-08T13:59:32Z",
+        "content": "A judge has reserved his decision on whether to review a proposed Alberta separation referendum question.\r\nCourt of King's Bench Justice Colin Feasby is expected to give his ruling Aug. 14.\r\nThe matt… [+5018 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Scott Moe arrives at premiers' summit warning some U.S. tariffs are Canada's 'reality'",
+        "description": "Canada's premiers arrived in Ontario cottage country on Monday eager to discuss Canada's ongoing trade crisis with the United States and settle into a plan for how they can work together with Indigenous leaders to strengthen the country's economy.",
+        "url": "https://www.cbc.ca/news/politics/premiers-summit-1.7588427",
+        "urlToImage": "https://i.cbc.ca/1.7590219.1753122276!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/premiers-meeting-20250721.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-21T08:00:28Z",
+        "content": "Canada's premiers arrived in Ontario cottage country on Monday eager to discuss Canada's ongoing trade crisis with the United States and settle into a plan for how they can work together with Indigen… [+4649 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Manitoba signs agreements with 4 provinces to improve trade and labour mobility",
+        "description": "The Manitoba government has signed new agreements with four other Canadian provinces to loosen trade barriers and increase labour mobility from coast to coast.",
+        "url": "https://www.cbc.ca/news/canada/manitoba/manitoba-mou-council-of-the-federation-meeting-1.7591591",
+        "urlToImage": "https://i.cbc.ca/1.7591610.1753227083!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/premiers-meeting-20250722.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-23T00:09:08Z",
+        "content": "The Manitoba government has signed agreements with four other Canadian provinces to loosen trade barriers and increase labour mobility from coast to coast. \r\nPremier Wab Kinew said the province has s… [+2543 chars]"
+      },
+      {
+        "source": {
+          "id": "financial-post",
+          "name": "Financial Post"
+        },
+        "author": "The Canadian Press",
+        "title": "Premiers meet with Indigenous groups on first day of three-day Ontario gathering",
+        "description": "HUNTSVILLE, ONT. — Canada’s premiers are pledging economic reconciliation with Indigenous people as they head into discussions with First Nations, Metis and Inuit groups at a three-day meeting in cottage country north of Toronto. The premiers have gathered at…",
+        "url": "https://financialpost.com/pmn/premiers-meet-with-indigenous-groups-on-first-day-of-three-day-ontario-gathering",
+        "urlToImage": null,
+        "publishedAt": "2025-07-21T17:56:11Z",
+        "content": "HUNTSVILLE, ONT. Canadas premiers are pledging economic reconciliation with Indigenous people as they head into discussions with First Nations, Metis and Inuit groups at a three-day meeting in cottag… [+5625 chars]"
+      },
+      {
+        "source": {
+          "id": "financial-post",
+          "name": "Financial Post"
+        },
+        "author": "The Canadian Press",
+        "title": "Premiers meet with Indigenous groups on first day of three-day Ontario gathering",
+        "description": "HUNTSVILLE, ONT. — Canada’s premiers are pledging economic reconciliation with Indigenous people as they head into discussions with First Nations, Metis and Inuit groups at a three-day meeting in cottage country north of Toronto. The premiers have gathered at…",
+        "url": "https://financialpost.com/pmn/premiers-meet-with-indigenous-groups-on-first-day-of-three-day-ontario-gathering-2",
+        "urlToImage": null,
+        "publishedAt": "2025-07-21T20:05:21Z",
+        "content": "HUNTSVILLE, ONT. Canadas premiers are pledging economic reconciliation with Indigenous people as they head into discussions with First Nations, Metis and Inuit groups at a three-day meeting in cottag… [+5624 chars]"
+      },
+      {
+        "source": {
+          "id": "financial-post",
+          "name": "Financial Post"
+        },
+        "author": "The Canadian Press",
+        "title": "Mixed reaction from First Nations after premiers’ meeting about major projects",
+        "description": "HUNTSVILLE, ONT. — Canada’s premiers pledged economic reconciliation with Indigenous people through major infrastructure and resource projects at their semi-annual meeting that began Monday, though several First Nation leaders said afterward they were disappo…",
+        "url": "https://financialpost.com/pmn/mixed-reaction-from-first-nations-after-premiers-meeting-about-major-projects-2",
+        "urlToImage": null,
+        "publishedAt": "2025-07-21T22:42:01Z",
+        "content": "HUNTSVILLE, ONT. Canadas premiers pledged economic reconciliation with Indigenous people through major infrastructure and resource projects at their semi-annual meeting that began Monday, though seve… [+5047 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Ford praises Carney after late-night fireside chats at Muskoka cottage",
+        "description": "It may not be the sunny ways government, but some premiers certainly seem to be feeling sunny about the future after a meeting with Prime Minister Mark Carney on Tuesday.",
+        "url": "https://www.cbc.ca/news/politics/ford-houston-carney-praise-1.7591546",
+        "urlToImage": "https://i.cbc.ca/1.7591574.1753224811!/fileImage/httpImage/image.JPG_gen/derivatives/16x9_1180/premiers-meeting-20250722.JPG?im=Resize%3D620",
+        "publishedAt": "2025-07-22T23:41:44Z",
+        "content": "It may not be the sunny ways government, but some premiers certainly seem to be feeling sunny about the future.\r\nAnd that's despite troubled trade negotiations with the United States and the worsenin… [+4431 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Matthew Scace",
+        "title": "Jasper, Parks Canada officials giving tours and remarks ahead of wildfire anniversary",
+        "description": "Officials with Parks Canada and the town of Jasper, Alta., are to provide remarks and tours of the community today as they get set to mark the one-year anniversary of a devastating wildfire.",
+        "url": "https://www.nationalobserver.com/2025/07/21/news/jasper-parks-canada-officials-giving-tours-remarks-ahead-wildfire-anniversary",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/07/21/98704242d0444f5de074b12b1dde0f7625db3f4b5ef2211685e5f383adced535.jpg",
+        "publishedAt": "2025-07-21T13:23:06Z",
+        "content": "Officials with Parks Canada and the town of Jasper, Alta., are to provide remarks and tours of the community today as they get set to mark the one-year anniversary of a devastating wildfire.\r\nThe fir… [+755 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Sonal Gupta",
+        "title": "Coastal First Nations call on Carney to uphold oil tanker ban",
+        "description": "Indigenous leaders on British Columbia’s north coast are calling on the federal government to hold out against pressure from Alberta and industry to reverse the west coast oil export ban.",
+        "url": "https://www.nationalobserver.com/2025/07/23/news/bc-coast-oil-tanker-pipeline-ban",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/07/22/untitled-744.jpg",
+        "publishedAt": "2025-07-23T09:09:05Z",
+        "content": "Indigenous leaders on British Columbias north coast are calling on the federal government to hold out against pressure from Alberta and industry to reverse the west coast oil export ban.\r\nOn Tuesday,… [+5228 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "The Canadian Press",
+        "title": "Poilievre says BC Premier Eby is that 'one man' who 'can't block' pipeline proposal",
+        "description": "Conservative Leader Pierre Poilievre says Canadians, including British Columbians, want a new oil pipeline and Premier David Eby can't be allowed as one man to block the project.",
+        "url": "https://www.nationalobserver.com/2025/08/08/news/poilievre-says-bc-premier-eby-one-man-who-cant-block-pipeline-proposal",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/08/08/3e1466867465467999f527475ef885c2c0d410139e4593ad45cbf0da3dce429c.jpg",
+        "publishedAt": "2025-08-08T14:02:20Z",
+        "content": "Conservative Leader Pierre Poilievre says Canadians, including British Columbians, want a new oil pipeline and Premier David Eby can't be allowed as one man to block the project.\r\nPoilievre says the … [+2010 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Ross Belot",
+        "title": "Mark Carney and Danielle Smith — It’s 2025, Not 1947",
+        "description": "In the 1950s, the economy was the only concern — climate change wasn't yet on government's radar. That isn't the case in 2025, and our leaders should act accordingly.",
+        "url": "https://www.nationalobserver.com/2025/07/31/opinion/mark-carney-danielle-smith-its-2025-not-1947",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/06/04/oilsands_shutterstock_1344602666_updated.jpg",
+        "publishedAt": "2025-08-05T09:09:03Z",
+        "content": "In 1979, I was a summer student working at Gulf Oils refinery in Clarkson, Ontario. I was assigned to its oldest crude unit, part of the original British-American Oil refinery built in 1943. It was m… [+5066 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Max Fawcett",
+        "title": "Canada’s premiers should tread more carefully on climate policy",
+        "description": "Canada's premiers are spoiling for a fight with Ottawa over climate policy. They just might get it.",
+        "url": "https://www.nationalobserver.com/2025/07/24/opinion/canada-premiers-climate-policy",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/07/23/cp174784962.JPG",
+        "publishedAt": "2025-07-24T09:09:05Z",
+        "content": "In a year of unexpected political developments, one of the biggest surprises so far has been the unusual degree of harmony between Ottawa and the premiers. Wab Kinew, David Eby, and Francois Legault … [+5354 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Natasha Bulowski",
+        "title": "Saskatchewan faces legal challenge for delaying coal phase out",
+        "description": "An aerial shot of the Boundary Dam power station in Saskatchewan with the CCS facility to the right of the power plant. At the facility, exhaust from the Unit 3 turbine is sent for CO2 capture and compression into the pipeline that takes it away for undergrou…",
+        "url": "https://www.nationalobserver.com/2025/08/01/news/saskatchewan-legal-challenge-coal-phase-out",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/08/01/boundary_dam_power_station_with_carbon_capture_facility_in_the_foreground_1_1.jpg",
+        "publishedAt": "2025-08-01T22:27:39Z",
+        "content": "Saskatchewan is facing a judicial review for its recent decision to extend coal power generation in the province beyond 2030.\r\nFederal regulations require all coal-fired power plants (except those ou… [+3449 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "Rigzone"
+        },
+        "author": "Rocky Teodoro",
+        "title": "Saskatchewan, Ontario, Alberta Sign MoU to Facilitate O&G Transportation",
+        "description": "'We are standing up for our oil and gas sector and making sure our world-class resources reach the markets that need them'.",
+        "url": "https://www.rigzone.com/news/saskatchewan_ontario_alberta_sign_mou_to_facilitate_og_transportation-25-jul-2025-181261-article/",
+        "urlToImage": "https://images.rigzone.com/images/news/articles/Saskatchewan-Ontario-Alberta-Sign-MoU-to-Facilitate-OG-Transportation-181261-1200x628.png",
+        "publishedAt": "2025-07-25T13:00:00Z",
+        "content": "Three Canadian provinces are collaborating to facilitate the transportation of oil and gas across the country.\r\nSaskatchewan Premier Scott Moe, Ontario Premier Doug Ford, and Alberta Premier Danielle… [+3821 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Post"
+        },
+        "author": "Tyler Dawson",
+        "title": "Alberta appeals court's injunction against new transgender health-care rules for kids",
+        "description": "The Alberta government argues that the judge erred in barring the implementation of its new rules for transgender care for minors",
+        "url": "https://nationalpost.com/news/canada/alberta-government-transgender-health-care",
+        "urlToImage": "https://smartcdn.gprod.postmedia.digital/nationalpost/wp-content/uploads/2025/07/0717-smith-supply-management.jpg",
+        "publishedAt": "2025-08-08T18:43:01Z",
+        "content": "EDMONTON The Alberta government has appealed an injunction granted by the courts that prevents the implementation of restrictions around health care for transgender minors in the province.\r\nTHIS CONT… [+4402 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Arno Kopecky",
+        "title": "Carney strides into Northern Gateway minefield",
+        "description": "Prime Minister Mark Carney set off alarm bells across British Columbia when he told a journalist at the Calgary Stampede that a new bitumen pipeline to BC’s north coast is “highly, highly likely.” Nowhere have those bells been ringing more strongly than in th…",
+        "url": "https://www.nationalobserver.com/2025/07/21/opinion/carney-oil-pipelines-northern-gateway",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/07/18/edit_cp2409305.jpg",
+        "publishedAt": "2025-07-21T09:09:07Z",
+        "content": "Prime Minister Mark Carney set off alarm bells across British Columbia when he told a journalist at the Calgary Stampede that a new bitumen pipeline to BCs north coast is highly, highly likely. Nowhe… [+7877 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Max Fawcett",
+        "title": "Nova Scotia’s forest ban is a test — just not the one some people think",
+        "description": "Tim Houston is trying to prevent the sort of wildfires that caused death and destruction in his province just two years ago. To some people, though, he's just an agent of creeping climate extremism and government overreach.",
+        "url": "https://www.nationalobserver.com/2025/08/07/opinion/nova-scotia-forest-ban-mcneil-climate",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/08/07/520176144_1218520283293333_6749709987475505680_n.jpg",
+        "publishedAt": "2025-08-07T18:23:25Z",
+        "content": "Tim Houston, Nova Scotias Progressive Conservative premier, isnt exactly the first name that comes to mind when you think of freedom-hating climate-driven radicals. But thats the argument thats being… [+5895 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Max Fawcett",
+        "title": "Nova Scotia’s forest ban is a test — just not the one some people think",
+        "description": "Tim Houston is trying to prevent the sort of wildfires that caused death and destruction in his province just two years ago. To some people, though, he's just an agent of creeping climate extremism and government overreach.",
+        "url": "https://www.nationalobserver.com/2025/08/07/opinion/nova-scotia-forest-ban-houston-climate",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/08/07/520176144_1218520283293333_6749709987475505680_n.jpg",
+        "publishedAt": "2025-08-07T18:23:25Z",
+        "content": "Tim Houston, Nova Scotias Progressive Conservative premier, isnt exactly the first name that comes to mind when you think of freedom-hating climate-driven radicals. But thats the argument thats being… [+5895 chars]"
+      }
+    ]
+  },
+  "newsdata": {}
+}

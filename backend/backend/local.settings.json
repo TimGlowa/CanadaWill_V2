@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AZURE_STORAGE_CONNECTION_STRING": "YOUR_AZURE_STORAGE_CONNECTION_STRING_HERE",
+    "AZURE_STORAGE_CONTAINER": "canadawill-data",
+    "NEWS_API_KEY": "YOUR_NEWSAPI_KEY_HERE",
+    "NEWS_DATA_IO_KEY": "YOUR_NEWSDATAIO_KEY_HERE"
+  }
+} 

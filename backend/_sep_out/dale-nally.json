@@ -1,0 +1,38 @@
+{
+  "slug": "dale-nally",
+  "name": "Dale Nally",
+  "from": "2025-07-19",
+  "newsapi": {
+    "status": "ok",
+    "totalResults": 2,
+    "articles": [
+      {
+        "source": {
+          "id": null,
+          "name": "New York Post"
+        },
+        "author": "Ariel Zilber",
+        "title": "US booze exports to Canada plunge more than 60% as fury over Trump tariffs sparks boycott",
+        "description": "Distilled Spirits Council says exports of US-made liquored totaled just $43.4 million during first six months of 2025, compared to about $114 million during the same period last year.",
+        "url": "https://nypost.com/2025/08/14/business/us-booze-exports-to-canada-fall-more-than-60-amid-boycott/",
+        "urlToImage": "https://nypost.com/wp-content/uploads/sites/2/2025/08/109595478.jpg?quality=75&strip=all&w=1024",
+        "publishedAt": "2025-08-14T20:35:14Z",
+        "content": "Boycott, eh? \r\nUS exports of liquor and wine to Canada have plummeted by more than 60% in the first half of the year as furious Canucks snub American booze because of President Trump’s trade war. \r\nS… [+5833 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Open for business? B.C. wineries call out high fees charged by Alberta",
+        "description": "Three months after Alberta introduced new fees on wine sales, B.C. wineries are feeling the pinch as the amount of lost sales add up.",
+        "url": "https://www.cbc.ca/news/canada/calgary/bakx-bc-wine-alberta-aglc-fee-tax-1.7596265",
+        "urlToImage": "https://i.cbc.ca/1.7596267.1753799813!/fileImage/httpImage/image.jpeg_gen/derivatives/16x9_1180/lightning-rock-winery.jpeg?im=Resize%3D620",
+        "publishedAt": "2025-07-30T08:00:00Z",
+        "content": "Three months after Alberta's new fees on wine were introduced, B.C. wineries are starting to feel the pinch as the amount of lost sales add up that's despite a trade deal between the provinces that a… [+4527 chars]"
+      }
+    ]
+  },
+  "newsdata": {}
+}

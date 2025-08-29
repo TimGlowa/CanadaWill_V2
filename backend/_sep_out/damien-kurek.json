@@ -1,0 +1,90 @@
+{
+  "slug": "damien-kurek",
+  "name": "Damien Kurek",
+  "from": "2025-07-19",
+  "newsapi": {
+    "status": "ok",
+    "totalResults": 6,
+    "articles": [
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Pipelines, policy and uncertainty shape Alberta byelection in Hardisty's oil hub",
+        "description": "In Hardisty, Alta., a critical hub for North America's oil and gas network, the future of the energy sector is shaping the debate around the upcoming federal byelection. While residents take pride in the industry, the town itself is grappling with a lack of s…",
+        "url": "https://www.cbc.ca/news/canada/calgary/pipelines-policy-and-uncertainty-shape-alberta-byelection-in-hardisty-s-oil-hub-1.7607976",
+        "urlToImage": "https://i.cbc.ca/1.7607996.1755105594!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/hardisty-collage.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-15T12:00:00Z",
+        "content": "At first glance, the east-central Alberta town of Hardisty looks like many prairie communities.\r\nA semi-trailer rolls along a wide, open road beneath an expansive blue sky. An antique shop opens on t… [+10320 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Pierre Poilievre puts spotlight on Alberta riding ahead of federal byelection",
+        "description": "Pierre Poilievre's campaign for an upcoming byelection in rural Alberta is causing a significant surge in voter turnout and drawing a national spotlight to the riding. But other candidates in the election criticize Poilievre as a \"parachute candidate.\"",
+        "url": "https://www.cbc.ca/news/canada/edmonton/poilievre-spotlights-rural-alberta-riding-1.7593064",
+        "urlToImage": "https://i.cbc.ca/1.7592327.1753298222!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/pierre-poilievre-sign.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-24T18:05:44Z",
+        "content": "The upcoming federal byelection in Battle River-Crowfoot has Jennifer Fossen in unknown territory.\r\nFossen is the president of the Camrose &amp; District Chamber of Commerce. In the April federal ele… [+5888 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Over 200 candidates sign up for Poilievre's byelection — doubling previous record",
+        "description": "More than 200 candidates, mostly associated with a group of electoral reform advocates, have signed up to run in a federal byelection next month. The number more than doubles the previous record on a single ballot.",
+        "url": "https://www.cbc.ca/news/politics/over-200-candidates-on-single-ballot-byelection-canadian-history-1.7592185",
+        "urlToImage": "https://i.cbc.ca/1.7591054.1753233976!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/lawn-signs.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-28T01:00:52Z",
+        "content": "More than 200 candidates, mostly associated with a group of electoral reform advocates, have signed up to run in an upcoming federal byelection next month. The number more than doubles the previous r… [+3104 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Fakiha Baig, Sarah Ritchie",
+        "title": "Poilievre, rival candidates in Alberta byelection met for debate",
+        "description": "Pierre Poilievre was greeted with cheers and applause by the hundreds of Albertans who showed up to watch a two-and-a-half-hour political debate on a sunny on Tuesday evening in July.",
+        "url": "https://www.nationalobserver.com/2025/07/30/news/poilievre-rival-candidates-alberta-byelection-met-debate",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/07/30/1b024b61dc8ea31ede0dbd1b8b671fddbb5ba9ec42f3d66c2ddcbe3437a51b4a.jpg",
+        "publishedAt": "2025-07-30T13:30:06Z",
+        "content": "Pierre Poilievre was greeted with cheers and applause by the hundreds of Albertans who showed up to watch a two-and-a-half-hour political debate on a sunny Tuesday evening in July. \r\nThe Camrose and … [+4865 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Observer"
+        },
+        "author": "Fakiha Baig, Sarah Ritchie",
+        "title": "'Pierre's riding to lose': Candidates in Alberta byelection met for debate",
+        "description": "Pierre Poilievre was greeted with cheers and applause by the hundreds of Albertans who showed up to watch a two-and-a-half-hour political debate on a sunny on Tuesday evening in July.",
+        "url": "https://www.nationalobserver.com/2025/07/30/news/pierres-riding-lose-candidates-alberta-byelection-met-debate",
+        "urlToImage": "https://www.nationalobserver.com/sites/default/files/img/2025/07/30/1b024b61dc8ea31ede0dbd1b8b671fddbb5ba9ec42f3d66c2ddcbe3437a51b4a.jpg",
+        "publishedAt": "2025-07-30T13:30:06Z",
+        "content": "Pierre Poilievre was greeted with cheers and applause by the hundreds of Albertans who showed up to watch a two-and-a-half-hour political debate on a sunny Tuesday evening in July. \r\nThe Camrose and … [+4865 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "In critical North America oil hub, pipelines and uncertainty are shaping byelection",
+        "description": "In Hardisty, Alta., a critical hub for North America's oil and gas network, the future of the energy sector is shaping the debate around the upcoming federal byelection. While residents take pride in the industry, the town itself is grappling with a lack of s…",
+        "url": "https://www.cbc.ca/news/canada/calgary/in-critical-north-america-oil-hub-pipelines-and-uncertainty-are-shaping-byelection-1.7607976",
+        "urlToImage": "https://i.cbc.ca/1.7607996.1755105594!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/hardisty-collage.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-15T12:00:00Z",
+        "content": "At first glance, the east-central Alberta town of Hardisty looks like many prairie communities.\r\nA semi-trailer rolls along a wide, open road beneath an expansive blue sky. An antique shop opens on t… [+10320 chars]"
+      }
+    ]
+  },
+  "newsdata": {}
+}

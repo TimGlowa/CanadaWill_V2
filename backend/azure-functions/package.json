@@ -1,0 +1,12 @@
+{
+  "name": "@canadawill/azure-functions",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo ok"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+} 

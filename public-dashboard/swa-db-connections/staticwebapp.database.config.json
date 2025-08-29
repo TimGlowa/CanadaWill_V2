@@ -1,0 +1,4 @@
+{
+  "databaseType": "none",
+  "description": "Minimal database configuration to satisfy Azure Static Web Apps requirement without actual database connections"
+} 

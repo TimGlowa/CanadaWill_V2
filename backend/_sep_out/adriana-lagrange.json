@@ -1,0 +1,38 @@
+{
+  "slug": "adriana-lagrange",
+  "name": "Adriana LaGrange",
+  "from": "2025-07-19",
+  "newsapi": {
+    "status": "ok",
+    "totalResults": 2,
+    "articles": [
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Kids under 12 in Alberta face months-long gap in COVID vaccine availability",
+        "description": "Shuhiba Mohammad recently took her daughter for her routine childhood immunizations at age 1, and was frustrated when she was told she'd have to book a separate appointment to get a COVID vaccine. Then, when called to book, she learned her child couldn't get …",
+        "url": "https://www.cbc.ca/news/canada/calgary/alberta-covid-vaccines-kids-under-12-doses-all-expired-1.7596795",
+        "urlToImage": "https://i.cbc.ca/1.7573032.1751049339!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/pfizer.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-30T12:00:00Z",
+        "content": "Shuhiba Mohammad recently took her daughter for her routine childhood immunizations at age 1, and was frustrated when she was told she'd have to book a separate appointment to get a COVID vaccine.\r\nT… [+5314 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Alberta patients paying clinic membership fees get better care, audit suggests",
+        "description": "An audit of Alberta medical clinics charging membership fees found no significant cases of patients paying out of pocket for covered medical treatment but paying members are likely getting more thorough care.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/alberta-patients-paying-clinic-membership-fees-get-better-care-audit-suggests-1.7599027",
+        "urlToImage": "https://i.cbc.ca/1.7186705.1749824344!/cpImage/httpImage/image.jpg_gen/derivatives/16x9_1180/doctor.jpg?im=Resize%3D620",
+        "publishedAt": "2025-07-31T21:12:31Z",
+        "content": "An audit of Alberta medical clinics charging membership fees found no significant cases of patients paying out of pocket for covered medical treatment, but paying members are likely getting more thor… [+5313 chars]"
+      }
+    ]
+  },
+  "newsdata": {}
+}

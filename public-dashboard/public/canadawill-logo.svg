@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <rect width="200" height="60" rx="8" fill="#dc2626"/>
+  <text x="100" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">Canada</text>
+  <text x="100" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">Will</text>
+  <text x="100" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">Politician Stance Tracker</text>
+</svg>

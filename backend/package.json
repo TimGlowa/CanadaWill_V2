@@ -1,0 +1,9 @@
+{
+  "name": "canadawill-ingest-root",
+  "private": true,
+  "engines": { "node": ">=20 <21" },
+  "scripts": {
+    "postinstall": "npm ci --omit=dev --prefix express-ingest",
+    "start": "node express-ingest/standalone.js"
+  }
+}

@@ -1,0 +1,1 @@
+{ "name": "canadawill-ingest-root", "private": true, "scripts": { "start": "node server.js" } }

@@ -1,0 +1,17 @@
+{
+  "name": "canadawill-backend",
+  "version": "1.0.0",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "func start"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@azure/storage-blob": "^12.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+} 

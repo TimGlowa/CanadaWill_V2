@@ -1,0 +1,182 @@
+{
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "https://canadawill-api2-fberbsa2dhffdmd4.canadacentral-01.azurewebsites.net/api/v1/*",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-API-Key, Accept",
+        "Access-Control-Max-Age": "86400",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
+      }
+    },
+    {
+      "route": "/health",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "https://canadawill-api2-fberbsa2dhffdmd4.canadacentral-01.azurewebsites.net/health",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "route": "/api/health",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "https://canadawill-api2-fberbsa2dhffdmd4.canadacentral-01.azurewebsites.net/health",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "route": "/api/politicians/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "https://canadawill-api2-fberbsa2dhffdmd4.canadacentral-01.azurewebsites.net/api/v1/politicians/*",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-API-Key, Accept",
+        "Access-Control-Max-Age": "86400",
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    {
+      "route": "/api/search/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "https://canadawill-api2-fberbsa2dhffdmd4.canadacentral-01.azurewebsites.net/api/v1/search/*",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-API-Key, Accept",
+        "Access-Control-Max-Age": "86400",
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    {
+      "route": "/api/stances/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "https://canadawill-api2-fberbsa2dhffdmd4.canadacentral-01.azurewebsites.net/api/v1/stances/*",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-API-Key, Accept",
+        "Access-Control-Max-Age": "86400",
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    {
+      "route": "/api/admin/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "https://canadawill-api2-fberbsa2dhffdmd4.canadacentral-01.azurewebsites.net/api/v1/admin/*",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-API-Key, Accept",
+        "Access-Control-Max-Age": "86400",
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    {
+      "route": "/assets/*",
+      "allowedRoles": ["authenticated"],
+      "serve": "/assets/*",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "route": "/favicon.ico",
+      "allowedRoles": ["authenticated"],
+      "serve": "/favicon.ico",
+      "headers": {
+        "Cache-Control": "public, max-age=86400"
+      }
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["authenticated"],
+      "serve": "/index.html",
+      "statusCode": 200,
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
+      }
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/images/*.{png,jpg,gif,svg,webp}",
+      "/css/*",
+      "/js/*",
+      "/api/*",
+      "/health",
+      "/favicon.ico",
+      "/assets/*"
+    ]
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".js": "application/javascript",
+    ".css": "text/css",
+    ".html": "text/html",
+    ".svg": "image/svg+xml",
+    ".webp": "image/webp",
+    ".ico": "image/x-icon",
+    ".txt": "text/plain",
+    ".xml": "application/xml"
+  },
+  "globalHeaders": {
+    "Cache-Control": "no-cache",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "X-XSS-Protection": "1; mode=block",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+  },
+  "responseOverrides": {
+    "400": {
+      "rewrite": "/index.html",
+      "statusCode": 400
+    },
+    "401": {
+      "statusCode": 302,
+      "redirect": "/"
+    },
+    "403": {
+      "rewrite": "/index.html",
+      "statusCode": 403
+    },
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 404
+    },
+    "500": {
+      "rewrite": "/index.html",
+      "statusCode": 500
+    }
+  },
+  "platformErrorOverrides": [
+    {
+      "errorType": "NotFound",
+      "serve": "/index.html"
+    },
+    {
+      "errorType": "Unauthenticated",
+      "redirect": "/"
+    }
+  ]
+} 
