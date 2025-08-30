@@ -3236,3 +3236,52 @@ GET /api/news/serp/selftest
 ```
 
 **Status**: ✅ **IMPLEMENTED** - Complete SERPHouse runtime helper mounted and functional in live system.
+
+## 2025-08-29 16:25 CT — Canonical monorepo published; bundle archived
+
+**Actions**
+- Published monorepo to **TimGlowa/CanadaWill_V2** on branch **main**
+- Enabled branch protection on `main` (**Require a pull request before merging**)
+- Created Release **azure-snap-20250824-v2** with asset `wwwroot-20250824T133742Z.bundle` (26.3 MB)
+- Documentation consolidated under `/docs` (DEVELOPMENT_LOG, NEW_CHAT_LOG, CONSOLIDATION_LOG)
+
+**Notes**
+- This replaces scattered repos; eliminates drift between Azure runtime and GitHub
+- Bundle is for restore/reference only; not committed to the repo tree
+
+**Next**
+- Optional drift check: download fresh Azure `/site/wwwroot` zip and spot-compare vs repo
+- CI/CD wiring from `main` deferred until drift check is green
+
+## 2025-08-29 16:45 CT — Branch protection + workflow finalized
+
+**Actions**
+- Protected `main` branch (require PR before merge)
+- Defined branch workflow: main = trunk, feature branches = experiments/changes
+- Confirmed Azure Actions not configured yet (no CI/CD pipelines visible)
+
+**Notes**
+- Having no GitHub Actions configured is expected at this stage; we haven't set up deployment automation yet.
+- Code is backed up to GitHub and protected.
+- CI/CD can be added later when we want automatic deploys.
+
+**Next**
+- Optionally add GitHub Actions for automatic deployment from `main`
+- Continue feature branch → PR → merge workflow for all changes
+
+## 2025-08-30 07:58 CT — Auto-merge enabled; PR approvals/status checks removed; KISS loop verified
+
+**Actions**
+- Merged workflow to auto-enable auto-merge on all PRs
+- Branch protection updated: PR required; approvals and required status checks OFF
+- Confirmed PRs now auto-merge without manual clicks
+- Deploy workflow in place for backend (canadawill-ingest-ave2f8fjcxeuaehz) using PUBLISH_PROFILE_BACKEND
+- Release with bundle already attached (azure-snap-20250824-v2)
+
+**Notes**
+- Purpose: keep main (trunk) protected while eliminating manual approvals/merges
+- CI/checks still run post-merge for visibility; they no longer block merges
+
+**Next**
+- Monitor Actions: https://github.com/TimGlowa/CanadaWill_V2/actions
+- After backend deploy proves stable, add public/admin deploy steps in a follow-up PR
