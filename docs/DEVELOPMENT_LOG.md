@@ -3236,3 +3236,23 @@ GET /api/news/serp/selftest
 ```
 
 **Status**: ✅ **IMPLEMENTED** - Complete SERPHouse runtime helper mounted and functional in live system.
+
+---
+
+## 2025-08-30 08:05 CT — Package-lock files added; CI stability ensured
+
+**Actions**
+- Generated package-lock.json for all three projects (backend, admin-dashboard, public-dashboard)
+- CI workflow now uses `npm ci` instead of `npm install` for reproducible builds
+- Frontend (public-dashboard) confirmed compatible with CI pipeline
+- PR #6 created to add lock files to repository
+
+**Notes**
+- Lock files ensure consistent dependency versions across local, CI, and production
+- Public dashboard (app.CanadaWill.ca) will build reliably in CI environment
+- No functional changes to application code; only build infrastructure improvements
+
+**Next**
+- Merge PR #6 to enable stable CI builds
+- Monitor CI workflow runs for all three projects
+- Consider adding frontend deployment steps to deploy workflow
