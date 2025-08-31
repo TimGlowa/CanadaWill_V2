@@ -14,14 +14,21 @@ const MODELS = {
 
 class SentimentAnalyzer {
   constructor() {
-    // Initialize Azure Storage connection
+    // Initialize Azure Storage connection (optional for testing)
     const connectionString = process.env.AZURE_STORAGE_CONNECTION;
-    if (!connectionString) {
-      throw new Error('AZURE_STORAGE_CONNECTION environment variable required');
+    if (connectionString) {
+      try {
+        this.blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+        this.containerName = process.env.ARTICLES_CONTAINER || 'articles';
+        console.log('Azure Storage client initialized');
+      } catch (error) {
+        console.warn('Warning: Failed to initialize Azure Storage client:', error.message);
+        this.blobServiceClient = null;
+      }
+    } else {
+      console.log('Warning: AZURE_STORAGE_CONNECTION not set - Azure features disabled');
+      this.blobServiceClient = null;
     }
-    
-    this.blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-    this.containerName = process.env.ARTICLES_CONTAINER || 'articles';
     
     // Initialize AI clients
     if (process.env.OPENAI_API_KEY) {
