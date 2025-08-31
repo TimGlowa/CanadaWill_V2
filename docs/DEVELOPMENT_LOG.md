@@ -4,7 +4,7 @@
 
 **Action**: Removed local testing artifacts that would break Azure deployment
 
-**PRD Context**: This addresses **Step 2** of the 12-step implementation plan - "Implement Agent 1 (Relevance Gate)"
+**PRD Context**: This addresses **Task 2** of the 6-task implementation plan - "Scoring + Verification (Steps 3-4 from original plan)"
 
 **Root Cause**: Failed to follow documented preference for Azure-only testing, created local development dependencies
 
@@ -18,7 +18,7 @@
 - **Deleted `test-agent1.js`** - local-only test script with `dotenv` dependency
 - **Kept main `sentimentAnalyzer.js`** - already Azure-ready, uses only `process.env`
 
-**PRD Step 2 Status**:
+**PRD Task 2 Status**:
 - ✅ **Agent 1 relevance gate implemented** with real GPT-4o-mini prompts
 - ✅ **AI integration complete** - OpenAI primary + Anthropic fallback
 - ✅ **Text extraction helper** for SERPHouse JSON structure
@@ -42,8 +42,8 @@
 
 **Lesson Learned**: Follow documented preferences exactly - Azure-first testing prevents deployment surprises and ensures production-ready code from the start.
 
-**Status**: ✅ **PRD STEP 2 COMPLETE** - Agent 1 relevance gate ready for Azure deployment
-**Next**: Deploy to Azure and test Agent 1 with real AI calls, then proceed to PRD Step 3 (Implement Agent 2 stance scoring)
+**Status**: ✅ **PRD TASK 2 COMPLETE** - Agent 1 relevance gate ready for Azure deployment
+**Next**: Deploy to Azure and test Agent 1 with real AI calls, then proceed to PRD Task 3 (Storage + Processing - Steps 5-6 from original plan)
 
 ---
 

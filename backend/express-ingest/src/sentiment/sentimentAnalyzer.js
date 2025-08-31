@@ -76,11 +76,11 @@ class SentimentAnalyzer {
         };
       }
       
-      // Agent 2: Stance Scoring (still mock for now)
+      // Agent 2: Stance Scoring
       const agent2Result = await this.agent2Score(articleText, politicianName);
       console.log(`Agent 2 score: ${agent2Result.stanceScore}`);
       
-      // Agent 3: Verification (still mock for now)
+      // Agent 3: Verification
       const agent3Result = await this.agent3Score(articleText, politicianName);
       console.log(`Agent 3 score: ${agent3Result.stanceScore}`);
       
@@ -229,27 +229,249 @@ Respond with ONLY valid JSON, no other text.`;
   }
 
   async agent2Score(articleText, politicianName) {
-    // TODO: Implement real AI prompt in Step 3
-    // For now, return mock data as placeholder
-    return {
-      stanceScore: 75,
-      confidence: 0.85,
-      evidence: "Mock evidence - will be replaced with real AI analysis",
-      avoidedAnswering: false,
-      classification: "Clear Pro-Canada"
-    };
+    console.log(`Agent 2: Scoring stance for ${politicianName}`);
+    
+    try {
+      // Create stance scoring prompt as specified in PRD
+      const prompt = `Analyze this article and score ${politicianName}'s stance on Alberta's relationship with Canada from 0-100.
+
+Article text: "${articleText}"
+
+Scoring Framework:
+- 90-100: Explicitly Strong Pro-Canada (e.g., "Alberta must remain in Canada")
+- 70-89: Clear Pro-Canada (e.g., "Federation has served us well")
+- 60-69: Moderate Pro-Canada (e.g., "We need Canada's support")
+- 50-59: Neutral/Avoided (e.g., "Albertans will decide")
+- 40-49: Soft Pro-Separation (e.g., "Alberta isn't getting fair deal")
+- 20-39: Clear Pro-Separation (e.g., "Should consider referendum")
+- 0-19: Strong Pro-Separation (e.g., "Independence is our only option")
+
+Special Case: If ${politicianName} is Danielle Smith, UCP party statements = her position (as leader).
+
+Respond with ONLY valid JSON containing:
+- "stanceScore": number 0-100
+- "confidence": number 0-1 (how confident in the score)
+- "evidence": string (max 50 words explaining the score)
+- "avoidedAnswering": boolean (true if politician avoided the question)
+- "classification": string (one of the classifications above)`;
+
+      // Try OpenAI first
+      if (this.openai) {
+        try {
+          const response = await this.openai.chat.completions.create({
+            model: MODELS.AGENT2_MODEL,
+            messages: [
+              {
+                role: "system",
+                content: "You are a stance scoring agent that analyzes political positions on Alberta-Canada relations. Respond with ONLY valid JSON."
+              },
+              {
+                role: "user",
+                content: prompt
+              }
+            ],
+            temperature: 0, // For consistency
+            max_tokens: 300
+          });
+
+          const content = response.choices[0].message.content.trim();
+          console.log(`OpenAI Agent 2 response: ${content}`);
+          
+          // Parse JSON response
+          const result = JSON.parse(content);
+          
+          // Validate required fields
+          if (typeof result.stanceScore === 'number' && 
+              typeof result.confidence === 'number' && 
+              typeof result.evidence === 'string' &&
+              typeof result.avoidedAnswering === 'boolean' &&
+              typeof result.classification === 'string') {
+            return result;
+          } else {
+            throw new Error('Invalid response format from OpenAI Agent 2');
+          }
+          
+        } catch (openaiError) {
+          console.warn(`OpenAI Agent 2 failed, trying Anthropic: ${openaiError.message}`);
+          throw openaiError; // Let fallback handle it
+        }
+      }
+      
+      // Fallback to Anthropic if OpenAI fails
+      if (this.anthropic) {
+        try {
+          const response = await this.anthropic.messages.create({
+            model: MODELS.BACKUP_AGENT2,
+            max_tokens: 300,
+            messages: [
+              {
+                role: "user",
+                content: prompt
+              }
+            ]
+          });
+
+          const content = response.content[0].text.trim();
+          console.log(`Anthropic Agent 2 response: ${content}`);
+          
+          // Parse JSON response
+          const result = JSON.parse(content);
+          
+          // Validate required fields
+          if (typeof result.stanceScore === 'number' && 
+              typeof result.confidence === 'number' && 
+              typeof result.evidence === 'string' &&
+              typeof result.avoidedAnswering === 'boolean' &&
+              typeof result.classification === 'string') {
+            return result;
+          } else {
+            throw new Error('Invalid response format from Anthropic Agent 2');
+          }
+          
+        } catch (anthropicError) {
+          console.error(`Both AI providers failed for Agent 2: ${anthropicError.message}`);
+          throw new Error(`AI analysis failed for Agent 2: ${anthropicError.message}`);
+        }
+      }
+      
+      // If no AI providers available, throw error
+      throw new Error('No AI providers configured for Agent 2');
+      
+    } catch (error) {
+      console.error(`Agent 2 error for ${politicianName}:`, error.message);
+      
+      // Return safe fallback on error
+      return {
+        stanceScore: 50,
+        confidence: 0.0,
+        evidence: `Error during analysis: ${error.message}`,
+        avoidedAnswering: true,
+        classification: 'Error'
+      };
+    }
   }
 
   async agent3Score(articleText, politicianName) {
-    // TODO: Implement real AI prompt in Step 4
-    // For now, return mock data as placeholder
-    return {
-      stanceScore: 78,
-      confidence: 0.80,
-      evidence: "Mock evidence - will be replaced with real AI analysis",
-      avoidedAnswering: false,
-      classification: "Clear Pro-Canada"
-    };
+    console.log(`Agent 3: Verifying stance for ${politicianName}`);
+    
+    try {
+      // Create verification prompt (different wording from Agent 2)
+      const prompt = `Independently assess ${politicianName}'s position on Alberta's relationship with Canada and provide a score from 0-100.
+
+Article text: "${articleText}"
+
+Evaluation Criteria:
+- 90-100: Strongly Pro-Canada (explicit support for federation)
+- 70-89: Pro-Canada (positive view of Canadian unity)
+- 60-69: Moderately Pro-Canada (acknowledges benefits of federation)
+- 50-59: Neutral/Unclear (avoids taking clear position)
+- 40-49: Somewhat Pro-Separation (expresses concerns about federal relationship)
+- 20-39: Pro-Separation (supports greater autonomy or separation)
+- 0-19: Strongly Pro-Separation (explicit support for independence)
+
+Note: For Danielle Smith, consider UCP party positions as representing her views as party leader.
+
+Provide ONLY valid JSON with:
+- "stanceScore": number 0-100
+- "confidence": number 0-1 (certainty level)
+- "evidence": string (max 50 words supporting the score)
+- "avoidedAnswering": boolean (true if position unclear)
+- "classification": string (matching one of the categories above)`;
+
+      // Try OpenAI first
+      if (this.openai) {
+        try {
+          const response = await this.openai.chat.completions.create({
+            model: MODELS.AGENT3_MODEL,
+            messages: [
+              {
+                role: "system",
+                content: "You are an independent verification agent for political stance analysis. Provide unbiased assessment with ONLY valid JSON."
+              },
+              {
+                role: "user",
+                content: prompt
+              }
+            ],
+            temperature: 0, // For consistency
+            max_tokens: 300
+          });
+
+          const content = response.choices[0].message.content.trim();
+          console.log(`OpenAI Agent 3 response: ${content}`);
+          
+          // Parse JSON response
+          const result = JSON.parse(content);
+          
+          // Validate required fields
+          if (typeof result.stanceScore === 'number' && 
+              typeof result.confidence === 'number' && 
+              typeof result.evidence === 'string' &&
+              typeof result.avoidedAnswering === 'boolean' &&
+              typeof result.classification === 'string') {
+            return result;
+          } else {
+            throw new Error('Invalid response format from OpenAI Agent 3');
+          }
+          
+        } catch (openaiError) {
+          console.warn(`OpenAI Agent 3 failed, trying Anthropic: ${openaiError.message}`);
+          throw openaiError; // Let fallback handle it
+        }
+      }
+      
+      // Fallback to Anthropic if OpenAI fails
+      if (this.anthropic) {
+        try {
+          const response = await this.anthropic.messages.create({
+            model: MODELS.BACKUP_AGENT3,
+            max_tokens: 300,
+            messages: [
+              {
+                role: "user",
+                content: prompt
+              }
+            ]
+          });
+
+          const content = response.content[0].text.trim();
+          console.log(`Anthropic Agent 3 response: ${content}`);
+          
+          // Parse JSON response
+          const result = JSON.parse(content);
+          
+          // Validate required fields
+          if (typeof result.stanceScore === 'number' && 
+              typeof result.confidence === 'number' && 
+              typeof result.evidence === 'string' &&
+              typeof result.avoidedAnswering === 'boolean' &&
+              typeof result.classification === 'string') {
+            return result;
+          } else {
+            throw new Error('Invalid response format from Anthropic Agent 3');
+          }
+          
+        } catch (anthropicError) {
+          console.error(`Both AI providers failed for Agent 3: ${anthropicError.message}`);
+          throw new Error(`AI analysis failed for Agent 3: ${anthropicError.message}`);
+        }
+      }
+      
+      // If no AI providers available, throw error
+      throw new Error('No AI providers configured for Agent 3');
+      
+    } catch (error) {
+      console.error(`Agent 3 error for ${politicianName}:`, error.message);
+      
+      // Return safe fallback on error
+      return {
+        stanceScore: 50,
+        confidence: 0.0,
+        evidence: `Error during analysis: ${error.message}`,
+        avoidedAnswering: true,
+        classification: 'Error'
+      };
+    }
   }
 
   compareScores(agent2Result, agent3Result) {
