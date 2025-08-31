@@ -9,15 +9,16 @@ app.use(express.json());
 
 // Test route
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Standalone app working!', timestamp: new Date().toISOString() });
+  res.json({ ok: true });
 });
 
 // Health route
 app.get('/api/health', (req, res) => {
   res.json({ 
-    status: 'healthy', 
-    timestamp: new Date().toISOString(),
-    message: 'Standalone ingest working'
+    ok: true, 
+    bootPhase: 'ingest-loaded',
+    uptimeMs: process.uptime() * 1000,
+    ts: new Date().toISOString()
   });
 });
 
@@ -29,13 +30,43 @@ app.get('/api/serp/test', (req, res) => {
   });
 });
 
+// Sentiment Analyzer test route
+app.get('/api/sentiment/test', async (req, res) => {
+  try {
+    // Test the SentimentAnalyzer class structure
+    const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
+    
+    // Test with sample data
+    const sampleText = "Danielle Smith discusses federal health transfers and argues that Alberta should remain in Canada despite ongoing disputes with Ottawa.";
+    
+    const analyzer = new SentimentAnalyzer();
+    const result = await analyzer.analyzeArticle(sampleText, 'Danielle Smith');
+    
+    res.json({
+      message: 'SentimentAnalyzer test successful!',
+      timestamp: new Date().toISOString(),
+      testResult: result,
+      classWorking: true
+    });
+    
+  } catch (error) {
+    res.status(500).json({
+      message: 'SentimentAnalyzer test failed',
+      timestamp: new Date().toISOString(),
+      error: error.message,
+      stack: error.stack,
+      classWorking: false
+    });
+  }
+});
+
 // Catch-all for debugging
 app.use('*', (req, res) => {
   res.json({ 
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test']
   });
 });
 
@@ -45,4 +76,5 @@ app.listen(port, () => {
   console.log(`  GET /api/test`);
   console.log(`  GET /api/health`);
   console.log(`  GET /api/serp/test`);
+  console.log(`  GET /api/sentiment/test`);
 });
