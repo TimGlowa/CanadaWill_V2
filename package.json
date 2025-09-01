@@ -1,0 +1,18 @@
+{
+  "name": "canadawill-ingest",
+  "version": "1.0.0",
+  "description": "CanadaWill Ingest API with sentiment analysis",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "@azure/storage-blob": "^12.17.0",
+    "openai": "^4.55.0",
+    "@anthropic-ai/sdk": "^0.23.0"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}

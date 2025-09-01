@@ -16,10 +16,6 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm ci
-        working-directory: backend/express-ingest
-      - name: Build if present
-        run: npm run build --if-present
-        working-directory: backend/express-ingest
       - name: Write buildinfo.json
         run: node -e "const fs=require('fs');fs.writeFileSync('buildinfo.json',JSON.stringify({sha:process.env.GITHUB_SHA,ts:new Date().toISOString()}));"
       - name: Create deployment package
@@ -30,8 +26,8 @@ jobs:
           cp backend/server.js deploy-package/server.js
           cp backend/express-ingest/ingest-minimal.js deploy-package/
           cp -r backend/express-ingest/src deploy-package/
-          cp -r backend/express-ingest/node_modules deploy-package/
-          cp backend/express-ingest/package.json deploy-package/
+          cp package.json deploy-package/
+          cp -r node_modules deploy-package/
           cp buildinfo.json deploy-package/
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
