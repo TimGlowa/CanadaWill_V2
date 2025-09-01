@@ -9,13 +9,16 @@ jobs:
     concurrency:
       group: deploy-ingest
       cancel-in-progress: true
+    defaults:
+      run:
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund
       - name: Write buildinfo.json
         run: node -e "const fs=require('fs');fs.writeFileSync('buildinfo.json',JSON.stringify({sha:process.env.GITHUB_SHA,ts:new Date().toISOString()}));"
       - name: Create deployment package
