@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Write buildinfo.json
         run: node -e "const fs=require('fs');fs.writeFileSync('buildinfo.json',JSON.stringify({sha:process.env.GITHUB_SHA,ts:new Date().toISOString()}));"
       - name: Create deployment package
