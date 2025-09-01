@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         app:
-          - backend
+          - backend/express-ingest
           - admin-dashboard
           - public-dashboard
     steps:
@@ -28,7 +28,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install
         working-directory: ${{ matrix.app }}
