@@ -22,9 +22,19 @@ jobs:
         working-directory: backend/express-ingest
       - name: Write buildinfo.json
         run: node -e "const fs=require('fs');fs.writeFileSync('buildinfo.json',JSON.stringify({sha:process.env.GITHUB_SHA,ts:new Date().toISOString()}));"
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy-package
+          cp app.js deploy-package/
+          cp Procfile deploy-package/
+          cp backend/express-ingest/ingest-minimal.js deploy-package/
+          cp -r backend/express-ingest/src deploy-package/
+          cp -r backend/express-ingest/node_modules deploy-package/
+          cp backend/express-ingest/package.json deploy-package/
+          cp buildinfo.json deploy-package/
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
           app-name: canadawill-ingest
-          package: .
+          package: deploy-package
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
