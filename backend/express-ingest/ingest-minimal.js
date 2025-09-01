@@ -12,6 +12,17 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString() });
 });
 
+// Whoami route to identify which file is running
+app.get('/api/whoami', (req, res) => {
+  res.json({ 
+    message: 'File identification route',
+    filePath: __filename,
+    dirname: __dirname,
+    processCwd: process.cwd(),
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Health route
 app.get('/api/health', (req, res) => {
   res.json({ 
@@ -84,7 +95,7 @@ app.use('*', (req, res) => {
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/whoami']
   });
 });
 
