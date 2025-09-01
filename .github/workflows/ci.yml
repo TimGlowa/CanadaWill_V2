@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend/express-ingest
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - run: npm ci
+          node-version: '20.19.4'
+      - run: npm install --no-audit --no-fund
       - run: npm test --if-present
