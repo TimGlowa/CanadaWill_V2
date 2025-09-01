@@ -26,3 +26,5 @@ curl -fsS "https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebs
 - NEWS_API_KEY (used)
 
 Notes: Node 20, Express, port 8080. Routes mounted under `/api`. 
+
+<!-- Deployment test: 2025-09-01 10:30 CT - Testing push to main triggers deploy --> 
