@@ -25,3 +25,20 @@
 - Attach bundle to Release (`azure-snap-20250824`)
 - Protect `main` branch (require PRs)
 - Freeze rule: GitHub = truth, Azure = runtime only (no Kudu edits)
+
+## 29 August 2025 — Release attached in new canonical repo
+
+- Repo: https://github.com/TimGlowa/CanadaWill_V2 (branch: main)
+- Branch protection: enabled (Require PR before merge)
+- Release created with tag **azure-snap-20250824-v2**
+- Asset: **wwwroot-20250824T133742Z.bundle** (26.3 MB) attached as golden restore
+- Purpose: preserve Azure App Service runtime history from 24 Aug 2025 without committing bundles into the tree
+- Rule confirmed: GitHub = source of truth; Azure = runtime only (no Kudu edits)
+
+## 29 August 2025 — Branching model finalized
+
+- Main branch protected as canonical "trunk"
+- All future work happens in feature branches (side branches)
+- PR + Merge required to integrate changes into main
+- This ensures GitHub remains the single source of truth
+- Azure is runtime-only; no edits are permitted there

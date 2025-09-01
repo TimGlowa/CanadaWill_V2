@@ -1,5 +1,26 @@
 # Development Log
 
+## 2025-08-31 17:28 CT — Task B Testing: Sentiment Endpoints Missing from Azure Deployment
+
+**Action**: Discovered that Task B implementation is complete but not accessible via Azure endpoints
+
+**Issue Identified**:
+- **Task B code deployed**: All three agents with real AI implemented in `sentimentAnalyzer.js`
+- **Azure app running**: `https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net`
+- **Missing endpoints**: No sentiment analysis routes available for testing
+- **Current endpoints**: Only `/api/health` and `/api/test` working
+
+**Root Cause**: The deployed app (`ingest-minimal.js`) doesn't include sentiment analysis endpoints, only basic health checks.
+
+**Testing Status**:
+- ✅ Azure app responding: Health endpoint working
+- ❌ Sentiment endpoints missing: Cannot test Task B implementation
+- ❌ No way to access Agent 1, 2, 3 functionality
+
+**Next Action**: Need to add sentiment analysis endpoints to make Task B testable on Azure.
+
+---
+
 ## 2025-08-31 16:52 CT — Local Development Artifacts Removed for Azure Deployment
 
 **Action**: Removed local testing artifacts that would break Azure deployment
