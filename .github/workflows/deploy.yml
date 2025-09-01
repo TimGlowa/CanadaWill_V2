@@ -6,35 +6,36 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    concurrency:
-      group: deploy-ingest
-      cancel-in-progress: true
     defaults:
       run:
         working-directory: .
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20.19.4'
-      - run: npm install --no-audit --no-fund
-      - name: Write buildinfo.json
-        run: node -e "const fs=require('fs');fs.writeFileSync('buildinfo.json',JSON.stringify({sha:process.env.GITHUB_SHA,ts:new Date().toISOString()}));"
-      - name: Create deployment package
+
+      - name: Install (root)
+        run: npm install --no-audit --no-fund
+
+      - name: Build deploy artifact (root + node_modules)
         run: |
-          mkdir -p deploy-root
-          cp backend/server.js deploy-root/server.js
-          cp backend/express-ingest/ingest-minimal.js deploy-root/ingest-minimal.js
-          cp app.js deploy-root/
-          cp Procfile deploy-root/
-          cp buildinfo.json deploy-root/
+          rm -rf deploy-root
+          mkdir -p deploy-root/src
+          cp server.js deploy-root/
+          cp ingest-minimal.js deploy-root/
+          cp app.js deploy-root/ || true
+          cp Procfile deploy-root/ || true
+          cp buildinfo.json deploy-root/ || true
           cp package.json deploy-root/
-          cp package-lock.json deploy-root/
-          cp -r backend/express-ingest/src deploy-root/src
-          cp -r node_modules deploy-root/node_modules
+          cp package-lock.json deploy-root/ || true
+          rsync -a src/ deploy-root/src/
+          rsync -a node_modules/ deploy-root/node_modules/
+
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v3
         with:
           app-name: canadawill-ingest
           package: deploy-root
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_CANADAWILL_INGEST }}
