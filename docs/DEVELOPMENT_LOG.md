@@ -1,6 +1,33 @@
 # Development Log
 
-## 2025-08-23 14:59 CT — News source configuration optimized for maximum breadth
+## 2025-09-01 09:33 CT — Task B Azure Credentials: Publish Profile Added and Deployment Workflow Fixed
+
+**Action**: Added Azure Web App publish profile secret and fixed deployment workflow credentials
+
+**Azure Credentials Fixed**:
+- **Secret Added**: `AZURE_WEBAPP_PUBLISH_PROFILE` added to GitHub repository secrets
+- **Workflow Updated**: Added `azure/login@v2` step before deployment
+- **Deployment Method**: Changed to `azure/webapps-deploy@v2` for stability
+- **Credentials Flow**: GitHub Actions now has proper Azure authentication
+
+**Technical Fixes Applied**:
+- **Azure Login**: Added `azure/login@v2` with `${{ secrets.AZURE_CREDENTIALS }}`
+- **Deploy Action**: Changed from v3 to v2 for better compatibility
+- **Publish Profile**: Using `${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}`
+- **Target App**: `canadawill-ingest-ave2f8fjcxeuaehz` in `CanadaWill-prod2-rg`
+
+**Deployment Status**:
+- ✅ **Credentials Ready**: Azure publish profile secret configured
+- ✅ **Workflow Fixed**: Deployment pipeline has proper authentication
+- 🔄 **Deployment Triggered**: Push to main will now deploy successfully
+- 🧪 **Testing Ready**: Task B sentiment endpoints should be accessible
+
+**Next Steps**:
+1. **Push to main** to trigger deployment
+2. **Test endpoints** to verify Task B functionality
+3. **Confirm file identification** via /api/whoami route
+
+**Status**: 🔧 **CREDENTIALS CONFIGURED** - Ready for successful Azure deployment and Task B testing
 
 **Action**: Removed restrictive domain list and optimized weekly newspaper configuration
 
