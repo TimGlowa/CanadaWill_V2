@@ -13,6 +13,7 @@ let bootPhase="init", app=null;
 log(`[BOOT] require start, process.cwd(): ${process.cwd()}, __dirname: ${__dirname}`);
 
 const candidatePaths = [
+  "./ingest-minimal.js",
   "./express-ingest/dist/ingest",
   "./express-ingest/ingest", 
   "./express-ingest/app"
