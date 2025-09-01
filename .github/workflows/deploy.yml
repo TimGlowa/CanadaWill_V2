@@ -23,14 +23,14 @@ jobs:
       - name: Create deployment package
         run: |
           mkdir -p deploy-root
-          cp server.js deploy-root/
-          cp ingest-minimal.js deploy-root/
+          cp backend/server.js deploy-root/server.js
+          cp backend/express-ingest/ingest-minimal.js deploy-root/ingest-minimal.js
           cp app.js deploy-root/
           cp Procfile deploy-root/
           cp buildinfo.json deploy-root/
           cp package.json deploy-root/
           cp package-lock.json deploy-root/
-          cp -r src deploy-root/src
+          cp -r backend/express-ingest/src deploy-root/src
           cp -r node_modules deploy-root/node_modules
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v3
