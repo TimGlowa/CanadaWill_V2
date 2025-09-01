@@ -27,6 +27,7 @@ jobs:
           mkdir -p deploy-package
           cp app.js deploy-package/
           cp Procfile deploy-package/
+          cp backend/deploy/server.js deploy-package/
           cp backend/express-ingest/ingest-minimal.js deploy-package/
           cp -r backend/express-ingest/src deploy-package/
           cp -r backend/express-ingest/node_modules deploy-package/
