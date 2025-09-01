@@ -23,14 +23,14 @@ jobs:
         run: |
           rm -rf deploy-root
           mkdir -p deploy-root/src
-          cp server.js deploy-root/
-          cp ingest-minimal.js deploy-root/
+          cp backend/server.js deploy-root/server.js
+          cp backend/express-ingest/ingest-minimal.js deploy-root/ingest-minimal.js
           cp app.js deploy-root/ || true
           cp Procfile deploy-root/ || true
           cp buildinfo.json deploy-root/ || true
           cp package.json deploy-root/
           cp package-lock.json deploy-root/ || true
-          rsync -a src/ deploy-root/src/
+          rsync -a backend/express-ingest/src/ deploy-root/src/
           rsync -a node_modules/ deploy-root/node_modules/
 
       - name: Deploy to Azure WebApp
