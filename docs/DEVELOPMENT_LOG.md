@@ -1,5 +1,56 @@
 # Development Log
 
+## 2025-09-01 14:21 CT — Deploy green, startup override found, app now fails under app.js
+
+**Action**: Deployed entrypoint fixes but discovered Azure startup command override causing application error
+
+**Deployment Results**:
+- ✅ **Deploy Workflow**: `deploy-backend` on main is green
+- ✅ **Deploy SHA**: `219cb5376a52b2fc1b3a9870e5f620ed19574421` (seen via `/api/buildinfo`)
+- 🔗 **GitHub Actions**: https://github.com/TimGlowa/CanadaWill_V2/actions/workflows/deploy.yml shows successful run
+- ✅ **Runtime Health**: Health endpoint returns 200 OK
+- ✅ **Build Live**: Application is running with latest build
+- ❌ **Sentiment Routes Missing**: No sentiment endpoints in `/api/routes` response
+
+**Test Results**:
+- ✅ **Health**: https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/health → 200 OK
+- ❌ **Routes**: https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/routes → No sentiment routes listed
+- ❌ **Sentiment Test**: https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/test → 404 Not Found
+- ❌ **Sentiment Analyze**: https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/analyze → 404 Not Found
+
+**Code Verification Results**:
+- ✅ **Sentiment Routes Exist**: Both endpoints defined in `backend/express-ingest/ingest-minimal.js`
+- ✅ **SentimentAnalyzer Class**: Present at `backend/express-ingest/src/sentiment/sentimentAnalyzer.js`
+- ✅ **App Chain Correct**: `package.json` → `app.js` → `ingest-minimal.js` → sentiment routes
+- ✅ **Route Registration**: Routes properly defined with error handling
+
+**Startup Override Investigation**:
+- 🔍 **Azure Startup Command**: Was `node server.js` (overrides Procfile)
+- 🔍 **Server.js Behavior**: Loads `/express-ingest/ingest.js` (no sentiment routes)
+- 🔍 **Kudu Process Confirmation**: Confirmed via Kudu processes that server.js was running
+- ✅ **Startup Command Changed**: Switched to `node app.js` to use `/site/wwwroot/ingest-minimal.js`
+- ❌ **Current Issue**: After switching to `node app.js`, main site shows "Application Error" on cold start
+
+**Root Cause Analysis**:
+- **Deployment Fixed**: App-name corrected from `canadawill-ingest-ave2f8fjcxeuaehz` to `canadawill-ingest`
+- **Target App Correct**: Deployment now targets the right Azure Web App
+- **Code Present**: Sentiment endpoints exist in codebase and are referenced by the app chain
+- **Startup Override**: Azure Startup Command was `node server.js`, which loads `/express-ingest/ingest.js` (no sentiment routes)
+- **Boot Failure**: After switching to `node app.js`, application fails to start properly
+
+**Runtime Environment**:
+- ✅ **Azure Oryx**: Reports NodeVersion 20.19.3, Platform nodejs, Frameworks Express
+- ✅ **Dependencies**: `node_modules.tar.gz` present
+- ❌ **Application Error**: Main site shows "Application Error" on cold start → indicates boot failure under app.js
+
+**Effect**: Sentiment endpoints still not live; `/api/routes` last showed 18 routes (no `/api/sentiment/*`) before startup change.
+
+**Diagnosis**: Azure Startup Command override was using `node server.js` instead of Procfile, loading wrong file. After switching to `node app.js`, application fails to boot.
+
+**Status**: 🔧 **STARTUP OVERRIDE DISCOVERED** - Azure was using server.js, now app.js fails to boot
+
+---
+
 ## 2025-09-01 10:08 CT — Azure Authentication Fix: Removed Conflicting Login Step
 
 **Action**: Identified and fixed Azure deployment authentication conflict
@@ -16,7 +67,49 @@
 
 **Expected Result**: Deployment should succeed, sentiment endpoints should become accessible
 
-**Status**: 🔧 **FIX APPLIED** - Testing deployment and endpoints
+## 2025-09-01 10:11 CT — Deployment Success but Sentiment Routes Missing: Root Cause Investigation
+
+**Action**: Azure authentication fix successful, but sentiment endpoints still not accessible
+
+**Deployment Results**:
+- ✅ **Authentication Fixed**: Removed conflicting `azure/login@v2` step - deployment now succeeds
+- ✅ **App Running**: Health check shows `{"ok":true,"bootPhase":"ingest-loaded"}`
+- ✅ **Correct File**: `/api/whoami` confirms `ingest.js` is running
+- ❌ **Sentiment Routes Missing**: `/api/sentiment/test` returns "Not found"
+- ❌ **Routes List**: Shows 18 routes but NO sentiment endpoints
+
+**GitHub Actions Status**:
+- ✅ **CI Workflow**: Passed (ci #28) - code quality checks successful
+- ❌ **Deploy Workflow**: Failed (deploy-backend #9) - deployment process failed
+- **Question**: Which workflow failure matters for sentiment routes?
+
+**Root Cause Investigation**: Need to check if sentiment routes exist in codebase
+
+## 2025-09-01 10:17 CT — SentimentAnalyzer Found and Restored: Missing Files Located in Git History
+
+**Action**: Located and restored missing SentimentAnalyzer class with three-agent system
+
+**Root Cause**: SentimentAnalyzer files were deleted/lost but existed in git history
+- **Missing Files**: `src/sentiment/sentimentAnalyzer.js` and `test-sentiment.js` not in current codebase
+- **Git History**: Found in commit `1159b6a` from August 31, 2025 - "Step 1: SentimentAnalyzer class with Azure integration and three-agent system ready for testing"
+- **File Sizes**: sentimentAnalyzer.js (7,419 bytes), test-sentiment.js (3,495 bytes)
+
+**Restoration Process**:
+- **Source**: Retrieved from commit `1159b6a` using `git show`
+- **Files Restored**: 
+  - `backend/express-ingest/src/sentiment/sentimentAnalyzer.js`
+  - `backend/express-ingest/test-sentiment.js`
+- **Commit**: `6fa363a` - "Restore missing SentimentAnalyzer class and test files from commit 1159b6a"
+- **Deployment**: Triggered via GitHub Actions
+
+**SentimentAnalyzer Architecture**:
+- **Agent 1**: Relevance Gate (GPT-5-nano) - determines Alberta-politics relevance
+- **Agent 2**: Stance Scoring (GPT-5-mini) - scores Pro Canada vs Pro Separation
+- **Agent 3**: Verification (GPT-5-mini) - double-checks Agent 2's assessment
+- **Backup Models**: Claude models for each agent
+- **Azure Integration**: Uses Azure Storage for article retrieval
+
+**Status**: 🔧 **FILES RESTORED** - Awaiting deployment completion to test sentiment endpoints
 
 ---
 
