@@ -20,18 +20,19 @@ jobs:
         run: node -e "const fs=require('fs');fs.writeFileSync('buildinfo.json',JSON.stringify({sha:process.env.GITHUB_SHA,ts:new Date().toISOString()}));"
       - name: Create deployment package
         run: |
-          mkdir -p deploy-package
-          cp app.js deploy-package/
-          cp Procfile deploy-package/
-          cp backend/server.js deploy-package/server.js
-          cp backend/express-ingest/ingest-minimal.js deploy-package/
-          cp -r backend/express-ingest/src deploy-package/
-          cp package.json deploy-package/
-          cp -r node_modules deploy-package/
-          cp buildinfo.json deploy-package/
+          mkdir -p deploy-root
+          cp backend/server.js deploy-root/server.js
+          cp backend/express-ingest/ingest-minimal.js deploy-root/ingest-minimal.js
+          cp -r backend/express-ingest/src deploy-root/src
+          cp package.json deploy-root/
+          cp package-lock.json deploy-root/
+          cp -r node_modules deploy-root/
+          cp app.js deploy-root/
+          cp Procfile deploy-root/
+          cp buildinfo.json deploy-root/
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
           app-name: canadawill-ingest
-          package: deploy-package
+          package: deploy-root
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
