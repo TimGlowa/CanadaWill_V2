@@ -19,6 +19,11 @@ jobs:
       - name: Install (root)
         run: npm install --no-audit --no-fund
 
+      - name: Install (backend)
+        run: |
+          cd backend/express-ingest
+          npm install --no-audit --no-fund
+
       - name: Build deploy artifact (root + node_modules)
         run: |
           rm -rf deploy-root
@@ -32,6 +37,7 @@ jobs:
           cp package-lock.json deploy-root/ || true
           rsync -a backend/express-ingest/src/ deploy-root/src/
           rsync -a node_modules/ deploy-root/node_modules/
+          rsync -a backend/express-ingest/node_modules/ deploy-root/node_modules/
 
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v3
