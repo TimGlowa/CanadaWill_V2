@@ -89,13 +89,109 @@ app.post('/api/sentiment/analyze', async (req, res) => {
   }
 });
 
+// Test all Danielle Smith articles
+app.get('/api/sentiment/test-danielle-smith', async (req, res) => {
+  try {
+    const analyzer = new SentimentAnalyzer();
+    console.log('=== Testing Sentiment Analysis with Danielle Smith Articles ===');
+    
+    // Load all 19 articles for Danielle Smith
+    const articles = await analyzer.readArticlesFromStorage('danielle-smith', 19);
+    console.log(`✅ Loaded ${articles.length} articles from Azure storage`);
+    
+    if (articles.length === 0) {
+      return res.json({
+        success: false,
+        message: 'No articles found for danielle-smith in Azure storage',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    // Process each article through sentiment analysis
+    const results = [];
+    let passedCount = 0;
+    let failedCount = 0;
+    let flaggedCount = 0;
+    let totalScore = 0;
+    
+    for (let i = 0; i < articles.length; i++) {
+      const article = articles[i];
+      console.log(`Processing Article ${i + 1}/${articles.length}: ${article.filename}`);
+      
+      try {
+        const articleText = article.content.title + "\n" + article.content.snippet;
+        const result = await analyzer.analyzeArticle(articleText, "Danielle Smith");
+        results.push(result);
+        
+        if (result.agent1.passed) {
+          passedCount++;
+          if (result.final.score !== null) {
+            totalScore += result.final.score;
+          }
+        }
+        
+        if (result.final.flaggedForReview) {
+          flaggedCount++;
+        }
+        
+        console.log(`Article ${i + 1} Result: Passed=${result.agent1.passed}, Score=${result.final.score}, Flagged=${result.final.flaggedForReview}`);
+        
+      } catch (error) {
+        console.error(`Error processing article ${i + 1}:`, error.message);
+        failedCount++;
+        results.push({
+          articleId: analyzer.generateArticleId(article.content.title + article.content.snippet),
+          politician: "Danielle Smith",
+          processedAt: new Date().toISOString(),
+          error: error.message
+        });
+      }
+    }
+    
+    const averageScore = passedCount > 0 ? (totalScore / passedCount) : null;
+    const overallClassification = averageScore ? analyzer.getClassification(averageScore) : "N/A";
+    
+    const summary = {
+      totalArticles: articles.length,
+      passedRelevance: passedCount,
+      failedProcessing: failedCount,
+      flaggedForReview: flaggedCount,
+      averageScore: averageScore ? averageScore.toFixed(2) : null,
+      overallClassification: overallClassification
+    };
+    
+    console.log('\n=== TEST SUMMARY FOR DANIELLE SMITH ===');
+    console.log(`Total Articles Processed: ${summary.totalArticles}`);
+    console.log(`Articles Passed Relevance Gate: ${summary.passedRelevance}`);
+    console.log(`Articles Flagged for Review: ${summary.flaggedForReview}`);
+    console.log(`Average Stance Score: ${summary.averageScore}`);
+    console.log(`Overall Classification: ${summary.overallClassification}`);
+    
+    res.json({
+      success: true,
+      summary: summary,
+      results: results,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Test failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Test failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Catch-all for debugging
 app.use('*', (req, res) => {
   res.json({ 
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/whoami']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/whoami']
   });
 });
 
