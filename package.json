@@ -14,5 +14,6 @@
   },
   "engines": {
     "node": "20.x"
-  }
+  },
+  "note": "SENTINEL-123"
 }
