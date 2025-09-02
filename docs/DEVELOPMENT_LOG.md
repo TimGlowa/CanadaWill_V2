@@ -1,5 +1,13 @@
 # Development Log
 
+## 2025-09-02 11:09 CT — Extraction Still Failing
+
+**Status**: Still getting "'/home/site/wwwroot/node_modules/openai/package.json' not found."
+
+**Context**: Despite implementing extraction logic in package.json start script, node_modules dependencies remain missing at runtime.
+
+---
+
 ## 2025-09-02 10:57 CT — Oryx Build Evidence & Extraction Failure
 
 **Action**: Removed Azure "Startup Command: node server.js" so a repo-based start could run.
