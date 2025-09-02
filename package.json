@@ -1,7 +1,7 @@
 {
   "name": "canadawill-ingest",
   "version": "1.0.0",
-  "description": "CanadaWill Ingest API with sentiment analysis",
+  "description": "CanadaWill Ingest API with sentiment analysis - force deploy",
   "main": "server.js",
   "scripts": {
     "start": "bash -lc 'cd /home/site/wwwroot && if [ -f node_modules.tar.gz ] && [ ! -d node_modules ]; then tar -xzf node_modules.tar.gz -C /home/site/wwwroot; fi; exec node server.js'"
