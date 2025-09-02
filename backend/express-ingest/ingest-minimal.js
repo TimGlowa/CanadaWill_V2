@@ -119,6 +119,11 @@ app.get('/api/sentiment/test-danielle-smith', async (req, res) => {
       console.log(`Processing Article ${i + 1}/${articles.length}: ${article.filename}`);
       
       try {
+        // Debug: Log the actual structure of the first article
+        if (i === 0) {
+          console.log('DEBUG: First article structure:', JSON.stringify(article.content, null, 2));
+        }
+        
         // Extract full article content from SERPHouse JSON structure
         let articleText = '';
         if (article.content && article.content.organic_results && article.content.organic_results.length > 0) {
@@ -135,6 +140,8 @@ app.get('/api/sentiment/test-danielle-smith', async (req, res) => {
           // Fallback: try to extract any text content
           articleText = JSON.stringify(article.content).substring(0, 1000);
         }
+        
+        console.log(`DEBUG: Extracted article text for ${article.filename}: "${articleText.substring(0, 100)}..."`);
         const result = await analyzer.analyzeArticle(articleText, "Danielle Smith");
         results.push(result);
         
