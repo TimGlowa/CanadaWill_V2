@@ -115,14 +115,14 @@ Respond with a JSON object containing:
 
 Only respond with valid JSON, no other text.`;
 
-      const response = await this.openai.chat.completions.create({
+      const response = await this.openai.responses.create({
         model: MODELS.AGENT1_MODEL,
-        messages: [{ role: "user", content: prompt }],
-        temperature: 1,
-        max_completion_tokens: 200
+        input: [{ role: "user", content: prompt }],
+        text: { verbosity: "low" },
+        reasoning: { effort: "minimal" }
       });
 
-      const responseContent = response.choices[0].message.content;
+      const responseContent = response.output_text;
       console.log(`Agent 1 raw response for ${politicianName}:`, responseContent);
       const result = JSON.parse(responseContent);
       console.log(`Agent 1 parsed result for ${politicianName}:`, result);
@@ -172,14 +172,14 @@ Respond with a JSON object containing:
 
 Only respond with valid JSON, no other text.`;
 
-      const response = await this.openai.chat.completions.create({
+      const response = await this.openai.responses.create({
         model: MODELS.AGENT2_MODEL,
-        messages: [{ role: "user", content: prompt }],
-        temperature: 1,
-        max_completion_tokens: 300
+        input: [{ role: "user", content: prompt }],
+        text: { verbosity: "medium" },
+        reasoning: { effort: "medium" }
       });
 
-      const result = JSON.parse(response.choices[0].message.content);
+      const result = JSON.parse(response.output_text);
       console.log(`Agent 2 result for ${politicianName}:`, result);
       return result;
 
@@ -227,14 +227,14 @@ Respond with a JSON object containing:
 
 Only respond with valid JSON, no other text.`;
 
-      const response = await this.openai.chat.completions.create({
+      const response = await this.openai.responses.create({
         model: MODELS.AGENT3_MODEL,
-        messages: [{ role: "user", content: prompt }],
-        temperature: 1,
-        max_completion_tokens: 300
+        input: [{ role: "user", content: prompt }],
+        text: { verbosity: "medium" },
+        reasoning: { effort: "medium" }
       });
 
-      const result = JSON.parse(response.choices[0].message.content);
+      const result = JSON.parse(response.output_text);
       console.log(`Agent 3 result for ${politicianName}:`, result);
       return result;
 
