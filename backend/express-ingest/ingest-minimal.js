@@ -126,8 +126,12 @@ app.get('/api/sentiment/test-danielle-smith', async (req, res) => {
         
         // Extract full article content from SERPHouse JSON structure
         let articleText = '';
-        if (article.content && article.content.organic_results && article.content.organic_results.length > 0) {
+        if (article.content && article.content.raw && article.content.raw.length > 0) {
           // SERPHouse structure: get first result's title and snippet
+          const firstResult = article.content.raw[0];
+          articleText = (firstResult.title || '') + "\n" + (firstResult.snippet || '');
+        } else if (article.content && article.content.organic_results && article.content.organic_results.length > 0) {
+          // Alternative SERPHouse structure
           const firstResult = article.content.organic_results[0];
           articleText = (firstResult.title || '') + "\n" + (firstResult.snippet || '');
         } else if (article.content.title && article.content.snippet) {
