@@ -39,6 +39,9 @@ jobs:
           rsync -a node_modules/ deploy-root/node_modules/
           rsync -a backend/express-ingest/node_modules/ deploy-root/node_modules/
 
+      - name: Install production deps into deploy-root
+        run: npm install --no-audit --no-fund --omit=dev --prefix deploy-root
+
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v3
         with:
