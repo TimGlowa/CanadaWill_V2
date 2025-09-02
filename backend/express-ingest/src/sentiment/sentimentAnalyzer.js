@@ -119,7 +119,7 @@ Only respond with valid JSON, no other text.`;
         model: MODELS.AGENT1_MODEL,
         messages: [{ role: "user", content: prompt }],
         temperature: 0,
-        max_tokens: 200
+        max_completion_tokens: 200
       });
 
       const result = JSON.parse(response.choices[0].message.content);
@@ -132,7 +132,7 @@ Only respond with valid JSON, no other text.`;
       try {
         const anthropicResponse = await this.anthropic.messages.create({
           model: MODELS.BACKUP_AGENT1,
-          max_tokens: 200,
+          max_completion_tokens: 200,
           messages: [{ role: "user", content: prompt }]
         });
         
@@ -174,7 +174,7 @@ Only respond with valid JSON, no other text.`;
         model: MODELS.AGENT2_MODEL,
         messages: [{ role: "user", content: prompt }],
         temperature: 0,
-        max_tokens: 300
+        max_completion_tokens: 300
       });
 
       const result = JSON.parse(response.choices[0].message.content);
@@ -187,7 +187,7 @@ Only respond with valid JSON, no other text.`;
       try {
         const anthropicResponse = await this.anthropic.messages.create({
           model: MODELS.BACKUP_AGENT2,
-          max_tokens: 300,
+          max_completion_tokens: 300,
           messages: [{ role: "user", content: prompt }]
         });
         
@@ -229,7 +229,7 @@ Only respond with valid JSON, no other text.`;
         model: MODELS.AGENT3_MODEL,
         messages: [{ role: "user", content: prompt }],
         temperature: 0,
-        max_tokens: 300
+        max_completion_tokens: 300
       });
 
       const result = JSON.parse(response.choices[0].message.content);
@@ -242,7 +242,7 @@ Only respond with valid JSON, no other text.`;
       try {
         const anthropicResponse = await this.anthropic.messages.create({
           model: MODELS.BACKUP_AGENT3,
-          max_tokens: 300,
+          max_completion_tokens: 300,
           messages: [{ role: "user", content: prompt }]
         });
         
