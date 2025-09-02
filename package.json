@@ -4,7 +4,7 @@
   "description": "CanadaWill Ingest API with sentiment analysis",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "bash -lc 'cd /home/site/wwwroot && if [ -f node_modules.tar.gz ] && [ ! -d node_modules ]; then tar -xzf node_modules.tar.gz -C /home/site/wwwroot; fi; exec node server.js'"
   },
   "dependencies": {
     "express": "^4.18.2",
