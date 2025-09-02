@@ -119,7 +119,22 @@ app.get('/api/sentiment/test-danielle-smith', async (req, res) => {
       console.log(`Processing Article ${i + 1}/${articles.length}: ${article.filename}`);
       
       try {
-        const articleText = article.content.title + "\n" + article.content.snippet;
+        // Extract full article content from SERPHouse JSON structure
+        let articleText = '';
+        if (article.content && article.content.organic_results && article.content.organic_results.length > 0) {
+          // SERPHouse structure: get first result's title and snippet
+          const firstResult = article.content.organic_results[0];
+          articleText = (firstResult.title || '') + "\n" + (firstResult.snippet || '');
+        } else if (article.content.title && article.content.snippet) {
+          // Direct structure
+          articleText = article.content.title + "\n" + article.content.snippet;
+        } else if (article.content.snippet) {
+          // Just snippet
+          articleText = article.content.snippet;
+        } else {
+          // Fallback: try to extract any text content
+          articleText = JSON.stringify(article.content).substring(0, 1000);
+        }
         const result = await analyzer.analyzeArticle(articleText, "Danielle Smith");
         results.push(result);
         
