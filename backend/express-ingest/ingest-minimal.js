@@ -287,13 +287,122 @@ app.get('/api/sentiment/debug-articles', async (req, res) => {
   }
 });
 
+// Count all articles across all politicians
+app.get('/api/sentiment/count-all-articles', async (req, res) => {
+  try {
+    const analyzer = new SentimentAnalyzer();
+    console.log('=== Counting All Articles Across All Politicians ===');
+    
+    // Load the politician roster
+    const roster = require('./data/ab-roster.json');
+    console.log(`Found ${roster.length} politicians in roster`);
+    
+    const results = [];
+    let totalArticles = 0;
+    let politiciansWithArticles = 0;
+    let politiciansWithEmptyResults = 0;
+    
+    for (let i = 0; i < roster.length; i++) {
+      const politician = roster[i];
+      const politicianSlug = politician.slug;
+      
+      try {
+        console.log(`Checking ${i + 1}/${roster.length}: ${politician.name} (${politicianSlug})`);
+        
+        // Load articles for this politician
+        const articles = await analyzer.readArticlesFromStorage(politicianSlug, 100); // Get up to 100 articles
+        
+        const articleCount = articles.length;
+        totalArticles += articleCount;
+        
+        if (articleCount > 0) {
+          politiciansWithArticles++;
+          
+          // Check how many have actual content vs empty results
+          let articlesWithContent = 0;
+          let articlesWithEmptyRaw = 0;
+          
+          for (const article of articles) {
+            if (article.content && article.content.raw && article.content.raw.length > 0) {
+              articlesWithContent++;
+            } else {
+              articlesWithEmptyRaw++;
+            }
+          }
+          
+          results.push({
+            politician: politician.name,
+            slug: politicianSlug,
+            totalArticles: articleCount,
+            articlesWithContent: articlesWithContent,
+            articlesWithEmptyRaw: articlesWithEmptyRaw,
+            contentPercentage: articleCount > 0 ? ((articlesWithContent / articleCount) * 100).toFixed(1) : 0
+          });
+        } else {
+          politiciansWithEmptyResults++;
+          results.push({
+            politician: politician.name,
+            slug: politicianSlug,
+            totalArticles: 0,
+            articlesWithContent: 0,
+            articlesWithEmptyRaw: 0,
+            contentPercentage: 0
+          });
+        }
+        
+        console.log(`  ${politician.name}: ${articleCount} articles`);
+        
+      } catch (error) {
+        console.error(`Error checking ${politician.name}:`, error.message);
+        results.push({
+          politician: politician.name,
+          slug: politicianSlug,
+          error: error.message,
+          totalArticles: 0
+        });
+      }
+    }
+    
+    const summary = {
+      totalPoliticians: roster.length,
+      totalArticles: totalArticles,
+      politiciansWithArticles: politiciansWithArticles,
+      politiciansWithEmptyResults: politiciansWithEmptyResults,
+      averageArticlesPerPolitician: roster.length > 0 ? (totalArticles / roster.length).toFixed(1) : 0
+    };
+    
+    console.log('\n=== SUMMARY ===');
+    console.log(`Total Politicians: ${summary.totalPoliticians}`);
+    console.log(`Total Articles: ${summary.totalArticles}`);
+    console.log(`Politicians with Articles: ${summary.politiciansWithArticles}`);
+    console.log(`Politicians with Empty Results: ${summary.politiciansWithEmptyResults}`);
+    console.log(`Average Articles per Politician: ${summary.averageArticlesPerPolitician}`);
+    
+    res.json({
+      success: true,
+      summary: summary,
+      results: results,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Count failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Count failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Catch-all for debugging
 app.use('*', (req, res) => {
   res.json({ 
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/sentiment/debug-articles', '/api/whoami']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/sentiment/debug-articles', '/api/sentiment/count-all-articles', '/api/whoami']
   });
 });
 
