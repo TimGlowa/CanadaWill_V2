@@ -1,5 +1,139 @@
 # NEW_CHAT_LOG.md
 
+## 1 September 2025 1901 - Complete Handover Summary & Development Log Update
+
+---
+
+# Complete Handover Summary
+
+## 1) Live properties & URLs
+
+* **App Service (API base)**
+  [https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net](https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net)
+* **Health**
+  [https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/health](https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/health)
+* **WhoAmI**
+  [https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/whoami](https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/whoami)
+* **Sentiment test**
+  [https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/test](https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/test)
+* **Sentiment analyze (POST)**
+  [https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/analyze](https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/analyze)
+* **Kudu (SCM) host**
+  [https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net](https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net)
+* **Key Kudu checks**
+
+  * [https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/package.json](https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/package.json)
+  * [https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node\_modules/openai/package.json](https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node_modules/openai/package.json)
+  * [https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node\_modules/@anthropic-ai/sdk/package.json](https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node_modules/@anthropic-ai/sdk/package.json)
+
+## 2) Azure resources inventory
+
+* **Subscription**: b7b79fc8-495f-4b96-a30d-f59665aa3b7f
+* **Resource Group**: CanadaWill-prod2-rg
+* **App Service (Linux)**: canadawill-ingest
+* **Storage account**: not provided
+* **Application Insights**: not provided
+
+## 3) Data providers & quotas
+
+* NewsAPI — 100/day
+* NewsData.io — 200/day
+* Scope: \~131 people, mayors to be added later
+
+## 4) Repo & code layout vs. what's running
+
+* **Entrypoint**: server.js → now points to `ingest-minimal.js`.
+* **App code present**: ingest-minimal.js, src/sentiment/sentimentAnalyzer.js.
+* **Package.json**: root manifest includes `express`, `@azure/storage-blob`, `openai`, `@anthropic-ai/sdk`.
+* **Mismatch**: deployed `/site/wwwroot` never has `node_modules/openai` or `node_modules/@anthropic-ai/sdk` despite manifest.
+
+## 5) What works vs. what doesn't
+
+* **Works**:
+
+  * Health returns OK.
+  * WhoAmI returns ingest-minimal.js.
+  * Sentiment test initializes analyzer.
+  * Sentiment analyze (POST) returns mock analysis.
+* **Doesn't work**:
+
+  * `/site/wwwroot/node_modules/openai` not present.
+  * `/site/wwwroot/node_modules/@anthropic-ai/sdk` not present.
+
+## 6) Ingest endpoint saga
+
+* Early state: express-ingest chain ran, repeated axios module errors.
+* Entrypoint flip: server.js switched to ingest-minimal.js, then failed on missing openai.
+* Root manifest added: correct package.json deployed, still no node\_modules.
+* Multiple workflow edits tried (copying node\_modules, Oryx build, npm install in deploy-root). All failed to produce node\_modules in /site/wwwroot.
+
+## 7) CI/CD realities
+
+* Workflows involved:
+
+  * `.github/workflows/ci.yml` — initially ran `npm ci` in express-ingest; fixed to run `npm install` at root.
+  * `.github/workflows/deploy.yml` — multiple revisions, still failing to land node\_modules.
+* Auth: publish profile in use.
+* SCM\_DO\_BUILD\_DURING\_DEPLOYMENT set to 1 on canadawill-ingest.
+* Despite that, Oryx never left node\_modules on disk.
+
+## 8) App settings & environment
+
+* App Service: canadawill-ingest (Linux).
+* Startup Command: node server.js.
+* SCM\_DO\_BUILD\_DURING\_DEPLOYMENT = 1.
+* Other settings in Appendix E.
+
+## 9) Verification artifacts
+
+* **Success**:
+
+  * `[2025-09-01T22:35:52.831Z] "Minimal ingest working"` from health.
+  * WhoAmI shows ingest-minimal.js.
+  * Sentiment test: "SentimentAnalyzer initialized successfully!"
+* **Failure**:
+
+  * `'/home/site/wwwroot/node_modules/openai/package.json' not found` (multiple times).
+
+## 10) Problems & why we got stuck
+
+* Root node\_modules never exists in production, despite correct package.json.
+* Entrypoint and routes are fixed; sentiment endpoints respond.
+* Only unresolved issue is missing installed dependencies on live box.
+
+## 11) How I like to work
+
+* Facts over theories.
+* One problem at a time.
+* Central Time (CT) timestamps for every log entry.
+* No secrets in code.
+* Deterministic deploys.
+* Explicit success criteria.
+
+## 12) F-Series Roadmap (big picture only)
+
+* F1–F10: news ingestion, classification, sentiment scoring, badge system, analytics, scaling.
+
+## 13) Canonical references
+
+* App: canadawill-ingest
+* Resource Group: CanadaWill-prod2-rg
+* All URLs as listed in Section 1.
+
+## 14) Known dead ends
+
+* Adding deps to express-ingest package.json.
+* Copying node\_modules manually in workflow.
+* Relying on Oryx (SCM\_DO\_BUILD\_DURING\_DEPLOYMENT=1) — didn't install as expected.
+* npm install into deploy-root step — modules still absent.
+
+## 15) Open questions
+
+* Why does Oryx build not execute even with SCM\_DO\_BUILD\_DURING\_DEPLOYMENT=1?
+* Why does azure/webapps-deploy not preserve node\_modules despite explicit copy?
+
+---
+
 ## 1 September 2025 1421 - Complete Handover Summary & Development Log Update
 
 Alright — I'll build the dossier exactly to spec. First, the gaps.

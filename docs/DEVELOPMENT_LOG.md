@@ -1,5 +1,133 @@
 # Development Log
 
+## 2025-09-02 10:57 CT — Oryx Build Evidence & Extraction Failure
+
+**Action**: Removed Azure "Startup Command: node server.js" so a repo-based start could run.
+
+**Evidence gathered (Kudu URLs)**:
+
+* **Oryx artifacts present in /site/wwwroot (build happened)**:
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/oryx-manifest.toml
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node_modules.tar.gz
+
+* **App still starts with plain Node (no extraction). package.json start is node server.js**:
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/package.json
+
+* **Deps still missing at runtime (404)**:
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node_modules/openai/package.json
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node_modules/@anthropic-ai/sdk/package.json
+
+* **API health OK; analyze is POST-only**:
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/test
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/analyze
+
+**Conclusion**: Oryx builds and drops node_modules.tar.gz, but nothing extracts it on boot. This is the same condition captured in your dossier (package.json present; node_modules absent).
+
+---
+
+## 2025-09-02 10:32 CT — Startup Command Removal
+
+**Action**: Removed Azure "Startup Command: node server.js" to allow Procfile to take effect.
+
+**Deploy path**: GitHub → ZipDeploy/OneDeploy (Oryx produces oryx-manifest.toml and node_modules.tar.gz).
+
+**Observed after restart**:
+* package.json present in /site/wwwroot.
+* node_modules/* still missing (openai, @anthropic-ai/sdk 404).
+* API up: GET /api/sentiment/test returns "ready".
+* Note: GET /api/sentiment/analyze returns "Route not found" (endpoint is POST).
+
+**Result**: Procfile did not run; app still starts without extracting node_modules.tar.gz.
+
+---
+
+## 2025-09-02 10:24 CT — Repo-Controlled Startup Wrapper
+
+**Action**: Add repo-controlled startup wrapper to ensure dependencies exist at runtime.
+
+**Details**:
+* Added Procfile with `web: bash startup.sh`.
+* Added startup.sh that extracts `/home/site/wwwroot/node_modules.tar.gz` into `/home/site/wwwroot/node_modules` and then starts the app with `node server.js`.
+* Deployed via GitHub → App Service shows OneDeploy/ZipDeploy and writes oryx-manifest.toml and node_modules.tar.gz to `/home/site/wwwroot`.
+
+**Verification**:
+* package.json exists: https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/package.json
+* Still missing deps (Procfile not taking effect):
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node_modules/openai/package.json → 404
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/node_modules/@anthropic-ai/sdk/package.json → 404
+* Node app responding:
+  * Sentiment test OK: https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/test → "SentimentAnalyzer initialized successfully!"
+  * GET /api/sentiment/analyze returns "Route not found" (endpoint is POST, not GET).
+
+**Result**: node_modules still absent after deploy; wrapper likely not executed.
+
+**Likely Cause**: Azure Startup Command is still set, which overrides Procfile.
+
+**Next Step**: Remove Startup Command (or set it to `bash startup.sh`) so the wrapper runs on boot and extracts dependencies.
+
+---
+
+## 2025-09-01 19:08 CT — Deploy + Sentiment Debug Attempts
+
+**Context**: focused on getting ingest-minimal.js running with sentiment analysis.
+
+**Changes Made**:
+* **Entrypoint**: switched from express-ingest → ingest-minimal.js; WhoAmI confirmed.
+* **Package.json**: added openai + anthropic to root manifest; confirmed deployed package.json correct.
+* **CI**: fixed `.github/workflows/ci.yml` to run npm install at repo root.
+* **Deploy**: tried packaging root node\_modules, enabling Oryx build, post-build npm install — none produced node\_modules on server.
+
+**What works**: health, whoami, sentiment test, analyze POST returns mock result.
+
+**What doesn't**: `/site/wwwroot/node_modules/openai` and `/@anthropic-ai/sdk` absent.
+
+**Verbatim failure**: `'/home/site/wwwroot/node_modules/openai/package.json' not found`.
+
+---
+
+## 1908 1Sep2025 — Deploy + Sentiment Debug Attempts
+
+**Context**: Spent the day trying to get `ingest-minimal.js` running with sentiment routes and working dependencies.
+
+### Changes Tried
+
+* **Entrypoint**
+  • Flipped `server.js` from `express-ingest` chain to load `ingest-minimal.js`.
+  • Added candidate path logic and logs to confirm which module loads.
+  • Result: WhoAmI now reports `/home/site/wwwroot/ingest-minimal.js`.
+
+* **Package.json**
+  • Added `openai` + `@anthropic-ai/sdk` to `express-ingest/package.json` → no effect (wrong manifest).
+  • Created new **root** `package.json` with `express`, `@azure/storage-blob`, `openai`, `@anthropic-ai/sdk`.
+  • Confirmed `/site/wwwroot/package.json` now correct.
+
+* **CI workflows**
+  • Fixed `.github/workflows/ci.yml` to run `npm install` at repo root instead of `npm ci` in subdir.
+  • Prevented lockfile mismatches from express-ingest.
+
+* **Deploy workflows**
+  • Tried packaging root `node_modules` into deploy artifact → modules still missing on server.
+  • Tried enabling Oryx with `SCM_DO_BUILD_DURING_DEPLOYMENT=1` and `enable-oryx-build: true` → no node\_modules appeared.
+  • Tried post-build `npm install --prefix deploy-root` → still no `openai` in `/site/wwwroot/node_modules`.
+
+### What Worked
+
+* Entrypoint mismatch solved — minimal app runs.
+* Sentiment routes (`/api/sentiment/test`, `/api/sentiment/analyze`) are live.
+* POST analyze returns mock results as expected.
+
+### What Hasn't
+
+* **Root node\_modules are missing in production**.
+  • `/site/wwwroot/node_modules/openai` and `/@anthropic-ai/sdk` still 404.
+  • This is the consistent blocker across all deploy attempts.
+
+### Diagnosis
+
+We are not getting a usable `node_modules` directory onto `/site/wwwroot`, despite correct `package.json` being present and minimal app running. All attempts (copying, Oryx, install into deploy-root) have failed to produce the modules on the live box. This is the single unresolved issue.
+
+---
+
 ## 2025-09-01 14:21 CT — Deploy green, startup override found, app now fails under app.js
 
 **Action**: Deployed entrypoint fixes but discovered Azure startup command override causing application error
