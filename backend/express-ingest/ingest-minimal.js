@@ -207,13 +207,89 @@ app.get('/api/sentiment/test-danielle-smith', async (req, res) => {
   }
 });
 
+// Debug endpoint to examine all article content
+app.get('/api/sentiment/debug-articles', async (req, res) => {
+  try {
+    const analyzer = new SentimentAnalyzer();
+    console.log('=== DEBUG: Examining All Danielle Smith Articles ===');
+    
+    // Load all 19 articles for Danielle Smith
+    const articles = await analyzer.readArticlesFromStorage('danielle-smith', 19);
+    console.log(`✅ Loaded ${articles.length} articles from Azure storage`);
+    
+    if (articles.length === 0) {
+      return res.json({
+        success: false,
+        message: 'No articles found for danielle-smith in Azure storage',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    // Examine each article's content structure
+    const debugResults = [];
+    
+    for (let i = 0; i < articles.length; i++) {
+      const article = articles[i];
+      console.log(`\n--- DEBUG Article ${i + 1}/${articles.length}: ${article.filename} ---`);
+      
+      // Extract content using same logic as test
+      let articleText = '';
+      if (article.content && article.content.organic_results && article.content.organic_results.length > 0) {
+        const firstResult = article.content.organic_results[0];
+        articleText = (firstResult.title || '') + "\n" + (firstResult.snippet || '');
+      } else if (article.content.title && article.content.snippet) {
+        articleText = article.content.title + "\n" + article.content.snippet;
+      } else if (article.content.snippet) {
+        articleText = article.content.snippet;
+      } else {
+        articleText = JSON.stringify(article.content).substring(0, 1000);
+      }
+      
+      debugResults.push({
+        articleNumber: i + 1,
+        filename: article.filename,
+        contentStructure: {
+          hasOrganicResults: !!(article.content && article.content.organic_results),
+          organicResultsCount: article.content?.organic_results?.length || 0,
+          hasDirectTitle: !!article.content?.title,
+          hasDirectSnippet: !!article.content?.snippet,
+          contentKeys: Object.keys(article.content || {})
+        },
+        extractedText: articleText.substring(0, 500) + (articleText.length > 500 ? '...' : ''),
+        extractedTextLength: articleText.length,
+        fullContentSample: JSON.stringify(article.content, null, 2).substring(0, 1000) + '...'
+      });
+      
+      console.log(`Content keys: ${Object.keys(article.content || {}).join(', ')}`);
+      console.log(`Extracted text length: ${articleText.length}`);
+      console.log(`Extracted text preview: "${articleText.substring(0, 200)}..."`);
+    }
+    
+    res.json({
+      success: true,
+      totalArticles: articles.length,
+      debugResults: debugResults,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Debug failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Debug failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Catch-all for debugging
 app.use('*', (req, res) => {
   res.json({ 
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/whoami']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/sentiment/debug-articles', '/api/whoami']
   });
 });
 
