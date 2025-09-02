@@ -122,8 +122,10 @@ Only respond with valid JSON, no other text.`;
         max_completion_tokens: 200
       });
 
-      const result = JSON.parse(response.choices[0].message.content);
-      console.log(`Agent 1 result for ${politicianName}:`, result);
+      const responseContent = response.choices[0].message.content;
+      console.log(`Agent 1 raw response for ${politicianName}:`, responseContent);
+      const result = JSON.parse(responseContent);
+      console.log(`Agent 1 parsed result for ${politicianName}:`, result);
       return result;
 
     } catch (error) {
