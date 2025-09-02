@@ -33,13 +33,13 @@ jobs:
       # 2) Now add the runtime files to deploy-root
       - name: Copy runtime files
         run: |
-          cp server.js deploy-root/
-          cp ingest-minimal.js deploy-root/
+          cp backend/server.js deploy-root/
+          cp backend/express-ingest/ingest-minimal.js deploy-root/
           if [ -f app.js ]; then cp app.js deploy-root/; fi
           if [ -f Procfile ]; then cp Procfile deploy-root/; fi
           if [ -f buildinfo.json ]; then cp buildinfo.json deploy-root/; fi
           mkdir -p deploy-root/src
-          rsync -a src/ deploy-root/src/
+          rsync -a backend/express-ingest/src/ deploy-root/src/
 
       # 3) Publish deploy-root as the package
       - name: Deploy to Azure WebApp
