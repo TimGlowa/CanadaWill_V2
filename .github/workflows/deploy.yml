@@ -26,6 +26,8 @@ jobs:
         run: |
           cp package.json deploy-root/
           if [ -f package-lock.json ]; then cp package-lock.json deploy-root/; fi
+          echo "Using start script from package.json:"
+          jq .scripts.start package.json || true
 
       - name: Install production deps into deploy-root
         run: npm install --no-audit --no-fund --omit=dev --prefix deploy-root
