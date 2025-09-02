@@ -118,7 +118,7 @@ Only respond with valid JSON, no other text.`;
       const response = await this.openai.chat.completions.create({
         model: MODELS.AGENT1_MODEL,
         messages: [{ role: "user", content: prompt }],
-        temperature: 0,
+        temperature: 1,
         max_completion_tokens: 200
       });
 
@@ -173,7 +173,7 @@ Only respond with valid JSON, no other text.`;
       const response = await this.openai.chat.completions.create({
         model: MODELS.AGENT2_MODEL,
         messages: [{ role: "user", content: prompt }],
-        temperature: 0,
+        temperature: 1,
         max_completion_tokens: 300
       });
 
@@ -228,7 +228,7 @@ Only respond with valid JSON, no other text.`;
       const response = await this.openai.chat.completions.create({
         model: MODELS.AGENT3_MODEL,
         messages: [{ role: "user", content: prompt }],
-        temperature: 0,
+        temperature: 1,
         max_completion_tokens: 300
       });
 
