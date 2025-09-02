@@ -100,37 +100,160 @@ class SentimentAnalyzer {
   }
 
   async agent1Check(articleText, politicianName) {
-    // TODO: Implement real AI prompt in Step 2
-    // For now, return mock data as placeholder
-    return {
-      passed: true,
-      hasStance: true,
-      internalScore: 85
-    };
+    try {
+      const prompt = `You are analyzing a news article to determine if it contains any statement from ${politicianName} about Alberta's relationship with Canada.
+
+Article text: "${articleText}"
+
+Does this article contain any statement from ${politicianName} about Alberta's relationship with Canada, including views on unity, separation, federalism, or independence?
+
+Respond with a JSON object containing:
+- "passed": boolean (true if the article contains relevant statements from ${politicianName})
+- "hasStance": boolean (true if ${politicianName} expresses a clear position)
+- "internalScore": number (0-100, confidence in relevance)
+- "reason": string (brief explanation of your decision)
+
+Only respond with valid JSON, no other text.`;
+
+      const response = await this.openai.chat.completions.create({
+        model: MODELS.AGENT1_MODEL,
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0,
+        max_tokens: 200
+      });
+
+      const result = JSON.parse(response.choices[0].message.content);
+      console.log(`Agent 1 result for ${politicianName}:`, result);
+      return result;
+
+    } catch (error) {
+      console.error(`Agent 1 error for ${politicianName}:`, error.message);
+      // Fallback to Anthropic if OpenAI fails
+      try {
+        const anthropicResponse = await this.anthropic.messages.create({
+          model: MODELS.BACKUP_AGENT1,
+          max_tokens: 200,
+          messages: [{ role: "user", content: prompt }]
+        });
+        
+        const result = JSON.parse(anthropicResponse.content[0].text);
+        console.log(`Agent 1 (Anthropic) result for ${politicianName}:`, result);
+        return result;
+      } catch (fallbackError) {
+        console.error(`Agent 1 fallback error for ${politicianName}:`, fallbackError.message);
+        throw new Error(`Agent 1 failed: ${error.message}`);
+      }
+    }
   }
 
   async agent2Score(articleText, politicianName) {
-    // TODO: Implement real AI prompt in Step 3
-    // For now, return mock data as placeholder
-    return {
-      stanceScore: 75,
-      confidence: 0.85,
-      evidence: "Mock evidence - will be replaced with real AI analysis",
-      avoidedAnswering: false,
-      classification: "Clear Pro-Canada"
-    };
+    try {
+      const prompt = `You are analyzing a news article to score ${politicianName}'s stance on Alberta's relationship with Canada.
+
+Article text: "${articleText}"
+
+Score ${politicianName}'s stance on a scale of 0-100 where:
+- 0-20: Strong Pro-Separation (explicitly supports Alberta leaving Canada)
+- 21-40: Clear Pro-Separation (supports separation but less explicit)
+- 41-60: Neutral/Avoided (no clear position or avoids the topic)
+- 61-80: Moderate Pro-Canada (supports staying in Canada with some reservations)
+- 81-100: Strong Pro-Canada (explicitly supports Canadian unity)
+
+Special case: If ${politicianName} is from the UCP party, any UCP party statements should be considered as ${politicianName}'s position.
+
+Respond with a JSON object containing:
+- "stanceScore": number (0-100)
+- "confidence": number (0.0-1.0, how confident you are in this score)
+- "evidence": string (specific quotes or statements that support this score)
+- "avoidedAnswering": boolean (true if ${politicianName} avoided giving a clear answer)
+- "classification": string (one of: "Strong Pro-Separation", "Clear Pro-Separation", "Neutral/Avoided", "Moderate Pro-Canada", "Strong Pro-Canada")
+
+Only respond with valid JSON, no other text.`;
+
+      const response = await this.openai.chat.completions.create({
+        model: MODELS.AGENT2_MODEL,
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0,
+        max_tokens: 300
+      });
+
+      const result = JSON.parse(response.choices[0].message.content);
+      console.log(`Agent 2 result for ${politicianName}:`, result);
+      return result;
+
+    } catch (error) {
+      console.error(`Agent 2 error for ${politicianName}:`, error.message);
+      // Fallback to Anthropic if OpenAI fails
+      try {
+        const anthropicResponse = await this.anthropic.messages.create({
+          model: MODELS.BACKUP_AGENT2,
+          max_tokens: 300,
+          messages: [{ role: "user", content: prompt }]
+        });
+        
+        const result = JSON.parse(anthropicResponse.content[0].text);
+        console.log(`Agent 2 (Anthropic) result for ${politicianName}:`, result);
+        return result;
+      } catch (fallbackError) {
+        console.error(`Agent 2 fallback error for ${politicianName}:`, fallbackError.message);
+        throw new Error(`Agent 2 failed: ${error.message}`);
+      }
+    }
   }
 
   async agent3Score(articleText, politicianName) {
-    // TODO: Implement real AI prompt in Step 4
-    // For now, return mock data as placeholder
-    return {
-      stanceScore: 78,
-      confidence: 0.80,
-      evidence: "Mock evidence - will be replaced with real AI analysis",
-      avoidedAnswering: false,
-      classification: "Clear Pro-Canada"
-    };
+    try {
+      const prompt = `You are independently analyzing a news article to score ${politicianName}'s stance on Alberta's relationship with Canada. This is a verification analysis - do not reference any previous analysis.
+
+Article text: "${articleText}"
+
+Score ${politicianName}'s stance on a scale of 0-100 where:
+- 0-20: Strong Pro-Separation (explicitly supports Alberta leaving Canada)
+- 21-40: Clear Pro-Separation (supports separation but less explicit)
+- 41-60: Neutral/Avoided (no clear position or avoids the topic)
+- 61-80: Moderate Pro-Canada (supports staying in Canada with some reservations)
+- 81-100: Strong Pro-Canada (explicitly supports Canadian unity)
+
+Special case: If ${politicianName} is from the UCP party, any UCP party statements should be considered as ${politicianName}'s position.
+
+Respond with a JSON object containing:
+- "stanceScore": number (0-100)
+- "confidence": number (0.0-1.0, how confident you are in this score)
+- "evidence": string (specific quotes or statements that support this score)
+- "avoidedAnswering": boolean (true if ${politicianName} avoided giving a clear answer)
+- "classification": string (one of: "Strong Pro-Separation", "Clear Pro-Separation", "Neutral/Avoided", "Moderate Pro-Canada", "Strong Pro-Canada")
+
+Only respond with valid JSON, no other text.`;
+
+      const response = await this.openai.chat.completions.create({
+        model: MODELS.AGENT3_MODEL,
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0,
+        max_tokens: 300
+      });
+
+      const result = JSON.parse(response.choices[0].message.content);
+      console.log(`Agent 3 result for ${politicianName}:`, result);
+      return result;
+
+    } catch (error) {
+      console.error(`Agent 3 error for ${politicianName}:`, error.message);
+      // Fallback to Anthropic if OpenAI fails
+      try {
+        const anthropicResponse = await this.anthropic.messages.create({
+          model: MODELS.BACKUP_AGENT3,
+          max_tokens: 300,
+          messages: [{ role: "user", content: prompt }]
+        });
+        
+        const result = JSON.parse(anthropicResponse.content[0].text);
+        console.log(`Agent 3 (Anthropic) result for ${politicianName}:`, result);
+        return result;
+      } catch (fallbackError) {
+        console.error(`Agent 3 fallback error for ${politicianName}:`, fallbackError.message);
+        throw new Error(`Agent 3 failed: ${error.message}`);
+      }
+    }
   }
 
   compareScores(agent2Result, agent3Result) {

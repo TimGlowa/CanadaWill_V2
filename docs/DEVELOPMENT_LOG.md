@@ -1,5 +1,73 @@
 # Development Log
 
+## 2025-09-02 13:08 CT — Sentiment Analysis System Updated to GPT-5 Models
+
+**Action**: Updated sentiment analysis system to use GPT-5 models as specified in PRD and created test framework for Danielle Smith articles.
+
+**Changes Made**:
+* Updated `MODELS` configuration in `sentimentAnalyzer.js` to use PRD-specified models:
+  * `AGENT1_MODEL: "gpt-5-nano"`
+  * `AGENT2_MODEL: "gpt-5-mini"`
+  * `AGENT3_MODEL: "gpt-5-mini"`
+  * `BACKUP_AGENT1: "claude-3.5-haiku"`
+  * `BACKUP_AGENT2: "claude-3.7-sonnet"`
+  * `BACKUP_AGENT3: "claude-3.7-sonnet"`
+* Updated all agent methods to use `MODELS` constants instead of hardcoded values
+* Set temperature to 0 for consistency as specified in PRD
+* Created `test-danielle-smith.js` to test with all 19 Danielle Smith articles from Azure storage
+* Test script processes articles from `articles/raw/serp/danielle-smith/` path through all three agents
+
+**Status**: ✅ Sentiment analysis system ready for Azure testing with real GPT-5 models and 12 months of collected data.
+
+**Next Step**: Deploy to Azure and run test with real environment variables and collected articles.
+
+---
+
+## 2025-09-02 12:23 CT — Sentiment Service Routes Online, GET vs POST Issue
+
+**Action**: Validated sentiment endpoints after Oryx deployment and startup sequence.
+
+**Details**:
+* Express successfully booted with routes:
+  * GET /api/test
+  * GET /api/health
+  * GET /api/serp/test
+  * GET /api/sentiment/test
+  * POST /api/sentiment/analyze
+  * GET /api/whoami
+* Health check confirmed: `{"message":"SentimentAnalyzer initialized successfully!","timestamp":"2025-09-02T17:21:45.473Z","status":"ready"}`.
+* OpenAI and Anthropic clients initialized without errors (proves node_modules available via symlink).
+* Request attempt with GET /api/sentiment/analyze returned:
+  * `{"error":"Route not found","path":"/api/sentiment/analyze?utm_source=chatgpt.com","method":"GET","availableRoutes":[...]}`
+* Confirms that /api/sentiment/analyze is correctly registered, but only for POST, not GET.
+
+**Status**: ✅ Environment healthy, analyzer online.
+⚠️ Misdirected GET requests to /api/sentiment/analyze fail as expected; correct method is POST.
+
+**Next Step**: Validate with a POST request to /api/sentiment/analyze at:
+https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/sentiment/analyze
+
+---
+
+## 2025-09-02 11:26 CT — Workflow Packaging Issue Identified
+
+**Action**: Investigated why package.json changes (startup extraction script) never appeared in /site/wwwroot.
+
+**Evidence**:
+* Live package.json still shows `"start": "node server.js"` at:
+  * https://canadawill-ingest-ave2f8fjcxeuaehz.scm.canadacentral-01.azurewebsites.net/api/vfs/site/wwwroot/package.json
+* Deployment workflow `.github/workflows/ingest-webapp-deploy.yml` confirmed. It creates a `deploy/` directory and only copies a fixed set of files (`server.js`, `buildinfo.json`, `package.json`, `package-lock.json`) plus `express-ingest/` (with exclusions) into that folder. The deploy zip is then pushed to Azure.
+
+**Diagnosis**:
+* The issue is not with Oryx (it builds fine, leaves `node_modules.tar.gz`).
+* The root cause is the workflow packaging step: it zips only selected files, so your intended startup script edits are not reaching production.
+
+**Next Step (agreed fix path)**:
+* Update `.github/workflows/ingest-webapp-deploy.yml` so the `package.json` being copied into `deploy/` is the one with the correct `"scripts.start"` extraction logic.
+* After this change, deploys will propagate the right start script to `/site/wwwroot/package.json`, enabling the runtime to unpack `node_modules.tar.gz` at boot.
+
+---
+
 ## 2025-09-02 11:09 CT — Extraction Still Failing
 
 **Status**: Still getting "'/home/site/wwwroot/node_modules/openai/package.json' not found."

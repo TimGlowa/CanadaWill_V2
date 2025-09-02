@@ -47,8 +47,26 @@ These snapshots and bundles were created during the transition:
 - **Azure = runtime only** (no direct Kudu edits)  
 - All edits flow: Cursor → branch → PR → merge → deploy  
 
+## Current Status (2 September 2025)
+
+### ✅ Sentiment Analysis Service Online
+- **Health Check**: SentimentAnalyzer initialized successfully
+- **Available Endpoints**:
+  - `GET /api/health` - Service health status
+  - `GET /api/sentiment/test` - Sentiment service test
+  - `POST /api/sentiment/analyze` - Sentiment analysis (POST only)
+  - `GET /api/whoami` - Service identification
+- **Dependencies**: OpenAI and Anthropic clients operational
+- **Live URL**: https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net
+
+### 🔧 Recent Fixes
+- Resolved node_modules deployment issue via extraction script in package.json
+- Updated deployment workflow to ensure correct package.json reaches production
+- Sentiment routes properly registered and responding
+
 ## Next Steps
 
 1. Attach the `.bundle` as a release (`azure-snap-20250824`)  
 2. Protect `main` branch (require PRs)  
 3. Conduct periodic drift checks vs Azure runtime
+4. Validate sentiment analysis with POST requests to `/api/sentiment/analyze`
