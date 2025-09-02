@@ -396,13 +396,104 @@ app.get('/api/sentiment/count-all-articles', async (req, res) => {
   }
 });
 
+// Get detailed article table for all 121 politicians
+app.get('/api/sentiment/article-table', async (req, res) => {
+  try {
+    const analyzer = new SentimentAnalyzer();
+    const roster = require('./data/ab-roster.json');
+    
+    console.log('📊 Generating detailed article table for all 121 politicians...');
+    
+    let allArticles = [];
+    let totalProcessed = 0;
+    
+    for (const politician of roster) {
+      try {
+        console.log(`Processing ${politician.name} (${totalProcessed + 1}/121)...`);
+        
+        // Read articles for this politician
+        const articles = await analyzer.readArticlesFromStorage(politician.slug, 100); // Get up to 100 articles
+        
+        for (const article of articles) {
+          // Extract content from the article
+          let sourceUrl = '';
+          let title = '';
+          let snippet = '';
+          let date = '';
+          
+          if (article.content && article.content.raw && article.content.raw.length > 0) {
+            const firstResult = article.content.raw[0];
+            title = firstResult.title || '';
+            snippet = firstResult.snippet || '';
+            sourceUrl = firstResult.link || '';
+            date = firstResult.date || '';
+          } else if (article.content && article.content.organic_results && article.content.organic_results.length > 0) {
+            const firstResult = article.content.organic_results[0];
+            title = firstResult.title || '';
+            snippet = firstResult.snippet || '';
+            sourceUrl = firstResult.link || '';
+            date = firstResult.date || '';
+          } else if (article.content.title && article.content.snippet) {
+            title = article.content.title;
+            snippet = article.content.snippet;
+            sourceUrl = article.content.link || '';
+            date = article.content.date || '';
+          } else if (article.content.snippet) {
+            snippet = article.content.snippet;
+            sourceUrl = article.content.link || '';
+            date = article.content.date || '';
+          }
+          
+          // Only include articles that have actual content
+          if (title || snippet) {
+            allArticles.push({
+              date: date,
+              source: sourceUrl,
+              politician: politician.name,
+              title: title,
+              snippet: snippet,
+              filename: article.filename
+            });
+          }
+        }
+        
+        totalProcessed++;
+      } catch (error) {
+        console.error(`Error processing ${politician.name}:`, error.message);
+        totalProcessed++;
+      }
+    }
+    
+    console.log(`✅ Processed all ${totalProcessed} politicians. Found ${allArticles.length} articles with content.`);
+    
+    res.json({
+      success: true,
+      summary: {
+        totalPoliticians: roster.length,
+        totalArticles: allArticles.length,
+        politiciansProcessed: totalProcessed
+      },
+      articles: allArticles,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Error generating article table:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Catch-all for debugging
 app.use('*', (req, res) => {
   res.json({ 
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/sentiment/debug-articles', '/api/sentiment/count-all-articles', '/api/whoami']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/sentiment/debug-articles', '/api/sentiment/count-all-articles', '/api/sentiment/article-table', '/api/whoami']
   });
 });
 
