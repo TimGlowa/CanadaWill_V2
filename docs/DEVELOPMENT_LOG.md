@@ -1,5 +1,34 @@
 # Development Log
 
+## 2025-09-02 15:25 CT — First Real Sentiment Analysis Results for Danielle Smith
+
+**Action**: Successfully processed all 19 Danielle Smith articles and obtained first real sentiment analysis results.
+
+**Test Results - All 19 Articles Processed**:
+* **Total Articles**: 19
+* **Articles Passed Relevance Gate**: 1
+* **Articles Failed Processing**: 0
+* **Average Score**: 30.00
+* **Overall Classification**: "Clear Pro-Separation"
+
+**Successful Article Analysis**:
+* **Agent 1**: ✅ Passed relevance gate (score: 72)
+* **Agent 2**: ✅ Scored 30 (Clear Pro-Separation, 55% confidence)
+* **Agent 3**: ✅ Scored 30 (Perfect agreement with Agent 2)
+* **Final Result**: 30 (Clear Pro-Separation)
+* **Evidence**: "Alberta's separation from Canada: Danielle Smith says she wants to take risk of referendum"
+
+**Issues Identified**:
+* Only 1 out of 19 articles passed relevance gate - this is suspiciously low
+* 18 articles were classified as "placeholder/metadata" but had rigorous inclusion requirements
+* Need to investigate why articles with real content are being filtered out
+
+**Status**: ✅ **SENTIMENT ANALYSIS WORKING** ⚠️ **CONTENT EXTRACTION NEEDS INVESTIGATION**
+
+**Next Step**: Review all 19 articles to understand why only 1 passed relevance gate.
+
+---
+
 ## 2025-09-02 13:35 CT — GPT-5 API Successfully Implemented, Sentiment Analysis Working
 
 **Action**: Fixed GPT-5 API implementation using new `responses.create()` method and achieved successful sentiment analysis.
