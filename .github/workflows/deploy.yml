@@ -16,32 +16,32 @@ jobs:
         with:
           node-version: '20.19.4'
 
-      - name: Install (root)
-        run: npm install --no-audit --no-fund
-
-      - name: Install (backend)
-        run: |
-          cd backend/express-ingest
-          npm install --no-audit --no-fund
-
-      - name: Build deploy artifact (root + node_modules)
+      - name: Prepare deploy-root
         run: |
           rm -rf deploy-root
-          mkdir -p deploy-root/src
-          cp backend/server.js deploy-root/server.js
-          cp backend/express-ingest/ingest-minimal.js deploy-root/ingest-minimal.js
-          cp app.js deploy-root/ || true
-          cp Procfile deploy-root/ || true
-          cp buildinfo.json deploy-root/ || true
+          mkdir -p deploy-root
+
+      # 1) Put ONLY the manifests in deploy-root, then install there
+      - name: Copy manifests
+        run: |
           cp package.json deploy-root/
-          cp package-lock.json deploy-root/ || true
-          rsync -a backend/express-ingest/src/ deploy-root/src/
-          rsync -a node_modules/ deploy-root/node_modules/
-          rsync -a backend/express-ingest/node_modules/ deploy-root/node_modules/
+          if [ -f package-lock.json ]; then cp package-lock.json deploy-root/; fi
 
       - name: Install production deps into deploy-root
         run: npm install --no-audit --no-fund --omit=dev --prefix deploy-root
 
+      # 2) Now add the runtime files to deploy-root
+      - name: Copy runtime files
+        run: |
+          cp server.js deploy-root/
+          cp ingest-minimal.js deploy-root/
+          if [ -f app.js ]; then cp app.js deploy-root/; fi
+          if [ -f Procfile ]; then cp Procfile deploy-root/; fi
+          if [ -f buildinfo.json ]; then cp buildinfo.json deploy-root/; fi
+          mkdir -p deploy-root/src
+          rsync -a src/ deploy-root/src/
+
+      # 3) Publish deploy-root as the package
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v3
         with:
