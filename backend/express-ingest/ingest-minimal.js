@@ -466,6 +466,7 @@ async function makeSerphouseCall(query, date) {
   
   const apiToken = process.env.SERPHOUSE_API_TOKEN;
   if (!apiToken) {
+    console.error('SERPHOUSE_API_TOKEN not found in environment variables');
     throw new Error('SERPHOUSE_API_TOKEN environment variable is required');
   }
 
@@ -482,15 +483,19 @@ async function makeSerphouseCall(query, date) {
   };
 
   try {
+    console.log(`Making SERPHouse API call for query: ${query}`);
     const response = await axios.get(url, { params });
+    console.log(`SERPHouse API response status: ${response.status}`);
     
     if (response.data && response.data.news) {
+      console.log(`Found ${response.data.news.length} articles`);
       return {
         count: response.data.news.length,
         articles: response.data.news,
         status: response.status
       };
     } else {
+      console.log('No news data in response');
       return {
         count: 0,
         articles: [],
@@ -499,6 +504,7 @@ async function makeSerphouseCall(query, date) {
     }
   } catch (error) {
     console.error('SERPHouse API error:', error.message);
+    console.error('Error details:', error.response?.data);
     throw error;
   }
 }
