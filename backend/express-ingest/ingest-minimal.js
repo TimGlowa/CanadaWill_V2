@@ -438,10 +438,10 @@ function buildEnhancedQuery(person) {
 async function storeResultsInBlobStorage(slug, date, serphouseResponse) {
   const { BlobServiceClient } = require('@azure/storage-blob');
   
-  const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
+  const connectionString = process.env.AZURE_STORAGE_CONNECTION;
   if (!connectionString) {
-    console.error('AZURE_STORAGE_CONNECTION_STRING not found in environment variables');
-    throw new Error('AZURE_STORAGE_CONNECTION_STRING environment variable is required');
+    console.error('AZURE_STORAGE_CONNECTION not found in environment variables');
+    throw new Error('AZURE_STORAGE_CONNECTION environment variable is required');
   }
   
   const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
