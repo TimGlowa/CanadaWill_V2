@@ -316,20 +316,7 @@ async function runFullBackfill(res) {
       console.log(`📋 Loaded ${officials.length} officials from data/officials.json`);
     } catch (error2) {
       console.error('❌ Failed to load officials.json from both locations:', error2.message);
-      // Use a larger sample of officials for demo
-      officials = [
-        { slug: "danielle-smith", fullName: "Danielle Smith", office: "Member of Legislative Assembly" },
-        { slug: "pat-kelly", fullName: "Pat Kelly", office: "Member of Parliament" },
-        { slug: "rachel-notley", fullName: "Rachel Notley", office: "Member of Legislative Assembly" },
-        { slug: "jason-kenney", fullName: "Jason Kenney", office: "Member of Legislative Assembly" },
-        { slug: "doug-schweitzer", fullName: "Doug Schweitzer", office: "Member of Legislative Assembly" },
-        { slug: "tyler-shandro", fullName: "Tyler Shandro", office: "Member of Legislative Assembly" },
-        { slug: "travis-toews", fullName: "Travis Toews", office: "Member of Legislative Assembly" },
-        { slug: "jason-nixon", fullName: "Jason Nixon", office: "Member of Legislative Assembly" },
-        { slug: "ric-mclver", fullName: "Ric McIver", office: "Member of Legislative Assembly" },
-        { slug: "jason-copping", fullName: "Jason Copping", office: "Member of Legislative Assembly" }
-      ];
-      console.log(`⚠️ Using extended sample data: ${officials.length} officials`);
+      throw new Error('Cannot proceed without officials.json file containing all 121 officials');
     }
   }
   
@@ -366,8 +353,8 @@ async function runFullBackfill(res) {
       totalArticles: 0
     };
     
-    // Process only first 30 days for demo (to avoid timeout)
-    const demoDates = dates.slice(0, 30);
+    // Process all 365 days (12 months) as requested
+    const demoDates = dates;
     
                 for (const date of demoDates) {
               try {
