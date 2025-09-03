@@ -339,7 +339,7 @@ async function runFullBackfill(res) {
       const query = buildEnhancedQuery(official);
       
       // Make single SERPHouse API call for 12-month period
-      const serphouseResponse = await makeSerphouseCall(query, startDate, endDate);
+      const serphouseResponse = await makeSerphouseCall(query);
       
       // Store results in Azure Blob Storage
       await storeResultsInBlobStorage(official.slug, '12-month-period', serphouseResponse);
@@ -461,9 +461,9 @@ async function storeResultsInBlobStorage(slug, date, serphouseResponse) {
 }
 
 // Actual SERPHouse API call function
-async function makeSerphouseCall(query, startDate, endDate) {
+async function makeSerphouseCall(query) {
   const axios = require('axios');
-  
+
   const apiToken = process.env.SERPHOUSE_API_TOKEN;
   if (!apiToken) {
     console.error('SERPHOUSE_API_TOKEN not found in environment variables');
@@ -471,53 +471,52 @@ async function makeSerphouseCall(query, startDate, endDate) {
   }
 
   const url = 'https://api.serphouse.com/serp/live';
-  const params = {
-    api_key: apiToken,
+  const payload = {
+    // Core query
     q: query,
+
+    // Google News
     domain: 'google.ca',
     lang: 'en',
     device: 'desktop',
-    serp_type: 'news',
-    loc: 'Alberta,Canada',
-    num: 50,
-    date_from: startDate.toISOString().split('T')[0],
-    date_to: endDate.toISOString().split('T')[0]
+    tbm: 'nws',               // <- news results
+    location: 'Alberta,Canada',
+    num: 50
+    // NOTE: intentionally NO date_from/date_to
   };
 
   try {
-    console.log(`Making SERPHouse API call for query: ${query}`);
-    console.log(`API Token present: ${apiToken ? 'YES' : 'NO'}`);
-    console.log(`API Token length: ${apiToken ? apiToken.length : 0}`);
-    console.log(`Request params:`, JSON.stringify(params, null, 2));
-    
-    const response = await axios.get(url, { params });
-    console.log(`SERPHouse API response status: ${response.status}`);
-    console.log(`SERPHouse response data keys:`, Object.keys(response.data || {}));
-    
-    if (response.data && response.data.organic_results) {
-      console.log(`Found ${response.data.organic_results.length} articles`);
-      return {
-        count: response.data.organic_results.length,
-        articles: response.data.organic_results,
-        status: response.status
-      };
-    } else {
-      console.log('No organic_results data in response');
-      console.log('Full response data:', JSON.stringify(response.data, null, 2));
-      return {
-        count: 0,
-        articles: [],
-        status: response.status
-      };
+    console.log(`[SERPHouse] POST ${url} tbm=nws`);
+    console.log('Request body:', JSON.stringify(payload, null, 2));
+
+    const response = await axios.post(url, payload, {
+      headers: { Authorization: `Bearer ${apiToken}` }  // or pass ?api_token=
+    });
+
+    console.log(`SERPHouse status: ${response.status}`);
+    const data = response.data || {};
+    const news = data?.results?.news || [];
+    const organic = data?.results?.organic || [];
+
+    if (Array.isArray(news) && news.length > 0) {
+      console.log(`Found ${news.length} news items`);
+      return { count: news.length, articles: news, status: response.status };
     }
+    if (Array.isArray(organic) && organic.length > 0) {
+      console.log(`Found ${organic.length} web results`);
+      return { count: organic.length, articles: organic, status: response.status };
+    }
+
+    console.log('No results in response.results');
+    console.log('Full response data:', JSON.stringify(data, null, 2));
+    return { count: 0, articles: [], status: response.status };
+
   } catch (error) {
     console.error('SERPHouse API error:', error.message);
     console.error('Error details:', error.response?.data);
     if (error.response) {
       console.error('Response status:', error.response.status);
       console.error('Response data:', JSON.stringify(error.response.data, null, 2));
-    } else {
-      console.error('No response object in error:', error);
     }
     throw error;
   }
