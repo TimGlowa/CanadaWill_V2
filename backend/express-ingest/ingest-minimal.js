@@ -51,8 +51,10 @@ app.post('/api/backfill/run', async (req, res) => {
       scriptPath = './scripts/test-backfill.js';
     } else if (script === 'full') {
       scriptPath = './scripts/12-month-backfill.js';
+    } else if (script === 'query-test') {
+      scriptPath = './test-enhanced-query-builder.js';
     } else {
-      return res.status(400).json({ error: 'Invalid script. Use "test" or "full"' });
+      return res.status(400).json({ error: 'Invalid script. Use "test", "full", or "query-test"' });
     }
     
     console.log(`🚀 Starting ${script} backfill script...`);
