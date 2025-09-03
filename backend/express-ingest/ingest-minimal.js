@@ -40,6 +40,27 @@ app.get('/api/serp/test', (req, res) => {
   });
 });
 
+// Test directory listing endpoint
+app.get('/api/backfill/list', (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  
+  try {
+    const cwd = process.cwd();
+    const files = fs.readdirSync(cwd);
+    const scriptsDir = fs.existsSync('./scripts') ? fs.readdirSync('./scripts') : 'scripts directory not found';
+    
+    res.json({
+      cwd: cwd,
+      files: files,
+      scriptsDir: scriptsDir,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Backfill execution endpoint
 app.post('/api/backfill/run', async (req, res) => {
   try {
