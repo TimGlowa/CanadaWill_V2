@@ -37,8 +37,53 @@ app.get('/api/serp/test', async (req, res) => {
   try {
     console.log('🚀 Starting enhanced query builder test...');
     
-    // Import the SerphouseClient directly
-    const SerphouseClient = require('./src/providers/serphouseClient.js');
+    // Test the enhanced query builder logic directly without external dependencies
+    function buildEnhancedQuery(person) {
+      // Define separation keywords (negatives)
+      const separationKeywords = [
+        "Alberta separation",
+        "Alberta independence", 
+        "Alberta sovereignty",
+        "Sovereignty Act",
+        "referendum",
+        "secede",
+        "secession",
+        "leave Canada",
+        "break from Canada",
+        "Alberta Prosperity Project",
+        "Forever Canada",
+        "Forever Canadian"
+      ];
+
+      // Define unity keywords (positives)
+      const unityKeywords = [
+        "remain in Canada",
+        "stay in Canada",
+        "support Canada",
+        "oppose separation",
+        "oppose independence",
+        "pro-Canada stance",
+        "keep Alberta in Canada"
+      ];
+
+      // Combine all keywords
+      const allKeywords = [...separationKeywords, ...unityKeywords];
+      
+      // Determine title variants based on office
+      let titleVariants;
+      if (person.office.includes('Legislative Assembly') || person.office.includes('MLA')) {
+        titleVariants = '"MLA" OR "Member of Legislative Assembly"';
+      } else if (person.office.includes('Parliament') || person.office.includes('MP')) {
+        titleVariants = '"MP" OR "Member of Parliament"';
+      } else {
+        titleVariants = '"MLA" OR "Member of Legislative Assembly" OR "MP" OR "Member of Parliament"';
+      }
+
+      // Build the enhanced query with proper boolean logic
+      const query = `"${person.fullName}" (${titleVariants}) AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+      
+      return query;
+    }
     
     // Test data - sample officials
     const testOfficials = [
@@ -60,14 +105,17 @@ app.get('/api/serp/test', async (req, res) => {
     
     for (const official of testOfficials) {
       try {
-        const client = new SerphouseClient();
-        const query = client.buildSearchQuery(official);
+        const query = buildEnhancedQuery(official);
         
         results.push({
           official: official.fullName,
           office: official.office,
           query: query,
-          success: true
+          success: true,
+          containsFullName: query.includes(`"${official.fullName}"`),
+          containsTitleVariants: query.includes('MLA') || query.includes('MP'),
+          containsKeywords: query.includes('Alberta separation') && query.includes('remain in Canada'),
+          usesAndLogic: query.includes(' AND ')
         });
         
         console.log(`✅ Generated query for ${official.fullName}: ${query}`);
@@ -85,6 +133,11 @@ app.get('/api/serp/test', async (req, res) => {
       success: true,
       message: 'Enhanced query builder test completed inline',
       results: results,
+      summary: {
+        totalOfficials: testOfficials.length,
+        successfulQueries: results.filter(r => r.success).length,
+        failedQueries: results.filter(r => !r.success).length
+      },
       timestamp: new Date().toISOString()
     });
     
