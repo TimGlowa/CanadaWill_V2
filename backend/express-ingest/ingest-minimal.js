@@ -299,23 +299,38 @@ async function runTestBackfill(res) {
 async function runFullBackfill(res) {
   console.log('🚀 Starting Full 12-Month Backfill (all 121 officials)...');
   
-  // Load officials data from the actual file
+  // Load officials data - try multiple sources
   const fs = require('fs');
   let officials = [];
   
   try {
-    const officialsData = fs.readFileSync('./data/officials.json', 'utf8');
+    // Try to load from officials.json in root
+    const officialsData = fs.readFileSync('./officials.json', 'utf8');
     officials = JSON.parse(officialsData);
     console.log(`📋 Loaded ${officials.length} officials from officials.json`);
   } catch (error) {
-    console.error('❌ Failed to load officials.json:', error.message);
-    // Fallback to sample data
-    officials = [
-      { slug: "danielle-smith", fullName: "Danielle Smith", office: "Member of Legislative Assembly" },
-      { slug: "pat-kelly", fullName: "Pat Kelly", office: "Member of Parliament" },
-      { slug: "rachel-notley", fullName: "Rachel Notley", office: "Member of Legislative Assembly" }
-    ];
-    console.log(`⚠️ Using fallback data: ${officials.length} officials`);
+    try {
+      // Try to load from data/officials.json
+      const officialsData = fs.readFileSync('./data/officials.json', 'utf8');
+      officials = JSON.parse(officialsData);
+      console.log(`📋 Loaded ${officials.length} officials from data/officials.json`);
+    } catch (error2) {
+      console.error('❌ Failed to load officials.json from both locations:', error2.message);
+      // Use a larger sample of officials for demo
+      officials = [
+        { slug: "danielle-smith", fullName: "Danielle Smith", office: "Member of Legislative Assembly" },
+        { slug: "pat-kelly", fullName: "Pat Kelly", office: "Member of Parliament" },
+        { slug: "rachel-notley", fullName: "Rachel Notley", office: "Member of Legislative Assembly" },
+        { slug: "jason-kenney", fullName: "Jason Kenney", office: "Member of Legislative Assembly" },
+        { slug: "doug-schweitzer", fullName: "Doug Schweitzer", office: "Member of Legislative Assembly" },
+        { slug: "tyler-shandro", fullName: "Tyler Shandro", office: "Member of Legislative Assembly" },
+        { slug: "travis-toews", fullName: "Travis Toews", office: "Member of Legislative Assembly" },
+        { slug: "jason-nixon", fullName: "Jason Nixon", office: "Member of Legislative Assembly" },
+        { slug: "ric-mclver", fullName: "Ric McIver", office: "Member of Legislative Assembly" },
+        { slug: "jason-copping", fullName: "Jason Copping", office: "Member of Legislative Assembly" }
+      ];
+      console.log(`⚠️ Using extended sample data: ${officials.length} officials`);
+    }
   }
   
   const results = {
