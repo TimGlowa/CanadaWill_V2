@@ -32,12 +32,53 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// SERPHouse test route
-app.get('/api/serp/test', (req, res) => {
-  res.json({ 
-    message: 'SERPHouse test route working!',
-    timestamp: new Date().toISOString()
-  });
+// SERPHouse test route - now runs the enhanced query builder test
+app.get('/api/serp/test', async (req, res) => {
+  try {
+    const { spawn } = require('child_process');
+    
+    console.log('🚀 Starting enhanced query builder test...');
+    
+    const child = spawn('node', ['./test-enhanced-query-builder.js'], {
+      stdio: ['pipe', 'pipe', 'pipe'],
+      cwd: process.cwd()
+    });
+    
+    let output = '';
+    let errorOutput = '';
+    
+    child.stdout.on('data', (data) => {
+      const text = data.toString();
+      output += text;
+      console.log(text);
+    });
+    
+    child.stderr.on('data', (data) => {
+      const text = data.toString();
+      errorOutput += text;
+      console.error(text);
+    });
+    
+    child.on('close', (code) => {
+      console.log(`Query builder test finished with code ${code}`);
+      res.json({
+        success: code === 0,
+        exitCode: code,
+        output: output,
+        error: errorOutput,
+        message: 'Enhanced query builder test completed',
+        timestamp: new Date().toISOString()
+      });
+    });
+    
+  } catch (error) {
+    console.error('Error running query builder test:', error);
+    res.json({ 
+      error: 'Failed to run query builder test',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // Test directory listing endpoint
