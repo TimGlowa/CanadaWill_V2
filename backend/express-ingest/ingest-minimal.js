@@ -468,10 +468,10 @@ async function storeResultsInBlobStorage(slug, date, serphouseResponse) {
 async function makeSerphouseCall(query, date) {
   const axios = require('axios');
   
-  const apiToken = process.env.SERPHOUSE_API_KEY;
+  const apiToken = process.env.SERPHOUSE_API_TOKEN;
   if (!apiToken) {
-    console.error('SERPHOUSE_API_KEY not found in environment variables');
-    throw new Error('SERPHOUSE_API_KEY environment variable is required');
+    console.error('SERPHOUSE_API_TOKEN not found in environment variables');
+    throw new Error('SERPHOUSE_API_TOKEN environment variable is required');
   }
 
   const url = 'https://api.serphouse.com/serp/live';
