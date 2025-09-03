@@ -40,6 +40,65 @@ app.get('/api/serp/test', (req, res) => {
   });
 });
 
+// Backfill execution endpoint
+app.post('/api/backfill/run', async (req, res) => {
+  try {
+    const { script } = req.body;
+    const { spawn } = require('child_process');
+    
+    let scriptPath;
+    if (script === 'test') {
+      scriptPath = './scripts/test-backfill.js';
+    } else if (script === 'full') {
+      scriptPath = './scripts/12-month-backfill.js';
+    } else {
+      return res.status(400).json({ error: 'Invalid script. Use "test" or "full"' });
+    }
+    
+    console.log(`🚀 Starting ${script} backfill script...`);
+    
+    const child = spawn('node', [scriptPath], {
+      stdio: ['pipe', 'pipe', 'pipe'],
+      cwd: process.cwd()
+    });
+    
+    let output = '';
+    let errorOutput = '';
+    
+    child.stdout.on('data', (data) => {
+      const text = data.toString();
+      output += text;
+      console.log(text);
+    });
+    
+    child.stderr.on('data', (data) => {
+      const text = data.toString();
+      errorOutput += text;
+      console.error(text);
+    });
+    
+    child.on('close', (code) => {
+      console.log(`Backfill script finished with code ${code}`);
+      res.json({
+        success: code === 0,
+        exitCode: code,
+        output: output,
+        error: errorOutput,
+        script: script,
+        timestamp: new Date().toISOString()
+      });
+    });
+    
+  } catch (error) {
+    console.error('Error running backfill:', error);
+    res.status(500).json({ 
+      error: 'Failed to run backfill script',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Sentiment analysis endpoints
 app.get('/api/sentiment/test', async (req, res) => {
   try {
