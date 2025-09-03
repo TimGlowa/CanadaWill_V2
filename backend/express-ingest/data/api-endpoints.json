@@ -1,0 +1,8 @@
+{
+  "health": "https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/health",
+  "vendorProbe": "https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/news/serp/vendor-probe",
+  "testBackfill": "https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/ingest/test-backfill",
+  "fullBackfill": "https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/ingest/run",
+  "status": "https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/ingest/status",
+  "verify": "https://canadawill-ingest-ave2f8fjcxeuaehz.canadacentral-01.azurewebsites.net/api/ingest/verify"
+}

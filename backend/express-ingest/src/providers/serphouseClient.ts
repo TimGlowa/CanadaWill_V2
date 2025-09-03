@@ -31,6 +31,62 @@ type FetchArgs = {
   qOverride?: string;   // optional raw query override (for testing)
 };
 
+export function buildEnhancedQuery(person: any): string {
+  // Define separation keywords (negatives)
+  const separationKeywords = [
+    "Alberta separation",
+    "Alberta independence", 
+    "Alberta sovereignty",
+    "Sovereignty Act",
+    "referendum",
+    "secede",
+    "secession",
+    "leave Canada",
+    "break from Canada",
+    "Alberta Prosperity Project",
+    "Forever Canada",
+    "Forever Canadian"
+  ];
+
+  // Define unity keywords (positives)
+  const unityKeywords = [
+    "remain in Canada",
+    "stay in Canada", 
+    "support Canada",
+    "oppose separation",
+    "oppose independence",
+    "pro-Canada stance",
+    "keep Alberta in Canada"
+  ];
+
+  // Combine all keywords
+  const allKeywords = [...separationKeywords, ...unityKeywords];
+
+  // Determine title variants based on office
+  let titleVariants = [];
+  if (person.office === "Member of Legislative Assembly") {
+    titleVariants = ["MLA", "Member of Legislative Assembly"];
+  } else if (person.office === "Member of Parliament") {
+    titleVariants = ["MP", "Member of Parliament"];
+  } else {
+    // Fallback for other office types
+    titleVariants = [person.office];
+  }
+
+  // Build the query following the exact specification:
+  // "<FullName>" AND ("<Title Variants>") AND (<keywords>)
+  const fullName = `"${person.fullName}"`;
+  const titleClause = `(${titleVariants.map(v => `"${v}"`).join(' OR ')})`;
+  const keywordClause = `(${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+
+  const query = `${fullName} ${titleClause} AND ${keywordClause}`;
+
+  // Log the exact query for debugging/reproducibility
+  console.log(`[QUERY BUILDER] Generated query for ${person.slug}: ${query}`);
+
+  return query;
+}
+
 export async function fetchNews(
   { who, days = 7, limit = 50, qOverride }: FetchArgs
 ): Promise<any[]> {

@@ -79,30 +79,58 @@ class SerphouseClient {
   }
 
   buildSearchQuery(person) {
-    const nameParts = [person.fullName];
-    
-    // Add aliases
-    if (person.aliases && person.aliases.length > 0) {
-      nameParts.push(...person.aliases);
+    // Define separation keywords (negatives)
+    const separationKeywords = [
+      "Alberta separation",
+      "Alberta independence", 
+      "Alberta sovereignty",
+      "Sovereignty Act",
+      "referendum",
+      "secede",
+      "secession",
+      "leave Canada",
+      "break from Canada",
+      "Alberta Prosperity Project",
+      "Forever Canada",
+      "Forever Canadian"
+    ];
+
+    // Define unity keywords (positives)
+    const unityKeywords = [
+      "remain in Canada",
+      "stay in Canada", 
+      "support Canada",
+      "oppose separation",
+      "oppose independence",
+      "pro-Canada stance",
+      "keep Alberta in Canada"
+    ];
+
+    // Combine all keywords
+    const allKeywords = [...separationKeywords, ...unityKeywords];
+
+    // Determine title variants based on office
+    let titleVariants = [];
+    if (person.office === "Member of Legislative Assembly") {
+      titleVariants = ["MLA", "Member of Legislative Assembly"];
+    } else if (person.office === "Member of Parliament") {
+      titleVariants = ["MP", "Member of Parliament"];
+    } else {
+      // Fallback for other office types
+      titleVariants = [person.office];
     }
-    
-    // Add riding context
-    if (person.riding) {
-      nameParts.push(`"${person.riding}"`);
-    }
-    
-    // Add Alberta context
-    nameParts.push('Alberta');
-    
-    // Add separation/secession context
-    nameParts.push('separation', 'secession', 'independence', 'sovereignty');
-    
-    // Build OR query with safe operators
-    const query = nameParts
-      .filter(term => term && term.trim())
-      .map(term => term.includes(' ') ? `"${term}"` : term)
-      .join(' OR ');
-    
+
+    // Build the query following the exact specification:
+    // "<FullName>" AND ("<Title Variants>") AND (<keywords>)
+    const fullName = `"${person.fullName}"`;
+    const titleClause = `(${titleVariants.map(v => `"${v}"`).join(' OR ')})`;
+    const keywordClause = `(${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+
+    const query = `${fullName} ${titleClause} AND ${keywordClause}`;
+
+    // Log the exact query for debugging/reproducibility
+    console.log(`[QUERY BUILDER] Generated query for ${person.slug}: ${query}`);
+
     return query;
   }
 
