@@ -79,8 +79,8 @@ app.get('/api/serp/test', async (req, res) => {
         titleVariants = '"MLA" OR "Member of Legislative Assembly" OR "MP" OR "Member of Parliament"';
       }
 
-      // Build the enhanced query with proper boolean logic
-      const query = `"${person.fullName}" (${titleVariants}) AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+      // Build the enhanced query with proper boolean logic per PRD
+      const query = `"${person.fullName}" "${person.office}" AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
       
       return query;
     }
@@ -287,7 +287,7 @@ async function runTestBackfill(res) {
   console.log(`❌ Failed queries: ${results.failedQueries}`);
   console.log(`📰 Total articles found: ${results.totalArticles}`);
   
-  res.json({
+  res.json({ 
     success: true,
     message: 'Test backfill completed successfully',
     results: results,
@@ -299,132 +299,10 @@ async function runTestBackfill(res) {
 async function runFullBackfill(res) {
   console.log('🚀 Starting Full 12-Month Backfill (all 121 officials)...');
   
-  // Load officials data - use embedded data for all 121 officials
-  const officials = [
-    { slug: "ziad-aboultaif", fullName: "Ziad Aboultaif", office: "Member of Parliament", district_name: "Edmonton Manning" },
-    { slug: "john-barlow", fullName: "John Barlow", office: "Member of Parliament", district_name: "Foothills" },
-    { slug: "randy-boissonnault", fullName: "Randy Boissonnault", office: "Member of Parliament", district_name: "Edmonton Centre" },
-    { slug: "blaine-calkins", fullName: "Blaine Calkins", office: "Member of Parliament", district_name: "Ponoka—Didsbury" },
-    { slug: "george-chahal", fullName: "George Chahal", office: "Member of Parliament", district_name: "Calgary Skyview" },
-    { slug: "michael-cooper", fullName: "Michael Cooper", office: "Member of Parliament", district_name: "St. Albert—Sturgeon River" },
-    { slug: "blake-desjarlais", fullName: "Blake Desjarlais", office: "Member of Parliament", district_name: "Edmonton Griesbach" },
-    { slug: "earl-dreeshen", fullName: "Earl Dreeshen", office: "Member of Parliament", district_name: "Red Deer—Mountain View" },
-    { slug: "garnett-genuis", fullName: "Garnett Genuis", office: "Member of Parliament", district_name: "Sherwood Park—Fort Saskatchewan" },
-    { slug: "laila-goodridge", fullName: "Laila Goodridge", office: "Member of Parliament", district_name: "Fort McMurray—Cold Lake" },
-    { slug: "jasrajsingh-hallan", fullName: "Jasraj Singh Hallan", office: "Member of Parliament", district_name: "Calgary Forest Lawn" },
-    { slug: "matt-jeneroux", fullName: "Matt Jeneroux", office: "Member of Parliament", district_name: "Edmonton Riverbend" },
-    { slug: "pat-kelly", fullName: "Pat Kelly", office: "Member of Parliament", district_name: "Calgary Rocky Ridge" },
-    { slug: "tom-kmiec", fullName: "Tom Kmiec", office: "Member of Parliament", district_name: "Calgary Shepard" },
-    { slug: "damien-kurek", fullName: "Damien Kurek", office: "Member of Parliament", district_name: "Battle River—Crowfoot" },
-    { slug: "stephanie-kusie", fullName: "Stephanie Kusie", office: "Member of Parliament", district_name: "Calgary Midnapore" },
-    { slug: "mike-lake", fullName: "Mike Lake", office: "Member of Parliament", district_name: "Leduc—Wetaskiwin" },
-    { slug: "ron-liepert", fullName: "Ron Liepert", office: "Member of Parliament", district_name: "Calgary Signal Hill" },
-    { slug: "dane-lloyd", fullName: "Dane Lloyd", office: "Member of Parliament", district_name: "Parkland" },
-    { slug: "shuvaloy-majumdar", fullName: "Shuvaloy Majumdar", office: "Member of Parliament", district_name: "Calgary Heritage" },
-    { slug: "kelly-mccauley", fullName: "Kelly McCauley", office: "Member of Parliament", district_name: "Edmonton West" },
-    { slug: "greg-mclean", fullName: "Greg McLean", office: "Member of Parliament", district_name: "Calgary Centre" },
-    { slug: "heather-mcpherson", fullName: "Heather McPherson", office: "Member of Parliament", district_name: "Edmonton Strathcona" },
-    { slug: "glen-motz", fullName: "Glen Motz", office: "Member of Parliament", district_name: "Medicine Hat—Cardston—Warner" },
-    { slug: "michellerempel-garner", fullName: "Michelle Rempel Garner", office: "Member of Parliament", district_name: "Calgary Nose Hill" },
-    { slug: "blake-richards", fullName: "Blake Richards", office: "Member of Parliament", district_name: "Airdrie—Cochrane" },
-    { slug: "martin-shields", fullName: "Martin Shields", office: "Member of Parliament", district_name: "Bow River" },
-    { slug: "gerald-soroka", fullName: "Gerald Soroka", office: "Member of Parliament", district_name: "Yellowhead" },
-    { slug: "shannon-stubbs", fullName: "Shannon Stubbs", office: "Member of Parliament", district_name: "Lakeland" },
-    { slug: "rachael-thomas", fullName: "Rachael Thomas", office: "Member of Parliament", district_name: "Lethbridge" },
-    { slug: "tim-uppal", fullName: "Tim Uppal", office: "Member of Parliament", district_name: "Edmonton Gateway" },
-    { slug: "arnold-viersen", fullName: "Arnold Viersen", office: "Member of Parliament", district_name: "Peace River—Westlock" },
-    { slug: "chris-warkentin", fullName: "Chris Warkentin", office: "Member of Parliament", district_name: "Grande Prairie" },
-    { slug: "len-webber", fullName: "Len Webber", office: "Member of Parliament", district_name: "Calgary Confederation" },
-    { slug: "pete-guthrie", fullName: "Pete Guthrie", office: "Member of Legislative Assembly", district_name: "Airdrie-Cochrane" },
-    { slug: "angela-pitt", fullName: "Angela Pitt", office: "Member of Legislative Assembly", district_name: "Airdrie-East" },
-    { slug: "glenn-vandijken", fullName: "Glenn van Dijken", office: "Member of Legislative Assembly", district_name: "Athabasca-Barrhead-Westlock" },
-    { slug: "sarah-elmeligi", fullName: "Sarah Elmeligi", office: "Member of Legislative Assembly", district_name: "Banff-Kananaskis" },
-    { slug: "scott-cyr", fullName: "Scott Cyr", office: "Member of Legislative Assembly", district_name: "Bonnyville-Cold Lake-St. Paul" },
-    { slug: "danielle-smith", fullName: "Danielle Smith", office: "Member of Legislative Assembly", district_name: "Brooks-Medicine Hat" },
-    { slug: "diana-batten", fullName: "Diana Batten", office: "Member of Legislative Assembly", district_name: "Calgary-Acadia" },
-    { slug: "amanda-chapman", fullName: "Amanda Chapman", office: "Member of Legislative Assembly", district_name: "Calgary-Beddington" },
-    { slug: "irfan-sabir", fullName: "Irfan Sabir", office: "Member of Legislative Assembly", district_name: "Calgary-McCall" },
-    { slug: "demetrios-nicolaides", fullName: "Demetrios Nicolaides", office: "Member of Legislative Assembly", district_name: "Calgary-Bow" },
-    { slug: "joe-ceci", fullName: "Joe Ceci", office: "Member of Legislative Assembly", district_name: "Calgary-Buffalo" },
-    { slug: "mickey-amerykc", fullName: "Mickey Amery, KC", office: "Member of Legislative Assembly", district_name: "Calgary-Cross" },
-    { slug: "janet-eremenko", fullName: "Janet Eremenko", office: "Member of Legislative Assembly", district_name: "Calgary-Currie" },
-    { slug: "peter-singh", fullName: "Peter Singh", office: "Member of Legislative Assembly", district_name: "Calgary-East" },
-    { slug: "julia-hayter", fullName: "Julia Hayter", office: "Member of Legislative Assembly", district_name: "Calgary-Edgemont" },
-    { slug: "samir-kayande", fullName: "Samir Kayande", office: "Member of Legislative Assembly", district_name: "Calgary-Elbow" },
-    { slug: "parmeet-boparai", fullName: "Parmeet Boparai", office: "Member of Legislative Assembly", district_name: "Calgary-Falconridge" },
-    { slug: "myles-mcdougall", fullName: "Myles McDougall", office: "Member of Legislative Assembly", district_name: "Calgary-Fish Creek" },
-    { slug: "court-ellingson", fullName: "Court Ellingson", office: "Member of Legislative Assembly", district_name: "Calgary-Foothills" },
-    { slug: "nagwan-alguneid", fullName: "Nagwan Al-Guneid", office: "Member of Legislative Assembly", district_name: "Calgary-Glenmore" },
-    { slug: "ric-mciver", fullName: "Ric McIver", office: "Member of Legislative Assembly", district_name: "Calgary-Hays" },
-    { slug: "lizette-tejada", fullName: "Lizette Tejada", office: "Member of Legislative Assembly", district_name: "Calgary-Klein" },
-    { slug: "eric-bouchard", fullName: "Eric Bouchard", office: "Member of Legislative Assembly", district_name: "Calgary-Lougheed" },
-    { slug: "kathleen-ganley", fullName: "Kathleen Ganley", office: "Member of Legislative Assembly", district_name: "Calgary-Mountain View" },
-    { slug: "muhammad-yaseen", fullName: "Muhammad Yaseen", office: "Member of Legislative Assembly", district_name: "Calgary-North" },
-    { slug: "gurinder-brar", fullName: "Gurinder Brar", office: "Member of Legislative Assembly", district_name: "Calgary-North East" },
-    { slug: "rajan-sawhney", fullName: "Rajan Sawhney", office: "Member of Legislative Assembly", district_name: "Calgary-North West" },
-    { slug: "tanya-fir", fullName: "Tanya Fir", office: "Member of Legislative Assembly", district_name: "Calgary-Peigan" },
-    { slug: "rebecca-schulz", fullName: "Rebecca Schulz", office: "Member of Legislative Assembly", district_name: "Calgary-Shaw" },
-    { slug: "matt-jones", fullName: "Matt Jones", office: "Member of Legislative Assembly", district_name: "Calgary-South East" },
-    { slug: "luanne-metz", fullName: "Luanne Metz", office: "Member of Legislative Assembly", district_name: "Calgary-Varsity" },
-    { slug: "mike-ellis", fullName: "Mike Ellis", office: "Member of Legislative Assembly", district_name: "Calgary-West" },
-    { slug: "jackie-lovely", fullName: "Jackie Lovely", office: "Member of Legislative Assembly", district_name: "Camrose" },
-    { slug: "joseph-schow", fullName: "Joseph Schow", office: "Member of Legislative Assembly", district_name: "Cardston-Siksika" },
-    { slug: "todd-loewen", fullName: "Todd Loewen", office: "Member of Legislative Assembly", district_name: "Central Peace-Notley" },
-    { slug: "chantelle-dejonge", fullName: "Chantelle de Jonge", office: "Member of Legislative Assembly", district_name: "Chestermere-Strathmore" },
-    { slug: "justin-wright", fullName: "Justin Wright", office: "Member of Legislative Assembly", district_name: "Cypress-Medicine Hat" },
-    { slug: "andrew-boitchenko", fullName: "Andrew Boitchenko", office: "Member of Legislative Assembly", district_name: "Drayton Valley-Devon" },
-    { slug: "nate-horner", fullName: "Nate Horner", office: "Member of Legislative Assembly", district_name: "Drumheller-Stettler" },
-    { slug: "peggy-wright", fullName: "Peggy Wright", office: "Member of Legislative Assembly", district_name: "Edmonton-Beverly-Clareview" },
-    { slug: "nicole-goehring", fullName: "Nicole Goehring", office: "Member of Legislative Assembly", district_name: "Edmonton-Castle Downs" },
-    { slug: "david-shepherd", fullName: "David Shepherd", office: "Member of Legislative Assembly", district_name: "Edmonton-City Centre" },
-    { slug: "sharif-haji", fullName: "Sharif Haji", office: "Member of Legislative Assembly", district_name: "Edmonton-Decore" },
-    { slug: "gurtej-brarmemberelect", fullName: "Gurtej Brar - Member-elect", office: "Member of Legislative Assembly", district_name: "Edmonton-Ellerslie" },
-    { slug: "sarah-hoffman", fullName: "Sarah Hoffman", office: "Member of Legislative Assembly", district_name: "Edmonton-Glenora" },
-    { slug: "marlin-schmidt", fullName: "Marlin Schmidt", office: "Member of Legislative Assembly", district_name: "Edmonton-Gold Bar" },
-    { slug: "janis-irwin", fullName: "Janis Irwin", office: "Member of Legislative Assembly", district_name: "Edmonton-Highlands-Norwood" },
-    { slug: "heather-sweet", fullName: "Heather Sweet", office: "Member of Legislative Assembly", district_name: "Edmonton-Manning" },
-    { slug: "lorne-dach", fullName: "Lorne Dach", office: "Member of Legislative Assembly", district_name: "Edmonton-McClung" },
-    { slug: "jasvir-deol", fullName: "Jasvir Deol", office: "Member of Legislative Assembly", district_name: "Edmonton-Meadows" },
-    { slug: "christina-gray", fullName: "Christina Gray", office: "Member of Legislative Assembly", district_name: "Edmonton-Mill Woods" },
-    { slug: "david-eggen", fullName: "David Eggen", office: "Member of Legislative Assembly", district_name: "Edmonton-North West" },
-    { slug: "lori-sigurdson", fullName: "Lori Sigurdson", office: "Member of Legislative Assembly", district_name: "Edmonton-Riverview" },
-    { slug: "jodi-calahoostonehouse", fullName: "Jodi Calahoo Stonehouse", office: "Member of Legislative Assembly", district_name: "Edmonton-Rutherford" },
-    { slug: "rhiannon-hoyle", fullName: "Rhiannon Hoyle", office: "Member of Legislative Assembly", district_name: "Edmonton-South" },
-    { slug: "nathan-ip", fullName: "Nathan Ip", office: "Member of Legislative Assembly", district_name: "Edmonton-South West" },
-    { slug: "naheed-nenshimemberelect", fullName: "Naheed Nenshi - Member-elect", office: "Member of Legislative Assembly", district_name: "Edmonton-Strathcona" },
-    { slug: "brooks-arcandpaul", fullName: "Brooks Arcand-Paul", office: "Member of Legislative Assembly", district_name: "Edmonton-West Henday" },
-    { slug: "rakhi-pancholi", fullName: "Rakhi Pancholi", office: "Member of Legislative Assembly", district_name: "Edmonton-Whitemud" },
-    { slug: "brian-jeankc", fullName: "Brian Jean, KC", office: "Member of Legislative Assembly", district_name: "Fort McMurray-Lac La Biche" },
-    { slug: "tany-yao", fullName: "Tany Yao", office: "Member of Legislative Assembly", district_name: "Fort McMurray-Wood Buffalo" },
-    { slug: "jackie-armstronghomeniuk", fullName: "Jackie Armstrong-Homeniuk", office: "Member of Legislative Assembly", district_name: "Fort Saskatchewan-Vegreville" },
-    { slug: "nolan-dyck", fullName: "Nolan Dyck", office: "Member of Legislative Assembly", district_name: "Grande Prairie" },
-    { slug: "ron-wiebe", fullName: "Ron Wiebe", office: "Member of Legislative Assembly", district_name: "Grande Prairie-Wapiti" },
-    { slug: "rj-sigurdson", fullName: "R.J. Sigurdson", office: "Member of Legislative Assembly", district_name: "Highwood" },
-    { slug: "devin-dreeshen", fullName: "Devin Dreeshen", office: "Member of Legislative Assembly", district_name: "Innisfail-Sylvan Lake" },
-    { slug: "shane-getson", fullName: "Shane Getson", office: "Member of Legislative Assembly", district_name: "Lac Ste. Anne-Parkland" },
-    { slug: "jennifer-johnson", fullName: "Jennifer Johnson", office: "Member of Legislative Assembly", district_name: "Lacombe-Ponoka" },
-    { slug: "brandon-lunty", fullName: "Brandon Lunty", office: "Member of Legislative Assembly", district_name: "Leduc-Beaumont" },
-    { slug: "scott-sinclair", fullName: "Scott Sinclair", office: "Member of Legislative Assembly", district_name: "Lesser Slave Lake" },
-    { slug: "nathan-neudorf", fullName: "Nathan Neudorf", office: "Member of Legislative Assembly", district_name: "Lethbridge-East" },
-    { slug: "rob-miyashiro", fullName: "Rob Miyashiro", office: "Member of Legislative Assembly", district_name: "Lethbridge-West" },
-    { slug: "chelsae-petrovic", fullName: "Chelsae Petrovic", office: "Member of Legislative Assembly", district_name: "Livingstone-Macleod" },
-    { slug: "rick-wilson", fullName: "Rick Wilson", office: "Member of Legislative Assembly", district_name: "Maskwacis-Wetaskiwin" },
-    { slug: "dale-nally", fullName: "Dale Nally", office: "Member of Legislative Assembly", district_name: "Morinville-St. Albert" },
-    { slug: "tara-sawyermemberelect", fullName: "Tara Sawyer - Member-elect", office: "Member of Legislative Assembly", district_name: "Olds-Didsbury-Three Hills" },
-    { slug: "dan-williams", fullName: "Dan Williams", office: "Member of Legislative Assembly", district_name: "Peace River" },
-    { slug: "adriana-lagrange", fullName: "Adriana LaGrange", office: "Member of Legislative Assembly", district_name: "Red Deer-North" },
-    { slug: "jason-stephan", fullName: "Jason Stephan", office: "Member of Legislative Assembly", district_name: "Red Deer-South" },
-    { slug: "jason-nixon", fullName: "Jason Nixon", office: "Member of Legislative Assembly", district_name: "Rimbey-Rocky Mountain House-Sundre" },
-    { slug: "kyle-kasawski", fullName: "Kyle Kasawski", office: "Member of Legislative Assembly", district_name: "Sherwood Park" },
-    { slug: "searle-turton", fullName: "Searle Turton", office: "Member of Legislative Assembly", district_name: "Spruce Grove-Stony Plain" },
-    { slug: "marie-renaud", fullName: "Marie Renaud", office: "Member of Legislative Assembly", district_name: "St. Albert" },
-    { slug: "nate-glubish", fullName: "Nate Glubish", office: "Member of Legislative Assembly", district_name: "Strathcona-Sherwood Park" },
-    { slug: "grant-hunter", fullName: "Grant Hunter", office: "Member of Legislative Assembly", district_name: "Taber-Warner" },
-    { slug: "garth-rowswell", fullName: "Garth Rowswell", office: "Member of Legislative Assembly", district_name: "Vermilion-Lloydminster-Wainwright" },
-    { slug: "martin-long", fullName: "Martin Long", office: "Member of Legislative Assembly", district_name: "West Yellowhead" }
-  ];
+  // Load officials data from file
+  const officials = require('./data/ab-roster-transformed.json');
   
-  console.log(`📋 Using embedded data: ${officials.length} officials`);
+  console.log(`📋 Loaded ${officials.length} officials from ab-roster-transformed.json`);
   
   const results = {
     totalOfficials: officials.length,
@@ -468,6 +346,9 @@ async function runFullBackfill(res) {
                 
                 // Make actual SERPHouse API call
                 const serphouseResponse = await makeSerphouseCall(query, date);
+                
+                // Store results in Azure Blob Storage
+                await storeResultsInBlobStorage(official.slug, date, serphouseResponse);
                 
                 officialResults.queries.push({
                   date: date,
@@ -550,22 +431,52 @@ function buildEnhancedQuery(person) {
     titleVariants = '"MLA" OR "Member of Legislative Assembly" OR "MP" OR "Member of Parliament"';
   }
 
-  return `"${person.fullName}" (${titleVariants}) AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+  return `"${person.fullName}" "${person.office}" AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+}
+
+// Store results in Azure Blob Storage
+async function storeResultsInBlobStorage(slug, date, serphouseResponse) {
+  const { BlobServiceClient } = require('@azure/storage-blob');
+  
+  const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
+  if (!connectionString) {
+    console.error('AZURE_STORAGE_CONNECTION_STRING not found in environment variables');
+    throw new Error('AZURE_STORAGE_CONNECTION_STRING environment variable is required');
+  }
+  
+  const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+  const containerName = 'articles';
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  
+  const blobName = `raw/serp/${slug}/${date}.json`;
+  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+  
+  const data = JSON.stringify(serphouseResponse, null, 2);
+  
+  try {
+    await blockBlobClient.upload(data, data.length, {
+      blobHTTPHeaders: { blobContentType: 'application/json' }
+    });
+    console.log(`✅ Stored results for ${slug}/${date} in Azure Blob Storage`);
+  } catch (error) {
+    console.error(`❌ Failed to store results for ${slug}/${date}:`, error.message);
+    throw error;
+  }
 }
 
 // Actual SERPHouse API call function
 async function makeSerphouseCall(query, date) {
   const axios = require('axios');
   
-  const apiToken = process.env.SERPHOUSE_API_TOKEN;
+  const apiToken = process.env.SERPHOUSE_API_KEY;
   if (!apiToken) {
-    console.error('SERPHOUSE_API_TOKEN not found in environment variables');
-    throw new Error('SERPHOUSE_API_TOKEN environment variable is required');
+    console.error('SERPHOUSE_API_KEY not found in environment variables');
+    throw new Error('SERPHOUSE_API_KEY environment variable is required');
   }
 
   const url = 'https://api.serphouse.com/serp/live';
   const params = {
-    api_token: apiToken,
+    api_key: apiToken,
     q: query,
     domain: 'google.ca',
     lang: 'en',
@@ -580,15 +491,15 @@ async function makeSerphouseCall(query, date) {
     const response = await axios.get(url, { params });
     console.log(`SERPHouse API response status: ${response.status}`);
     
-    if (response.data && response.data.news) {
-      console.log(`Found ${response.data.news.length} articles`);
+    if (response.data && response.data.organic_results) {
+      console.log(`Found ${response.data.organic_results.length} articles`);
       return {
-        count: response.data.news.length,
-        articles: response.data.news,
+        count: response.data.organic_results.length,
+        articles: response.data.organic_results,
         status: response.status
       };
     } else {
-      console.log('No news data in response');
+      console.log('No organic_results data in response');
       return {
         count: 0,
         articles: [],
@@ -858,7 +769,7 @@ app.get('/api/sentiment/count-all-articles', async (req, res) => {
     console.log('=== Counting All Articles Across All Politicians ===');
     
     // Load the politician roster
-    const roster = require('./data/ab-roster.json');
+    const roster = require('./data/ab-roster-transformed.json');
     console.log(`Found ${roster.length} politicians in roster`);
     
     const results = [];
@@ -871,7 +782,7 @@ app.get('/api/sentiment/count-all-articles', async (req, res) => {
       const politicianSlug = politician.slug;
       
       try {
-        console.log(`Checking ${i + 1}/${roster.length}: ${politician.name} (${politicianSlug})`);
+        console.log(`Checking ${i + 1}/${roster.length}: ${politician.fullName} (${politicianSlug})`);
         
         // Load articles for this politician
         const articles = await analyzer.readArticlesFromStorage(politicianSlug, 100); // Get up to 100 articles
@@ -895,7 +806,7 @@ app.get('/api/sentiment/count-all-articles', async (req, res) => {
           }
           
           results.push({
-            politician: politician.name,
+            politician: politician.fullName,
             slug: politicianSlug,
             totalArticles: articleCount,
             articlesWithContent: articlesWithContent,
@@ -905,7 +816,7 @@ app.get('/api/sentiment/count-all-articles', async (req, res) => {
         } else {
           politiciansWithEmptyResults++;
           results.push({
-            politician: politician.name,
+            politician: politician.fullName,
             slug: politicianSlug,
             totalArticles: 0,
             articlesWithContent: 0,
@@ -914,10 +825,10 @@ app.get('/api/sentiment/count-all-articles', async (req, res) => {
           });
         }
         
-        console.log(`  ${politician.name}: ${articleCount} articles`);
+        console.log(`  ${politician.fullName}: ${articleCount} articles`);
         
       } catch (error) {
-        console.error(`Error checking ${politician.name}:`, error.message);
+        console.error(`Error checking ${politician.fullName}:`, error.message);
         results.push({
           politician: politician.name,
           slug: politicianSlug,
@@ -964,7 +875,7 @@ app.get('/api/sentiment/count-all-articles', async (req, res) => {
 app.get('/api/sentiment/article-table', async (req, res) => {
   try {
     const analyzer = new SentimentAnalyzer();
-    const roster = require('./data/ab-roster.json');
+    const roster = require('./data/ab-roster-transformed.json');
     
     console.log('📊 Generating detailed article table for all 121 politicians...');
     
@@ -973,7 +884,7 @@ app.get('/api/sentiment/article-table', async (req, res) => {
     
     for (const politician of roster) {
       try {
-        console.log(`Processing ${politician.name} (${totalProcessed + 1}/121)...`);
+        console.log(`Processing ${politician.fullName} (${totalProcessed + 1}/121)...`);
         
         // Read articles for this politician
         const articles = await analyzer.readArticlesFromStorage(politician.slug, 100); // Get up to 100 articles
@@ -1013,7 +924,7 @@ app.get('/api/sentiment/article-table', async (req, res) => {
             allArticles.push({
               date: date,
               source: sourceUrl,
-              politician: politician.name,
+              politician: politician.fullName,
               title: title,
               snippet: snippet,
               filename: article.filename
@@ -1023,7 +934,7 @@ app.get('/api/sentiment/article-table', async (req, res) => {
         
         totalProcessed++;
       } catch (error) {
-        console.error(`Error processing ${politician.name}:`, error.message);
+        console.error(`Error processing ${politician.fullName}:`, error.message);
         totalProcessed++;
       }
     }

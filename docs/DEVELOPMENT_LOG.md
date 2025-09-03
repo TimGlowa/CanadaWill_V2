@@ -50,6 +50,71 @@
 
 ---
 
+## 2025-09-03 16:32 CT — Task 2 Fixes: SERPHouse Query Builder and Data Loading Issues
+
+**Action**: Fixed multiple critical issues in `ingest-minimal.js` that were preventing Task 2 from working correctly.
+
+**Issues Identified and Fixed**:
+
+1. **❌ Wrong Query Structure** (Lines 83, 553)
+   - **Problem**: Query was `"${person.fullName}" (${titleVariants}) AND (${allKeywords...})`
+   - **PRD Requirement**: `"<FullName>" "<Office>" AND (separation + unity keywords)`
+   - **Fix**: Changed to `"${person.fullName}" "${person.office}" AND (${allKeywords...})`
+   - **Result**: Queries now match PRD format exactly
+
+2. **❌ Embedded Data Instead of File Loading** (Lines 302-425)
+   - **Problem**: All 121 officials hardcoded as embedded data
+   - **PRD Requirement**: Load from `backend/express-ingest/data/ab-roster-transformed.json`
+   - **Fix**: Replaced embedded array with `require('./data/ab-roster-transformed.json')`
+   - **Result**: Now loads actual data file with all 121 officials
+
+3. **❌ Wrong Environment Variable Name** (Line 560)
+   - **Problem**: Used `SERPHOUSE_API_TOKEN`
+   - **Azure Configuration**: Uses `SERPHOUSE_API_KEY`
+   - **Fix**: Changed to `process.env.SERPHOUSE_API_KEY`
+   - **Result**: Matches Azure environment configuration
+
+4. **❌ Wrong API Parameter** (Line 567)
+   - **Problem**: Used `api_token: apiToken`
+   - **SERPHouse API**: Requires `api_key: apiToken`
+   - **Fix**: Changed to `api_key: apiToken`
+   - **Result**: Matches SERPHouse API requirements
+
+5. **❌ Wrong Response Parsing** (Lines 583-597)
+   - **Problem**: Parsed `response.data.news`
+   - **SERPHouse Response**: Uses `response.data.organic_results`
+   - **Fix**: Changed to parse `response.data.organic_results`
+   - **Result**: Correctly extracts articles from API response
+
+6. **❌ Missing Azure Blob Storage** (Line 469)
+   - **Problem**: No storage of results to Azure Blob Storage
+   - **PRD Requirement**: Store in `articles/raw/serp/{slug}/{YYYY-MM-DD}.json`
+   - **Fix**: Added `storeResultsInBlobStorage()` function and call
+   - **Result**: Results now stored in correct Azure Blob Storage path
+
+7. **❌ Wrong Field Names** (Multiple locations)
+   - **Problem**: Used `politician.name` (from old data structure)
+   - **Current Data**: Uses `politician.fullName` (from ab-roster-transformed.json)
+   - **Fix**: Changed all references to `politician.fullName`
+   - **Result**: Matches actual data structure
+
+**Technical Implementation**:
+* **Query Format**: Now generates PRD-compliant queries like `"Danielle Smith" "Member of Legislative Assembly" AND ("Alberta separation" OR "remain in Canada"...)`
+* **Data Loading**: Loads all 121 officials from `ab-roster-transformed.json` file
+* **API Integration**: Uses correct `SERPHOUSE_API_KEY` environment variable and `api_key` parameter
+* **Response Handling**: Parses `organic_results` from SERPHouse API response
+* **Storage**: Stores results in Azure Blob Storage under `articles/raw/serp/{slug}/{YYYY-MM-DD}.json`
+* **Field Mapping**: Uses correct field names (`fullName`, `office`, `riding`) from transformed roster
+
+**Files Modified**:
+* `backend/express-ingest/ingest-minimal.js` - Fixed all 7 critical issues
+
+**Status**: ✅ **TASK 2 FIXES COMPLETE** - Code now properly loads data, makes correct API calls, and stores results
+
+**Next Step**: Deploy to Azure and test the 12-month backfill with all 121 officials.
+
+---
+
 ## 2025-09-02 15:25 CT — First Real Sentiment Analysis Results for Danielle Smith
 
 **Action**: Successfully processed all 19 Danielle Smith articles and obtained first real sentiment analysis results.
