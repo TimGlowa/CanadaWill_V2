@@ -488,8 +488,13 @@ async function makeSerphouseCall(query, date) {
 
   try {
     console.log(`Making SERPHouse API call for query: ${query}`);
+    console.log(`API Token present: ${apiToken ? 'YES' : 'NO'}`);
+    console.log(`API Token length: ${apiToken ? apiToken.length : 0}`);
+    console.log(`Request params:`, JSON.stringify(params, null, 2));
+    
     const response = await axios.get(url, { params });
     console.log(`SERPHouse API response status: ${response.status}`);
+    console.log(`SERPHouse response data keys:`, Object.keys(response.data || {}));
     
     if (response.data && response.data.organic_results) {
       console.log(`Found ${response.data.organic_results.length} articles`);
@@ -500,6 +505,7 @@ async function makeSerphouseCall(query, date) {
       };
     } else {
       console.log('No organic_results data in response');
+      console.log('Full response data:', JSON.stringify(response.data, null, 2));
       return {
         count: 0,
         articles: [],
@@ -509,6 +515,12 @@ async function makeSerphouseCall(query, date) {
   } catch (error) {
     console.error('SERPHouse API error:', error.message);
     console.error('Error details:', error.response?.data);
+    if (error.response) {
+      console.error('Response status:', error.response.status);
+      console.error('Response data:', JSON.stringify(error.response.data, null, 2));
+    } else {
+      console.error('No response object in error:', error);
+    }
     throw error;
   }
 }
