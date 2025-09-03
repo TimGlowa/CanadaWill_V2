@@ -358,6 +358,7 @@ async function runFullBackfill(res) {
 
     } catch (error) {
       console.error(`Error processing ${official.fullName}:`, error.message);
+      const query = buildEnhancedQuery(official);
       officialResults.queries.push({
         dateRange: `${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]}`,
         success: false,
