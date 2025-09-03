@@ -369,30 +369,33 @@ async function runFullBackfill(res) {
     // Process only first 30 days for demo (to avoid timeout)
     const demoDates = dates.slice(0, 30);
     
-    for (const date of demoDates) {
-      try {
-        const query = buildEnhancedQuery(official);
-        const mockResults = Math.floor(Math.random() * 5) + 1; // Mock 1-5 articles
-        
-        officialResults.queries.push({
-          date: date,
-          success: true,
-          articlesFound: mockResults,
-          query: query
-        });
-        
-        officialResults.totalArticles += mockResults;
-        results.successfulQueries++;
-        
-      } catch (error) {
-        officialResults.queries.push({
-          date: date,
-          success: false,
-          error: error.message
-        });
-        results.failedQueries++;
-      }
-    }
+                for (const date of demoDates) {
+              try {
+                const query = buildEnhancedQuery(official);
+                
+                // Make actual SERPHouse API call
+                const serphouseResponse = await makeSerphouseCall(query, date);
+                
+                officialResults.queries.push({
+                  date: date,
+                  success: true,
+                  articlesFound: serphouseResponse.count || 0,
+                  query: query,
+                  articles: serphouseResponse.articles || []
+                });
+
+                officialResults.totalArticles += serphouseResponse.count || 0;
+                results.successfulQueries++;
+
+              } catch (error) {
+                officialResults.queries.push({
+                  date: date,
+                  success: false,
+                  error: error.message
+                });
+                results.failedQueries++;
+              }
+            }
     
     results.totalArticles += officialResults.totalArticles;
     results.processedOfficials++;
@@ -444,7 +447,7 @@ function buildEnhancedQuery(person) {
   ];
 
   const allKeywords = [...separationKeywords, ...unityKeywords];
-  
+
   let titleVariants;
   if (person.office.includes('Legislative Assembly') || person.office.includes('MLA')) {
     titleVariants = '"MLA" OR "Member of Legislative Assembly"';
@@ -455,6 +458,49 @@ function buildEnhancedQuery(person) {
   }
 
   return `"${person.fullName}" (${titleVariants}) AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+}
+
+// Actual SERPHouse API call function
+async function makeSerphouseCall(query, date) {
+  const axios = require('axios');
+  
+  const apiToken = process.env.SERPHOUSE_API_TOKEN;
+  if (!apiToken) {
+    throw new Error('SERPHOUSE_API_TOKEN environment variable is required');
+  }
+
+  const url = 'https://api.serphouse.com/serp/live';
+  const params = {
+    api_token: apiToken,
+    q: query,
+    domain: 'google.ca',
+    lang: 'en',
+    device: 'desktop',
+    serp_type: 'news',
+    loc: 'Alberta,Canada',
+    num: 50
+  };
+
+  try {
+    const response = await axios.get(url, { params });
+    
+    if (response.data && response.data.news) {
+      return {
+        count: response.data.news.length,
+        articles: response.data.news,
+        status: response.status
+      };
+    } else {
+      return {
+        count: 0,
+        articles: [],
+        status: response.status
+      };
+    }
+  } catch (error) {
+    console.error('SERPHouse API error:', error.message);
+    throw error;
+  }
 }
 
 
