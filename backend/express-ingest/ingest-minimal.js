@@ -314,15 +314,12 @@ async function runFullBackfill(res) {
     progress: []
   };
   
-  // Generate last 7 days (to avoid rate limiting)
-  const dates = [];
-  for (let i = 0; i < 7; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    dates.push(date.toISOString().split('T')[0]);
-  }
+  // Calculate date range for 12 months (one query per politician)
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setFullYear(startDate.getFullYear() - 1);
   
-  console.log(`📅 Processing ${dates.length} days (7 days to avoid rate limiting)`);
+  console.log(`📅 Processing 12-month period: ${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]}`);
   
   for (let i = 0; i < officials.length; i++) {
     const official = officials[i];
@@ -337,39 +334,38 @@ async function runFullBackfill(res) {
       totalArticles: 0
     };
     
-    // Process all 365 days (12 months) as requested
-    const demoDates = dates;
-    
-                for (const date of demoDates) {
-              try {
-                const query = buildEnhancedQuery(official);
-                
-                // Make actual SERPHouse API call
-                const serphouseResponse = await makeSerphouseCall(query, date);
-                
-                // Store results in Azure Blob Storage
-                await storeResultsInBlobStorage(official.slug, date, serphouseResponse);
-                
-                officialResults.queries.push({
-                  date: date,
-                  success: true,
-                  articlesFound: serphouseResponse.count || 0,
-                  query: query,
-                  articles: serphouseResponse.articles || []
-                });
+    // Process one query per politician for 12-month period
+    try {
+      const query = buildEnhancedQuery(official);
+      
+      // Make single SERPHouse API call for 12-month period
+      const serphouseResponse = await makeSerphouseCall(query, startDate, endDate);
+      
+      // Store results in Azure Blob Storage
+      await storeResultsInBlobStorage(official.slug, '12-month-period', serphouseResponse);
+      
+      officialResults.queries.push({
+        dateRange: `${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]}`,
+        success: true,
+        articlesFound: serphouseResponse.count || 0,
+        query: query,
+        articles: serphouseResponse.articles || []
+      });
 
-                officialResults.totalArticles += serphouseResponse.count || 0;
-                results.successfulQueries++;
+      officialResults.totalArticles = serphouseResponse.count || 0;
+      results.totalArticles += serphouseResponse.count || 0;
+      results.successfulQueries++;
 
-              } catch (error) {
-                officialResults.queries.push({
-                  date: date,
-                  success: false,
-                  error: error.message
-                });
-                results.failedQueries++;
-              }
-            }
+    } catch (error) {
+      console.error(`Error processing ${official.fullName}:`, error.message);
+      officialResults.queries.push({
+        dateRange: `${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]}`,
+        success: false,
+        error: error.message,
+        query: query
+      });
+      results.failedQueries++;
+    }
     
     results.totalArticles += officialResults.totalArticles;
     results.processedOfficials++;
@@ -465,7 +461,7 @@ async function storeResultsInBlobStorage(slug, date, serphouseResponse) {
 }
 
 // Actual SERPHouse API call function
-async function makeSerphouseCall(query, date) {
+async function makeSerphouseCall(query, startDate, endDate) {
   const axios = require('axios');
   
   const apiToken = process.env.SERPHOUSE_API_TOKEN;
@@ -483,7 +479,9 @@ async function makeSerphouseCall(query, date) {
     device: 'desktop',
     serp_type: 'news',
     loc: 'Alberta,Canada',
-    num: 50
+    num: 50,
+    date_from: startDate.toISOString().split('T')[0],
+    date_to: endDate.toISOString().split('T')[0]
   };
 
   try {
