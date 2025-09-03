@@ -314,15 +314,15 @@ async function runFullBackfill(res) {
     progress: []
   };
   
-  // Generate last 12 months (365 days)
+  // Generate last 7 days (to avoid rate limiting)
   const dates = [];
-  for (let i = 0; i < 365; i++) {
+  for (let i = 0; i < 7; i++) {
     const date = new Date();
     date.setDate(date.getDate() - i);
     dates.push(date.toISOString().split('T')[0]);
   }
   
-  console.log(`📅 Processing ${dates.length} days (12 months)`);
+  console.log(`📅 Processing ${dates.length} days (7 days to avoid rate limiting)`);
   
   for (let i = 0; i < officials.length; i++) {
     const official = officials[i];
