@@ -32,43 +32,60 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// SERPHouse test route - now runs the enhanced query builder test
+// SERPHouse test route - now runs the enhanced query builder test inline
 app.get('/api/serp/test', async (req, res) => {
   try {
-    const { spawn } = require('child_process');
-    
     console.log('🚀 Starting enhanced query builder test...');
     
-    const child = spawn('node', ['./test-enhanced-query-builder.js'], {
-      stdio: ['pipe', 'pipe', 'pipe'],
-      cwd: process.cwd()
-    });
+    // Import the SerphouseClient directly
+    const SerphouseClient = require('./src/providers/serphouseClient.js');
     
-    let output = '';
-    let errorOutput = '';
+    // Test data - sample officials
+    const testOfficials = [
+      {
+        slug: "danielle-smith",
+        fullName: "Danielle Smith",
+        office: "Member of Legislative Assembly",
+        district_name: "Brooks-Medicine Hat"
+      },
+      {
+        slug: "pat-kelly", 
+        fullName: "Pat Kelly",
+        office: "Member of Parliament",
+        district_name: "Calgary Rocky Ridge"
+      }
+    ];
     
-    child.stdout.on('data', (data) => {
-      const text = data.toString();
-      output += text;
-      console.log(text);
-    });
+    const results = [];
     
-    child.stderr.on('data', (data) => {
-      const text = data.toString();
-      errorOutput += text;
-      console.error(text);
-    });
+    for (const official of testOfficials) {
+      try {
+        const client = new SerphouseClient();
+        const query = client.buildSearchQuery(official);
+        
+        results.push({
+          official: official.fullName,
+          office: official.office,
+          query: query,
+          success: true
+        });
+        
+        console.log(`✅ Generated query for ${official.fullName}: ${query}`);
+      } catch (error) {
+        results.push({
+          official: official.fullName,
+          error: error.message,
+          success: false
+        });
+        console.error(`❌ Error for ${official.fullName}: ${error.message}`);
+      }
+    }
     
-    child.on('close', (code) => {
-      console.log(`Query builder test finished with code ${code}`);
-      res.json({
-        success: code === 0,
-        exitCode: code,
-        output: output,
-        error: errorOutput,
-        message: 'Enhanced query builder test completed',
-        timestamp: new Date().toISOString()
-      });
+    res.json({
+      success: true,
+      message: 'Enhanced query builder test completed inline',
+      results: results,
+      timestamp: new Date().toISOString()
     });
     
   } catch (error) {
