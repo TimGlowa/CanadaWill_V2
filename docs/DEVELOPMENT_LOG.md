@@ -1,5 +1,55 @@
 # Development Log
 
+## 2025-09-03 14:34 CT — Task 1 Complete: Roster Enrichment and Current MP Update
+
+**Action**: Successfully completed Task 1 (Roster Enrichment with Represent API Integration) and updated roster with current 2025 elected officials.
+
+**Task 1 Results - Roster Enrichment**:
+* **Total Officials Processed**: 121 (34 MPs + 87 MLAs)
+* **MPs Successfully Enriched**: 24 out of 34 (71% success rate)
+* **MLAs Verified**: 81 out of 87 (93% success rate)
+* **MLAs Updated**: 1 (corrected district mismatch)
+* **Overall Coverage**: 92% (111 out of 121 officials with district information)
+
+**Key Findings**:
+* **10 MPs Missing**: Randy Boissonnault, George Chahal, Blake Desjarlais, Earl Dreeshen, Jasraj Singh Hallan, Damien Kurek, Ron Liepert, Martin Shields, Gerald Soroka, Len Webber
+* **Root Cause**: These 10 MPs either lost or did not run in the 2025 election
+* **Represent API Shows**: 34 current Alberta MPs from 2025 election (different people)
+* **Data Quality**: No data loss - all missing MPs had `riding: null` originally
+
+**Roster Update - Current 2025 Officials**:
+* **Replaced**: All 34 MPs with current elected officials from Represent API
+* **Preserved**: All 87 MLAs (already current)
+* **Fixed**: Removed all em dashes (—) from district names, replaced with regular hyphens (-)
+* **Generated**: Proper slugs (lowercase, hyphen-separated) for all officials
+* **Created**: Comprehensive aliases (full name, slug, first name, last name, first+last combinations)
+
+**Technical Implementation**:
+* **API Integration**: Successfully integrated with `represent.opennorth.ca` API
+* **Rate Limiting**: Implemented 1-second delays between API calls
+* **Error Handling**: Graceful handling of API failures with logging
+* **Data Validation**: Verified all slugs, district names, and aliases
+* **File Output**: Saved enriched data to `data/officials.json` and updated `data/ab-roster-transformed.json`
+
+**Quality Verification**:
+* **Slug Format**: ✅ All properly formatted (lowercase, hyphens only)
+* **District Names**: ✅ No em dashes found
+* **Data Completeness**: ✅ All required fields present
+* **Current Data**: ✅ All 34 MPs are from 2025 election
+* **MLA Preservation**: ✅ All 87 MLAs maintained with existing data
+
+**Files Updated**:
+* `backend/express-ingest/data/ab-roster-transformed.json` - Updated with current MPs
+* `backend/express-ingest/data/officials.json` - Enriched data with district information
+* `backend/express-ingest/scripts/enrich-and-save.js` - Main enrichment script
+* `backend/express-ingest/scripts/analyze-missing.js` - Analysis script for missing officials
+
+**Status**: ✅ **TASK 1 COMPLETE** - Roster enrichment successful with 92% coverage
+
+**Next Step**: Proceed to Task 2 (SERPHouse Query Builder Enhancement and 12-Month Backfill) with current, properly formatted roster data.
+
+---
+
 ## 2025-09-02 15:25 CT — First Real Sentiment Analysis Results for Danielle Smith
 
 **Action**: Successfully processed all 19 Danielle Smith articles and obtained first real sentiment analysis results.
@@ -26,6 +76,39 @@
 **Status**: ✅ **SENTIMENT ANALYSIS WORKING** ⚠️ **CONTENT EXTRACTION NEEDS INVESTIGATION**
 
 **Next Step**: Review all 19 articles to understand why only 1 passed relevance gate.
+
+---
+
+## 2025-09-02 16:55 CT — SERPHouse ingestion limitation discovered (no full articles)
+
+**Action**: Validated the content of JSON blobs produced by SERPHouse ingestion under `articles/raw/serp/*`. Confirmed structure contains metadata only (`title`, `url`, `snippet`, `time`, `channel`, etc.) but **not full article text**.
+
+**Details**:
+
+* JSONs include `raw` or `news` arrays with up to 100 results each.
+* Fields available: headline, snippet (short excerpt), URL, image, and source channel.
+* No `content` or full-text field is present in any record.
+* Example: Danielle Smith and Myles McDougall records show only snippet + URL.
+* This limitation makes it impossible to perform stance/sentiment analysis on separation reliably using SERPHouse output alone.
+
+**Impact**:
+
+* Pipeline as currently designed cannot LIKELY support separation stance classification directly from SERPHouse JSON.
+* TESTING if Stance cannot be inferred from snippets without high risk of false positives/negatives.
+* Analysis of "for vs. against" separation is blocked until a full-text extraction stage or licensed feed is integrated.
+
+**Next Steps**:
+
+1. Design and implement a **Full Text Extraction Worker**:
+
+   * Triggered by new SERPHouse JSON in `articles/raw/serp`.
+   * For each `url`, attempt fetch + readability extraction.
+   * Store in `articles/full/{slug}/…json`.
+   * Mark paywalled items explicitly (`status: paywalled`).
+2. Explore **licensed content options** (Canadian Press, Webz.io, AYLIEN, Diffbot) for complete coverage.
+3. Add a per-person **coverage table** (date, source, title, snippet) for interim review to determine salvage value of current snippets.
+
+**Status**: ⚠️ **Blocking issue** — ingestion works technically but provides insufficient data for separation stance classification. Full-text retrieval is now a required module in the architecture.
 
 ---
 

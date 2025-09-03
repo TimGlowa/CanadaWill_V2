@@ -1,0 +1,62 @@
+<context>
+# Overview  
+The Elected Officials Stance Detection System is an automated sentiment analysis pipeline that determines Alberta MLAs' and MPs' stances on Alberta's relationship with Canada. The system analyzes news articles to score politicians from "Strong Canadian Federalist" to "Strong Alberta Separatist" and presents this information to citizens through a public web application. This solves the problem of citizens not knowing where their elected officials stand on the critical issue of Alberta's relationship with Canada.
+
+# Core Features  
+- **Automated News Ingestion**: SERPHouse API integration to collect news articles mentioning elected officials
+- **Three-Agent AI Analysis**: Relevance filtering, stance scoring, and verification using GPT-4o-mini and Claude models
+- **Stance Classification**: 0-100 scoring system with evidence extraction and confidence levels
+- **Public Dashboard**: Web interface showing politician stances with color-coded classifications
+- **Contact Integration**: Mailto links for citizens to contact officials with unknown stances
+- **Data Management**: Azure Blob Storage for articles, stances, and historical records
+
+# User Experience  
+- **Primary Users**: Alberta citizens wanting to know their MLA/MP's stance on separation
+- **User Journey**: Search by address → Find elected officials → View stance with evidence → Contact if unknown
+- **UI/UX**: Clean, accessible interface with clear stance indicators (green=pro-Canada, red=pro-separation, gray=unknown)
+</context>
+<PRD>
+# Technical Architecture  
+- **Backend**: Node.js/Express API with Azure Functions for processing
+- **AI Services**: OpenAI GPT-4o-mini (primary), Claude-3.5 (backup) for sentiment analysis
+- **Storage**: Azure Blob Storage for articles and stance data, Table Storage for logs
+- **Data Flow**: SERPHouse → Snippet Filter → Full Text Scraper → AI Agents → Stance Index → Frontend
+- **Infrastructure**: Azure App Service for hosting, GitHub Actions for CI/CD
+
+# Development Roadmap  
+**Phase 1 - Automated Backfill (Immediate Priority)**:
+- Re-run SERPHouse ingestion with updated query templates
+- Implement snippet filter to identify relevant articles
+- Build full-text scraper for article content extraction
+- Deploy three-agent AI pipeline (relevance, scoring, verification)
+- Create stance index generation system
+- Integrate stance data with public dashboard
+
+**Phase 2 - Manual Verification (Post-Launch)**:
+- Manual review of known separatist officials for credibility
+- Update stance entries with higher confidence scores
+- Implement review queue for flagged articles
+
+**Phase 3 - Ongoing Operations (Steady State)**:
+- Automated weekly SERPHouse updates
+- Monitoring and alerting for processing failures
+- Performance optimization and scaling
+
+# Logical Dependency Chain
+1. **Foundation**: SERPHouse query updates and data ingestion (enables all downstream processing)
+2. **Processing Pipeline**: Snippet filter → Scraper → AI agents (each depends on previous step)
+3. **Data Aggregation**: Stance index generation (depends on AI processing completion)
+4. **User Interface**: Dashboard integration (depends on stance data availability)
+5. **Operations**: Monitoring and automation (depends on working system)
+
+# Risks and Mitigations  
+- **AI Model Failures**: Backup models (Claude) and fallback to manual review
+- **Data Quality**: Multiple verification steps and confidence scoring
+- **Scalability**: Azure Functions for processing and blob storage for data
+- **Political Sensitivity**: Transparent methodology and evidence-based scoring
+
+# Appendix  
+- **Target Coverage**: 121 Alberta MLAs and MPs
+- **Data Retention**: 12 months historical, ongoing weekly updates
+- **Success Metrics**: >80% agent agreement, >95% automated processing, 100% evidence extraction
+</PRD>

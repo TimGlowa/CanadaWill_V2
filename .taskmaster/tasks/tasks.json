@@ -1,0 +1,487 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Roster Enrichment with Represent API Integration",
+        "description": "Enrich the roster data by integrating with the Represent API to ensure every MLA and MP has a correct district_name field, creating a canonical officials dataset.",
+        "details": "This task involves enhancing the existing roster data with district information from the Represent API:\n\n1. **Setup and Dependencies**:\n   - Install necessary packages: `axios` for API requests, `fs` for file operations\n   - Create a utility function to handle API rate limiting and retries\n\n2. **Data Loading**:\n   - Load the existing roster data from `backend/express-ingest/data/ab-roster-transformed.json`\n   - Parse the JSON into a workable JavaScript object\n\n3. **Represent API Integration**:\n   - Create a function to query the Represent API:\n     ```javascript\n     async function getDistrictFromRepresent(name, office) {\n       try {\n         // Base URL for Represent API\n         const baseUrl = 'https://represent.opennorth.ca/representatives/';\n         \n         // Construct query parameters\n         const params = new URLSearchParams({\n           name: name,\n           elected_office: office\n         });\n         \n         const response = await axios.get(`${baseUrl}?${params}`);\n         \n         // Extract district name from response\n         if (response.data.objects && response.data.objects.length > 0) {\n           return response.data.objects[0].district_name;\n         }\n         \n         return null;\n       } catch (error) {\n         console.error(`Error fetching data for ${name}: ${error.message}`);\n         return null;\n       }\n     }\n     ```\n\n4. **Data Enrichment Process**:\n   - Iterate through each official in the roster\n   - For MPs:\n     - Call Represent API using full name and office\n     - Add the returned district_name to the record\n   - For MLAs:\n     - Verify existing district_name against Represent API\n     - Update if necessary to ensure consistency\n   - Implement a progress indicator for long-running operations\n   - Add error handling and logging for failed API calls\n\n5. **Data Structure**:\n   - Ensure each record contains:\n     - fullName\n     - office\n     - slug\n     - aliases\n     - district_name (newly added or verified)\n\n6. **Output Generation**:\n   - Save the enriched data to Azure Blob storage as `data/officials.json`\n   - Include metadata such as last updated timestamp\n   - Implement proper error handling for storage operations\n\n7. **Considerations**:\n   - Handle API rate limits with exponential backoff\n   - Implement caching to reduce API calls\n   - Handle edge cases like name mismatches or API unavailability\n   - Log all changes made to the original data for auditing",
+        "testStrategy": "1. **Automated Tests**:\n   - Create unit tests for the API integration function\n   - Test error handling and retry logic\n   - Verify data structure integrity before and after enrichment\n\n2. **Manual Verification**:\n   - Select 3 MLAs and 3 MPs at random from the enriched dataset\n   - For each selected official:\n     - Manually query the Represent API using their full name and office\n     - Compare the returned district_name with what's stored in data/officials.json\n     - Document the results in a verification spreadsheet\n\n3. **Edge Case Testing**:\n   - Test with officials who have common names that might return multiple results\n   - Test with officials who may have recently changed districts\n   - Verify handling of special characters in names\n\n4. **Data Integrity Checks**:\n   - Ensure no records were lost during the enrichment process\n   - Verify that all required fields are present in each record\n   - Check for any null or undefined district_name values\n\n5. **Performance Testing**:\n   - Measure and document the time taken for the entire enrichment process\n   - Identify any bottlenecks in the API integration\n\n6. **Sign-off Criteria**:\n   - All selected sample officials have matching district_name values between the API and the enriched data\n   - No errors or warnings in the enrichment process logs\n   - All records contain the required fields\n   - The enriched file is successfully saved to Blob storage and accessible",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Load and Parse Roster Data",
+            "description": "Load the existing roster data from backend/express-ingest/data/ab-roster-transformed.json and parse it into a workable JavaScript object.",
+            "dependencies": [],
+            "details": "Create a function to read the JSON file using the fs module. Parse the JSON data into a JavaScript object. Validate the data structure to ensure it contains the expected fields (fullName, office, slug, aliases). Log the number of officials found in the roster data.",
+            "status": "done",
+            "testStrategy": "Verify file exists before attempting to read. Handle and log any file read errors or JSON parsing errors. Confirm the parsed data structure matches expected format with required fields."
+          },
+          {
+            "id": 2,
+            "title": "Implement Represent API Integration",
+            "description": "Create a function to query the Represent API that handles rate limiting, retries, and proper error handling.",
+            "dependencies": [],
+            "details": "Implement the getDistrictFromRepresent function using axios for API requests. Add exponential backoff retry logic for failed requests. Create a caching mechanism to reduce duplicate API calls. Handle edge cases like name mismatches or API unavailability. Include proper error logging for failed API calls.",
+            "status": "done",
+            "testStrategy": "Test the function with known MP and MLA names. Verify correct handling of API rate limits. Test retry logic with simulated failures. Confirm proper error handling for various error scenarios."
+          },
+          {
+            "id": 3,
+            "title": "Enrich MP Data with District Information",
+            "description": "For every MP in the roster, call the Represent API by full name and office to fetch and add the district_name field.",
+            "dependencies": [],
+            "details": "Filter the roster data to identify all MPs. For each MP, call the getDistrictFromRepresent function with their full name and 'MP' as the office parameter. Add the returned district_name to each MP record. Implement a progress indicator for tracking the enrichment process. Log any MPs for which district information couldn't be retrieved.",
+            "status": "done",
+            "testStrategy": "Verify all MPs have been processed. Check that each MP record now contains a district_name field. Manually verify a sample of MP district names against the Represent API."
+          },
+          {
+            "id": 4,
+            "title": "Verify and Update MLA District Information",
+            "description": "For every MLA in the roster, confirm the district_name is correct by cross-checking with the Represent API and update if necessary.",
+            "dependencies": [],
+            "details": "Filter the roster data to identify all MLAs. For each MLA, call the getDistrictFromRepresent function with their full name and 'MLA' as the office parameter. Compare the returned district_name with the existing value in the record. Update the district_name if there's a mismatch. Log any discrepancies found between existing data and API responses.",
+            "status": "done",
+            "testStrategy": "Verify all MLAs have been processed. Check for and log any discrepancies between existing district names and API responses. Confirm all MLA records have a valid district_name field."
+          },
+          {
+            "id": 5,
+            "title": "Save Enriched Data and Verify Results",
+            "description": "Save the enriched officials data to Azure Blob Storage and perform verification by manually checking district names for a random sample of officials.",
+            "dependencies": [],
+            "details": "Format the enriched data with all required fields (fullName, office, slug, aliases, district_name). Add metadata such as last updated timestamp. Save the enriched data to Azure Blob Storage as data/officials.json. Select 3 MLAs and 3 MPs at random from the dataset. For each selected official, manually run Represent API queries and confirm the district_name in the saved data matches the API response.",
+            "status": "done",
+            "testStrategy": "Verify the officials.json file is properly formatted and contains all required fields. Confirm successful upload to Azure Blob Storage. Document the verification process for the randomly selected officials, including any discrepancies found."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "SERPHouse Query Builder Enhancement and 12-Month Backfill",
+        "description": "Improve the search query builder to include full name and title variants for officials, and perform a 12-month backfill of article data for all 121 officials, storing results in Azure Blob Storage.",
+        "details": "This task involves enhancing the SERPHouse query builder and performing a comprehensive backfill:\n\n1. **Query Builder Enhancement**:\n   - Update the query builder logic to always include both full name AND title variants\n   - Implement title variant handling:\n     - For MLAs: Include \"MLA\" and \"Member of Legislative Assembly\"\n     - For MPs: Include \"MP\" and \"Member of Parliament\"\n   - Add separation keywords from PRD v2.8 (e.g., \"separation\", \"independence\", \"sovereignty\")\n   - Add unity keywords from PRD v2.8 (e.g., \"remain\", \"unity\", \"federation\")\n   - Ensure proper boolean logic in queries (AND/OR operators) to capture relevant articles\n   - Example query structure: `(full_name) AND (\"MLA\" OR \"Member of Legislative Assembly\") AND (separation OR independence OR sovereignty OR remain OR unity OR federation)`\n\n2. **Data Loading**:\n   - Load the officials data from `data/officials.json` which contains all 121 officials\n   - Parse each official's information to extract name, title, and slug for query building\n\n3. **Backfill Implementation**:\n   - Create a backfill script that:\n     - Accepts date range parameters (default: last 12 months)\n     - Iterates through all 121 officials\n     - For each official, constructs the enhanced query\n     - Calls the SERPHouse API for each day in the date range\n     - Implements proper rate limiting and error handling\n     - Stores results in the specified Azure Blob Storage path\n\n4. **Storage Configuration**:\n   - Set up Azure Blob Storage client with proper authentication\n   - Implement path structure: `articles/raw/serp/{slug}/{YYYY-MM-DD}.json`\n   - Ensure proper error handling for storage operations\n   - Implement logging for successful/failed storage operations\n\n5. **Performance Optimization**:\n   - Implement parallel processing where appropriate\n   - Add checkpointing to resume interrupted backfills\n   - Monitor and log API rate limits\n\n6. **Configuration Management**:\n   - Store API keys and endpoints in environment variables\n   - Create a configuration file for customizable parameters (batch size, retry attempts, etc.)",
+        "testStrategy": "1. **Unit Testing**:\n   - Create unit tests for the enhanced query builder\n   - Verify correct query construction for different official types (MLA vs MP)\n   - Test error handling and retry logic\n   - Validate Azure Blob Storage path construction\n\n2. **Integration Testing**:\n   - Test the end-to-end backfill process with a small subset of officials (3-5)\n   - Verify API calls are made with correct parameters\n   - Confirm data is properly stored in Azure Blob Storage\n\n3. **Manual Verification**:\n   - Open 5 sample JSON files from different officials and dates\n   - For each sample:\n     - Confirm the official's name and title variants are correctly included in the query\n     - Verify at least one article is relevant to Alberta separation/remain topics\n     - Check the JSON structure for completeness and correctness\n   - Examine logs to ensure all 121 officials were processed\n   - Verify the date range covers the full 12 months\n\n4. **Performance Validation**:\n   - Monitor execution time and resource usage\n   - Verify rate limiting is respected\n   - Check for any failed API calls or storage operations\n\n5. **Sign-off Criteria**:\n   - All 121 officials have data for each day in the 12-month period\n   - Sample checks confirm query enhancement is working correctly\n   - At least one article per official is relevant to Alberta separation/remain topics\n   - All data is correctly stored in the specified Blob Storage location",
+        "status": "pending",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update Query Builder for Full Name and Title Variants",
+            "description": "Enhance the query builder to always include full name AND title variants for officials, with specific handling for MLAs and MPs.",
+            "dependencies": [],
+            "details": "Modify the existing query builder to ensure it always includes both the full name AND appropriate title variants. For MLAs, include both 'MLA' and 'Member of Legislative Assembly' as variants. For MPs, include both 'MP' and 'Member of Parliament' as variants. Implement proper boolean logic with AND/OR operators to ensure the query structure follows the pattern: (full_name) AND (title variants) AND (keywords).",
+            "status": "pending",
+            "testStrategy": "Create unit tests to verify the query builder correctly handles different official types. Test with sample MLA and MP data to confirm proper inclusion of title variants. Validate the boolean logic structure of generated queries."
+          },
+          {
+            "id": 2,
+            "title": "Add Separation and Unity Keywords to Query Builder",
+            "description": "Incorporate both separation and unity keywords from PRD v2.8 into the query builder logic.",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Update the query builder to include separation keywords (e.g., 'separation', 'independence', 'sovereignty') and unity keywords (e.g., 'remain', 'unity', 'federation') from PRD v2.8. Ensure these keywords are properly incorporated into the query structure with appropriate boolean operators. The final query should follow the pattern: (full_name) AND (title variants) AND (separation OR independence OR sovereignty OR remain OR unity OR federation).",
+            "status": "pending",
+            "testStrategy": "Test the updated query builder with various combinations of keywords to ensure all required terms are included. Verify the boolean logic correctly implements the OR relationship between keywords and the AND relationship with name and title."
+          },
+          {
+            "id": 3,
+            "title": "Implement 12-Month Backfill Script for All Officials",
+            "description": "Create a script to perform a 12-month backfill of article data for all 121 officials using the enhanced query builder.",
+            "dependencies": [
+              "2.1",
+              "2.2"
+            ],
+            "details": "Develop a backfill script that loads official data from data/officials.json, iterates through all 121 officials, and performs SERPHouse API queries for each day in the past 12 months. Implement proper rate limiting, error handling, and retry logic. Include checkpointing functionality to resume interrupted backfills. Configure the script to use environment variables for API keys and endpoints. Implement parallel processing where appropriate to optimize performance.",
+            "status": "pending",
+            "testStrategy": "Test the backfill script with a small subset of officials and a limited date range to verify functionality. Validate rate limiting behavior and error handling by simulating API failures. Test the checkpointing mechanism by intentionally interrupting and resuming the backfill process."
+          },
+          {
+            "id": 4,
+            "title": "Configure Azure Blob Storage Output",
+            "description": "Set up Azure Blob Storage client and implement the required path structure for storing backfill results.",
+            "dependencies": [
+              "2.3"
+            ],
+            "details": "Configure the Azure Blob Storage client with proper authentication using environment variables. Implement the specified path structure: articles/raw/serp/{slug}/{YYYY-MM-DD}.json for storing backfill results. Add comprehensive error handling for storage operations and implement logging for both successful and failed storage operations. Ensure the storage client can handle large volumes of data and implement retry logic for transient failures.",
+            "status": "pending",
+            "testStrategy": "Test the storage functionality with mock data to verify correct path construction and error handling. Validate the authentication mechanism with both valid and invalid credentials. Test the retry logic by simulating transient storage failures."
+          },
+          {
+            "id": 5,
+            "title": "Verification and Quality Assurance",
+            "description": "Perform verification checks on sample outputs to confirm query structure and article relevance.",
+            "dependencies": [
+              "2.3",
+              "2.4"
+            ],
+            "details": "Implement a verification process to sample at least 5 JSON output files from different officials. For each sample, verify that the query includes the correct official's name and title variants. Check that at least one article in each sample is relevant to Alberta separation/remain topics. Create a sign-off checklist to document the verification process and results. Address any issues found during verification by adjusting the query builder or backfill process as needed.",
+            "status": "pending",
+            "testStrategy": "Create a verification script that randomly samples output files and performs automated checks on query structure. Implement manual review procedures for assessing article relevance. Document the verification process with screenshots and examples of both passing and failing cases."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Snippet Filter Implementation for Separation/Remain Articles",
+        "description": "Implement a filtering mechanism in the canadawill-ingest module to identify and flag articles related to separation/remain topics based on title and snippet content, storing filtered metadata in Azure Blob Storage and pushing relevant URLs to the scrape queue.",
+        "details": "This task involves implementing a filtering system to identify articles related to separation/remain topics from raw SERPHouse results:\n\n1. **Filter Implementation**:\n   - Extend the `canadawill-ingest` module to include a new filter function that analyzes article titles and snippets\n   - Create a comprehensive list of separation/remain cue words and phrases based on PRD v2.8, including:\n     - Separation terms: \"separation\", \"independence\", \"sovereignty\", \"secession\", \"breakaway\"\n     - Unity terms: \"remain\", \"unity\", \"federation\", \"together\", \"united\"\n   - Implement regex patterns to identify these terms while avoiding false positives (e.g., \"library independence\")\n   - Consider context-aware filtering by checking for proximity to politician names or relevant political terms\n\n2. **Filtering Logic**:\n   - For each article in the raw SERPHouse results:\n     - Extract title and snippet text\n     - Apply regex patterns to identify separation/remain cues\n     - Implement a scoring mechanism to determine relevance (e.g., more specific phrases score higher)\n     - Flag articles that meet a minimum relevance threshold\n   - Add metadata to flagged articles including:\n     - Matched terms\n     - Confidence score\n     - Timestamp of filtering\n\n3. **Storage Integration**:\n   - Write filtered metadata to Azure Blob Storage using the path format: `articles/flagged/{slug}/{YYYY-MM-DD}.json`\n   - Ensure proper error handling and retry logic for storage operations\n   - Implement logging to track filtering statistics (total processed, flagged count, etc.)\n\n4. **Queue Integration**:\n   - Push URLs of flagged articles to the scrape-queue for further processing\n   - Include relevant metadata with each queue entry to maintain context\n   - Implement proper error handling for queue operations\n\n5. **Performance Considerations**:\n   - Optimize regex patterns for efficiency\n   - Consider batch processing for large result sets\n   - Implement caching to avoid redundant processing of previously seen articles\n\n6. **Configuration**:\n   - Make filtering thresholds and cue words configurable via environment variables or config files\n   - Allow for easy updates to the cue word list without code changes",
+        "testStrategy": "1. **Unit Testing**:\n   - Create unit tests for the filter function with various input scenarios\n   - Test regex patterns against a diverse set of article titles and snippets\n   - Verify correct identification of separation/remain cues\n   - Test edge cases (empty snippets, unusual formatting, etc.)\n   - Mock Azure Blob Storage and queue services for isolated testing\n\n2. **Integration Testing**:\n   - Test end-to-end flow from raw SERPHouse results to filtered storage and queue\n   - Verify correct file paths and JSON structure in Azure Blob Storage\n   - Confirm proper queue entries are created for flagged articles\n\n3. **Accuracy Verification**:\n   - Create a test dataset of 50 sample raw articles with known relevance\n   - Include a mix of clearly relevant, clearly irrelevant, and borderline cases\n   - Run the filter on this dataset and calculate accuracy metrics:\n     - True positives: Correctly flagged relevant articles\n     - False positives: Incorrectly flagged irrelevant articles\n     - True negatives: Correctly ignored irrelevant articles\n     - False negatives: Incorrectly ignored relevant articles\n   - Calculate precision, recall, and F1 score\n   - Verify overall accuracy exceeds 80% threshold\n   - Document specific examples of false positives/negatives for further refinement\n\n4. **Performance Testing**:\n   - Measure processing time for various batch sizes\n   - Verify resource utilization remains within acceptable limits\n   - Test with realistic data volumes to ensure scalability\n\n5. **Manual Review**:\n   - Conduct a manual review of a subset of filtered results\n   - Verify that contextually irrelevant matches (e.g., \"library independence\") are correctly excluded\n   - Check that articles with subtle but relevant mentions are properly included\n\n6. **Acceptance Criteria**:\n   - Filter successfully identifies >80% of relevant articles\n   - False positive rate is below 20%\n   - Filtered metadata is correctly stored in Azure Blob Storage\n   - Flagged URLs are successfully pushed to scrape-queue\n   - Processing performance meets requirements for production use",
+        "status": "pending",
+        "dependencies": [
+          1,
+          2
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement filter function in canadawill-ingest module",
+            "description": "Extend the canadawill-ingest module to include a new filter function that analyzes article titles and snippets for separation/remain topics",
+            "dependencies": [],
+            "details": "Create a comprehensive list of separation/remain cue words and phrases based on PRD v2.8, including separation terms (separation, independence, sovereignty, secession, breakaway) and unity terms (remain, unity, federation, together, united). Implement regex patterns to identify these terms while avoiding false positives. Consider context-aware filtering by checking for proximity to politician names or relevant political terms. Optimize regex patterns for efficiency and implement proper error handling.",
+            "status": "pending",
+            "testStrategy": "Create unit tests with various input scenarios including edge cases. Test regex patterns against diverse article titles and snippets. Verify correct identification of separation/remain cues with both positive and negative examples."
+          },
+          {
+            "id": 2,
+            "title": "Develop relevance scoring mechanism",
+            "description": "Implement a scoring system to determine if headlines/snippets containing separation/remain cues are contextually relevant",
+            "dependencies": [
+              "3.1"
+            ],
+            "details": "For each article in the raw SERPHouse results, extract title and snippet text, apply regex patterns to identify separation/remain cues, and implement a scoring mechanism to determine relevance (e.g., more specific phrases score higher). Flag articles that meet a minimum relevance threshold. Add metadata to flagged articles including matched terms, confidence score, and timestamp of filtering. Make filtering thresholds and cue words configurable via environment variables or config files.",
+            "status": "pending",
+            "testStrategy": "Test the scoring algorithm with various combinations of cue words in different contexts. Verify that the system correctly identifies relevant articles while excluding false positives like 'library independence'. Create test cases with borderline examples to validate threshold settings."
+          },
+          {
+            "id": 3,
+            "title": "Implement Azure Blob Storage integration",
+            "description": "Write filtered metadata to Azure Blob Storage using the path format: articles/flagged/{slug}/{YYYY-MM-DD}.json",
+            "dependencies": [
+              "3.2"
+            ],
+            "details": "Develop the storage integration component that writes filtered metadata to Azure Blob Storage. Ensure proper error handling and retry logic for storage operations. Implement logging to track filtering statistics (total processed, flagged count, etc.). Create a consistent JSON structure for the metadata that includes all relevant information about the filtered article. Ensure the storage path follows the required format: articles/flagged/{slug}/{YYYY-MM-DD}.json.",
+            "status": "pending",
+            "testStrategy": "Test the storage integration with mock Azure clients. Verify correct path construction and JSON formatting. Test error handling by simulating connection failures and storage errors. Validate that retry logic works as expected."
+          },
+          {
+            "id": 4,
+            "title": "Implement scrape-queue integration",
+            "description": "Push URLs of flagged articles to the scrape-queue for further processing",
+            "dependencies": [
+              "3.2"
+            ],
+            "details": "Develop the queue integration component that pushes URLs of flagged articles to the scrape-queue. Include relevant metadata with each queue entry to maintain context. Implement proper error handling for queue operations. Ensure that duplicate articles are handled appropriately. Create a logging mechanism to track queue operations and any failures.",
+            "status": "pending",
+            "testStrategy": "Test queue integration with mock queue clients. Verify that URLs are correctly formatted and metadata is properly included. Test error handling by simulating queue failures. Validate that the system handles edge cases like very long URLs or special characters."
+          },
+          {
+            "id": 5,
+            "title": "Verification and accuracy testing",
+            "description": "Run filter on 50 sample raw articles and verify accuracy exceeds 80%",
+            "dependencies": [
+              "3.1",
+              "3.2",
+              "3.3",
+              "3.4"
+            ],
+            "details": "Select a diverse set of 50 sample raw articles, including both relevant and irrelevant examples. Run the complete filtering pipeline on these samples. Manually review the results to confirm that non-relevant articles (e.g., 'library independence') are excluded and relevant ones are correctly flagged. Calculate accuracy metrics including precision and recall. Tune the filtering parameters if necessary to achieve >80% accuracy. Document the verification process and results.",
+            "status": "pending",
+            "testStrategy": "Create a test harness that runs the filter on the sample articles and compares results against manually labeled ground truth. Calculate precision, recall, and F1 score. Document false positives and false negatives to identify patterns for further improvement."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Full-Text Scraper Implementation",
+        "description": "Implement a worker service that reads from the scrape queue, fetches full article text for flagged articles, extracts readable content, and stores results in Azure Blob Storage with appropriate status logging.",
+        "details": "This task involves implementing a worker service that processes URLs from the scrape queue to fetch and extract full article content:\n\n1. **Worker Service Setup**:\n   - Create a new Node.js service in the project structure (e.g., `canadawill-scraper`)\n   - Configure Azure Queue Storage client to read from the scrape-queue\n   - Implement a message processing loop with appropriate error handling and retry logic\n   - Set up Azure Blob Storage client for storing article content\n   - Configure Azure Table Storage client for logging scrape status\n\n2. **Article Fetching Logic**:\n   - Implement HTTP request functionality using axios or node-fetch\n   - Configure requests with a standard user agent string (e.g., \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\")\n   - Add appropriate timeout and retry settings (e.g., 30-second timeout)\n   - Implement error handling for network failures, timeouts, and HTTP errors\n\n3. **Content Extraction**:\n   - Integrate Mozilla's Readability library (https://github.com/mozilla/readability) for content extraction\n   - Parse the HTML response using JSDOM or similar\n   - Apply Readability to extract the main article content, title, and metadata\n   - Implement fallback extraction methods for cases where Readability fails\n\n4. **Paywall Detection**:\n   - Implement heuristics to detect paywalled content:\n     - Check for specific HTML elements/classes commonly used by paywalls\n     - Look for keywords like \"subscribe\", \"premium\", \"membership\" in proximity to content blockers\n     - Analyze content length against expected thresholds\n   - Mark articles as paywalled in the output JSON when detected\n\n5. **Storage and Logging**:\n   - Store successful extractions in Azure Blob Storage at path: `articles/full/{slug}/{article-hash}.json`\n   - Include metadata in the stored JSON: URL, fetch timestamp, extraction method, content\n   - For paywalled content, store a JSON with minimal metadata and a \"paywalled\": true flag\n   - Log all processing attempts to Azure Table Storage with:\n     - PartitionKey: date in YYYY-MM-DD format\n     - RowKey: unique identifier (URL hash or UUID)\n     - Status: \"ok\", \"paywalled\", or specific error code\n     - URL, timestamp, and processing duration\n\n6. **Queue Management**:\n   - Implement proper message visibility and deletion from the queue\n   - Handle poison messages (repeatedly failing) by moving to a dead-letter queue\n   - Implement backoff strategy for temporary failures\n\n7. **Monitoring and Logging**:\n   - Add comprehensive logging throughout the service\n   - Implement basic metrics collection (success rate, processing time, error counts)\n   - Set up alerts for critical failure scenarios",
+        "testStrategy": "1. **Unit Testing**:\n   - Create unit tests for each component of the scraper:\n     - Test URL fetching with mocked HTTP responses\n     - Test content extraction with sample HTML files\n     - Test paywall detection with known paywall patterns\n     - Test storage functions with mocked Azure clients\n   - Verify error handling by simulating various failure scenarios\n   - Test queue message processing logic\n\n2. **Integration Testing**:\n   - Set up a test environment with Azure Storage Emulator\n   - Create test queue messages and verify end-to-end processing\n   - Verify correct storage of extracted content in blob storage\n   - Confirm proper status logging in table storage\n   - Test retry and error handling with simulated failures\n\n3. **Manual Verification**:\n   - Manually test with at least 5 different URLs:\n     - Select 2-3 standard news sites (e.g., CBC, Global News)\n     - Include 1-2 known paywalled sites (e.g., Globe and Mail, National Post)\n     - Include 1 site with unusual formatting\n   - For each test URL:\n     - Verify the article is fetched correctly\n     - Confirm the extracted text is readable and contains the main content\n     - Check that images, captions, and other relevant elements are preserved\n     - Ensure paywalled sites are correctly identified and marked\n     - Verify the status is correctly logged in Table Storage\n   - Check the JSON structure in blob storage for completeness and correctness\n\n4. **Performance Testing**:\n   - Test with a batch of 20+ URLs to verify throughput\n   - Monitor memory usage during extended operation\n   - Verify the service handles concurrent processing correctly\n\n5. **Sign-off Criteria**:\n   - All unit and integration tests pass\n   - Manual verification of 5 diverse URLs confirms correct operation\n   - End-to-end processing works reliably\n   - Proper error handling and logging is confirmed\n   - Performance meets expected throughput requirements",
+        "status": "pending",
+        "dependencies": [
+          3
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Worker Service Setup and Queue Integration",
+            "description": "Create a Node.js worker service that reads from the Azure scrape-queue and implements message processing with appropriate error handling.",
+            "dependencies": [],
+            "details": "Create a new Node.js service named 'canadawill-scraper' in the project structure. Configure Azure Queue Storage client to connect to and read from the scrape-queue. Implement a message processing loop with visibility timeout management, error handling, and retry logic. Set up proper queue message deletion after successful processing and implement a dead-letter approach for repeatedly failing messages.",
+            "status": "pending",
+            "testStrategy": "Test the queue connection with mock messages. Verify the service can properly read from the queue, process messages, and handle visibility timeouts. Test error scenarios to ensure failed messages are properly handled."
+          },
+          {
+            "id": 2,
+            "title": "Article Fetching and Paywall Detection",
+            "description": "Implement HTTP request functionality to fetch article content with a standard user agent and detect paywalled content.",
+            "dependencies": [
+              "4.1"
+            ],
+            "details": "Use axios or node-fetch to implement HTTP requests with a standard user agent string. Configure appropriate timeout (30 seconds) and retry settings. Implement paywall detection heuristics that check for specific HTML elements/classes, keywords like 'subscribe' or 'premium', and analyze content length against expected thresholds. Mark articles as paywalled in the output JSON when detected.",
+            "status": "pending",
+            "testStrategy": "Test fetching against various news sites. Verify proper handling of network failures, timeouts, and HTTP errors. Test paywall detection against known paywalled sites and free sites to confirm accuracy."
+          },
+          {
+            "id": 3,
+            "title": "Content Extraction with Readability",
+            "description": "Integrate Mozilla's Readability library to extract the main article content from successfully fetched pages.",
+            "dependencies": [
+              "4.2"
+            ],
+            "details": "Integrate Mozilla's Readability library for content extraction. Parse the HTML response using JSDOM or similar. Apply Readability to extract the main article content, title, and metadata. Implement fallback extraction methods for cases where Readability fails. For successful extractions, prepare a JSON object with the extracted content and metadata.",
+            "status": "pending",
+            "testStrategy": "Test extraction against various article formats and layouts. Verify the extraction quality by comparing with manually identified main content. Test fallback methods with pages that typically challenge extraction tools."
+          },
+          {
+            "id": 4,
+            "title": "Storage Implementation for Articles and Logs",
+            "description": "Implement Azure Blob Storage for article content and Table Storage for logging scrape status.",
+            "dependencies": [
+              "4.2",
+              "4.3"
+            ],
+            "details": "Set up Azure Blob Storage client and store successful extractions at path: 'articles/full/{slug}/{article-hash}.json'. Include metadata in the stored JSON: URL, fetch timestamp, extraction method, and content. For paywalled content, store a JSON with minimal metadata and a 'paywalled': true flag. Configure Azure Table Storage client and log all processing attempts with PartitionKey (date in YYYY-MM-DD format), RowKey (URL hash or UUID), Status ('ok', 'paywalled', or specific error code), URL, timestamp, and processing duration.",
+            "status": "pending",
+            "testStrategy": "Test storage operations with mock article data. Verify correct path construction and metadata inclusion. Test logging functionality with various status scenarios. Verify proper error handling during storage operations."
+          },
+          {
+            "id": 5,
+            "title": "End-to-End Testing and Verification",
+            "description": "Manually test the complete scraper workflow with at least 5 different URLs to verify correct operation.",
+            "dependencies": [
+              "4.1",
+              "4.2",
+              "4.3",
+              "4.4"
+            ],
+            "details": "Manually test the scraper with at least 5 different URLs: 1-2 standard news articles, 1-2 known paywalled sites, and 1 edge case (e.g., unusual formatting). Verify that successful fetches result in readable extracted text stored correctly in Blob Storage. Confirm paywalled sites are correctly marked and logged. Check that all processing attempts are properly logged in Table Storage with correct status codes. Document the test results and fix any issues found.",
+            "status": "pending",
+            "testStrategy": "Select test URLs from different news sources. For each URL, trace the complete processing flow from queue to storage. Verify the extracted content quality by manual inspection. Check log entries for accuracy and completeness."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Three-Agent Stance Detection Pipeline Implementation",
+        "description": "Implement a pipeline that uses three specialized agents to analyze scraped articles and determine their stance on Alberta separation/remain topics, with results stored in a structured JSON format.",
+        "details": "This task involves implementing a three-agent pipeline for stance detection on Alberta separation/remain articles:\n\n1. **Pipeline Architecture**:\n   - Create a new module `canadawill-stance-detection` in the project structure\n   - Implement a processing pipeline that reads articles from `articles/full/{slug}/...` \n   - Configure output to write to `articles/stance/{slug}/{article-hash}.json`\n   - Set up appropriate logging and error handling throughout the pipeline\n\n2. **Agent 1: Binary Relevance Detection**:\n   - Implement a classification model to determine if an article is relevant to Alberta separation/remain topics\n   - Use a fine-tuned BERT or RoBERTa model trained on labeled examples\n   - Configure thresholds for binary classification (relevant/not relevant)\n   - Implement early filtering to skip irrelevant articles from further processing\n   - Output format should include a boolean `isRelevant` field and confidence score\n\n3. **Agent 2: Stance Scoring and Evidence Extraction**:\n   - Implement a model that assigns a 0-100 stance score (0: strongly pro-separation, 100: strongly pro-remain)\n   - Extract ≤50-word evidence snippets that best support the stance determination\n   - Include confidence scoring for the stance assessment\n   - Implement classification logic (pro-separation, neutral, pro-remain)\n   - Consider using a fine-tuned language model with prompt engineering for evidence extraction\n\n4. **Agent 3: Independent Verification**:\n   - Implement a separate model architecture from Agent 2 to independently assess stance\n   - Compare scores between Agent 2 and Agent 3:\n     - If scores are within 20 points, average them for the final score\n     - If scores differ by more than 20 points, mark the article as \"uncertain\"\n   - Include verification confidence metrics in the output\n\n5. **Output Schema Implementation**:\n   - Create a JSON schema for the output format including:\n     - Article metadata (title, URL, publication date, etc.)\n     - Binary relevance assessment and confidence\n     - Stance score (0-100)\n     - Classification (pro-separation, neutral, pro-remain)\n     - Evidence snippet (≤50 words)\n     - Confidence score (≥0.6 for published results)\n     - Verification status (verified/uncertain)\n\n6. **Performance Optimization**:\n   - Implement batch processing to efficiently handle multiple articles\n   - Add caching mechanisms to avoid redundant processing\n   - Configure appropriate timeout and retry mechanisms for model inference\n\n7. **Integration with Existing Systems**:\n   - Connect to Azure Blob Storage to read scraped articles\n   - Implement proper error handling for missing or malformed articles\n   - Set up monitoring and alerting for pipeline failures",
+        "testStrategy": "1. **Unit Testing**:\n   - Create unit tests for each agent's functionality:\n     - Test Agent 1 with known relevant and irrelevant articles\n     - Test Agent 2's scoring mechanism with articles of varying stances\n     - Test Agent 3's verification logic with edge cases\n   - Validate JSON output schema compliance\n   - Test error handling and edge cases (empty articles, malformed content)\n\n2. **Integration Testing**:\n   - Test the complete pipeline with a set of 20 diverse articles\n   - Verify correct file paths and storage operations\n   - Ensure proper handling of the processing queue\n   - Test concurrent processing capabilities\n\n3. **End-to-End Verification**:\n   - Process 10 articles end-to-end through the pipeline as specified\n   - Manually review each output to confirm:\n     - Score is between 0-100\n     - Confidence score is ≥0.6 for published results\n     - Evidence snippet is ≤50 words\n     - Classification is correctly assigned\n     - Output JSON matches the defined schema\n   - Compare results with human-annotated ground truth for the same articles\n\n4. **Performance Testing**:\n   - Measure processing time per article\n   - Test with batch processing of 50+ articles\n   - Verify resource utilization remains within acceptable limits\n\n5. **Acceptance Criteria**:\n   - Pipeline successfully processes articles from the specified input path\n   - Output files are correctly stored at the specified output path\n   - All 10 test articles have complete stance assessments\n   - Each output includes score, confidence ≥0.6, evidence ≤50 words, and classification\n   - Output format matches the defined JSON schema",
+        "status": "pending",
+        "dependencies": [
+          4
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Pipeline Architecture Setup",
+            "description": "Create the module structure, configure input/output paths, and implement logging and error handling for the stance detection pipeline.",
+            "dependencies": [],
+            "details": "Create a new module `canadawill-stance-detection` in the project structure. Implement a processing pipeline that reads articles from `articles/full/{slug}/...` and writes output to `articles/stance/{slug}/{article-hash}.json`. Set up comprehensive logging throughout the pipeline to track processing status and errors. Implement error handling mechanisms to ensure pipeline resilience. Create a configuration file for easily adjusting pipeline parameters.",
+            "status": "pending",
+            "testStrategy": "Test the pipeline with sample articles to verify correct file path handling. Validate that the pipeline correctly reads from and writes to the specified locations. Test error scenarios to ensure proper logging and graceful failure handling."
+          },
+          {
+            "id": 2,
+            "title": "Agent 1: Binary Relevance Detection Implementation",
+            "description": "Implement the first agent that determines if an article is relevant to Alberta separation/remain topics.",
+            "dependencies": [
+              "5.1"
+            ],
+            "details": "Implement a classification model using fine-tuned BERT or RoBERTa to determine article relevance to Alberta separation/remain topics. Configure appropriate thresholds for binary classification (relevant/not relevant). Implement early filtering to skip irrelevant articles from further processing. Ensure the output includes a boolean `isRelevant` field and a confidence score. Optimize the model for both accuracy and processing speed.",
+            "status": "pending",
+            "testStrategy": "Test the agent with a diverse set of articles, including clearly relevant, clearly irrelevant, and borderline cases. Validate classification accuracy against a manually labeled test set. Measure and optimize inference speed."
+          },
+          {
+            "id": 3,
+            "title": "Agent 2: Stance Scoring and Evidence Extraction Implementation",
+            "description": "Implement the second agent that assigns a stance score and extracts supporting evidence from relevant articles.",
+            "dependencies": [
+              "5.2"
+            ],
+            "details": "Implement a model that assigns a 0-100 stance score (0: strongly pro-separation, 100: strongly pro-remain). Extract ≤50-word evidence snippets that best support the stance determination. Include confidence scoring for the stance assessment. Implement classification logic to categorize articles as pro-separation, neutral, or pro-remain based on the score. Consider using a fine-tuned language model with prompt engineering for evidence extraction.",
+            "status": "pending",
+            "testStrategy": "Test the agent with articles of varying stances. Verify that evidence snippets are relevant and within the 50-word limit. Validate stance scores against human judgments. Test edge cases such as articles with mixed signals."
+          },
+          {
+            "id": 4,
+            "title": "Agent 3: Independent Verification Implementation",
+            "description": "Implement the third agent that independently verifies the stance assessment from Agent 2.",
+            "dependencies": [
+              "5.3"
+            ],
+            "details": "Implement a separate model architecture from Agent 2 to independently assess stance. Compare scores between Agent 2 and Agent 3: if scores are within 20 points, average them for the final score; if scores differ by more than 20 points, mark the article as \"uncertain\". Include verification confidence metrics in the output. Ensure this agent uses a different approach than Agent 2 to provide truly independent verification.",
+            "status": "pending",
+            "testStrategy": "Test the verification logic with articles where Agents 2 and 3 produce similar and divergent scores. Verify that the averaging and uncertainty marking work as expected. Test with articles that have ambiguous stances to ensure proper uncertainty flagging."
+          },
+          {
+            "id": 5,
+            "title": "Output Schema Implementation and End-to-End Verification",
+            "description": "Implement the JSON output schema and verify the complete pipeline with test articles.",
+            "dependencies": [
+              "5.1",
+              "5.2",
+              "5.3",
+              "5.4"
+            ],
+            "details": "Create a JSON schema for the output format including article metadata, binary relevance assessment, stance score, classification, evidence snippet, confidence score, and verification status. Process 10 articles end-to-end through the pipeline. Confirm each output has: score, confidence ≥0.6 (if published), evidence ≤50 words, and proper classification. Implement batch processing capabilities for efficient handling of multiple articles. Add caching mechanisms to avoid redundant processing.",
+            "status": "pending",
+            "testStrategy": "Validate that all outputs conform to the defined JSON schema. Verify that confidence scores meet the minimum threshold of 0.6 for published results. Check that evidence snippets are properly extracted and within the 50-word limit. Test batch processing with varying numbers of articles to ensure efficiency."
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Stance Index Generator Implementation",
+        "description": "Build a Represent-friendly stance index that summarizes the latest stance for each official from processed articles, storing results in stances/index.json with district_name and elected_office as keys, and maintaining historical stance data in individual JSON files.",
+        "details": "This task involves implementing a stance index generator that processes stance detection results and creates a queryable index:\n\n1. **Data Structure Design**:\n   - Create a new module `canadawill-stance-indexer` in the project structure\n   - Design the index schema with the following required fields:\n     - `fullName`: Official's complete name\n     - `slug`: URL-friendly identifier for the official\n     - `stanceClassification`: Categorical stance (e.g., \"strongly_separate\", \"lean_separate\", \"neutral\", \"lean_remain\", \"strongly_remain\")\n     - `finalScore`: Numerical score representing stance intensity (-1.0 to 1.0)\n     - `confidence`: Confidence level in the stance assessment (0.0 to 1.0)\n     - `evidence`: Array of key quotes or evidence supporting the stance\n     - `link`: URL to the most relevant article supporting the stance\n   - Ensure the index is keyed by `district_name` + `elected_office` for Represent API compatibility\n\n2. **Index Generation Logic**:\n   - Implement a function to scan all files in `articles/stance/` directory\n   - Group stance results by official (using slug)\n   - For each official:\n     - Calculate the most recent/authoritative stance based on article dates and confidence scores\n     - Apply a time decay factor to older stances (more recent articles have higher weight)\n     - Compute a weighted average for the final stance score\n     - Select the most representative evidence quotes\n     - Determine confidence based on consistency and recency of stance data\n\n3. **History Tracking Implementation**:\n   - For each official, create a chronological record of stance changes\n   - Store this history in `stances/history/{slug}.json`\n   - Include timestamps, scores, classifications, and source articles for each stance change\n   - Implement logic to detect significant stance shifts over time\n\n4. **Output Generation**:\n   - Create the directory structure for `stances/` if it doesn't exist\n   - Write the main index to `stances/index.json`\n   - Ensure proper formatting and UTF-8 encoding\n   - Implement pretty-printing for human readability with appropriate indentation\n   - Add a timestamp and metadata about the generation process\n\n5. **Integration with Represent API**:\n   - Ensure the index keys (`district_name` + `elected_office`) exactly match Represent API format\n   - Validate district names against the canonical list from Task 1\n   - Handle edge cases like officials who have changed districts\n\n6. **Performance Considerations**:\n   - Implement incremental updates to avoid reprocessing all data on each run\n   - Use efficient file I/O operations with streaming where appropriate\n   - Add caching for frequently accessed data\n\n7. **Error Handling and Logging**:\n   - Implement robust error handling for missing or malformed stance data\n   - Log warnings for officials with insufficient or low-confidence stance data\n   - Create a detailed log of the indexing process for debugging",
+        "testStrategy": "1. **Unit Testing**:\n   - Create unit tests for each component of the indexer:\n     - Test stance aggregation logic with mock stance data\n     - Test time decay calculations with articles of varying dates\n     - Test confidence scoring with consistent and inconsistent stance sets\n     - Verify correct handling of edge cases (missing data, conflicting stances)\n\n2. **Integration Testing**:\n   - Run the indexer against the test dataset\n   - Verify the structure and content of the generated `stances/index.json`\n   - Check that all required fields are present and properly formatted\n   - Validate that the history files are created correctly in `stances/history/`\n\n3. **Manual Verification**:\n   - Open `stances/index.json` and manually inspect entries for at least 5 officials\n   - For each official, verify:\n     - All required fields are present and populated\n     - The stance classification matches the final score\n     - Evidence quotes are relevant and properly formatted\n     - The link points to a valid article\n   - Compare index keys with Represent API responses to ensure they join correctly\n   - Check at least 3 history files to confirm they contain chronological stance data\n\n4. **Application Integration Test**:\n   - Integrate the index with the frontend application\n   - Verify the app can successfully map officials based on the index\n   - Test the display of stance information in the UI\n   - Confirm that stance history can be accessed and displayed correctly\n\n5. **Performance Testing**:\n   - Measure the execution time for generating the complete index\n   - Test incremental updates with new stance data\n   - Verify resource usage remains reasonable with the full dataset\n\n6. **Sign-off Criteria**:\n   - The index contains entries for all officials with stance data\n   - All required fields are correctly populated\n   - The app can successfully map and display stance information\n   - District_name and elected_office keys match exactly with Represent API format",
+        "status": "pending",
+        "dependencies": [
+          5
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and implement the stance index data structure",
+            "description": "Create the module structure and design the schema for the stance index with all required fields.",
+            "dependencies": [],
+            "details": "Create the 'canadawill-stance-indexer' module with appropriate directory structure. Design and implement the index schema that includes fullName, slug, stanceClassification, finalScore, confidence, evidence, and link fields. Ensure the index is keyed by district_name + elected_office for Represent API compatibility. Create utility functions for handling the data structure operations.",
+            "status": "pending",
+            "testStrategy": "Write unit tests to validate the data structure format. Test with sample data to ensure all required fields are properly structured. Verify that the keying mechanism works correctly with district_name + elected_office combinations."
+          },
+          {
+            "id": 2,
+            "title": "Implement stance aggregation and scoring logic",
+            "description": "Develop logic to scan stance files, group by official, and calculate the most recent/authoritative stance with appropriate weighting.",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Implement functions to scan all files in the articles/stance/ directory. Group stance results by official using their slug. Calculate the most recent/authoritative stance based on article dates and confidence scores. Apply time decay factor to older stances. Compute weighted averages for final stance scores. Select representative evidence quotes. Determine confidence based on consistency and recency of stance data.",
+            "status": "pending",
+            "testStrategy": "Test stance aggregation with mock stance data of varying dates and confidence levels. Verify time decay calculations work correctly. Ensure the weighted averaging produces expected results. Test with edge cases like officials with only one stance or conflicting stances."
+          },
+          {
+            "id": 3,
+            "title": "Implement historical stance tracking",
+            "description": "Create a system to track and store chronological records of stance changes for each official.",
+            "dependencies": [
+              "6.2"
+            ],
+            "details": "For each official, implement logic to create a chronological record of stance changes. Store this history in stances/history/{slug}.json files. Include timestamps, scores, classifications, and source articles for each stance change. Implement detection of significant stance shifts over time. Ensure proper formatting and organization of historical data for easy retrieval and analysis.",
+            "status": "pending",
+            "testStrategy": "Test with officials who have multiple stance entries over time. Verify chronological ordering is correct. Ensure significant stance shifts are properly detected and flagged. Validate the JSON structure of history files matches the expected format."
+          },
+          {
+            "id": 4,
+            "title": "Generate and write index and history files",
+            "description": "Implement file I/O operations to create the directory structure and write the main index and history files.",
+            "dependencies": [
+              "6.2",
+              "6.3"
+            ],
+            "details": "Create the directory structure for stances/ if it doesn't exist. Write the main index to stances/index.json with proper formatting and UTF-8 encoding. Implement pretty-printing for human readability with appropriate indentation. Add timestamp and metadata about the generation process. Ensure all history files are written to stances/history/ directory with proper naming conventions.",
+            "status": "pending",
+            "testStrategy": "Test file creation with various input data sizes. Verify directory creation works when directories don't exist. Validate JSON output is properly formatted and readable. Check that all expected files are created with correct content."
+          },
+          {
+            "id": 5,
+            "title": "Verify index compatibility with Represent API",
+            "description": "Test and validate that the generated index properly integrates with the Represent API through district_name and elected_office keys.",
+            "dependencies": [
+              "6.4"
+            ],
+            "details": "Verify that stances/index.json contains entries for at least 5 officials. Confirm all required fields are populated correctly. Test that the district_name + elected_office keys exactly match Represent API format. Validate district names against the canonical list. Handle edge cases like officials who have changed districts. Ensure the index can be properly joined with Represent API responses for seamless integration.",
+            "status": "pending",
+            "testStrategy": "Test with actual Represent API responses to verify key compatibility. Check edge cases like officials with unusual characters in names or who have changed districts. Verify the index can be successfully used in the frontend application to display stance information alongside official data."
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Frontend Integration for Stance Display",
+        "description": "Integrate stance results into app.canadawill.ca by connecting the frontend to stances/index.json, displaying stance badges with evidence snippets, and adding contact functionality for officials with unknown stances.",
+        "details": "This task involves integrating stance detection results into the frontend application:\n\n1. **Frontend Data Integration**:\n   - Add a new service in the frontend codebase to fetch and parse stance data from `stances/index.json`\n   - Implement caching strategy with appropriate TTL to minimize API calls\n   - Create error handling for failed data fetches with graceful fallbacks\n\n2. **Stance Badge Implementation**:\n   - Design and implement stance badges with appropriate color coding:\n     - Green badge for pro-Canada/remain stance\n     - Red badge for pro-separation stance\n     - Gray badge for unknown stance\n   - Ensure badges are accessible (include text alternatives for screen readers)\n   - Add hover tooltips explaining the stance classification\n\n3. **Evidence Display**:\n   - Create a component to display evidence snippets (limited to 50 words)\n   - Implement text truncation with ellipsis for snippets exceeding the limit\n   - Add \"Read More\" link to the original source article\n   - Include logic to skip evidence display if article is paywalled\n   - Store and display the date when the stance was last updated\n\n4. **Contact Functionality**:\n   - Implement a \"Contact\" button that appears only for officials with `stance=unknown`\n   - Fetch official's email from `data/officials.json`\n   - Configure mailto link with pre-populated subject line: \"Your stance on Alberta separation\"\n   - Add a brief template message in the email body explaining the purpose\n\n5. **UI/UX Considerations**:\n   - Ensure responsive design works across desktop and mobile devices\n   - Implement loading states while stance data is being fetched\n   - Add appropriate animations for badge transitions\n   - Ensure consistent styling with the rest of the application\n\n6. **Performance Optimization**:\n   - Lazy load stance data only when needed (when user searches for an address)\n   - Implement proper memoization for stance data processing\n   - Optimize bundle size by code-splitting stance-related components\n\n7. **Error Handling**:\n   - Create fallback UI for when stance data cannot be loaded\n   - Implement retry logic for failed API calls\n   - Add user-friendly error messages",
+        "testStrategy": "1. **Unit Testing**:\n   - Create unit tests for the stance data service:\n     - Test successful data fetching and parsing\n     - Test error handling and fallback behavior\n     - Test caching mechanism\n   - Test stance badge component:\n     - Verify correct color assignment based on stance values\n     - Test accessibility features (ARIA attributes, keyboard navigation)\n   - Test evidence snippet component:\n     - Verify proper truncation of text to 50 words\n     - Test conditional rendering based on paywall status\n   - Test contact button functionality:\n     - Verify it only appears for officials with unknown stance\n     - Test mailto link generation with correct email and subject\n\n2. **Integration Testing**:\n   - Test the complete flow from address search to stance display\n   - Verify correct official data is fetched and displayed\n   - Test interactions between components (badge clicks, contact button)\n   - Verify proper handling of edge cases (missing data, network errors)\n\n3. **End-to-End Testing**:\n   - Create Cypress tests that simulate user journeys:\n     - Search for an address in app.canadawill.ca\n     - Verify MLA/MP information appears with correct stance badge\n     - Confirm evidence snippet displays with proper truncation\n     - Verify source link works correctly\n     - Test \"Contact\" button opens mailto link with correct parameters\n   - Test across multiple browsers (Chrome, Firefox, Safari)\n   - Test on both desktop and mobile viewports\n\n4. **Manual Verification**:\n   - Perform the following checks on the live application:\n     - Search for addresses in different districts\n     - Verify stance badges display with correct colors\n     - Check that evidence snippets are limited to 50 words\n     - Confirm source links open the correct articles\n     - Test \"Contact\" button functionality with real email clients\n     - Verify responsive design on various device sizes",
+        "status": "pending",
+        "dependencies": [
+          6
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Connect Frontend to Stances Index",
+            "description": "Implement a service to fetch and parse stance data from stances/index.json with caching and error handling",
+            "dependencies": [],
+            "details": "Create a new service in the frontend codebase that fetches stance data from stances/index.json. Implement a caching strategy with appropriate TTL to minimize API calls. Add comprehensive error handling for failed data fetches with graceful fallbacks. Ensure the service properly parses the JSON data into a usable format for the frontend components.",
+            "status": "pending",
+            "testStrategy": "Write unit tests for successful data fetching, parsing, caching mechanism, and error handling scenarios. Test the service with mock responses including valid data, malformed data, and network failures."
+          },
+          {
+            "id": 2,
+            "title": "Implement Stance Badge Display",
+            "description": "Design and implement color-coded stance badges (green for pro-Canada, red for pro-separation, gray for unknown) with appropriate accessibility features",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Create a reusable badge component that displays the official's stance with appropriate color coding: green for pro-Canada/remain stance, red for pro-separation stance, and gray for unknown stance. Include text alternatives for screen readers and add hover tooltips explaining the stance classification. Ensure the component integrates with the stance data service.",
+            "status": "pending",
+            "testStrategy": "Test the badge component to verify correct color assignment based on stance values. Validate accessibility features including screen reader compatibility and tooltip functionality. Test responsive behavior across different screen sizes."
+          },
+          {
+            "id": 3,
+            "title": "Develop Evidence Snippet Display",
+            "description": "Create a component to display evidence snippets (≤50 words) with source links, skipping paywalled content",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Implement a component that displays evidence snippets limited to 50 words with text truncation and ellipsis for longer content. Add a 'Read More' link to the original source article. Include logic to skip evidence display if the article is paywalled. Display the date when the stance was last updated. Ensure the component handles various content lengths appropriately.",
+            "status": "pending",
+            "testStrategy": "Test the snippet component with various text lengths to verify truncation works correctly. Verify the 'Read More' link points to the correct source. Test the paywall detection logic with different article types. Ensure date formatting is consistent."
+          },
+          {
+            "id": 4,
+            "title": "Add Contact Functionality for Unknown Stances",
+            "description": "Implement a 'Contact' button with mailto functionality for officials with unknown stances, using email data from officials.json",
+            "dependencies": [
+              "7.1",
+              "7.2"
+            ],
+            "details": "Create a 'Contact' button that appears only for officials with stance=unknown. Fetch the official's email from data/officials.json. Configure a mailto link with a pre-populated subject line 'Your stance on Alberta separation' and a brief template message explaining the purpose. Ensure proper error handling if email information is unavailable.",
+            "status": "pending",
+            "testStrategy": "Test the conditional display of the Contact button based on stance value. Verify the mailto link contains the correct email address, subject line, and template message. Test error handling when email data is missing or malformed."
+          },
+          {
+            "id": 5,
+            "title": "Verification and Integration Testing",
+            "description": "Verify the complete stance display functionality by testing with real addresses and confirming all components work together correctly",
+            "dependencies": [
+              "7.2",
+              "7.3",
+              "7.4"
+            ],
+            "details": "Perform end-to-end testing by searching for addresses in the app and confirming that MLA/MP stances display correctly with appropriate badges, evidence snippets, and source links. Verify that the 'Contact' button appears for officials with unknown stances and that clicking it opens a properly formatted mailto link. Test across different devices and screen sizes to ensure responsive behavior. Document any issues found and verify fixes before signing off.",
+            "status": "pending",
+            "testStrategy": "Create a test plan covering various postal codes/addresses to test officials with different stance classifications. Test the integration on multiple browsers and devices. Verify loading states, animations, and error scenarios. Document test results with screenshots for final approval."
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-09-03T13:43:35.790Z",
+      "updated": "2025-09-03T19:03:32.874Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

@@ -1,0 +1,1699 @@
+{
+  "officials": [
+    {
+      "slug": "ziad-aboultaif",
+      "fullName": "Ziad Aboultaif",
+      "office": "Member of Parliament",
+      "riding": "Edmonton Manning",
+      "aliases": [
+        "Ziad",
+        "Aboultaif",
+        "Ziad Aboultaif",
+        "ziad-aboultaif"
+      ],
+      "city": null,
+      "district_name": "Edmonton Manning"
+    },
+    {
+      "slug": "john-barlow",
+      "fullName": "John Barlow",
+      "office": "Member of Parliament",
+      "riding": "Foothills",
+      "aliases": [
+        "John",
+        "Barlow",
+        "John Barlow",
+        "john-barlow"
+      ],
+      "city": null,
+      "district_name": "Foothills"
+    },
+    {
+      "slug": "randy-boissonnault",
+      "fullName": "Randy Boissonnault",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Randy",
+        "Boissonnault",
+        "Randy Boissonnault",
+        "randy-boissonnault"
+      ],
+      "city": null
+    },
+    {
+      "slug": "blaine-calkins",
+      "fullName": "Blaine Calkins",
+      "office": "Member of Parliament",
+      "riding": "Ponoka—Didsbury",
+      "aliases": [
+        "Blaine",
+        "Calkins",
+        "Blaine Calkins",
+        "blaine-calkins"
+      ],
+      "city": null,
+      "district_name": "Ponoka—Didsbury"
+    },
+    {
+      "slug": "george-chahal",
+      "fullName": "George Chahal",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "George",
+        "Chahal",
+        "George Chahal",
+        "george-chahal"
+      ],
+      "city": null
+    },
+    {
+      "slug": "michael-cooper",
+      "fullName": "Michael Cooper",
+      "office": "Member of Parliament",
+      "riding": "St. Albert—Sturgeon River",
+      "aliases": [
+        "Michael",
+        "Cooper",
+        "Michael Cooper",
+        "michael-cooper"
+      ],
+      "city": null,
+      "district_name": "St. Albert—Sturgeon River"
+    },
+    {
+      "slug": "blake-desjarlais",
+      "fullName": "Blake Desjarlais",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Blake",
+        "Desjarlais",
+        "Blake Desjarlais",
+        "blake-desjarlais"
+      ],
+      "city": null
+    },
+    {
+      "slug": "earl-dreeshen",
+      "fullName": "Earl Dreeshen",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Earl",
+        "Dreeshen",
+        "Earl Dreeshen",
+        "earl-dreeshen"
+      ],
+      "city": null
+    },
+    {
+      "slug": "garnett-genuis",
+      "fullName": "Garnett Genuis",
+      "office": "Member of Parliament",
+      "riding": "Sherwood Park—Fort Saskatchewan",
+      "aliases": [
+        "Garnett",
+        "Genuis",
+        "Garnett Genuis",
+        "garnett-genuis"
+      ],
+      "city": null,
+      "district_name": "Sherwood Park—Fort Saskatchewan"
+    },
+    {
+      "slug": "laila-goodridge",
+      "fullName": "Laila Goodridge",
+      "office": "Member of Parliament",
+      "riding": "Fort McMurray—Cold Lake",
+      "aliases": [
+        "Laila",
+        "Goodridge",
+        "Laila Goodridge",
+        "laila-goodridge"
+      ],
+      "city": null,
+      "district_name": "Fort McMurray—Cold Lake"
+    },
+    {
+      "slug": "jasrajsingh-hallan",
+      "fullName": "Jasraj Singh Hallan",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Jasraj Singh",
+        "Hallan",
+        "Jasraj Singh Hallan",
+        "jasrajsingh-hallan"
+      ],
+      "city": null
+    },
+    {
+      "slug": "matt-jeneroux",
+      "fullName": "Matt Jeneroux",
+      "office": "Member of Parliament",
+      "riding": "Edmonton Riverbend",
+      "aliases": [
+        "Matt",
+        "Jeneroux",
+        "Matt Jeneroux",
+        "matt-jeneroux"
+      ],
+      "city": null,
+      "district_name": "Edmonton Riverbend"
+    },
+    {
+      "slug": "pat-kelly",
+      "fullName": "Pat Kelly",
+      "office": "Member of Parliament",
+      "riding": "Calgary Crowfoot",
+      "aliases": [
+        "Pat",
+        "Kelly",
+        "Pat Kelly",
+        "pat-kelly"
+      ],
+      "city": null,
+      "district_name": "Calgary Crowfoot"
+    },
+    {
+      "slug": "tom-kmiec",
+      "fullName": "Tom Kmiec",
+      "office": "Member of Parliament",
+      "riding": "Calgary Shepard",
+      "aliases": [
+        "Tom",
+        "Kmiec",
+        "Tom Kmiec",
+        "tom-kmiec"
+      ],
+      "city": null,
+      "district_name": "Calgary Shepard"
+    },
+    {
+      "slug": "damien-kurek",
+      "fullName": "Damien Kurek",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Damien",
+        "Kurek",
+        "Damien Kurek",
+        "damien-kurek"
+      ],
+      "city": null
+    },
+    {
+      "slug": "stephanie-kusie",
+      "fullName": "Stephanie Kusie",
+      "office": "Member of Parliament",
+      "riding": "Calgary Midnapore",
+      "aliases": [
+        "Stephanie",
+        "Kusie",
+        "Stephanie Kusie",
+        "stephanie-kusie"
+      ],
+      "city": null,
+      "district_name": "Calgary Midnapore"
+    },
+    {
+      "slug": "mike-lake",
+      "fullName": "Mike Lake",
+      "office": "Member of Parliament",
+      "riding": "Leduc—Wetaskiwin",
+      "aliases": [
+        "Mike",
+        "Lake",
+        "Mike Lake",
+        "mike-lake"
+      ],
+      "city": null,
+      "district_name": "Leduc—Wetaskiwin"
+    },
+    {
+      "slug": "ron-liepert",
+      "fullName": "Ron Liepert",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Ron",
+        "Liepert",
+        "Ron Liepert",
+        "ron-liepert"
+      ],
+      "city": null
+    },
+    {
+      "slug": "dane-lloyd",
+      "fullName": "Dane Lloyd",
+      "office": "Member of Parliament",
+      "riding": "Parkland",
+      "aliases": [
+        "Dane",
+        "Lloyd",
+        "Dane Lloyd",
+        "dane-lloyd"
+      ],
+      "city": null,
+      "district_name": "Parkland"
+    },
+    {
+      "slug": "shuvaloy-majumdar",
+      "fullName": "Shuvaloy Majumdar",
+      "office": "Member of Parliament",
+      "riding": "Calgary Heritage",
+      "aliases": [
+        "Shuvaloy",
+        "Majumdar",
+        "Shuvaloy Majumdar",
+        "shuvaloy-majumdar"
+      ],
+      "city": null,
+      "district_name": "Calgary Heritage"
+    },
+    {
+      "slug": "kelly-mccauley",
+      "fullName": "Kelly McCauley",
+      "office": "Member of Parliament",
+      "riding": "Edmonton West",
+      "aliases": [
+        "Kelly",
+        "McCauley",
+        "Kelly McCauley",
+        "kelly-mccauley"
+      ],
+      "city": null,
+      "district_name": "Edmonton West"
+    },
+    {
+      "slug": "greg-mclean",
+      "fullName": "Greg McLean",
+      "office": "Member of Parliament",
+      "riding": "Calgary Centre",
+      "aliases": [
+        "Greg",
+        "McLean",
+        "Greg McLean",
+        "greg-mclean"
+      ],
+      "city": null,
+      "district_name": "Calgary Centre"
+    },
+    {
+      "slug": "heather-mcpherson",
+      "fullName": "Heather McPherson",
+      "office": "Member of Parliament",
+      "riding": "Edmonton Strathcona",
+      "aliases": [
+        "Heather",
+        "McPherson",
+        "Heather McPherson",
+        "heather-mcpherson"
+      ],
+      "city": null,
+      "district_name": "Edmonton Strathcona"
+    },
+    {
+      "slug": "glen-motz",
+      "fullName": "Glen Motz",
+      "office": "Member of Parliament",
+      "riding": "Medicine Hat—Cardston—Warner",
+      "aliases": [
+        "Glen",
+        "Motz",
+        "Glen Motz",
+        "glen-motz"
+      ],
+      "city": null,
+      "district_name": "Medicine Hat—Cardston—Warner"
+    },
+    {
+      "slug": "michellerempel-garner",
+      "fullName": "Michelle Rempel Garner",
+      "office": "Member of Parliament",
+      "riding": "Calgary Nose Hill",
+      "aliases": [
+        "Michelle Rempel",
+        "Garner",
+        "Michelle Rempel Garner",
+        "michellerempel-garner"
+      ],
+      "city": null,
+      "district_name": "Calgary Nose Hill"
+    },
+    {
+      "slug": "blake-richards",
+      "fullName": "Blake Richards",
+      "office": "Member of Parliament",
+      "riding": "Airdrie—Cochrane",
+      "aliases": [
+        "Blake",
+        "Richards",
+        "Blake Richards",
+        "blake-richards"
+      ],
+      "city": null,
+      "district_name": "Airdrie—Cochrane"
+    },
+    {
+      "slug": "martin-shields",
+      "fullName": "Martin Shields",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Martin",
+        "Shields",
+        "Martin Shields",
+        "martin-shields"
+      ],
+      "city": null
+    },
+    {
+      "slug": "gerald-soroka",
+      "fullName": "Gerald Soroka",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Gerald",
+        "Soroka",
+        "Gerald Soroka",
+        "gerald-soroka"
+      ],
+      "city": null
+    },
+    {
+      "slug": "shannon-stubbs",
+      "fullName": "Shannon Stubbs",
+      "office": "Member of Parliament",
+      "riding": "Lakeland",
+      "aliases": [
+        "Shannon",
+        "Stubbs",
+        "Shannon Stubbs",
+        "shannon-stubbs"
+      ],
+      "city": null,
+      "district_name": "Lakeland"
+    },
+    {
+      "slug": "rachael-thomas",
+      "fullName": "Rachael Thomas",
+      "office": "Member of Parliament",
+      "riding": "Lethbridge",
+      "aliases": [
+        "Rachael",
+        "Thomas",
+        "Rachael Thomas",
+        "rachael-thomas"
+      ],
+      "city": null,
+      "district_name": "Lethbridge"
+    },
+    {
+      "slug": "tim-uppal",
+      "fullName": "Tim Uppal",
+      "office": "Member of Parliament",
+      "riding": "Edmonton Gateway",
+      "aliases": [
+        "Tim",
+        "Uppal",
+        "Tim Uppal",
+        "tim-uppal"
+      ],
+      "city": null,
+      "district_name": "Edmonton Gateway"
+    },
+    {
+      "slug": "arnold-viersen",
+      "fullName": "Arnold Viersen",
+      "office": "Member of Parliament",
+      "riding": "Peace River—Westlock",
+      "aliases": [
+        "Arnold",
+        "Viersen",
+        "Arnold Viersen",
+        "arnold-viersen"
+      ],
+      "city": null,
+      "district_name": "Peace River—Westlock"
+    },
+    {
+      "slug": "chris-warkentin",
+      "fullName": "Chris Warkentin",
+      "office": "Member of Parliament",
+      "riding": "Grande Prairie",
+      "aliases": [
+        "Chris",
+        "Warkentin",
+        "Chris Warkentin",
+        "chris-warkentin"
+      ],
+      "city": null,
+      "district_name": "Grande Prairie"
+    },
+    {
+      "slug": "len-webber",
+      "fullName": "Len Webber",
+      "office": "Member of Parliament",
+      "riding": null,
+      "aliases": [
+        "Len",
+        "Webber",
+        "Len Webber",
+        "len-webber"
+      ],
+      "city": null
+    },
+    {
+      "slug": "pete-guthrie",
+      "fullName": "Pete Guthrie",
+      "office": "Member of Legislative Assembly",
+      "riding": "Airdrie-Cochrane",
+      "aliases": [
+        "Pete",
+        "Guthrie",
+        "Pete Guthrie",
+        "pete-guthrie"
+      ],
+      "city": "Airdrie-Cochrane",
+      "district_name": "Airdrie-Cochrane"
+    },
+    {
+      "slug": "angela-pitt",
+      "fullName": "Angela Pitt",
+      "office": "Member of Legislative Assembly",
+      "riding": "Airdrie-East",
+      "aliases": [
+        "Angela",
+        "Pitt",
+        "Angela Pitt",
+        "angela-pitt"
+      ],
+      "city": "Airdrie-East",
+      "district_name": "Airdrie-East"
+    },
+    {
+      "slug": "glenn-vandijken",
+      "fullName": "Glenn van Dijken",
+      "office": "Member of Legislative Assembly",
+      "riding": "Athabasca-Barrhead-Westlock",
+      "aliases": [
+        "Glenn",
+        "van Dijken",
+        "Glenn van Dijken",
+        "glenn-vandijken"
+      ],
+      "city": "Athabasca-Barrhead-Westlock",
+      "district_name": "Athabasca-Barrhead-Westlock"
+    },
+    {
+      "slug": "sarah-elmeligi",
+      "fullName": "Sarah Elmeligi",
+      "office": "Member of Legislative Assembly",
+      "riding": "Banff-Kananaskis",
+      "aliases": [
+        "Sarah",
+        "Elmeligi",
+        "Sarah Elmeligi",
+        "sarah-elmeligi"
+      ],
+      "city": "Banff-Kananaskis",
+      "district_name": "Banff-Kananaskis"
+    },
+    {
+      "slug": "scott-cyr",
+      "fullName": "Scott Cyr",
+      "office": "Member of Legislative Assembly",
+      "riding": "Bonnyville-Cold Lake-St. Paul",
+      "aliases": [
+        "Scott",
+        "Cyr",
+        "Scott Cyr",
+        "scott-cyr"
+      ],
+      "city": "Bonnyville-Cold Lake-St. Paul",
+      "district_name": "Bonnyville-Cold Lake-St. Paul"
+    },
+    {
+      "slug": "danielle-smith",
+      "fullName": "Danielle Smith",
+      "office": "Member of Legislative Assembly",
+      "riding": "Brooks-Medicine Hat",
+      "aliases": [
+        "Danielle",
+        "Smith",
+        "Danielle Smith",
+        "danielle-smith"
+      ],
+      "city": "Brooks-Medicine Hat",
+      "district_name": "Brooks-Medicine Hat"
+    },
+    {
+      "slug": "diana-batten",
+      "fullName": "Diana Batten",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Acadia",
+      "aliases": [
+        "Diana",
+        "Batten",
+        "Diana Batten",
+        "diana-batten"
+      ],
+      "city": "Calgary-Acadia",
+      "district_name": "Calgary-Acadia"
+    },
+    {
+      "slug": "amanda-chapman",
+      "fullName": "Amanda Chapman",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Beddington",
+      "aliases": [
+        "Amanda",
+        "Chapman",
+        "Amanda Chapman",
+        "amanda-chapman"
+      ],
+      "city": "Calgary-Beddington",
+      "district_name": "Calgary-Beddington"
+    },
+    {
+      "slug": "irfan-sabir",
+      "fullName": "Irfan Sabir",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-McCall",
+      "aliases": [
+        "Irfan",
+        "Sabir",
+        "Irfan Sabir",
+        "irfan-sabir"
+      ],
+      "city": "Calgary-Bhullar-McCall",
+      "district_name": "Calgary-McCall"
+    },
+    {
+      "slug": "demetrios-nicolaides",
+      "fullName": "Demetrios Nicolaides",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Bow",
+      "aliases": [
+        "Demetrios",
+        "Nicolaides",
+        "Demetrios Nicolaides",
+        "demetrios-nicolaides"
+      ],
+      "city": "Calgary-Bow",
+      "district_name": "Calgary-Bow"
+    },
+    {
+      "slug": "joe-ceci",
+      "fullName": "Joe Ceci",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Buffalo",
+      "aliases": [
+        "Joe",
+        "Ceci",
+        "Joe Ceci",
+        "joe-ceci"
+      ],
+      "city": "Calgary-Buffalo",
+      "district_name": "Calgary-Buffalo"
+    },
+    {
+      "slug": "mickey-amerykc",
+      "fullName": "Mickey Amery, KC",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Cross",
+      "aliases": [
+        "Mickey",
+        "Amery, KC",
+        "Mickey Amery, KC",
+        "mickey-amerykc"
+      ],
+      "city": "Calgary-Cross",
+      "district_name": "Calgary-Cross"
+    },
+    {
+      "slug": "janet-eremenko",
+      "fullName": "Janet Eremenko",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Currie",
+      "aliases": [
+        "Janet",
+        "Eremenko",
+        "Janet Eremenko",
+        "janet-eremenko"
+      ],
+      "city": "Calgary-Currie",
+      "district_name": "Calgary-Currie"
+    },
+    {
+      "slug": "peter-singh",
+      "fullName": "Peter Singh",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-East",
+      "aliases": [
+        "Peter",
+        "Singh",
+        "Peter Singh",
+        "peter-singh"
+      ],
+      "city": "Calgary-East",
+      "district_name": "Calgary-East"
+    },
+    {
+      "slug": "julia-hayter",
+      "fullName": "Julia Hayter",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Edgemont",
+      "aliases": [
+        "Julia",
+        "Hayter",
+        "Julia Hayter",
+        "julia-hayter"
+      ],
+      "city": "Calgary-Edgemont",
+      "district_name": "Calgary-Edgemont"
+    },
+    {
+      "slug": "samir-kayande",
+      "fullName": "Samir Kayande",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Elbow",
+      "aliases": [
+        "Samir",
+        "Kayande",
+        "Samir Kayande",
+        "samir-kayande"
+      ],
+      "city": "Calgary-Elbow",
+      "district_name": "Calgary-Elbow"
+    },
+    {
+      "slug": "parmeet-boparai",
+      "fullName": "Parmeet Boparai",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Falconridge",
+      "aliases": [
+        "Parmeet",
+        "Boparai",
+        "Parmeet Boparai",
+        "parmeet-boparai"
+      ],
+      "city": "Calgary-Falconridge",
+      "district_name": "Calgary-Falconridge"
+    },
+    {
+      "slug": "myles-mcdougall",
+      "fullName": "Myles McDougall",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Fish Creek",
+      "aliases": [
+        "Myles",
+        "McDougall",
+        "Myles McDougall",
+        "myles-mcdougall"
+      ],
+      "city": "Calgary-Fish Creek",
+      "district_name": "Calgary-Fish Creek"
+    },
+    {
+      "slug": "court-ellingson",
+      "fullName": "Court Ellingson",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Foothills",
+      "aliases": [
+        "Court",
+        "Ellingson",
+        "Court Ellingson",
+        "court-ellingson"
+      ],
+      "city": "Calgary-Foothills",
+      "district_name": "Calgary-Foothills"
+    },
+    {
+      "slug": "nagwan-alguneid",
+      "fullName": "Nagwan Al-Guneid",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Glenmore",
+      "aliases": [
+        "Nagwan",
+        "Al-Guneid",
+        "Nagwan Al-Guneid",
+        "nagwan-alguneid"
+      ],
+      "city": "Calgary-Glenmore",
+      "district_name": "Calgary-Glenmore"
+    },
+    {
+      "slug": "ric-mciver",
+      "fullName": "Ric McIver",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Hays",
+      "aliases": [
+        "Ric",
+        "McIver",
+        "Ric McIver",
+        "ric-mciver"
+      ],
+      "city": "Calgary-Hays",
+      "district_name": "Calgary-Hays"
+    },
+    {
+      "slug": "lizette-tejada",
+      "fullName": "Lizette Tejada",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Klein",
+      "aliases": [
+        "Lizette",
+        "Tejada",
+        "Lizette Tejada",
+        "lizette-tejada"
+      ],
+      "city": "Calgary-Klein",
+      "district_name": "Calgary-Klein"
+    },
+    {
+      "slug": "eric-bouchard",
+      "fullName": "Eric Bouchard",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Lougheed",
+      "aliases": [
+        "Eric",
+        "Bouchard",
+        "Eric Bouchard",
+        "eric-bouchard"
+      ],
+      "city": "Calgary-Lougheed",
+      "district_name": "Calgary-Lougheed"
+    },
+    {
+      "slug": "kathleen-ganley",
+      "fullName": "Kathleen Ganley",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Mountain View",
+      "aliases": [
+        "Kathleen",
+        "Ganley",
+        "Kathleen Ganley",
+        "kathleen-ganley"
+      ],
+      "city": "Calgary-Mountain View",
+      "district_name": "Calgary-Mountain View"
+    },
+    {
+      "slug": "muhammad-yaseen",
+      "fullName": "Muhammad Yaseen",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-North",
+      "aliases": [
+        "Muhammad",
+        "Yaseen",
+        "Muhammad Yaseen",
+        "muhammad-yaseen"
+      ],
+      "city": "Calgary-North",
+      "district_name": "Calgary-North"
+    },
+    {
+      "slug": "gurinder-brar",
+      "fullName": "Gurinder Brar",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-North East",
+      "aliases": [
+        "Gurinder",
+        "Brar",
+        "Gurinder Brar",
+        "gurinder-brar"
+      ],
+      "city": "Calgary-North East",
+      "district_name": "Calgary-North East"
+    },
+    {
+      "slug": "rajan-sawhney",
+      "fullName": "Rajan Sawhney",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-North West",
+      "aliases": [
+        "Rajan",
+        "Sawhney",
+        "Rajan Sawhney",
+        "rajan-sawhney"
+      ],
+      "city": "Calgary-North West",
+      "district_name": "Calgary-North West"
+    },
+    {
+      "slug": "tanya-fir",
+      "fullName": "Tanya Fir",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Peigan",
+      "aliases": [
+        "Tanya",
+        "Fir",
+        "Tanya Fir",
+        "tanya-fir"
+      ],
+      "city": "Calgary-Peigan",
+      "district_name": "Calgary-Peigan"
+    },
+    {
+      "slug": "rebecca-schulz",
+      "fullName": "Rebecca Schulz",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Shaw",
+      "aliases": [
+        "Rebecca",
+        "Schulz",
+        "Rebecca Schulz",
+        "rebecca-schulz"
+      ],
+      "city": "Calgary-Shaw",
+      "district_name": "Calgary-Shaw"
+    },
+    {
+      "slug": "matt-jones",
+      "fullName": "Matt Jones",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-South East",
+      "aliases": [
+        "Matt",
+        "Jones",
+        "Matt Jones",
+        "matt-jones"
+      ],
+      "city": "Calgary-South East",
+      "district_name": "Calgary-South East"
+    },
+    {
+      "slug": "luanne-metz",
+      "fullName": "Luanne Metz",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-Varsity",
+      "aliases": [
+        "Luanne",
+        "Metz",
+        "Luanne Metz",
+        "luanne-metz"
+      ],
+      "city": "Calgary-Varsity",
+      "district_name": "Calgary-Varsity"
+    },
+    {
+      "slug": "mike-ellis",
+      "fullName": "Mike Ellis",
+      "office": "Member of Legislative Assembly",
+      "riding": "Calgary-West",
+      "aliases": [
+        "Mike",
+        "Ellis",
+        "Mike Ellis",
+        "mike-ellis"
+      ],
+      "city": "Calgary-West",
+      "district_name": "Calgary-West"
+    },
+    {
+      "slug": "jackie-lovely",
+      "fullName": "Jackie Lovely",
+      "office": "Member of Legislative Assembly",
+      "riding": "Camrose",
+      "aliases": [
+        "Jackie",
+        "Lovely",
+        "Jackie Lovely",
+        "jackie-lovely"
+      ],
+      "city": "Camrose",
+      "district_name": "Camrose"
+    },
+    {
+      "slug": "joseph-schow",
+      "fullName": "Joseph Schow",
+      "office": "Member of Legislative Assembly",
+      "riding": "Cardston-Siksika",
+      "aliases": [
+        "Joseph",
+        "Schow",
+        "Joseph Schow",
+        "joseph-schow"
+      ],
+      "city": "Cardston-Siksika",
+      "district_name": "Cardston-Siksika"
+    },
+    {
+      "slug": "todd-loewen",
+      "fullName": "Todd Loewen",
+      "office": "Member of Legislative Assembly",
+      "riding": "Central Peace-Notley",
+      "aliases": [
+        "Todd",
+        "Loewen",
+        "Todd Loewen",
+        "todd-loewen"
+      ],
+      "city": "Central Peace-Notley",
+      "district_name": "Central Peace-Notley"
+    },
+    {
+      "slug": "chantelle-dejonge",
+      "fullName": "Chantelle de Jonge",
+      "office": "Member of Legislative Assembly",
+      "riding": "Chestermere-Strathmore",
+      "aliases": [
+        "Chantelle",
+        "de Jonge",
+        "Chantelle de Jonge",
+        "chantelle-dejonge"
+      ],
+      "city": "Chestermere-Strathmore",
+      "district_name": "Chestermere-Strathmore"
+    },
+    {
+      "slug": "justin-wright",
+      "fullName": "Justin Wright",
+      "office": "Member of Legislative Assembly",
+      "riding": "Cypress-Medicine Hat",
+      "aliases": [
+        "Justin",
+        "Wright",
+        "Justin Wright",
+        "justin-wright"
+      ],
+      "city": "Cypress-Medicine Hat",
+      "district_name": "Cypress-Medicine Hat"
+    },
+    {
+      "slug": "andrew-boitchenko",
+      "fullName": "Andrew Boitchenko",
+      "office": "Member of Legislative Assembly",
+      "riding": "Drayton Valley-Devon",
+      "aliases": [
+        "Andrew",
+        "Boitchenko",
+        "Andrew Boitchenko",
+        "andrew-boitchenko"
+      ],
+      "city": "Drayton Valley-Devon",
+      "district_name": "Drayton Valley-Devon"
+    },
+    {
+      "slug": "nate-horner",
+      "fullName": "Nate Horner",
+      "office": "Member of Legislative Assembly",
+      "riding": "Drumheller-Stettler",
+      "aliases": [
+        "Nate",
+        "Horner",
+        "Nate Horner",
+        "nate-horner"
+      ],
+      "city": "Drumheller-Stettler",
+      "district_name": "Drumheller-Stettler"
+    },
+    {
+      "slug": "peggy-wright",
+      "fullName": "Peggy Wright",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Beverly-Clareview",
+      "aliases": [
+        "Peggy",
+        "Wright",
+        "Peggy Wright",
+        "peggy-wright"
+      ],
+      "city": "Edmonton-Beverly-Clareview",
+      "district_name": "Edmonton-Beverly-Clareview"
+    },
+    {
+      "slug": "nicole-goehring",
+      "fullName": "Nicole Goehring",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Castle Downs",
+      "aliases": [
+        "Nicole",
+        "Goehring",
+        "Nicole Goehring",
+        "nicole-goehring"
+      ],
+      "city": "Edmonton-Castle Downs",
+      "district_name": "Edmonton-Castle Downs"
+    },
+    {
+      "slug": "david-shepherd",
+      "fullName": "David Shepherd",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-City Centre",
+      "aliases": [
+        "David",
+        "Shepherd",
+        "David Shepherd",
+        "david-shepherd"
+      ],
+      "city": "Edmonton-City Centre",
+      "district_name": "Edmonton-City Centre"
+    },
+    {
+      "slug": "sharif-haji",
+      "fullName": "Sharif Haji",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Decore",
+      "aliases": [
+        "Sharif",
+        "Haji",
+        "Sharif Haji",
+        "sharif-haji"
+      ],
+      "city": "Edmonton-Decore",
+      "district_name": "Edmonton-Decore"
+    },
+    {
+      "slug": "gurtej-brarmemberelect",
+      "fullName": "Gurtej Brar - Member-elect",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Ellerslie",
+      "aliases": [
+        "Gurtej",
+        "Brar - Member-elect",
+        "Gurtej Brar - Member-elect",
+        "gurtej-brarmemberelect"
+      ],
+      "city": "Edmonton-Ellerslie",
+      "district_name": "Edmonton-Ellerslie"
+    },
+    {
+      "slug": "sarah-hoffman",
+      "fullName": "Sarah Hoffman",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Glenora",
+      "aliases": [
+        "Sarah",
+        "Hoffman",
+        "Sarah Hoffman",
+        "sarah-hoffman"
+      ],
+      "city": "Edmonton-Glenora",
+      "district_name": "Edmonton-Glenora"
+    },
+    {
+      "slug": "marlin-schmidt",
+      "fullName": "Marlin Schmidt",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Gold Bar",
+      "aliases": [
+        "Marlin",
+        "Schmidt",
+        "Marlin Schmidt",
+        "marlin-schmidt"
+      ],
+      "city": "Edmonton-Gold Bar",
+      "district_name": "Edmonton-Gold Bar"
+    },
+    {
+      "slug": "janis-irwin",
+      "fullName": "Janis Irwin",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Highlands-Norwood",
+      "aliases": [
+        "Janis",
+        "Irwin",
+        "Janis Irwin",
+        "janis-irwin"
+      ],
+      "city": "Edmonton-Highlands-Norwood",
+      "district_name": "Edmonton-Highlands-Norwood"
+    },
+    {
+      "slug": "heather-sweet",
+      "fullName": "Heather Sweet",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Manning",
+      "aliases": [
+        "Heather",
+        "Sweet",
+        "Heather Sweet",
+        "heather-sweet"
+      ],
+      "city": "Edmonton-Manning",
+      "district_name": "Edmonton-Manning"
+    },
+    {
+      "slug": "lorne-dach",
+      "fullName": "Lorne Dach",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-McClung",
+      "aliases": [
+        "Lorne",
+        "Dach",
+        "Lorne Dach",
+        "lorne-dach"
+      ],
+      "city": "Edmonton-McClung",
+      "district_name": "Edmonton-McClung"
+    },
+    {
+      "slug": "jasvir-deol",
+      "fullName": "Jasvir Deol",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Meadows",
+      "aliases": [
+        "Jasvir",
+        "Deol",
+        "Jasvir Deol",
+        "jasvir-deol"
+      ],
+      "city": "Edmonton-Meadows",
+      "district_name": "Edmonton-Meadows"
+    },
+    {
+      "slug": "christina-gray",
+      "fullName": "Christina Gray",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Mill Woods",
+      "aliases": [
+        "Christina",
+        "Gray",
+        "Christina Gray",
+        "christina-gray"
+      ],
+      "city": "Edmonton-Mill Woods",
+      "district_name": "Edmonton-Mill Woods"
+    },
+    {
+      "slug": "david-eggen",
+      "fullName": "David Eggen",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-North West",
+      "aliases": [
+        "David",
+        "Eggen",
+        "David Eggen",
+        "david-eggen"
+      ],
+      "city": "Edmonton-North West",
+      "district_name": "Edmonton-North West"
+    },
+    {
+      "slug": "lori-sigurdson",
+      "fullName": "Lori Sigurdson",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Riverview",
+      "aliases": [
+        "Lori",
+        "Sigurdson",
+        "Lori Sigurdson",
+        "lori-sigurdson"
+      ],
+      "city": "Edmonton-Riverview",
+      "district_name": "Edmonton-Riverview"
+    },
+    {
+      "slug": "jodi-calahoostonehouse",
+      "fullName": "Jodi Calahoo Stonehouse",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Rutherford",
+      "aliases": [
+        "Jodi",
+        "Calahoo Stonehouse",
+        "Jodi Calahoo Stonehouse",
+        "jodi-calahoostonehouse"
+      ],
+      "city": "Edmonton-Rutherford",
+      "district_name": "Edmonton-Rutherford"
+    },
+    {
+      "slug": "rhiannon-hoyle",
+      "fullName": "Rhiannon Hoyle",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-South",
+      "aliases": [
+        "Rhiannon",
+        "Hoyle",
+        "Rhiannon Hoyle",
+        "rhiannon-hoyle"
+      ],
+      "city": "Edmonton-South",
+      "district_name": "Edmonton-South"
+    },
+    {
+      "slug": "nathan-ip",
+      "fullName": "Nathan Ip",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-South West",
+      "aliases": [
+        "Nathan",
+        "Ip",
+        "Nathan Ip",
+        "nathan-ip"
+      ],
+      "city": "Edmonton-South West",
+      "district_name": "Edmonton-South West"
+    },
+    {
+      "slug": "naheed-nenshimemberelect",
+      "fullName": "Naheed Nenshi - Member-elect",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Strathcona",
+      "aliases": [
+        "Naheed",
+        "Nenshi - Member-elect",
+        "Naheed Nenshi - Member-elect",
+        "naheed-nenshimemberelect"
+      ],
+      "city": "Edmonton-Strathcona",
+      "district_name": "Edmonton-Strathcona"
+    },
+    {
+      "slug": "brooks-arcandpaul",
+      "fullName": "Brooks Arcand-Paul",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-West Henday",
+      "aliases": [
+        "Brooks",
+        "Arcand-Paul",
+        "Brooks Arcand-Paul",
+        "brooks-arcandpaul"
+      ],
+      "city": "Edmonton-West Henday",
+      "district_name": "Edmonton-West Henday"
+    },
+    {
+      "slug": "rakhi-pancholi",
+      "fullName": "Rakhi Pancholi",
+      "office": "Member of Legislative Assembly",
+      "riding": "Edmonton-Whitemud",
+      "aliases": [
+        "Rakhi",
+        "Pancholi",
+        "Rakhi Pancholi",
+        "rakhi-pancholi"
+      ],
+      "city": "Edmonton-Whitemud",
+      "district_name": "Edmonton-Whitemud"
+    },
+    {
+      "slug": "brian-jeankc",
+      "fullName": "Brian Jean, KC",
+      "office": "Member of Legislative Assembly",
+      "riding": "Fort McMurray-Lac La Biche",
+      "aliases": [
+        "Brian",
+        "Jean, KC",
+        "Brian Jean, KC",
+        "brian-jeankc"
+      ],
+      "city": "Fort McMurray-Lac La Biche",
+      "district_name": "Fort McMurray-Lac La Biche"
+    },
+    {
+      "slug": "tany-yao",
+      "fullName": "Tany Yao",
+      "office": "Member of Legislative Assembly",
+      "riding": "Fort McMurray-Wood Buffalo",
+      "aliases": [
+        "Tany",
+        "Yao",
+        "Tany Yao",
+        "tany-yao"
+      ],
+      "city": "Fort McMurray-Wood Buffalo",
+      "district_name": "Fort McMurray-Wood Buffalo"
+    },
+    {
+      "slug": "jackie-armstronghomeniuk",
+      "fullName": "Jackie Armstrong-Homeniuk",
+      "office": "Member of Legislative Assembly",
+      "riding": "Fort Saskatchewan-Vegreville",
+      "aliases": [
+        "Jackie",
+        "Armstrong-Homeniuk",
+        "Jackie Armstrong-Homeniuk",
+        "jackie-armstronghomeniuk"
+      ],
+      "city": "Fort Saskatchewan-Vegreville",
+      "district_name": "Fort Saskatchewan-Vegreville"
+    },
+    {
+      "slug": "nolan-dyck",
+      "fullName": "Nolan Dyck",
+      "office": "Member of Legislative Assembly",
+      "riding": "Grande Prairie",
+      "aliases": [
+        "Nolan",
+        "Dyck",
+        "Nolan Dyck",
+        "nolan-dyck"
+      ],
+      "city": "Grande Prairie",
+      "district_name": "Grande Prairie"
+    },
+    {
+      "slug": "ron-wiebe",
+      "fullName": "Ron Wiebe",
+      "office": "Member of Legislative Assembly",
+      "riding": "Grande Prairie-Wapiti",
+      "aliases": [
+        "Ron",
+        "Wiebe",
+        "Ron Wiebe",
+        "ron-wiebe"
+      ],
+      "city": "Grande Prairie-Wapiti",
+      "district_name": "Grande Prairie-Wapiti"
+    },
+    {
+      "slug": "rj-sigurdson",
+      "fullName": "R.J. Sigurdson",
+      "office": "Member of Legislative Assembly",
+      "riding": "Highwood",
+      "aliases": [
+        "R.J.",
+        "Sigurdson",
+        "R.J. Sigurdson",
+        "rj-sigurdson"
+      ],
+      "city": "Highwood",
+      "district_name": "Highwood"
+    },
+    {
+      "slug": "devin-dreeshen",
+      "fullName": "Devin Dreeshen",
+      "office": "Member of Legislative Assembly",
+      "riding": "Innisfail-Sylvan Lake",
+      "aliases": [
+        "Devin",
+        "Dreeshen",
+        "Devin Dreeshen",
+        "devin-dreeshen"
+      ],
+      "city": "Innisfail-Sylvan Lake",
+      "district_name": "Innisfail-Sylvan Lake"
+    },
+    {
+      "slug": "shane-getson",
+      "fullName": "Shane Getson",
+      "office": "Member of Legislative Assembly",
+      "riding": "Lac Ste. Anne-Parkland",
+      "aliases": [
+        "Shane",
+        "Getson",
+        "Shane Getson",
+        "shane-getson"
+      ],
+      "city": "Lac Ste. Anne-Parkland",
+      "district_name": "Lac Ste. Anne-Parkland"
+    },
+    {
+      "slug": "jennifer-johnson",
+      "fullName": "Jennifer Johnson",
+      "office": "Member of Legislative Assembly",
+      "riding": "Lacombe-Ponoka",
+      "aliases": [
+        "Jennifer",
+        "Johnson",
+        "Jennifer Johnson",
+        "jennifer-johnson"
+      ],
+      "city": "Lacombe-Ponoka",
+      "district_name": "Lacombe-Ponoka"
+    },
+    {
+      "slug": "brandon-lunty",
+      "fullName": "Brandon Lunty",
+      "office": "Member of Legislative Assembly",
+      "riding": "Leduc-Beaumont",
+      "aliases": [
+        "Brandon",
+        "Lunty",
+        "Brandon Lunty",
+        "brandon-lunty"
+      ],
+      "city": "Leduc-Beaumont",
+      "district_name": "Leduc-Beaumont"
+    },
+    {
+      "slug": "scott-sinclair",
+      "fullName": "Scott Sinclair",
+      "office": "Member of Legislative Assembly",
+      "riding": "Lesser Slave Lake",
+      "aliases": [
+        "Scott",
+        "Sinclair",
+        "Scott Sinclair",
+        "scott-sinclair"
+      ],
+      "city": "Lesser Slave Lake",
+      "district_name": "Lesser Slave Lake"
+    },
+    {
+      "slug": "nathan-neudorf",
+      "fullName": "Nathan Neudorf",
+      "office": "Member of Legislative Assembly",
+      "riding": "Lethbridge-East",
+      "aliases": [
+        "Nathan",
+        "Neudorf",
+        "Nathan Neudorf",
+        "nathan-neudorf"
+      ],
+      "city": "Lethbridge-East",
+      "district_name": "Lethbridge-East"
+    },
+    {
+      "slug": "rob-miyashiro",
+      "fullName": "Rob Miyashiro",
+      "office": "Member of Legislative Assembly",
+      "riding": "Lethbridge-West",
+      "aliases": [
+        "Rob",
+        "Miyashiro",
+        "Rob Miyashiro",
+        "rob-miyashiro"
+      ],
+      "city": "Lethbridge-West",
+      "district_name": "Lethbridge-West"
+    },
+    {
+      "slug": "chelsae-petrovic",
+      "fullName": "Chelsae Petrovic",
+      "office": "Member of Legislative Assembly",
+      "riding": "Livingstone-Macleod",
+      "aliases": [
+        "Chelsae",
+        "Petrovic",
+        "Chelsae Petrovic",
+        "chelsae-petrovic"
+      ],
+      "city": "Livingstone-Macleod",
+      "district_name": "Livingstone-Macleod"
+    },
+    {
+      "slug": "rick-wilson",
+      "fullName": "Rick Wilson",
+      "office": "Member of Legislative Assembly",
+      "riding": "Maskwacis-Wetaskiwin",
+      "aliases": [
+        "Rick",
+        "Wilson",
+        "Rick Wilson",
+        "rick-wilson"
+      ],
+      "city": "Maskwacis-Wetaskiwin",
+      "district_name": "Maskwacis-Wetaskiwin"
+    },
+    {
+      "slug": "dale-nally",
+      "fullName": "Dale Nally",
+      "office": "Member of Legislative Assembly",
+      "riding": "Morinville-St. Albert",
+      "aliases": [
+        "Dale",
+        "Nally",
+        "Dale Nally",
+        "dale-nally"
+      ],
+      "city": "Morinville-St. Albert",
+      "district_name": "Morinville-St. Albert"
+    },
+    {
+      "slug": "tara-sawyermemberelect",
+      "fullName": "Tara Sawyer - Member-elect",
+      "office": "Member of Legislative Assembly",
+      "riding": "Olds-Didsbury-Three Hills",
+      "aliases": [
+        "Tara",
+        "Sawyer - Member-elect",
+        "Tara Sawyer - Member-elect",
+        "tara-sawyermemberelect"
+      ],
+      "city": "Olds-Didsbury-Three Hills",
+      "district_name": "Olds-Didsbury-Three Hills"
+    },
+    {
+      "slug": "dan-williams",
+      "fullName": "Dan Williams",
+      "office": "Member of Legislative Assembly",
+      "riding": "Peace River",
+      "aliases": [
+        "Dan",
+        "Williams",
+        "Dan Williams",
+        "dan-williams"
+      ],
+      "city": "Peace River",
+      "district_name": "Peace River"
+    },
+    {
+      "slug": "adriana-lagrange",
+      "fullName": "Adriana LaGrange",
+      "office": "Member of Legislative Assembly",
+      "riding": "Red Deer-North",
+      "aliases": [
+        "Adriana",
+        "LaGrange",
+        "Adriana LaGrange",
+        "adriana-lagrange"
+      ],
+      "city": "Red Deer-North",
+      "district_name": "Red Deer-North"
+    },
+    {
+      "slug": "jason-stephan",
+      "fullName": "Jason Stephan",
+      "office": "Member of Legislative Assembly",
+      "riding": "Red Deer-South",
+      "aliases": [
+        "Jason",
+        "Stephan",
+        "Jason Stephan",
+        "jason-stephan"
+      ],
+      "city": "Red Deer-South",
+      "district_name": "Red Deer-South"
+    },
+    {
+      "slug": "jason-nixon",
+      "fullName": "Jason Nixon",
+      "office": "Member of Legislative Assembly",
+      "riding": "Rimbey-Rocky Mountain House-Sundre",
+      "aliases": [
+        "Jason",
+        "Nixon",
+        "Jason Nixon",
+        "jason-nixon"
+      ],
+      "city": "Rimbey-Rocky Mountain House-Sundre",
+      "district_name": "Rimbey-Rocky Mountain House-Sundre"
+    },
+    {
+      "slug": "kyle-kasawski",
+      "fullName": "Kyle Kasawski",
+      "office": "Member of Legislative Assembly",
+      "riding": "Sherwood Park",
+      "aliases": [
+        "Kyle",
+        "Kasawski",
+        "Kyle Kasawski",
+        "kyle-kasawski"
+      ],
+      "city": "Sherwood Park",
+      "district_name": "Sherwood Park"
+    },
+    {
+      "slug": "searle-turton",
+      "fullName": "Searle Turton",
+      "office": "Member of Legislative Assembly",
+      "riding": "Spruce Grove-Stony Plain",
+      "aliases": [
+        "Searle",
+        "Turton",
+        "Searle Turton",
+        "searle-turton"
+      ],
+      "city": "Spruce Grove-Stony Plain",
+      "district_name": "Spruce Grove-Stony Plain"
+    },
+    {
+      "slug": "marie-renaud",
+      "fullName": "Marie Renaud",
+      "office": "Member of Legislative Assembly",
+      "riding": "St. Albert",
+      "aliases": [
+        "Marie",
+        "Renaud",
+        "Marie Renaud",
+        "marie-renaud"
+      ],
+      "city": "St. Albert",
+      "district_name": "St. Albert"
+    },
+    {
+      "slug": "nate-glubish",
+      "fullName": "Nate Glubish",
+      "office": "Member of Legislative Assembly",
+      "riding": "Strathcona-Sherwood Park",
+      "aliases": [
+        "Nate",
+        "Glubish",
+        "Nate Glubish",
+        "nate-glubish"
+      ],
+      "city": "Strathcona-Sherwood Park",
+      "district_name": "Strathcona-Sherwood Park"
+    },
+    {
+      "slug": "grant-hunter",
+      "fullName": "Grant Hunter",
+      "office": "Member of Legislative Assembly",
+      "riding": "Taber-Warner",
+      "aliases": [
+        "Grant",
+        "Hunter",
+        "Grant Hunter",
+        "grant-hunter"
+      ],
+      "city": "Taber-Warner",
+      "district_name": "Taber-Warner"
+    },
+    {
+      "slug": "garth-rowswell",
+      "fullName": "Garth Rowswell",
+      "office": "Member of Legislative Assembly",
+      "riding": "Vermilion-Lloydminster-Wainwright",
+      "aliases": [
+        "Garth",
+        "Rowswell",
+        "Garth Rowswell",
+        "garth-rowswell"
+      ],
+      "city": "Vermilion-Lloydminster-Wainwright",
+      "district_name": "Vermilion-Lloydminster-Wainwright"
+    },
+    {
+      "slug": "martin-long",
+      "fullName": "Martin Long",
+      "office": "Member of Legislative Assembly",
+      "riding": "West Yellowhead",
+      "aliases": [
+        "Martin",
+        "Long",
+        "Martin Long",
+        "martin-long"
+      ],
+      "city": "West Yellowhead",
+      "district_name": "West Yellowhead"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2025-09-03T19:03:18.722Z",
+    "totalOfficials": 121,
+    "mps": 34,
+    "mlas": 87,
+    "mpsEnriched": 24,
+    "mlasVerified": 81,
+    "mlasUpdated": 1,
+    "errors": 0,
+    "skipped": 16
+  }
+}

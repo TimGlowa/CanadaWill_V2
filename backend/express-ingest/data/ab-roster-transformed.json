@@ -1,326 +1,27 @@
 [
   {
-    "slug": "ziad-aboultaif",
-    "fullName": "Ziad Aboultaif",
+    "slug": "jasraj-hallan",
+    "fullName": "Jasraj Hallan",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Calgary East",
     "aliases": [
-      "Ziad",
-      "Aboultaif",
-      "Ziad Aboultaif",
-      "ziad-aboultaif"
+      "Jasraj Hallan",
+      "jasraj-hallan",
+      "Jasraj",
+      "Hallan"
     ],
     "city": null
   },
   {
-    "slug": "john-barlow",
-    "fullName": "John Barlow",
+    "slug": "pierre-poilievre",
+    "fullName": "Pierre Poilievre",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Battle River-Crowfoot",
     "aliases": [
-      "John",
-      "Barlow",
-      "John Barlow",
-      "john-barlow"
-    ],
-    "city": null
-  },
-  {
-    "slug": "randy-boissonnault",
-    "fullName": "Randy Boissonnault",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Randy",
-      "Boissonnault",
-      "Randy Boissonnault",
-      "randy-boissonnault"
-    ],
-    "city": null
-  },
-  {
-    "slug": "blaine-calkins",
-    "fullName": "Blaine Calkins",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Blaine",
-      "Calkins",
-      "Blaine Calkins",
-      "blaine-calkins"
-    ],
-    "city": null
-  },
-  {
-    "slug": "george-chahal",
-    "fullName": "George Chahal",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "George",
-      "Chahal",
-      "George Chahal",
-      "george-chahal"
-    ],
-    "city": null
-  },
-  {
-    "slug": "michael-cooper",
-    "fullName": "Michael Cooper",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Michael",
-      "Cooper",
-      "Michael Cooper",
-      "michael-cooper"
-    ],
-    "city": null
-  },
-  {
-    "slug": "blake-desjarlais",
-    "fullName": "Blake Desjarlais",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Blake",
-      "Desjarlais",
-      "Blake Desjarlais",
-      "blake-desjarlais"
-    ],
-    "city": null
-  },
-  {
-    "slug": "earl-dreeshen",
-    "fullName": "Earl Dreeshen",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Earl",
-      "Dreeshen",
-      "Earl Dreeshen",
-      "earl-dreeshen"
-    ],
-    "city": null
-  },
-  {
-    "slug": "garnett-genuis",
-    "fullName": "Garnett Genuis",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Garnett",
-      "Genuis",
-      "Garnett Genuis",
-      "garnett-genuis"
-    ],
-    "city": null
-  },
-  {
-    "slug": "laila-goodridge",
-    "fullName": "Laila Goodridge",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Laila",
-      "Goodridge",
-      "Laila Goodridge",
-      "laila-goodridge"
-    ],
-    "city": null
-  },
-  {
-    "slug": "jasrajsingh-hallan",
-    "fullName": "Jasraj Singh Hallan",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Jasraj Singh",
-      "Hallan",
-      "Jasraj Singh Hallan",
-      "jasrajsingh-hallan"
-    ],
-    "city": null
-  },
-  {
-    "slug": "matt-jeneroux",
-    "fullName": "Matt Jeneroux",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Matt",
-      "Jeneroux",
-      "Matt Jeneroux",
-      "matt-jeneroux"
-    ],
-    "city": null
-  },
-  {
-    "slug": "pat-kelly",
-    "fullName": "Pat Kelly",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Pat",
-      "Kelly",
-      "Pat Kelly",
-      "pat-kelly"
-    ],
-    "city": null
-  },
-  {
-    "slug": "tom-kmiec",
-    "fullName": "Tom Kmiec",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Tom",
-      "Kmiec",
-      "Tom Kmiec",
-      "tom-kmiec"
-    ],
-    "city": null
-  },
-  {
-    "slug": "damien-kurek",
-    "fullName": "Damien Kurek",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Damien",
-      "Kurek",
-      "Damien Kurek",
-      "damien-kurek"
-    ],
-    "city": null
-  },
-  {
-    "slug": "stephanie-kusie",
-    "fullName": "Stephanie Kusie",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Stephanie",
-      "Kusie",
-      "Stephanie Kusie",
-      "stephanie-kusie"
-    ],
-    "city": null
-  },
-  {
-    "slug": "mike-lake",
-    "fullName": "Mike Lake",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Mike",
-      "Lake",
-      "Mike Lake",
-      "mike-lake"
-    ],
-    "city": null
-  },
-  {
-    "slug": "ron-liepert",
-    "fullName": "Ron Liepert",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Ron",
-      "Liepert",
-      "Ron Liepert",
-      "ron-liepert"
-    ],
-    "city": null
-  },
-  {
-    "slug": "dane-lloyd",
-    "fullName": "Dane Lloyd",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Dane",
-      "Lloyd",
-      "Dane Lloyd",
-      "dane-lloyd"
-    ],
-    "city": null
-  },
-  {
-    "slug": "shuvaloy-majumdar",
-    "fullName": "Shuvaloy Majumdar",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Shuvaloy",
-      "Majumdar",
-      "Shuvaloy Majumdar",
-      "shuvaloy-majumdar"
-    ],
-    "city": null
-  },
-  {
-    "slug": "kelly-mccauley",
-    "fullName": "Kelly McCauley",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Kelly",
-      "McCauley",
-      "Kelly McCauley",
-      "kelly-mccauley"
-    ],
-    "city": null
-  },
-  {
-    "slug": "greg-mclean",
-    "fullName": "Greg McLean",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Greg",
-      "McLean",
-      "Greg McLean",
-      "greg-mclean"
-    ],
-    "city": null
-  },
-  {
-    "slug": "heather-mcpherson",
-    "fullName": "Heather McPherson",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Heather",
-      "McPherson",
-      "Heather McPherson",
-      "heather-mcpherson"
-    ],
-    "city": null
-  },
-  {
-    "slug": "glen-motz",
-    "fullName": "Glen Motz",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Glen",
-      "Motz",
-      "Glen Motz",
-      "glen-motz"
-    ],
-    "city": null
-  },
-  {
-    "slug": "michellerempel-garner",
-    "fullName": "Michelle Rempel Garner",
-    "office": "Member of Parliament",
-    "riding": null,
-    "aliases": [
-      "Michelle Rempel",
-      "Garner",
-      "Michelle Rempel Garner",
-      "michellerempel-garner"
+      "Pierre Poilievre",
+      "pierre-poilievre",
+      "Pierre",
+      "Poilievre"
     ],
     "city": null
   },
@@ -328,90 +29,103 @@
     "slug": "blake-richards",
     "fullName": "Blake Richards",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Airdrie-Cochrane",
     "aliases": [
-      "Blake",
-      "Richards",
       "Blake Richards",
-      "blake-richards"
+      "blake-richards",
+      "Blake",
+      "Richards"
     ],
     "city": null
   },
   {
-    "slug": "martin-shields",
-    "fullName": "Martin Shields",
+    "slug": "eleanor-olszewski",
+    "fullName": "Eleanor Olszewski",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Edmonton Centre",
     "aliases": [
-      "Martin",
-      "Shields",
-      "Martin Shields",
-      "martin-shields"
+      "Eleanor Olszewski",
+      "eleanor-olszewski",
+      "Eleanor",
+      "Olszewski"
     ],
     "city": null
   },
   {
-    "slug": "gerald-soroka",
-    "fullName": "Gerald Soroka",
+    "slug": "stephanie-kusie",
+    "fullName": "Stephanie Kusie",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Calgary Midnapore",
     "aliases": [
-      "Gerald",
-      "Soroka",
-      "Gerald Soroka",
-      "gerald-soroka"
+      "Stephanie Kusie",
+      "stephanie-kusie",
+      "Stephanie",
+      "Kusie"
     ],
     "city": null
   },
   {
-    "slug": "shannon-stubbs",
-    "fullName": "Shannon Stubbs",
+    "slug": "garnett-genuis",
+    "fullName": "Garnett Genuis",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Sherwood Park-Fort Saskatchewan",
     "aliases": [
-      "Shannon",
-      "Stubbs",
-      "Shannon Stubbs",
-      "shannon-stubbs"
+      "Garnett Genuis",
+      "garnett-genuis",
+      "Garnett",
+      "Genuis"
     ],
     "city": null
   },
   {
-    "slug": "rachael-thomas",
-    "fullName": "Rachael Thomas",
+    "slug": "john-barlow",
+    "fullName": "John Barlow",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Foothills",
     "aliases": [
-      "Rachael",
-      "Thomas",
-      "Rachael Thomas",
-      "rachael-thomas"
+      "John Barlow",
+      "john-barlow",
+      "John",
+      "Barlow"
     ],
     "city": null
   },
   {
-    "slug": "tim-uppal",
-    "fullName": "Tim Uppal",
+    "slug": "matt-jeneroux",
+    "fullName": "Matt Jeneroux",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Edmonton Riverbend",
     "aliases": [
-      "Tim",
-      "Uppal",
-      "Tim Uppal",
-      "tim-uppal"
+      "Matt Jeneroux",
+      "matt-jeneroux",
+      "Matt",
+      "Jeneroux"
     ],
     "city": null
   },
   {
-    "slug": "arnold-viersen",
-    "fullName": "Arnold Viersen",
+    "slug": "david-mckenzie",
+    "fullName": "David McKenzie",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Calgary Signal Hill",
     "aliases": [
-      "Arnold",
-      "Viersen",
-      "Arnold Viersen",
-      "arnold-viersen"
+      "David McKenzie",
+      "david-mckenzie",
+      "David",
+      "McKenzie"
+    ],
+    "city": null
+  },
+  {
+    "slug": "glen-motz",
+    "fullName": "Glen Motz",
+    "office": "Member of Parliament",
+    "riding": "Medicine Hat-Cardston-Warner",
+    "aliases": [
+      "Glen Motz",
+      "glen-motz",
+      "Glen",
+      "Motz"
     ],
     "city": null
   },
@@ -419,25 +133,314 @@
     "slug": "chris-warkentin",
     "fullName": "Chris Warkentin",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Grande Prairie",
     "aliases": [
-      "Chris",
-      "Warkentin",
       "Chris Warkentin",
-      "chris-warkentin"
+      "chris-warkentin",
+      "Chris",
+      "Warkentin"
     ],
     "city": null
   },
   {
-    "slug": "len-webber",
-    "fullName": "Len Webber",
+    "slug": "dalwinder-gill",
+    "fullName": "Dalwinder Gill",
     "office": "Member of Parliament",
-    "riding": null,
+    "riding": "Calgary McKnight",
     "aliases": [
-      "Len",
-      "Webber",
-      "Len Webber",
-      "len-webber"
+      "Dalwinder Gill",
+      "dalwinder-gill",
+      "Dalwinder",
+      "Gill"
+    ],
+    "city": null
+  },
+  {
+    "slug": "shuvaloy-majumdar",
+    "fullName": "Shuvaloy Majumdar",
+    "office": "Member of Parliament",
+    "riding": "Calgary Heritage",
+    "aliases": [
+      "Shuvaloy Majumdar",
+      "shuvaloy-majumdar",
+      "Shuvaloy",
+      "Majumdar"
+    ],
+    "city": null
+  },
+  {
+    "slug": "rachael-thomas",
+    "fullName": "Rachael Thomas",
+    "office": "Member of Parliament",
+    "riding": "Lethbridge",
+    "aliases": [
+      "Rachael Thomas",
+      "rachael-thomas",
+      "Rachael",
+      "Thomas"
+    ],
+    "city": null
+  },
+  {
+    "slug": "arnold-viersen",
+    "fullName": "Arnold Viersen",
+    "office": "Member of Parliament",
+    "riding": "Peace River-Westlock",
+    "aliases": [
+      "Arnold Viersen",
+      "arnold-viersen",
+      "Arnold",
+      "Viersen"
+    ],
+    "city": null
+  },
+  {
+    "slug": "michael-cooper",
+    "fullName": "Michael Cooper",
+    "office": "Member of Parliament",
+    "riding": "St. Albert-Sturgeon River",
+    "aliases": [
+      "Michael Cooper",
+      "michael-cooper",
+      "Michael",
+      "Cooper"
+    ],
+    "city": null
+  },
+  {
+    "slug": "heather-mcpherson",
+    "fullName": "Heather McPherson",
+    "office": "Member of Parliament",
+    "riding": "Edmonton Strathcona",
+    "aliases": [
+      "Heather McPherson",
+      "heather-mcpherson",
+      "Heather",
+      "McPherson"
+    ],
+    "city": null
+  },
+  {
+    "slug": "burton-bailey",
+    "fullName": "Burton Bailey",
+    "office": "Member of Parliament",
+    "riding": "Red Deer",
+    "aliases": [
+      "Burton Bailey",
+      "burton-bailey",
+      "Burton",
+      "Bailey"
+    ],
+    "city": null
+  },
+  {
+    "slug": "billy-morin",
+    "fullName": "Billy Morin",
+    "office": "Member of Parliament",
+    "riding": "Edmonton Northwest",
+    "aliases": [
+      "Billy Morin",
+      "billy-morin",
+      "Billy",
+      "Morin"
+    ],
+    "city": null
+  },
+  {
+    "slug": "tom-kmiec",
+    "fullName": "Tom Kmiec",
+    "office": "Member of Parliament",
+    "riding": "Calgary Shepard",
+    "aliases": [
+      "Tom Kmiec",
+      "tom-kmiec",
+      "Tom",
+      "Kmiec"
+    ],
+    "city": null
+  },
+  {
+    "slug": "jagsharan-singh-mahal",
+    "fullName": "Jagsharan Singh Mahal",
+    "office": "Member of Parliament",
+    "riding": "Edmonton Southeast",
+    "aliases": [
+      "Jagsharan Singh Mahal",
+      "jagsharan-singh-mahal",
+      "Jagsharan",
+      "Mahal",
+      "Jagsharan Mahal"
+    ],
+    "city": null
+  },
+  {
+    "slug": "tim-uppal",
+    "fullName": "Tim Uppal",
+    "office": "Member of Parliament",
+    "riding": "Edmonton Gateway",
+    "aliases": [
+      "Tim Uppal",
+      "tim-uppal",
+      "Tim",
+      "Uppal"
+    ],
+    "city": null
+  },
+  {
+    "slug": "kerry-diotte",
+    "fullName": "Kerry Diotte",
+    "office": "Member of Parliament",
+    "riding": "Edmonton Griesbach",
+    "aliases": [
+      "Kerry Diotte",
+      "kerry-diotte",
+      "Kerry",
+      "Diotte"
+    ],
+    "city": null
+  },
+  {
+    "slug": "david-bexte",
+    "fullName": "David Bexte",
+    "office": "Member of Parliament",
+    "riding": "Bow River",
+    "aliases": [
+      "David Bexte",
+      "david-bexte",
+      "David",
+      "Bexte"
+    ],
+    "city": null
+  },
+  {
+    "slug": "laila-goodridge",
+    "fullName": "Laila Goodridge",
+    "office": "Member of Parliament",
+    "riding": "Fort McMurray-Cold Lake",
+    "aliases": [
+      "Laila Goodridge",
+      "laila-goodridge",
+      "Laila",
+      "Goodridge"
+    ],
+    "city": null
+  },
+  {
+    "slug": "mike-lake",
+    "fullName": "Mike Lake",
+    "office": "Member of Parliament",
+    "riding": "Leduc-Wetaskiwin",
+    "aliases": [
+      "Mike Lake",
+      "mike-lake",
+      "Mike",
+      "Lake"
+    ],
+    "city": null
+  },
+  {
+    "slug": "michelle-rempel-garner",
+    "fullName": "Michelle Rempel Garner",
+    "office": "Member of Parliament",
+    "riding": "Calgary Nose Hill",
+    "aliases": [
+      "Michelle Rempel Garner",
+      "michelle-rempel-garner",
+      "Michelle",
+      "Garner",
+      "Michelle Garner"
+    ],
+    "city": null
+  },
+  {
+    "slug": "kelly-mccauley",
+    "fullName": "Kelly McCauley",
+    "office": "Member of Parliament",
+    "riding": "Edmonton West",
+    "aliases": [
+      "Kelly McCauley",
+      "kelly-mccauley",
+      "Kelly",
+      "McCauley"
+    ],
+    "city": null
+  },
+  {
+    "slug": "pat-kelly",
+    "fullName": "Pat Kelly",
+    "office": "Member of Parliament",
+    "riding": "Calgary Crowfoot",
+    "aliases": [
+      "Pat Kelly",
+      "pat-kelly",
+      "Pat",
+      "Kelly"
+    ],
+    "city": null
+  },
+  {
+    "slug": "greg-mclean",
+    "fullName": "Greg McLean",
+    "office": "Member of Parliament",
+    "riding": "Calgary Centre",
+    "aliases": [
+      "Greg McLean",
+      "greg-mclean",
+      "Greg",
+      "McLean"
+    ],
+    "city": null
+  },
+  {
+    "slug": "bob-zimmer",
+    "fullName": "Bob Zimmer",
+    "office": "Member of Parliament",
+    "riding": "Prince George-Peace River-Northern Rockies",
+    "aliases": [
+      "Bob Zimmer",
+      "bob-zimmer",
+      "Bob",
+      "Zimmer"
+    ],
+    "city": null
+  },
+  {
+    "slug": "amanpreet-s-gill",
+    "fullName": "Amanpreet S. Gill",
+    "office": "Member of Parliament",
+    "riding": "Calgary Skyview",
+    "aliases": [
+      "Amanpreet S. Gill",
+      "amanpreet-s-gill",
+      "Amanpreet",
+      "Gill",
+      "Amanpreet Gill"
+    ],
+    "city": null
+  },
+  {
+    "slug": "corey-hogan",
+    "fullName": "Corey Hogan",
+    "office": "Member of Parliament",
+    "riding": "Calgary Confederation",
+    "aliases": [
+      "Corey Hogan",
+      "corey-hogan",
+      "Corey",
+      "Hogan"
+    ],
+    "city": null
+  },
+  {
+    "slug": "ziad-aboultaif",
+    "fullName": "Ziad Aboultaif",
+    "office": "Member of Parliament",
+    "riding": "Edmonton Manning",
+    "aliases": [
+      "Ziad Aboultaif",
+      "ziad-aboultaif",
+      "Ziad",
+      "Aboultaif"
     ],
     "city": null
   },
