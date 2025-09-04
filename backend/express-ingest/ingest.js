@@ -7,10 +7,16 @@ app.use(express.json());
 // Import sentiment analyzer
 const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 
+// Import SERP unlimited route
+const serpUnlimited = require('./routes/serp-unlimited');
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString() });
 });
+
+// SERP unlimited route
+app.get('/api/news/serp/unlimited', serpUnlimited);
 
 // Whoami route to identify which file is running
 app.get('/api/whoami', (req, res) => {
@@ -38,6 +44,53 @@ app.get('/api/serp/test', (req, res) => {
     message: 'SERPHouse test route working!',
     timestamp: new Date().toISOString()
   });
+});
+
+// Purge articles endpoint
+app.post('/api/purge-articles', async (req, res) => {
+  try {
+    const { BlobServiceClient } = require('@azure/storage-blob');
+    
+    const CONN = process.env.AZURE_STORAGE_CONNECTION;
+    if (!CONN) {
+      return res.status(500).json({ error: 'AZURE_STORAGE_CONNECTION is missing' });
+    }
+    const CONTAINER = 'articles';
+
+    const svc = BlobServiceClient.fromConnectionString(CONN);
+    const container = svc.getContainerClient(CONTAINER);
+
+    // 1) Delete the container (purges ALL blobs under it)
+    try {
+      console.log(`Deleting container "${CONTAINER}" ...`);
+      await container.delete();
+      console.log(`Deleted: ${CONTAINER}`);
+    } catch (e) {
+      if (e.statusCode === 404) {
+        console.log(`Container "${CONTAINER}" did not exist. Continuing.`);
+      } else {
+        throw e;
+      }
+    }
+
+    // 2) Recreate empty container so code that writes to it does not fail
+    console.log(`Recreating container "${CONTAINER}" ...`);
+    await svc.createContainer(CONTAINER);
+    console.log(`Recreated: ${CONTAINER}`);
+
+    res.json({ 
+      success: true, 
+      message: 'Purge complete. Nothing remains in "articles".',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Purge error:', error);
+    res.status(500).json({ 
+      error: 'Purge failed', 
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // Sentiment analysis endpoints
