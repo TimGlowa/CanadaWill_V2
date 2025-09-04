@@ -7,10 +7,16 @@ app.use(express.json());
 // Import sentiment analyzer
 const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 
+// Import SERP unlimited route
+const serpUnlimited = require('./routes/serp-unlimited');
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString() });
 });
+
+// SERP unlimited route
+app.get('/api/news/serp/unlimited', serpUnlimited);
 
 // Whoami route to identify which file is running
 app.get('/api/whoami', (req, res) => {
@@ -419,8 +425,12 @@ function buildEnhancedQuery(person) {
 
   const allKeywords = [...separationKeywords, ...unityKeywords];
 
+  // Handle title variants correctly, including Premier for Danielle Smith
   let titleVariants;
-  if (person.office.includes('Legislative Assembly') || person.office.includes('MLA')) {
+  if (person.fullName === "Danielle Smith") {
+    // Special case: Danielle Smith is Premier but also MLA
+    titleVariants = '"Premier" OR "MLA" OR "Member of Legislative Assembly"';
+  } else if (person.office.includes('Legislative Assembly') || person.office.includes('MLA')) {
     titleVariants = '"MLA" OR "Member of Legislative Assembly"';
   } else if (person.office.includes('Parliament') || person.office.includes('MP')) {
     titleVariants = '"MP" OR "Member of Parliament"';
@@ -428,7 +438,7 @@ function buildEnhancedQuery(person) {
     titleVariants = '"MLA" OR "Member of Legislative Assembly" OR "MP" OR "Member of Parliament"';
   }
 
-  return `"${person.fullName}" "${person.office}" AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
+  return `"${person.fullName}" AND (${titleVariants}) AND (${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
 }
 
 // Store results in Azure Blob Storage
@@ -471,33 +481,32 @@ async function makeSerphouseCall(query) {
     throw new Error('SERPHOUSE_API_TOKEN environment variable is required');
   }
 
-  const url = 'https://api.serphouse.com/serp/live';
+  const url = 'https://api.serphouse.com/serp/live/search';
   const payload = {
-    // Core query
     q: query,
-
-    // Google News
-    domain: 'google.ca',
-    lang: 'en',
-    device: 'desktop',
-    tbm: 'nws',               // <- news results
-    location: 'Alberta,Canada',
+    engine: "google_news",
+    google_domain: "google.ca",
+    gl: "ca",
+    hl: "en",
+    device: "desktop",
     num: 50
-    // NOTE: intentionally NO date_from/date_to
   };
 
   try {
-    console.log(`[SERPHouse] POST ${url} tbm=nws`);
+    console.log(`[SERPHouse] POST ${url} engine=google_news`);
     console.log('Request body:', JSON.stringify(payload, null, 2));
 
     const response = await axios.post(url, payload, {
-      headers: { Authorization: `Bearer ${apiToken}` }  // or pass ?api_token=
+      headers: { 
+        Authorization: `Bearer ${apiToken}`,
+        'Content-Type': 'application/json'
+      }
     });
 
     console.log(`SERPHouse status: ${response.status}`);
     const data = response.data || {};
-    const news = data?.results?.news || [];
-    const organic = data?.results?.organic || [];
+    const news = data?.news_results || [];
+    const organic = data?.organic_results || [];
 
     if (Array.isArray(news) && news.length > 0) {
       console.log(`Found ${news.length} news items`);
@@ -508,7 +517,7 @@ async function makeSerphouseCall(query) {
       return { count: organic.length, articles: organic, status: response.status };
     }
 
-    console.log('No results in response.results');
+    console.log('No results in response');
     console.log('Full response data:', JSON.stringify(data, null, 2));
     return { count: 0, articles: [], status: response.status };
 
@@ -524,6 +533,47 @@ async function makeSerphouseCall(query) {
 }
 
 
+
+// Test SERPHouse API with sample query
+app.get('/api/serp/test-fixed', async (req, res) => {
+  try {
+    console.log('🧪 Testing fixed SERPHouse API implementation...');
+    
+    // Test with Danielle Smith (Premier)
+    const testOfficial = {
+      fullName: "Danielle Smith",
+      office: "Member of Legislative Assembly",
+      slug: "danielle-smith"
+    };
+    
+    const query = buildEnhancedQuery(testOfficial);
+    console.log(`Generated query: ${query}`);
+    
+    const serphouseResponse = await makeSerphouseCall(query);
+    
+    res.json({
+      success: true,
+      message: 'SERPHouse API test completed',
+      testOfficial: testOfficial,
+      generatedQuery: query,
+      apiResponse: {
+        status: serphouseResponse.status,
+        articleCount: serphouseResponse.count,
+        hasArticles: serphouseResponse.articles && serphouseResponse.articles.length > 0,
+        sampleArticles: serphouseResponse.articles ? serphouseResponse.articles.slice(0, 3) : []
+      },
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ SERPHouse API test failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
 
 // Sentiment analysis endpoints
 app.get('/api/sentiment/test', async (req, res) => {
