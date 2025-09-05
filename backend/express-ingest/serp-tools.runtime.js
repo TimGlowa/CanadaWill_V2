@@ -58,4 +58,12 @@ module.exports = function(app){
     req.query.days = req.query.days || '3';
     return app._router.handle(req, res); // re-use the same handler
   });
+
+  // Register roster runner here so the route actually loads in this runtime
+  try {
+    require('./src/admin-backfill.runtime')(app);
+    console.log('[admin-backfill] route registered (from serp-tools.runtime)');
+  } catch (e) {
+    console.error('[admin-backfill] not registered:', e && e.message ? e.message : e);
+  }
 };
