@@ -206,10 +206,88 @@ module.exports = function(app){
     return app._router.handle(req, res); // re-use the same handler
   });
 
-  // Boot log for the admin roster-runner
-  console.log('[BOOT] route: GET /api/admin/backfill');
+  // ===== Admin roster-runner (streams [i/N]) =====
+  const { BlobServiceClient } = require('@azure/storage-blob');
+  const CONN       = process.env.AZURE_STORAGE_CONNECTION;
+  const SERP_TOKEN = process.env.SERPHOUSE_API_TOKEN;
+  const ROSTER_REL = process.env.ROSTER_PATH; // MUST be "data/ab-roster-transformed.json"
+  const CONTAINER  = 'news';
+  if (!CONN)       throw new Error('AZURE_STORAGE_CONNECTION missing');
+  if (!SERP_TOKEN) throw new Error('SERPHOUSE_API_TOKEN missing');
+  if (!ROSTER_REL) throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
 
-  // Streams "[i/121] slug … OK count=…" as plain text while iterating roster
+  const SEPARATION_TERMS = [
+    "Alberta separation","Alberta independence","Alberta sovereignty",
+    "Sovereignty Act","referendum","secede","secession",
+    "leave Canada","break from Canada","Alberta Prosperity Project",
+    "Forever Canada","Forever Canadian"
+  ];
+  const UNITY_TERMS = [
+    "remain in Canada","stay in Canada","support Canada",
+    "oppose separation","oppose independence","pro-Canada stance",
+    "keep Alberta in Canada"
+  ];
+  const TERMS = [...SEPARATION_TERMS, ...UNITY_TERMS];
+  const buildQuery = (fullName, office) => {
+    const expr = TERMS.map(t => `"${t}"`).join(' OR ');
+    return `"${fullName}" "${office}" AND (${expr})`;
+  };
+  const sleep  = (ms)=>new Promise(r=>setTimeout(r,ms));
+  const jitter = ()=>900+Math.floor(Math.random()*700);
+  const parseNewsDate = (s)=>{
+    if (!s) return null;
+    const str=String(s).trim();
+    const m=str.match(/^(\d+)\s+(minute|minutes|hour|hours|day|days|week|weeks|month|months|year|years)\s+ago$/i);
+    if (m){const n=+m[1],u=m[2].toLowerCase(),ms=u.startsWith('minute')?n*60_000:u.startsWith('hour')?n*3_600_000:
+      u.startsWith('day')?n*86_400_000:u.startsWith('week')?n*7*86_400_000:u.startsWith('month')?n*30*86_400_000:
+      u.startsWith('year')?n*365*86_400_000:0; return new Date(Date.now()-ms);}
+    const d=new Date(str); return isNaN(d)?null:d;
+  };
+  const streamToBuffer = async (readable)=>{const a=[]; for await(const c of readable) a.push(Buffer.from(c)); return Buffer.concat(a);};
+  const readDay  = async (container,slug,y,m,d)=>{
+    const name=`raw/serp/${slug}/${y}/${m}/${d}.json`;
+    try{const dl=await container.getBlobClient(name).download(); const buf=await streamToBuffer(dl.readableStreamBody);
+        return JSON.parse(buf.toString('utf8'));}catch{return { meta:{ slug, day:`${y}-${m}-${d}` }, articles: [] };}
+  };
+  const writeDay = async (container,slug,y,m,d,items)=>{
+    const name=`raw/serp/${slug}/${y}/${m}/${d}.json`;
+    const body=JSON.stringify({ meta:{ slug, day:`${y}-${m}-${d}`, count: items.length }, articles: items });
+    const client=container.getBlockBlobClient(name);
+    await client.deleteIfExists();
+    await client.upload(body, Buffer.byteLength(body), { blobHTTPHeaders:{ blobContentType:'application/json' } });
+  };
+  const fetchAllSERP = async (q)=>{
+    const url='https://api.serphouse.com/serp/live';
+    const headers={ Authorization:`Bearer ${SERP_TOKEN}` };
+    const minDate = new Date(Date.now() - 365*86_400_000); // fixed 12 months
+    const seen=new Set(); const buckets=new Map(); let page=1, backoff=1500, total=0;
+    for(;;){
+      try{
+        const { data } = await axios.post(url,{ q, domain:'google.ca', lang:'en', device:'desktop', tbm:'nws', num:100, page},{ headers, timeout:60_000 });
+        const news=data?.results?.news||[]; if(!news.length) break;
+        let fresh=0;
+        for(const it of news){
+          const dt=parseNewsDate(it.time||it.date||it.published_time);
+          if(!dt||dt<minDate) continue;
+          const u=(it.url||it.link||'').trim(); if(!u||seen.has(u)) continue;
+          seen.add(u);
+          const y=dt.getFullYear(), m=String(dt.getMonth()+1).padStart(2,'0'), d=String(dt.getDate()).padStart(2,'0');
+          const key=`${y}/${m}/${d}`; if(!buckets.has(key)) buckets.set(key,[]); buckets.get(key).push(it);
+          fresh++; total++;
+        }
+        if(fresh===0) break;
+        page++; if(page>200) break;
+        backoff=1500; await sleep(250);
+      }catch(e){
+        const s=e?.response?.status||0;
+        if(s===429||s===503){ await sleep(backoff); backoff=Math.min(backoff*2,20_000); continue; }
+        throw e;
+      }
+    }
+    return { total, buckets };
+  };
+
+  console.log('[BOOT] route: GET /api/admin/backfill');
   app.get('/api/admin/backfill', async (req, res) => {
     try {
       const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
@@ -227,7 +305,6 @@ module.exports = function(app){
       await container.createIfNotExists();
 
       res.write(`Backfilling ${officials.length} officials → container "${CONTAINER}" (12 months, no caps)\n`);
-
       let i=0, grand=0;
       for (const o of officials) {
         await sleep(jitter());
@@ -237,7 +314,6 @@ module.exports = function(app){
         if (total > 0){
           for (const [key, items] of buckets.entries()){
             const [y,m,d] = key.split('/');
-            // merge any existing day file
             const existing = await readDay(container, o.slug, y, m, d);
             const merged = (existing.articles || []).concat(items);
             await writeDay(container, o.slug, y, m, d, merged);
