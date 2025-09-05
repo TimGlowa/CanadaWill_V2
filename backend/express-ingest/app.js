@@ -76,9 +76,9 @@ app.set("backfillProgressRead", readProgressSafe);
 app.set("backfillProgressLog", progressLog);
 // --- End Monitoring & Progress ---
 
-// Admin backfill endpoint (runs ON Azure; registers /api/admin/backfill)
+// Ensure /api/admin/backfill is registered (progress-streaming backfill on Azure)
 try {
-  require('./src/admin-backfill.runtime')(app);   // your file lives in /src
+  require('./src/admin-backfill.runtime')(app);
   console.log('admin-backfill route loaded');
 } catch (e) {
   console.error('admin-backfill not loaded:', e && e.message ? e.message : e);

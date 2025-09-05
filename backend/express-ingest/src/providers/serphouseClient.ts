@@ -16,6 +16,16 @@ function toDisplayName(who: string): string {
     .join(" ");
 }
 
+function resolveFullName(whoOrName: string): string {
+  // Simple resolver - could be enhanced with roster lookup
+  return toDisplayName(whoOrName);
+}
+
+function resolveOffice(whoOrName: string): string {
+  // Simple resolver - could be enhanced with roster lookup
+  return "Member of Legislative Assembly"; // default for Alberta MLAs
+}
+
 function tbsForDays(days?: number): string | undefined {
   if (!days) return undefined;
   if (days >= 365) return "qdr:y";   // past year
@@ -86,9 +96,35 @@ export function buildEnhancedQuery(person: any): string {
   return query;
 }
 
-function buildQueryForOfficial(who: string): string {
-  const displayName = toDisplayName(who);
-  return `"${displayName}"`;
+export function buildQueryForOfficial(whoOrName: string, office?: string) {
+  const name = resolveFullName(whoOrName); // existing resolver
+  const off  = office || resolveOffice(whoOrName) || '';
+  const SEPARATION_TERMS = [
+    "Alberta separation",
+    "Alberta independence",
+    "Alberta sovereignty",
+    "Sovereignty Act",
+    "referendum",
+    "secede",
+    "secession",
+    "leave Canada",
+    "break from Canada",
+    "Alberta Prosperity Project",
+    "Forever Canada",
+    "Forever Canadian"
+  ];
+  const UNITY_TERMS = [
+    "remain in Canada",
+    "stay in Canada",
+    "support Canada",
+    "oppose separation",
+    "oppose independence",
+    "pro-Canada stance",
+    "keep Alberta in Canada"
+  ];
+  const TERMS = [...SEPARATION_TERMS, ...UNITY_TERMS];
+  const expr = TERMS.map(t => `"${t}"`).join(' OR ');
+  return `"${name}" "${off}" AND (${expr})`;
 }
 
 function parseNewsDate(s: any): Date | null {

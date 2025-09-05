@@ -18,16 +18,31 @@ if (!CONN)       throw new Error('AZURE_STORAGE_CONNECTION missing');
 if (!SERP_TOKEN) throw new Error('SERPHOUSE_API_TOKEN missing');
 if (!ROSTER_REL) throw new Error('ROSTER_PATH missing');
 
-const TERMS = [
-  "Alberta separation","Alberta independence","Alberta sovereignty",
-  "Sovereignty Act","referendum","secede","leave Canada",
-  "break from Canada","Alberta Prosperity Project",
-  "Forever Canada","Forever Canadian",
-  "remain in Canada","stay in Canada",
-  "support Canada","oppose separation",
-  "oppose independence","pro-Canada stance",
+// PRD §2.2 — explicit term sets (treat quoted items as phrases)
+const SEPARATION_TERMS = [
+  "Alberta separation",
+  "Alberta independence",
+  "Alberta sovereignty",
+  "Sovereignty Act",
+  "referendum",
+  "secede",
+  "secession",
+  "leave Canada",
+  "break from Canada",
+  "Alberta Prosperity Project",
+  "Forever Canada",
+  "Forever Canadian"
+];
+const UNITY_TERMS = [
+  "remain in Canada",
+  "stay in Canada",
+  "support Canada",
+  "oppose separation",
+  "oppose independence",
+  "pro-Canada stance",
   "keep Alberta in Canada"
 ];
+const TERMS = [...SEPARATION_TERMS, ...UNITY_TERMS];
 
 function buildQuery(fullName, office){
   const termExpr = TERMS.map(t => `"${t}"`).join(' OR ');
