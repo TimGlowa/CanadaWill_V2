@@ -76,12 +76,12 @@ app.set("backfillProgressRead", readProgressSafe);
 app.set("backfillProgressLog", progressLog);
 // --- End Monitoring & Progress ---
 
-// Ensure /api/admin/backfill is registered (progress-streaming backfill on Azure)
+// Register roster-runner (streams [i/121] progress)
 try {
   require('./src/admin-backfill.runtime')(app);
-  console.log('admin-backfill route loaded');
+  console.log('[admin-backfill] route registered');
 } catch (e) {
-  console.error('admin-backfill not loaded:', e && e.message ? e.message : e);
+  console.error('[admin-backfill] not registered:', e && e.message ? e.message : e);
 }
 
 const port = process.env.PORT || process.env.WEBSITES_PORT || 8080;
