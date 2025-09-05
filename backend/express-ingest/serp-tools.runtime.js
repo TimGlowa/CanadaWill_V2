@@ -48,11 +48,56 @@ module.exports = function(app){
     return isNaN(d) ? null : d;
   }
   function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+  function jitter(){ return 900 + Math.floor(Math.random()*700); }
   async function streamToBuffer(readable){ const a=[]; for await (const c of readable) a.push(Buffer.from(c)); return Buffer.concat(a); }
   async function readDay(container, slug, y, m, d){
     const name = `raw/serp/${slug}/${y}/${m}/${d}.json`;
     try { const dl=await container.getBlobClient(name).download(); const buf=await streamToBuffer(dl.readableStreamBody);
           return JSON.parse(buf.toString('utf8')); } catch { return { meta:{ slug, day:`${y}-${m}-${d}` }, articles: [] }; }
+  }
+  async function writeDay(container, slug, y, m, d, items){
+    const name = `raw/serp/${slug}/${y}/${m}/${d}.json`;
+    const body = JSON.stringify({ meta:{ slug, day:`${y}-${m}-${d}`, count: items.length }, articles: items });
+    const client = container.getBlockBlobClient(name);
+    await client.deleteIfExists();
+    await client.upload(body, Buffer.byteLength(body), { blobHTTPHeaders:{ blobContentType:'application/json' } });
+  }
+  async function fetchAllSERP(q){
+    const url='https://api.serphouse.com/serp/live';
+    const headers={ Authorization:`Bearer ${SERP_TOKEN}` };
+    const minDate = new Date(Date.now() - 365*86_400_000); // fixed 12 months
+    const seen=new Set(); const buckets=new Map();
+    let page=1, backoff=1500, total=0;
+    for(;;){
+      try{
+        const { data } = await axios.post(url, { q, domain:'google.ca', lang:'en', device:'desktop', tbm:'nws', num:100, page },
+                                          { headers, timeout: 60_000 });
+        const news = data?.results?.news || [];
+        if (!news.length) break;
+        let fresh=0;
+        for (const it of news){
+          const dt = parseNewsDate(it.time || it.date || it.published_time);
+          if (!dt || dt < minDate) continue;
+          const u = (it.url || it.link || '').trim();
+          if (!u || seen.has(u)) continue;
+          seen.add(u);
+          const y=dt.getFullYear(), m=String(dt.getMonth()+1).padStart(2,'0'), d=String(dt.getDate()).padStart(2,'0');
+          const key=`${y}/${m}/${d}`;
+          if (!buckets.has(key)) buckets.set(key, []);
+          buckets.get(key).push(it);
+          fresh++; total++;
+        }
+        if (fresh===0) break;
+        page++; if (page>200) break;
+        backoff=1500;
+        await sleep(250);
+      }catch(e){
+        const s=e?.response?.status||0;
+        if (s===429 || s===503){ await sleep(backoff); backoff=Math.min(backoff*2,20_000); continue; }
+        throw e;
+      }
+    }
+    return { total, buckets };
   }
   async function writeDay(container, slug, y, m, d, items){
     const name = `raw/serp/${slug}/${y}/${m}/${d}.json`;
@@ -161,11 +206,52 @@ module.exports = function(app){
     return app._router.handle(req, res); // re-use the same handler
   });
 
-  // Register roster runner here so the route actually loads in this runtime
-  try {
-    require('./src/admin-backfill.runtime')(app);
-    console.log('[admin-backfill] route registered (from serp-tools.runtime)');
-  } catch (e) {
-    console.error('[admin-backfill] not registered:', e && e.message ? e.message : e);
-  }
+  // Boot log for the admin roster-runner
+  console.log('[BOOT] route: GET /api/admin/backfill');
+
+  // Streams "[i/121] slug … OK count=…" as plain text while iterating roster
+  app.get('/api/admin/backfill', async (req, res) => {
+    try {
+      const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
+      if (!fs.existsSync(rosterPath)) return res.status(500).send(`Roster not found at ${rosterPath}`);
+      const raw = JSON.parse(fs.readFileSync(rosterPath,'utf8'));
+      const officials = (Array.isArray(raw) ? raw : (raw.officials || []))
+        .filter(x => x && x.slug && x.fullName && x.office);
+
+      res.setHeader('Content-Type','text/plain; charset=utf-8');
+      res.setHeader('Cache-Control','no-cache');
+      res.setHeader('Connection','keep-alive');
+
+      const svc = BlobServiceClient.fromConnectionString(CONN);
+      const container = svc.getContainerClient(CONTAINER);
+      await container.createIfNotExists();
+
+      res.write(`Backfilling ${officials.length} officials → container "${CONTAINER}" (12 months, no caps)\n`);
+
+      let i=0, grand=0;
+      for (const o of officials) {
+        await sleep(jitter());
+        res.write(`[${++i}/${officials.length}] ${o.slug} … `);
+        const q = buildQuery(o.fullName, o.office || '');
+        const { total, buckets } = await fetchAllSERP(q);
+        if (total > 0){
+          for (const [key, items] of buckets.entries()){
+            const [y,m,d] = key.split('/');
+            // merge any existing day file
+            const existing = await readDay(container, o.slug, y, m, d);
+            const merged = (existing.articles || []).concat(items);
+            await writeDay(container, o.slug, y, m, d, merged);
+          }
+          grand += total;
+          res.write(`OK count=${total}\n`);
+        } else {
+          res.write(`OK count=0\n`);
+        }
+      }
+      res.write(`Backfill complete. Total stored: ${grand}\n`);
+      res.end();
+    } catch (err) {
+      res.status(500).send(String(err?.message || err));
+    }
+  });
 };
