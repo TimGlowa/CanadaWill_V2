@@ -1,5 +1,104 @@
 'use strict';
 module.exports = function(app){
+  // KISS: inline backfill logic here to avoid the compiled dist client path
+  const fs = require('fs');
+  const path = require('path');
+  const axios = require('axios');
+  const { BlobServiceClient } = require('@azure/storage-blob');
+
+  const CONN       = process.env.AZURE_STORAGE_CONNECTION;
+  const SERP_TOKEN = process.env.SERPHOUSE_API_TOKEN;
+  const ROSTER_REL = process.env.ROSTER_PATH; // must be "data/ab-roster-transformed.json"
+  const CONTAINER  = 'news';                  // hard-coded per direction
+  if (!CONN)       throw new Error('AZURE_STORAGE_CONNECTION missing');
+  if (!SERP_TOKEN) throw new Error('SERPHOUSE_API_TOKEN missing');
+  if (!ROSTER_REL) throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
+
+  // PRD §2.2 explicit keywords (quoted phrases treated as phrases)
+  const SEPARATION_TERMS = [
+    "Alberta separation","Alberta independence","Alberta sovereignty","Sovereignty Act",
+    "referendum","secede","secession","leave Canada","break from Canada",
+    "Alberta Prosperity Project","Forever Canada","Forever Canadian"
+  ];
+  const UNITY_TERMS = [
+    "remain in Canada","stay in Canada","support Canada","oppose separation",
+    "oppose independence","pro-Canada stance","keep Alberta in Canada"
+  ];
+  const TERMS = [...SEPARATION_TERMS, ...UNITY_TERMS];
+
+  function buildQuery(fullName, office){
+    const expr = TERMS.map(t => `"${t}"`).join(' OR ');
+    return `"${fullName}" "${office}" AND (${expr})`;
+  }
+  function parseNewsDate(s){
+    if (!s) return null;
+    const str = String(s).trim();
+    const m = str.match(/^(\d+)\s+(minute|minutes|hour|hours|day|days|week|weeks|month|months|year|years)\s+ago$/i);
+    if (m){
+      const n=+m[1], u=m[2].toLowerCase();
+      const ms = u.startsWith('minute')? n*60_000 :
+                 u.startsWith('hour')  ? n*3_600_000 :
+                 u.startsWith('day')   ? n*86_400_000 :
+                 u.startsWith('week')  ? n*7*86_400_000 :
+                 u.startsWith('month') ? n*30*86_400_000 :
+                 u.startsWith('year')  ? n*365*86_400_000 : 0;
+      return new Date(Date.now()-ms);
+    }
+    const d = new Date(str);
+    return isNaN(d) ? null : d;
+  }
+  function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+  async function streamToBuffer(readable){ const a=[]; for await (const c of readable) a.push(Buffer.from(c)); return Buffer.concat(a); }
+  async function readDay(container, slug, y, m, d){
+    const name = `raw/serp/${slug}/${y}/${m}/${d}.json`;
+    try { const dl=await container.getBlobClient(name).download(); const buf=await streamToBuffer(dl.readableStreamBody);
+          return JSON.parse(buf.toString('utf8')); } catch { return { meta:{ slug, day:`${y}-${m}-${d}` }, articles: [] }; }
+  }
+  async function writeDay(container, slug, y, m, d, items){
+    const name = `raw/serp/${slug}/${y}/${m}/${d}.json`;
+    const body = JSON.stringify({ meta:{ slug, day:`${y}-${m}-${d}`, count: items.length }, articles: items });
+    const client = container.getBlockBlobClient(name);
+    await client.deleteIfExists();
+    await client.upload(body, Buffer.byteLength(body), { blobHTTPHeaders:{ blobContentType:'application/json' } });
+  }
+  async function fetchAll(q){
+    const url='https://api.serphouse.com/serp/live';
+    const headers={ Authorization:`Bearer ${SERP_TOKEN}` };
+    const minDate = new Date(Date.now() - 365*86_400_000); // fixed 12 months
+    const seen=new Set(); const buckets=new Map();
+    let page=1, backoff=1500, total=0;
+    for(;;){
+      try{
+        const { data } = await axios.post(url, { q, domain:'google.ca', lang:'en', device:'desktop', tbm:'nws', num:100, page },
+                                          { headers, timeout:60_000 });
+        const news = data?.results?.news || [];
+        if (!news.length) break;
+        let fresh=0;
+        for (const it of news){
+          const dt = parseNewsDate(it.time || it.date || it.published_time);
+          if (!dt || dt < minDate) continue;
+          const u = (it.url || it.link || '').trim();
+          if (!u || seen.has(u)) continue;
+          seen.add(u);
+          const y=dt.getFullYear(), m=String(dt.getMonth()+1).padStart(2,'0'), d=String(dt.getDate()).padStart(2,'0');
+          const key=`${y}/${m}/${d}`;
+          if (!buckets.has(key)) buckets.set(key, []);
+          buckets.get(key).push(it);
+          fresh++; total++;
+        }
+        if (fresh===0) break;
+        page++; if (page>200) break;
+        backoff=1500;
+        await sleep(250);
+      }catch(e){
+        const s=e?.response?.status||0;
+        if (s===429 || s===503){ await sleep(backoff); backoff=Math.min(backoff*2,20_000); continue; }
+        throw e;
+      }
+    }
+    return { total, buckets };
+  }
+
   // Health/debug already present in your live copy; keep them.
   app.get('/api/news/serp/env', (_req,res)=>{
     res.json({
@@ -22,34 +121,37 @@ module.exports = function(app){
     }
   });
 
-  // Backfill/refresh with optional ?q= override
-  app.get('/api/news/serp/backfill', async (req,res)=>{
-    try{
-      const who   = String(req.query.who || req.query.slug || '').trim();
-      const days  = Number(req.query.days || 365);
-      // Do not use or forward any 'limit'. The client paginates until empty.
-      const limit = undefined;
-      const store = String(req.query.store || '') === '1';
-      const q     = req.query.q ? String(req.query.q) : undefined;
+  // KISS: unify backfill here using ROSTER_PATH + PRD terms + 12mo + no caps. Logs each call.
+  app.get('/api/news/serp/backfill', async (req, res) => {
+    try {
+      const slug = String(req.query.who || '').trim();
+      if (!slug) return res.status(400).json({ ok:false, error:'missing who' });
 
-      const serph = require('./dist/providers/serphouseClient');
-      const raw = await serph.fetchNews({ who, days, qOverride: q });
+      const rosterPath = path.resolve(process.cwd(), process.env.ROSTER_PATH);
+      const raw = JSON.parse(fs.readFileSync(rosterPath,'utf8'));
+      const arr = Array.isArray(raw) ? raw : (raw.officials || []);
+      const rec = arr.find(r => r && (r.slug === slug || (r.fullName||'').toLowerCase() === slug.toLowerCase()));
+      if (!rec) return res.status(400).json({ ok:false, error:`slug not in roster: ${slug}` });
 
-      let stored = { stored:false };
-      if (store) {
-        const { BlobServiceClient } = require('@azure/storage-blob');
-        const bsc = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION);
-        const cc  = bsc.getContainerClient(process.env.ARTICLES_CONTAINER || 'articles');
-        await cc.createIfNotExists();
-        const ts  = new Date().toISOString().replace(/[:.]/g,'-');
-        const key = `raw/serp/${who}/${ts}.json`;
-        await cc.getBlockBlobClient(key).upload(JSON.stringify({who,days,limit,raw},null,2), Buffer.byteLength(JSON.stringify({who,days,limit,raw})));
-        stored = { stored:true, container: cc.containerName, key };
+      const q = buildQuery(rec.fullName, rec.office || '');
+      console.log(`[backfill] slug=${slug} q=${q}`);
+
+      const svc = BlobServiceClient.fromConnectionString(CONN);
+      const container = svc.getContainerClient(CONTAINER);
+      await container.createIfNotExists();
+
+      const { total, buckets } = await fetchAll(q);
+      for (const [key, items] of buckets.entries()){
+        const [y,m,d] = key.split('/');
+        // merge with any existing for that day
+        const existing = await readDay(container, slug, y, m, d);
+        const merged = (existing.articles || []).concat(items);
+        await writeDay(container, slug, y, m, d, merged);
       }
-
-      res.json({ ok:true, who, days, limit, stored, count: raw?.length ?? 0, raw });
-    }catch(e){
-      res.status(500).json({ ok:false, error: (e && e.message) || String(e) });
+      return res.json({ ok:true, who:slug, count: total });
+    } catch (err) {
+      console.error('[backfill] error', err?.message || err);
+      return res.status(500).json({ ok:false, error: String(err?.message || err) });
     }
   });
 
