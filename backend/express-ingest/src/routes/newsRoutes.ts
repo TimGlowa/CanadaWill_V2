@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { IngestOrchestrator } from '../ingest/orchestrator';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const router = Router();
 const orchestrator = new IngestOrchestrator();
@@ -111,7 +113,10 @@ router.post('/admin/ingest/run', async (req, res) => {
     let slugsToProcess: string[];
     if (cohort === 'ab-all') {
       // Load all slugs from roster
-      const roster = require('../../data/ab-roster.json');
+      const ROSTER_REL = process.env.ROSTER_PATH;
+      if (!ROSTER_REL) { throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")'); }
+      const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
+      const roster = JSON.parse(fs.readFileSync(rosterPath, 'utf8'));
       slugsToProcess = roster.map((p: any) => p.slug);
     } else {
       slugsToProcess = slugs;
@@ -152,7 +157,10 @@ router.get('/api/news/articles/:slug', async (req, res) => {
     }
 
     // Check if slug exists in roster
-    const roster = require('../../data/ab-roster.json');
+    const ROSTER_REL = process.env.ROSTER_PATH;
+    if (!ROSTER_REL) { throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")'); }
+    const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
+    const roster = JSON.parse(fs.readFileSync(rosterPath, 'utf8'));
     const person = roster.find((p: any) => p.slug === slug);
     
     if (!person) {

@@ -1,4 +1,18 @@
 import axios from "axios";
+// Ensure any helper that reads roster uses env ROSTER_PATH only.
+import * as fs from 'fs';
+import * as path from 'path';
+function loadRosterRecord(slugOrName: string) {
+  const ROSTER_REL = process.env.ROSTER_PATH;
+  if (!ROSTER_REL) throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
+  const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
+  const raw = JSON.parse(fs.readFileSync(rosterPath,'utf8'));
+  const arr = Array.isArray(raw) ? raw : (raw.officials || []);
+  const key = String(slugOrName).toLowerCase();
+  const rec = arr.find((r:any) => r?.slug?.toLowerCase?.() === key || r?.fullName?.toLowerCase?.() === key);
+  if (!rec) throw new Error(`Roster record not found for ${slugOrName}`);
+  return rec;
+}
 
 const API_URL = "https://api.serphouse.com/serp/live";
 const TOKEN = process.env.SERPHOUSE_API_TOKEN || "";
@@ -97,8 +111,9 @@ export function buildEnhancedQuery(person: any): string {
 }
 
 export function buildQueryForOfficial(whoOrName: string, office?: string) {
-  const name = resolveFullName(whoOrName); // existing resolver
-  const off  = office || resolveOffice(whoOrName) || '';
+  const rec = loadRosterRecord(whoOrName);
+  const name = rec.fullName || whoOrName;
+  const off  = office || rec.office || '';
   const SEPARATION_TERMS = [
     "Alberta separation",
     "Alberta independence",

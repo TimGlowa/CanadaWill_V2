@@ -11,12 +11,12 @@ const { BlobServiceClient } = require('@azure/storage-blob');
 
 const CONN       = process.env.AZURE_STORAGE_CONNECTION;
 const SERP_TOKEN = process.env.SERPHOUSE_API_TOKEN;
-const ROSTER_REL = process.env.ROSTER_PATH;
+const ROSTER_REL = process.env.ROSTER_PATH; // must point to data/ab-roster-transformed.json
 
 const CONTAINER  = 'news';
 if (!CONN)       throw new Error('AZURE_STORAGE_CONNECTION missing');
 if (!SERP_TOKEN) throw new Error('SERPHOUSE_API_TOKEN missing');
-if (!ROSTER_REL) throw new Error('ROSTER_PATH missing');
+if (!ROSTER_REL) throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
 
 // PRD §2.2 — explicit term sets (treat quoted items as phrases)
 const SEPARATION_TERMS = [
