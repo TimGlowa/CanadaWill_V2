@@ -104,7 +104,7 @@ export async function fetchNews(
     hl: "en",
     device: "desktop",
     q,
-    num: Math.min(Math.max(Number(limit) || 10, 1), 100),
+    num: Math.max(Number(limit) || 10, 1),
     tbm: "nws",
   };
 
