@@ -10,6 +10,9 @@ const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 // Import SERP unlimited route
 const serpUnlimited = require('./routes/serp-unlimited');
 
+// Import admin backfill route
+const adminBackfill = require('./routes/admin-backfill');
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString() });
@@ -17,6 +20,9 @@ app.get('/api/test', (req, res) => {
 
 // SERP unlimited route
 app.get('/api/news/serp/unlimited', serpUnlimited);
+
+// Admin backfill route
+app.get('/api/admin/backfill', adminBackfill);
 
 // Whoami route to identify which file is running
 app.get('/api/whoami', (req, res) => {
