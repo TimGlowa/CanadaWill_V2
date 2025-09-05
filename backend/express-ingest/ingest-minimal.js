@@ -489,7 +489,7 @@ async function makeSerphouseCall(query) {
     gl: "ca",
     hl: "en",
     device: "desktop",
-    num: 50
+    num: 1000
   };
 
   try {

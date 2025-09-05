@@ -184,7 +184,7 @@ class BackfillOrchestrator {
 
       const response = await this.serphouseClient.makeSerphouseRequest({
         q: query,
-        num: 50,
+        num: 1000,
         start: 0,
         date_start: startDate.toISOString().split('T')[0],
         date_end: endDate.toISOString().split('T')[0],

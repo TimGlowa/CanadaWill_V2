@@ -12,7 +12,7 @@ class SerphouseClient {
     this.baseUrl = 'https://api.serphouse.com/v1/search';
   }
 
-  async searchPerson(person, days = 365, limit = 50) {
+  async searchPerson(person, days = 365, limit = 1000) {
     try {
       const query = this.buildSearchQuery(person);
       const endDate = new Date();
@@ -152,7 +152,7 @@ class SerphouseClient {
     return response.data;
   }
 
-  async processRoster(roster, scope = 'mlas,mps', only = null, days = 365, limit = 50) {
+  async processRoster(roster, scope = 'mlas,mps', only = null, days = 365, limit = 1000) {
     // Filter roster by scope
     let filteredRoster = roster;
     if (scope) {

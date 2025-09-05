@@ -79,7 +79,7 @@ class AzureStorageService {
       
       // Store each page of results
       for (let page = 1; page <= serphouseResult.pages; page++) {
-        const pageResults = serphouseResult.results.slice((page - 1) * 50, page * 50);
+        const pageResults = serphouseResult.results.slice((page - 1) * 1000, page * 1000);
         
         if (pageResults.length > 0) {
           const pageResponse = {

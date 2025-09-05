@@ -4,7 +4,7 @@ async function serphouseNews(query, days, limit){
   const token = process.env.SERPHOUSE_API_TOKEN || '';
   if(!token) return [];
   const since = new Date(Date.now()-days*86400*1000).toISOString().slice(0,10);
-  const body = { q: query, engine: "google_news", tbs: `cdr:1,cd_min:${since}`, num: Math.min(Number(limit||10), 50) };
+  const body = { q: query, engine: "google_news", tbs: `cdr:1,cd_min:${since}`, num: Math.max(Number(limit||10), 1) };
   const resp = await fetch("https://api.serphouse.com/serp/live/search", {
     method:"POST",
     headers:{ "Content-Type":"application/json", "Authorization":`Bearer ${token}` },

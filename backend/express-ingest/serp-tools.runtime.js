@@ -27,7 +27,7 @@ module.exports = function(app){
     try{
       const who   = String(req.query.who || req.query.slug || '').trim();
       const days  = Number(req.query.days || 365);
-      const limit = Number(req.query.limit || 50);
+      const limit = Number(req.query.limit || 1000);
       const store = String(req.query.store || '') === '1';
       const q     = req.query.q ? String(req.query.q) : undefined;
 

@@ -88,7 +88,7 @@ export function buildEnhancedQuery(person: any): string {
 }
 
 export async function fetchNews(
-  { who, days = 7, limit = 50, qOverride }: FetchArgs
+  { who, days = 7, limit = 1000, qOverride }: FetchArgs
 ): Promise<any[]> {
   if (!isEnabled()) return [];
   if (!TOKEN) throw new Error("SERPHOUSE_API_TOKEN environment variable is required");
