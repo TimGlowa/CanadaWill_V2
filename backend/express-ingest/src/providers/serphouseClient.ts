@@ -27,7 +27,6 @@ function tbsForDays(days?: number): string | undefined {
 type FetchArgs = {
   who: string;          // slug or name
   days?: number;        // lookback window
-  limit?: number;       // max results
   qOverride?: string;   // optional raw query override (for testing)
 };
 
@@ -87,64 +86,69 @@ export function buildEnhancedQuery(person: any): string {
   return query;
 }
 
-export async function fetchNews(
-  { who, days = 7, limit = 1000, qOverride }: FetchArgs
-): Promise<any[]> {
-  if (!isEnabled()) return [];
-  if (!TOKEN) throw new Error("SERPHOUSE_API_TOKEN environment variable is required");
-
+function buildQueryForOfficial(who: string): string {
   const displayName = toDisplayName(who);
-  const q = qOverride?.trim() || `"${displayName}"`;
+  return `"${displayName}"`;
+}
 
-  // SERPHouse expects Google params; for News you must set tbm=nws.
-  const body: Record<string, any> = {
-    engine: "google",
-    google_domain: "google.ca",
-    gl: "ca",
-    hl: "en",
-    device: "desktop",
-    q,
-    num: Math.max(Number(limit) || 10, 1),
-    tbm: "nws",
-  };
+function parseNewsDate(s: any): Date | null {
+  if (!s) return null;
+  const str = String(s).trim();
+  const m = str.match(/^(\d+)\s+(minute|minutes|hour|hours|day|days|week|weeks|month|months|year|years)\s+ago$/i);
+  if (m) {
+    const n = +m[1], u = m[2].toLowerCase();
+    const ms =
+      u.startsWith('minute') ? n*60_000 :
+      u.startsWith('hour')   ? n*3_600_000 :
+      u.startsWith('day')    ? n*86_400_000 :
+      u.startsWith('week')   ? n*7*86_400_000 :
+      u.startsWith('month')  ? n*30*86_400_000 :
+      u.startsWith('year')   ? n*365*86_400_000 : 0;
+    return new Date(Date.now() - ms);
+  }
+  const d = new Date(str);
+  return isNaN(d.getTime()) ? null : d;
+}
 
-  const tbs = tbsForDays(days);
-  if (tbs) body.tbs = tbs;
-
-  const resp = await axios.post(API_URL, body, {
-    headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" },
-    timeout: 20000,
-    // If SERPHouse returns 4xx/5xx, let it throw so callers can log it.
-    validateStatus: () => true,
-  });
-
-  // Accept several common result shapes (SERP providers vary)
-  const data = resp?.data ?? {};
-  const items =
-    data.news_results ||
-    data.items ||
-    data.organic_results ||
-    [];
-
-  // Normalize a minimal shape; don't drop if publishedAt missing.
-  return items
-    .map((it: any) => {
-      const url   = it.link || it.url;
-      const title = it.title || it.heading || it.snippet_title;
-      const source =
-        it.source ||
-        (it.publisher && it.publisher.name) ||
-        it.domain ||
-        it.displayed_link;
-      const publishedAt = it.date || it.published_time || it.publishedAt;
-      if (!url || !title) return null;
-      return {
-        url,
-        title,
-        source,
-        publishedAt,
-        provider: "serphouse",
-      };
-    })
-    .filter(Boolean);
+// Unlimited pager (no caps). Enforce 12-month window client-side; de-dupe by URL.
+export async function fetchNews({ who, days = 365, qOverride }: FetchArgs) {
+  const q = qOverride || buildQueryForOfficial(who); // existing helper in this file
+  const headers = { Authorization: `Bearer ${process.env.SERPHOUSE_API_TOKEN}` };
+  const base = { q, domain: 'google.ca', lang: 'en', device: 'desktop', tbm: 'nws' };
+  const minDate = new Date(Date.now() - 365 * 86_400_000);
+  const seen = new Set<string>();
+  const out: any[] = [];
+  let page = 1;
+  let backoff = 1500;
+  for (;;) {
+    try {
+      const payload = { ...base, num: 100, page };
+      const { data } = await axios.post(API_URL, payload, { headers, timeout: 60_000 });
+      const news = data?.results?.news || [];
+      if (!news.length) break;
+      let fresh = 0;
+      for (const it of news) {
+        const dt = parseNewsDate((it as any).time || (it as any).date || (it as any).published_time);
+        if (!dt || dt < minDate) continue;
+        const u = ((it as any).url || (it as any).link || '').trim();
+        if (!u || seen.has(u)) continue;
+        seen.add(u);
+        out.push(it);
+        fresh++;
+      }
+      if (fresh === 0) break;
+      page++;
+      if (page > 200) break; // guardrail
+      backoff = 1500;
+    } catch (e: any) {
+      const s = e?.response?.status || 0;
+      if (s === 429 || s === 503) {
+        await new Promise(r => setTimeout(r, backoff));
+        backoff = Math.min(backoff * 2, 20_000);
+        continue;
+      }
+      throw e;
+    }
+  }
+  return { results: { news: out } };
 }

@@ -27,12 +27,13 @@ module.exports = function(app){
     try{
       const who   = String(req.query.who || req.query.slug || '').trim();
       const days  = Number(req.query.days || 365);
-      const limit = Number(req.query.limit || 1000);
+      // Do not use or forward any 'limit'. The client paginates until empty.
+      const limit = undefined;
       const store = String(req.query.store || '') === '1';
       const q     = req.query.q ? String(req.query.q) : undefined;
 
       const serph = require('./dist/providers/serphouseClient');
-      const raw = await serph.fetchNews({ who, days, limit, qOverride: q });
+      const raw = await serph.fetchNews({ who, days, qOverride: q });
 
       let stored = { stored:false };
       if (store) {
