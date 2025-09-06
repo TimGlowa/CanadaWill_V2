@@ -11,6 +11,13 @@ module.exports = (app) => {
   });
   
   // existing routes are registered above…
+
+  // KISS: ensure ONLY ONE handler exists for /api/news/serp/backfill-patch
+  if (app && app._router && Array.isArray(app._router.stack)) {
+    app._router.stack = app._router.stack.filter(layer => {
+      return !(layer && layer.route && layer.route.path === '/api/news/serp/backfill-patch');
+    });
+  }
   
   // ------------------------------------------------------------
   // KISS CONFIG (already in your env)
