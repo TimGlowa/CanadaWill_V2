@@ -11,6 +11,14 @@ const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 const serpUnlimited = require('./routes/serp-unlimited');
 
 // Import runtime modules
+// KISS: Clear any existing /api/news/serp/backfill-patch routes before loading runtime modules
+if (app && app._router && Array.isArray(app._router.stack)) {
+  app._router.stack = app._router.stack.filter(layer => {
+    return !(layer && layer.route && layer.route.path === '/api/news/serp/backfill-patch');
+  });
+  console.log('[BOOT] Cleared existing /api/news/serp/backfill-patch routes');
+}
+
 console.log('[BOOT] Loading serp-tools.runtime.js...');
 require('./serp-tools.runtime')(app);
 console.log('[BOOT] Loading admin-backfill.runtime.js...');
