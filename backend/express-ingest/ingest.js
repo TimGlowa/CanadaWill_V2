@@ -53,6 +53,26 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Routes listing endpoint
+app.get('/api/routes', (req, res) => {
+  const routes = [];
+  if (app._router && app._router.stack) {
+    app._router.stack.forEach(layer => {
+      if (layer.route) {
+        routes.push({
+          method: Object.keys(layer.route.methods)[0].toUpperCase(),
+          path: layer.route.path
+        });
+      }
+    });
+  }
+  res.json({
+    count: routes.length,
+    routes: routes,
+    note: "Includes mounted routers and main app routes"
+  });
+});
+
 // SERPHouse test route
 app.get('/api/serp/test', (req, res) => {
   res.json({ 
