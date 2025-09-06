@@ -13,9 +13,7 @@ module.exports = (app) => {
   const SERP_TOKEN = process.env.SERPHOUSE_API_TOKEN;
   const ROSTER_REL = process.env.ROSTER_PATH; // MUST be "data/ab-roster-transformed.json"
   const CONTAINER  = 'news';
-  if (!CONN)       throw new Error('AZURE_STORAGE_CONNECTION missing');
-  if (!SERP_TOKEN) throw new Error('SERPHOUSE_API_TOKEN missing');
-  if (!ROSTER_REL) throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
+  // Don't throw errors during module load - check in route handlers instead
 
   // PRD §2.2 — explicit term sets (treat quoted items as phrases)
   const SEPARATION_TERMS = [
@@ -154,6 +152,11 @@ module.exports = (app) => {
   // (A) Per-official JSON: handle the route directly with proper logic
   app.get('/api/news/serp/backfill', async (req, res) => {
     try {
+      // Check environment variables
+      if (!CONN) return res.status(500).json({ error: 'AZURE_STORAGE_CONNECTION missing' });
+      if (!SERP_TOKEN) return res.status(500).json({ error: 'SERPHOUSE_API_TOKEN missing' });
+      if (!ROSTER_REL) return res.status(500).json({ error: 'ROSTER_PATH missing (expected "data/ab-roster-transformed.json")' });
+
       const slug = String(req.query.who || '').trim();
       if (!slug) {
         return res.status(400).json({ error: 'Missing required parameter: who' });
@@ -220,6 +223,11 @@ module.exports = (app) => {
   console.log('[BOOT] route: GET /api/news/serp/backfill-patch');
   app.get('/api/news/serp/backfill-patch', async (req, res) => {
     try {
+      // Check environment variables
+      if (!CONN) return res.status(500).send('AZURE_STORAGE_CONNECTION missing');
+      if (!SERP_TOKEN) return res.status(500).send('SERPHOUSE_API_TOKEN missing');
+      if (!ROSTER_REL) return res.status(500).send('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
+
       const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
       if (!fs.existsSync(rosterPath)) return res.status(500).send(`Roster not found at ${rosterPath}`);
       const raw = JSON.parse(fs.readFileSync(rosterPath,'utf8'));
