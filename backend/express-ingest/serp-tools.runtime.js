@@ -151,14 +151,69 @@ module.exports = (app) => {
     return { total, buckets };
   };
 
-  // (A) Per-official JSON: add a one-line console log so Azure Log Stream shows each call result.
-  app.get('/api/news/serp/backfill', async (req, res, next) => {
-    const slug = String(req.query.who || '').trim();
-    res.on('finish', () => {
-      // prints after handler sends JSON; if upstream handler attaches count, it shows here
-      console.log(`[backfill] who=${slug} status=${res.statusCode}`);
-    });
-    next(); // let the existing handler run; we only append logging
+  // (A) Per-official JSON: handle the route directly with proper logic
+  app.get('/api/news/serp/backfill', async (req, res) => {
+    try {
+      const slug = String(req.query.who || '').trim();
+      if (!slug) {
+        return res.status(400).json({ error: 'Missing required parameter: who' });
+      }
+
+      // Load roster to validate the slug
+      const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
+      if (!fs.existsSync(rosterPath)) {
+        return res.status(500).json({ error: `Roster not found at ${rosterPath}` });
+      }
+      
+      const raw = JSON.parse(fs.readFileSync(rosterPath, 'utf8'));
+      const officials = Array.isArray(raw) ? raw : (raw.officials || []);
+      const official = officials.find(o => o.slug === slug);
+      
+      if (!official) {
+        return res.status(404).json({ error: `Official not found: ${slug}` });
+      }
+
+      // Build query and fetch results
+      const query = buildQuery(official.fullName, official.office || '');
+      const { total, buckets } = await fetchAllSERP(query);
+      
+      // Store results
+      const svc = BlobServiceClient.fromConnectionString(CONN);
+      const container = svc.getContainerClient(CONTAINER);
+      await container.createIfNotExists();
+      
+      let storedCount = 0;
+      if (total > 0) {
+        for (const [key, items] of buckets.entries()) {
+          const [y, m, d] = key.split('/');
+          const existing = await readDay(container, slug, y, m, d);
+          const merged = (existing.articles || []).concat(items);
+          await writeDay(container, slug, y, m, d, { articles: merged });
+          storedCount += items.length;
+        }
+      }
+
+      console.log(`[backfill] who=${slug} status=200 count=${total} stored=${storedCount}`);
+      
+      res.json({
+        ok: true,
+        who: slug,
+        days: 365,
+        limit: 'unlimited',
+        q: query,
+        vendor_status: 200,
+        count: total,
+        stored: {
+          stored: true,
+          container: CONTAINER,
+          count: storedCount
+        }
+      });
+      
+    } catch (err) {
+      console.error(`[backfill] error:`, err.message);
+      res.status(500).json({ error: err.message });
+    }
   });
 
   // (B) Roster-looping runner with progress stream: reuse existing route name the runtime already exposes.
