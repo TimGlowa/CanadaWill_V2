@@ -11,8 +11,11 @@ const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 const serpUnlimited = require('./routes/serp-unlimited');
 
 // Import runtime modules
+console.log('[BOOT] Loading serp-tools.runtime.js...');
 require('./serp-tools.runtime')(app);
+console.log('[BOOT] Loading admin-backfill.runtime.js...');
 require('./src/admin-backfill.runtime')(app);
+console.log('[BOOT] Runtime modules loaded successfully');
 
 // Test route
 app.get('/api/test', (req, res) => {

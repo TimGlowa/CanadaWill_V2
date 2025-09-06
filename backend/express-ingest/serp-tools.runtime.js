@@ -5,6 +5,11 @@ const axios = require('axios');
 const { BlobServiceClient } = require('@azure/storage-blob');
 
 module.exports = (app) => {
+  // Test route to verify this module is loaded
+  app.get('/api/serp/runtime-test', (req, res) => {
+    res.json({ message: 'serp-tools.runtime.js loaded successfully', timestamp: new Date().toISOString() });
+  });
+  
   // existing routes are registered above…
   
   // ------------------------------------------------------------
