@@ -14,9 +14,7 @@ const SERP_TOKEN = process.env.SERPHOUSE_API_TOKEN;
 const ROSTER_REL = process.env.ROSTER_PATH; // must point to data/ab-roster-transformed.json
 
 const CONTAINER  = 'news';
-if (!CONN)       throw new Error('AZURE_STORAGE_CONNECTION missing');
-if (!SERP_TOKEN) throw new Error('SERPHOUSE_API_TOKEN missing');
-if (!ROSTER_REL) throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
+// Don't throw errors during module load - check in route handlers instead
 
 // PRD §2.2 — explicit term sets (treat quoted items as phrases)
 const SEPARATION_TERMS = [
@@ -95,6 +93,11 @@ module.exports = (app) => {
 
   app.get('/api/admin/backfill', async (req, res) => {
     try {
+      // Check environment variables
+      if (!CONN) return res.status(500).send('AZURE_STORAGE_CONNECTION missing');
+      if (!SERP_TOKEN) return res.status(500).send('SERPHOUSE_API_TOKEN missing');
+      if (!ROSTER_REL) return res.status(500).send('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
+
       const ROSTER = path.resolve(process.cwd(), ROSTER_REL);
       if (!fs.existsSync(ROSTER)) return res.status(500).send(`Roster not found at ${ROSTER}`);
       const rawRoster = JSON.parse(fs.readFileSync(ROSTER,'utf8'));
