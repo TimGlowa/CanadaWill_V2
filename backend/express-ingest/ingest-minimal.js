@@ -13,6 +13,9 @@ const serpUnlimited = require('./routes/serp-unlimited');
 // Import admin backfill route
 const adminBackfill = require('./routes/admin-backfill');
 
+// Import serp-tools runtime
+require('./serp-tools.runtime')(app);
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString() });
