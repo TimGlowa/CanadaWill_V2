@@ -10,6 +10,10 @@ const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 // Import SERP unlimited route
 const serpUnlimited = require('./routes/serp-unlimited');
 
+// Import runtime modules
+require('./serp-tools.runtime')(app);
+require('./src/admin-backfill.runtime')(app);
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString() });
