@@ -88,6 +88,11 @@ async function writeDay(container, slug, y, m, d, items){
 }
 
 module.exports = (app) => {
+  // Test route to verify this module is loaded
+  app.get('/api/admin/test', (req, res) => {
+    res.json({ message: 'admin-backfill.runtime.js loaded successfully', timestamp: new Date().toISOString() });
+  });
+
   app.get('/api/admin/backfill', async (req, res) => {
     try {
       const ROSTER = path.resolve(process.cwd(), ROSTER_REL);
