@@ -206,10 +206,19 @@ module.exports = function(app){
     return app._router.handle(req, res); // re-use the same handler
   });
 
-  // ===== Admin roster-runner (streams [i/N]) =====
+  // (A) Per-official JSON: add a one-line console log so Azure Log Stream shows each call result.
+  app.get('/api/news/serp/backfill', async (req, res, next) => {
+    const slug = String(req.query.who || '').trim();
+    res.on('finish', () => {
+      // prints after handler sends JSON; if upstream handler attaches count, it shows here
+      console.log(`[backfill] who=${slug} status=${res.statusCode}`);
+    });
+    next(); // let the existing handler run; we only append logging
+  });
 
-  console.log('[BOOT] route: GET /api/admin/backfill');
-  app.get('/api/admin/backfill', async (req, res) => {
+  // (B) Roster-looping runner with progress stream: reuse existing route name the runtime already exposes.
+  console.log('[BOOT] route: GET /api/news/serp/backfill-patch');
+  app.get('/api/news/serp/backfill-patch', async (req, res) => {
     try {
       const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
       if (!fs.existsSync(rosterPath)) return res.status(500).send(`Roster not found at ${rosterPath}`);
