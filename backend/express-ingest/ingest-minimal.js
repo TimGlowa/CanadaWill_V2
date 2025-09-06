@@ -10,11 +10,14 @@ const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 // Import SERP unlimited route
 const serpUnlimited = require('./routes/serp-unlimited');
 
-// Import admin backfill route
-const adminBackfill = require('./routes/admin-backfill');
+// Import admin backfill route (removed - using admin-backfill.runtime.js instead)
+// const adminBackfill = require('./routes/admin-backfill');
 
 // Import serp-tools runtime
 require('./serp-tools.runtime')(app);
+
+// Import admin backfill runtime
+require('./src/admin-backfill.runtime')(app);
 
 // Test route
 app.get('/api/test', (req, res) => {
@@ -24,8 +27,8 @@ app.get('/api/test', (req, res) => {
 // SERP unlimited route
 app.get('/api/news/serp/unlimited', serpUnlimited);
 
-// Admin backfill route
-app.get('/api/admin/backfill', adminBackfill);
+// Admin backfill route (removed - using admin-backfill.runtime.js instead)
+// app.get('/api/admin/backfill', adminBackfill);
 
 // Whoami route to identify which file is running
 app.get('/api/whoami', (req, res) => {
