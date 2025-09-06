@@ -33,11 +33,6 @@ app.get('/api/test', (req, res) => {
 // SERP unlimited route
 app.get('/api/news/serp/unlimited', serpUnlimited);
 
-// Stub route for /api/news/serp/backfill-patch (to be removed)
-app.get('/api/news/serp/backfill-patch', (req, res) => {
-  res.status(404).json({ error: 'Not found', path: '/api/news/serp/backfill-patch', method: 'GET' });
-});
-
 // Whoami route to identify which file is running
 app.get('/api/whoami', (req, res) => {
   res.json({ 
