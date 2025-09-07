@@ -2,20 +2,63 @@ name: deploy-backend
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ main ]          # auto deploy on every push to main
+
+# never run two deploys at the same time
+concurrency:
+  group: deploy-backend
+  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Deploy the repository root so /home/site/wwwroot/server.js is included
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.4'
+
+      # Root: install only if a package.json exists (keeps things simple & fast)
+      - name: Install root deps (if any)
+        run: |
+          if [ -f package.json ]; then
+            npm ci --omit=dev
+          fi
+
+      # express-ingest: install & build (produces dist/, includes runtime deps like axios)
+      - name: Install & build express-ingest
+        run: |
+          if [ -d express-ingest ]; then
+            cd express-ingest
+            if [ -f package.json ]; then
+              npm ci --omit=dev
+            fi
+            # Build TS if present (ignore if pure JS)
+            if [ -f tsconfig.json ]; then
+              npx tsc -p tsconfig.json || true
+            fi
+            cd -
+          fi
+
+      # Create a tight deployment package that includes the running entrypoint
+      # and the express-ingest code + node_modules + data.
+      - name: Create deploy.zip
+        run: |
+          rm -f deploy.zip
+          zip -r deploy.zip \
+            server.js \
+            package.json package-lock.json 2>/dev/null || true
+          # Include the entire express-ingest tree (code, dist, node_modules, data)
+          zip -r deploy.zip express-ingest \
+            -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**"
+
       - name: Deploy to Azure WebApp (ingest)
         uses: azure/webapps-deploy@v3
         with:
           app-name: canadawill-ingest
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+          package: deploy.zip
