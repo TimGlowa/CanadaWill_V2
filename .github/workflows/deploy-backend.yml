@@ -1,0 +1,21 @@
+name: deploy-backend
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Deploy the repository root so /home/site/wwwroot/server.js is included
+      - name: Deploy to Azure WebApp (ingest)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: canadawill-ingest-ave2f8fjcxeuaehz
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
