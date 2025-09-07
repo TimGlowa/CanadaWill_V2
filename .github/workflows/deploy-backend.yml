@@ -29,7 +29,10 @@ jobs:
           mkdir -p artifacts
           # Flatten server.js & root manifests
           cp backend/server.js artifacts/server.js
-          if [ -f backend/package.json ]; then cp backend/package.json artifacts/package.json; fi
+          if [ -f backend/package.json ]; then 
+            # Remove postinstall script that causes npm ci issues
+            jq 'del(.scripts.postinstall)' backend/package.json > artifacts/package.json
+          fi
           if [ -f backend/package-lock.json ]; then cp backend/package-lock.json artifacts/package-lock.json; fi
           # Copy express-ingest without rsync (robust on GH runners)
           if [ -d backend/express-ingest ]; then
