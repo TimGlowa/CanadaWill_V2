@@ -38,6 +38,16 @@ if (!resolvedPath) {
   log(`[BOOT] all candidate paths failed, no ingest module loaded`);
 }
 
+// Mount SERPHouse routes (env, selftest, backfill, refresh)
+if (app) {
+  try {
+    require('./express-ingest/serp-tools.runtime')(app);
+    log('[BOOT] SERPHouse routes mounted from express-ingest/serp-tools.runtime.js');
+  } catch (e) {
+    log(`[BOOT] Failed to mount SERPHouse routes: ${e && e.message ? e.message : e}`);
+  }
+}
+
 const server = http.createServer((req,res)=>{
   // Let Express app handle all routes if it's loaded
   if(app && app._router) {
