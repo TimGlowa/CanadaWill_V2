@@ -2,7 +2,7 @@ name: deploy-backend
 
 on:
   push:
-    branches: [ main ]              # auto deploy on push to main
+    branches: [ main ]
 
 concurrency:
   group: deploy-backend
@@ -21,32 +21,39 @@ jobs:
         with:
           node-version: '20.19.4'
 
-      # Stage a clean "artifacts" folder whose ROOT will be wwwroot.
+      # Stage a clean artifacts folder (this becomes /home/site/wwwroot)
       - name: Stage backend into flat artifacts root
         run: |
+          set -e
           rm -rf artifacts
           mkdir -p artifacts
-          # Flatten server.js and package manifests to artifacts root
+          # Flatten server.js & root manifests
           cp backend/server.js artifacts/server.js
-          if [ -f backend/package.json ]; then 
-            # Remove postinstall script that causes npm ci issues
-            jq 'del(.scripts.postinstall)' backend/package.json > artifacts/package.json
-          fi
+          if [ -f backend/package.json ]; then cp backend/package.json artifacts/package.json; fi
           if [ -f backend/package-lock.json ]; then cp backend/package-lock.json artifacts/package-lock.json; fi
-          # Bring express-ingest under artifacts/express-ingest exactly
-          rsync -a backend/express-ingest/ artifacts/express-ingest/ 2>/dev/null || true
+          # Copy express-ingest without rsync (robust on GH runners)
+          if [ -d backend/express-ingest ]; then
+            mkdir -p artifacts/express-ingest
+            cp -a backend/express-ingest/. artifacts/express-ingest/
+          fi
+          echo "===== STAGED TREE (first 3 levels) ====="
+          find artifacts -maxdepth 3 -type d -print
+          echo "===== ROOT LIST ====="
+          ls -la artifacts
+          echo "===== EXPRESS-INGEST LIST ====="
+          ls -la artifacts/express-ingest || true
 
-      # Install root runtime deps (express, etc.) at artifacts root
       - name: Install root deps
         run: |
+          set -e
           cd artifacts
           if [ -f package.json ]; then
             npm install --omit=dev
           fi
 
-      # Install runtime deps for express-ingest (axios, storage libs) and build TS if present
       - name: Install & build express-ingest deps
         run: |
+          set -e
           if [ -f artifacts/express-ingest/package.json ]; then
             cd artifacts/express-ingest
             npm install --omit=dev
@@ -54,9 +61,9 @@ jobs:
             cd -
           fi
 
-      # Zip EXACTLY the contents that should become /home/site/wwwroot/*
       - name: Create deploy.zip
         run: |
+          set -e
           cd artifacts
           zip -r ../deploy.zip . -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**"
           cd -
