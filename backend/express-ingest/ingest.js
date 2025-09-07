@@ -320,14 +320,14 @@ app.get('/api/sentiment/test-danielle-smith', async (req, res) => {
   }
 });
 
-// Catch-all for debugging
+module.exports = app;
+
+// Catch-all for debugging (moved after module.exports to ensure it's last)
 app.use('*', (req, res) => {
   res.json({ 
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/whoami']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/whoami', '/api/news/serp/backfill-run']
   });
 });
-
-module.exports = app;
