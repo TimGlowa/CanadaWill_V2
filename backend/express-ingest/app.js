@@ -1,5 +1,10 @@
 const app = require("./ingest-minimal.js");
 
+// KISS diagnostic: prove executing file
+app.get('/api/whoami', (_req, res) => {
+  res.json({ file: __filename, pid: process.pid });
+});
+
 // --- Monitoring & Progress (drop-in) ---
 const fs = require("fs");
 const path = require("path");

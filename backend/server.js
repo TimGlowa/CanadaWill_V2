@@ -58,6 +58,10 @@ const server = http.createServer((req,res)=>{
     try{ const txt=fs.readFileSync(path.join(__dirname,"buildinfo.json"),"utf8"); res.writeHead(200,{"content-type":"application/json"}); return res.end(txt);}
     catch{ res.writeHead(404,{"content-type":"application/json"}); return res.end(JSON.stringify({error:"no buildinfo.json"})); }
   }
+  if(req.url==="/api/whoami" && req.method==="GET"){
+    const body=JSON.stringify({file:__filename,pid:process.pid});
+    res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
+  }
   
   log(`No app loaded, returning 404 for: ${req.method} ${req.url}`);
   res.writeHead(404,{"content-type":"application/json"});
