@@ -35,7 +35,7 @@ jobs:
           if [ -d backend/express-ingest ]; then
             cd backend/express-ingest
             if [ -f package.json ]; then
-              npm ci --omit=dev
+              npm install --omit=dev
             fi
             # Build TS if present (ignore if pure JS)
             if [ -f tsconfig.json ]; then
