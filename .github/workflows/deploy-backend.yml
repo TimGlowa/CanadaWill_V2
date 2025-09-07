@@ -32,8 +32,8 @@ jobs:
       # express-ingest: install & build (produces dist/, includes runtime deps like axios)
       - name: Install & build express-ingest
         run: |
-          if [ -d express-ingest ]; then
-            cd express-ingest
+          if [ -d backend/express-ingest ]; then
+            cd backend/express-ingest
             if [ -f package.json ]; then
               npm ci --omit=dev
             fi
@@ -50,10 +50,10 @@ jobs:
         run: |
           rm -f deploy.zip
           zip -r deploy.zip \
-            server.js \
+            backend/server.js \
             package.json package-lock.json 2>/dev/null || true
           # Include the entire express-ingest tree (code, dist, node_modules, data)
-          zip -r deploy.zip express-ingest \
+          zip -r deploy.zip backend/express-ingest \
             -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**"
 
       - name: Deploy to Azure WebApp (ingest)
