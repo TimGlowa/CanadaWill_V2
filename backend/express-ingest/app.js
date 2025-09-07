@@ -64,7 +64,7 @@ app.get("/api/news/stats", async (req,res)=>{
 app.get("/api/news/articles", async (req,res)=>{
   try {
     const slug = String(req.query.who||"").trim(); if (!slug) return res.status(400).json({ ok:false, error:"missing who=<slug>" });
-    const limit = Math.max(1, Math.min(100, Number(req.query.limit||5)));
+    const limit = req.query.limit ? Math.max(1, Math.min(100, Number(req.query.limit))) : undefined;
     const items = await listLatest(`raw/serp/${slug}/`, limit);
     res.json({ ok:true, slug, items });
   } catch(e){ res.status(500).json({ ok:false, error: String(e&&e.message||e) }); }
