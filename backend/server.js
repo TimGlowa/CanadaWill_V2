@@ -73,6 +73,15 @@ const server = http.createServer((req,res)=>{
     res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
   }
   
+  // TEMP: allow SERPHouse routes to respond even if ingest didn't load
+  if (req.url && req.url.startsWith('/api/news/serp/')) {
+    log(`Allowing SERPHouse route to pass through: ${req.method} ${req.url}`);
+    // Let the SERPHouse routes handle this
+    if (app && typeof app === "function") {
+      return app(req, res);
+    }
+  }
+  
   log(`No app loaded, returning 404 for: ${req.method} ${req.url}`);
   res.writeHead(404,{"content-type":"application/json"});
   res.end(JSON.stringify({error:"Not found (fallback)",path:req.url,bootPhase}));
