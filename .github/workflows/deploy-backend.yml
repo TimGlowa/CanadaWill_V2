@@ -11,35 +11,46 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.19.4'
 
-      # Stage a clean artifacts folder (this becomes /home/site/wwwroot)
+      # Stage exactly what will become /home/site/wwwroot/*
       - name: Stage backend into flat artifacts root
         run: |
           set -e
           rm -rf artifacts
           mkdir -p artifacts
-          # Flatten server.js & root manifests
+          # Root entrypoint
           cp backend/server.js artifacts/server.js
-          if [ -f backend/package.json ]; then 
-            # Remove postinstall script that causes npm ci issues
-            jq 'del(.scripts.postinstall)' backend/package.json > artifacts/package.json
+
+          # Start from backend/package.json but hard-set the start script to node server.js
+          if [ -f backend/package.json ]; then
+            jq '(.scripts//={}) + {scripts: (.scripts + {start:"node server.js"})} | del(.scripts.postinstall)' \
+              backend/package.json > artifacts/package.json
+          else
+            # Minimal package.json if backend/package.json is absent
+            cat > artifacts/package.json <<'JSON'
+            {
+              "name": "ingest",
+              "version": "1.0.0",
+              "scripts": { "start": "node server.js" },
+              "dependencies": { "express": "^4.19.2" }
+            }
+            JSON
           fi
-          if [ -f backend/package-lock.json ]; then cp backend/package-lock.json artifacts/package-lock.json; fi
-          # Copy express-ingest without rsync (robust on GH runners)
+          # If lock exists, copy it too (harmless if out-of-sync; we use npm install later)
+          [ -f backend/package-lock.json ] && cp backend/package-lock.json artifacts/package-lock.json || true
+
+          # Copy express-ingest dir (no rsync; guaranteed on GH runners)
           if [ -d backend/express-ingest ]; then
             mkdir -p artifacts/express-ingest
             cp -a backend/express-ingest/. artifacts/express-ingest/
           fi
-          echo "===== STAGED TREE (first 3 levels) ====="
+
+          echo "===== STAGED TREE ====="
           find artifacts -maxdepth 3 -type d -print
           echo "===== ROOT LIST ====="
           ls -la artifacts
@@ -50,9 +61,7 @@ jobs:
         run: |
           set -e
           cd artifacts
-          if [ -f package.json ]; then
-            npm install --omit=dev
-          fi
+          npm install --omit=dev
 
       - name: Install & build express-ingest deps
         run: |
@@ -60,7 +69,7 @@ jobs:
           if [ -f artifacts/express-ingest/package.json ]; then
             cd artifacts/express-ingest
             npm install --omit=dev
-            if [ -f tsconfig.json ]; then npx tsc -p tsconfig.json || true; fi
+            [ -f tsconfig.json ] && npx tsc -p tsconfig.json || true
             cd -
           fi
 
