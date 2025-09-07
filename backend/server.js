@@ -73,6 +73,23 @@ const server = http.createServer((req,res)=>{
     res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
   }
   
+  // DIAG: Prove which module load is failing (ingest fallback cause)
+  if(req.url==="/api/diag/ingest" && req.method==="GET"){
+    const out = {};
+    const check = (label, mod) => {
+      try { require.resolve(mod); out[label] = 'ok'; }
+      catch(e){ out[label] = String(e && e.message ? e.message : e); }
+    };
+    check('ingest', './express-ingest/ingest');
+    check('tools', './express-ingest/serp-tools.runtime');
+    check('client-dist', './express-ingest/dist/providers/serphouseClient');
+    check('client-src',  './express-ingest/src/providers/serphouseClient');
+    // Common vendor we've seen missing before
+    try { require.resolve('axios'); out.axios = 'ok'; } catch(e){ out.axios = String(e.message); }
+    const body=JSON.stringify(out);
+    res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
+  }
+  
   // TEMP: allow SERPHouse routes to respond even if ingest didn't load
   if (req.url && req.url.startsWith('/api/news/serp/')) {
     log(`Allowing SERPHouse route to pass through: ${req.method} ${req.url}`);
