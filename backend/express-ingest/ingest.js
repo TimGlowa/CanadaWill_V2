@@ -27,7 +27,7 @@ console.log('[BOOT] Runtime modules loaded successfully');
 
 // Test route
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString(), version: 'stub-removed' });
+  res.json({ message: 'Minimal app working!', timestamp: new Date().toISOString(), version: 'force-redeploy' });
 });
 
 // SERP unlimited route
