@@ -2,9 +2,8 @@ name: deploy-backend
 
 on:
   push:
-    branches: [ main ]          # auto deploy on every push to main
+    branches: [ main ]              # auto deploy on push to main
 
-# never run two deploys at the same time
 concurrency:
   group: deploy-backend
   cancel-in-progress: true
@@ -22,39 +21,42 @@ jobs:
         with:
           node-version: '20.19.4'
 
-      # Root: install only if a package.json exists (keeps things simple & fast)
-      - name: Install root deps (if any)
+      # Stage a clean "artifacts" folder whose ROOT will be wwwroot.
+      - name: Stage backend into flat artifacts root
         run: |
+          rm -rf artifacts
+          mkdir -p artifacts
+          # Flatten server.js and package manifests to artifacts root
+          cp backend/server.js artifacts/server.js
+          if [ -f backend/package.json ]; then cp backend/package.json artifacts/package.json; fi
+          if [ -f backend/package-lock.json ]; then cp backend/package-lock.json artifacts/package-lock.json; fi
+          # Bring express-ingest under artifacts/express-ingest exactly
+          rsync -a backend/express-ingest/ artifacts/express-ingest/ 2>/dev/null || true
+
+      # Install root runtime deps (express, etc.) at artifacts root
+      - name: Install root deps
+        run: |
+          cd artifacts
           if [ -f package.json ]; then
-            npm ci --omit=dev
+            npm install --omit=dev
           fi
 
-      # express-ingest: install & build (produces dist/, includes runtime deps like axios)
-      - name: Install & build express-ingest
+      # Install runtime deps for express-ingest (axios, storage libs) and build TS if present
+      - name: Install & build express-ingest deps
         run: |
-          if [ -d backend/express-ingest ]; then
-            cd backend/express-ingest
-            if [ -f package.json ]; then
-              npm install --omit=dev
-            fi
-            # Build TS if present (ignore if pure JS)
-            if [ -f tsconfig.json ]; then
-              npx tsc -p tsconfig.json || true
-            fi
+          if [ -f artifacts/express-ingest/package.json ]; then
+            cd artifacts/express-ingest
+            npm install --omit=dev
+            if [ -f tsconfig.json ]; then npx tsc -p tsconfig.json || true; fi
             cd -
           fi
 
-      # Create a tight deployment package that includes the running entrypoint
-      # and the express-ingest code + node_modules + data.
+      # Zip EXACTLY the contents that should become /home/site/wwwroot/*
       - name: Create deploy.zip
         run: |
-          rm -f deploy.zip
-          zip -r deploy.zip \
-            backend/server.js \
-            package.json package-lock.json 2>/dev/null || true
-          # Include the entire express-ingest tree (code, dist, node_modules, data)
-          zip -r deploy.zip backend/express-ingest \
-            -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**"
+          cd artifacts
+          zip -r ../deploy.zip . -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**"
+          cd -
 
       - name: Deploy to Azure WebApp (ingest)
         uses: azure/webapps-deploy@v3
