@@ -103,6 +103,6 @@ jobs:
       - name: Deploy to Azure WebApp (ingest)
         uses: azure/webapps-deploy@v3
         with:
-          app-name: canadawill-ingest-ave2f8fjcxeuaehz
+          app-name: canadawill-ingest
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: deploy.zip
