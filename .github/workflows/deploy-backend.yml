@@ -91,12 +91,13 @@ jobs:
           fi
           cd -
 
-      # Create deploy.zip (this is exactly what RFZ will mount)
-      - name: Create deploy.zip
+      # Create deploy.zip (exclude Procfile)
+      - name: Create deploy.zip (exclude Procfile)
         run: |
           set -e
           cd artifacts
-          zip -r ../deploy.zip . -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**"
+          zip -r ../deploy.zip . \
+            -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**" "Procfile"
           cd -
 
       - name: Deploy to Azure WebApp (ingest)
