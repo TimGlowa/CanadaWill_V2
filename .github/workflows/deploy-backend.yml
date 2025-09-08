@@ -17,54 +17,36 @@ jobs:
         with:
           node-version: '20.19.4'
 
-      # Stage exactly what becomes /site/wwwroot
       - name: Stage artifacts (server.js + express-ingest)
         run: |
           set -euo pipefail
           rm -rf artifacts
           mkdir -p artifacts
 
-          # 1) Entry point: node server.js at wwwroot root
-          if [ -f backend/server.js ]; then
-            cp backend/server.js artifacts/server.js
-          elif [ -f server.js ]; then
-            cp server.js artifacts/server.js
-          else
-            echo "ERROR: server.js not found in backend/ or repo root"; exit 1
-          fi
+          # 1) entrypoint at /site/wwwroot/server.js
+          if [ -f backend/server.js ]; then cp backend/server.js artifacts/server.js; else cp server.js artifacts/server.js; fi
 
-          # 2) Root package.json with forced start; strip any postinstall
+          # 2) root package.json -> force start, strip postinstall
           if [ -f backend/package.json ]; then
             jq '(.scripts//={}) | .scripts.start="node server.js" | del(.scripts.postinstall)' backend/package.json > artifacts/package.json
             [ -f backend/package-lock.json ] && cp backend/package-lock.json artifacts/package-lock.json || true
-          elif [ -f package.json ]; then
+          else
             jq '(.scripts//={}) | .scripts.start="node server.js" | del(.scripts.postinstall)' package.json > artifacts/package.json
             [ -f package-lock.json ] && cp package-lock.json artifacts/package-lock.json || true
-          else
-            echo '{"name":"ingest","version":"1.0.0","scripts":{"start":"node server.js"},"dependencies":{"express":"^4.19.2"}}' > artifacts/package.json
           fi
 
-          # 3) Locate real express-ingest (must have helper + src or dist)
-          CANDIDATES=(
-            backend/express-ingest
-            CanadWill_Phase2/express-ingest
-            express-ingest
-          )
-          EXPRESS_SRC=""
-          for d in "${CANDIDATES[@]}"; do
+          # 3) choose the real express-ingest (must have helper + src or dist)
+          for d in backend/express-ingest CanadWill_Phase2/express-ingest express-ingest; do
             if [ -d "$d" ] && [ -f "$d/serp-tools.runtime.js" ] && { [ -d "$d/src/providers" ] || [ -d "$d/dist/providers" ]; }; then
               EXPRESS_SRC="$d"; break
             fi
           done
-          if [ -z "$EXPRESS_SRC" ]; then
-            echo "ERROR: express-ingest with helper + (src|dist) not found"; exit 1
-          fi
+          test -n "${EXPRESS_SRC:-}" || { echo "ERROR: express-ingest with helper+(src|dist) not found"; exit 1; }
 
-          # 4) Copy full express-ingest tree
           mkdir -p artifacts/express-ingest
           cp -a "$EXPRESS_SRC"/. artifacts/express-ingest/
 
-          echo "===== STAGED TREE (first 3 levels) ====="
+          echo "STAGED TREE (first 3 levels):"
           find artifacts -maxdepth 3 -print
 
       - name: Install root deps
@@ -77,13 +59,9 @@ jobs:
         run: |
           set -e
           cd artifacts/express-ingest
-          # 1) install runtime deps (if any)
           npm install --omit=dev --no-audit --no-fund || true
-          # 2) ensure local TS toolchain (no global npx)
           npm install --no-save typescript@5 @types/node @types/express
-          # 3) compile ONLY if tsconfig exists; use local tsc path explicitly
           if [ -f tsconfig.json ]; then
-            node ./node_modules/typescript/bin/tsc -v
             node ./node_modules/typescript/bin/tsc -p tsconfig.json
           fi
           # HARD REQUIREMENTS for this deploy:
@@ -91,7 +69,16 @@ jobs:
           test -f dist/providers/serphouseClient.js || { echo "ERROR: missing dist/providers/serphouseClient.js after build"; ls -la dist || true; exit 1; }
           cd -
 
-      - name: Create deploy.zip (exclude Procfile to avoid overrides)
+      - name: Sanitize runtime tree (prevent sub-app detection)
+        run: |
+          set -e
+          # keep built JS, remove sub-app manifests that can confuse startup
+          rm -f artifacts/express-ingest/package.json artifacts/express-ingest/package-lock.json artifacts/express-ingest/Procfile
+          # assert required runtime files remain
+          test -f artifacts/express-ingest/serp-tools.runtime.js
+          test -f artifacts/express-ingest/dist/providers/serphouseClient.js
+
+      - name: Create deploy.zip (exclude root Procfile)
         run: |
           set -e
           cd artifacts
