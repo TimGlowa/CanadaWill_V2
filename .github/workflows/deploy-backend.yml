@@ -2,7 +2,7 @@ name: deploy-backend
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]              # auto deploy on push to main
 
 concurrency:
   group: deploy-backend
@@ -11,8 +11,10 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20.19.4'
@@ -23,28 +25,30 @@ jobs:
           set -e
           rm -rf artifacts
           mkdir -p artifacts
-          # Root entrypoint
+
+          # Root entrypoint expected by Azure/Oryx -> node server.js (known-good) 
+          # (so /home/site/wwwroot/server.js exists) 
           cp backend/server.js artifacts/server.js
 
-          # Start from backend/package.json but hard-set the start script to node server.js
+          # Create package.json at artifacts root:
+          # - Force "start": "node server.js"
+          # - Strip any "postinstall" that runs npm ci
           if [ -f backend/package.json ]; then
-            jq '(.scripts//={}) + {scripts: (.scripts + {start:"node server.js"})} | del(.scripts.postinstall)' \
+            jq '(.scripts//={}) 
+                | .scripts.start="node server.js" 
+                | del(.scripts.postinstall)' \
               backend/package.json > artifacts/package.json
           else
-            # Minimal package.json if backend/package.json is absent
             cat > artifacts/package.json <<'JSON'
-            {
-              "name": "ingest",
-              "version": "1.0.0",
-              "scripts": { "start": "node server.js" },
-              "dependencies": { "express": "^4.19.2" }
-            }
+            { "name":"ingest","version":"1.0.0",
+              "scripts":{"start":"node server.js"},
+              "dependencies":{"express":"^4.19.2"} }
             JSON
           fi
-          # If lock exists, copy it too (harmless if out-of-sync; we use npm install later)
+          # Lock file is optional; we will use npm install (not ci)
           [ -f backend/package-lock.json ] && cp backend/package-lock.json artifacts/package-lock.json || true
 
-          # Copy express-ingest dir (no rsync; guaranteed on GH runners)
+          # Copy express-ingest (no rsync; guaranteed on GH runners)
           if [ -d backend/express-ingest ]; then
             mkdir -p artifacts/express-ingest
             cp -a backend/express-ingest/. artifacts/express-ingest/
@@ -61,14 +65,14 @@ jobs:
         run: |
           set -e
           cd artifacts
-          npm install --omit=dev
+          npm install --omit=dev --no-audit --no-fund
 
       - name: Install & build express-ingest deps
         run: |
           set -e
           if [ -f artifacts/express-ingest/package.json ]; then
             cd artifacts/express-ingest
-            npm install --omit=dev
+            npm install --omit=dev --no-audit --no-fund
             [ -f tsconfig.json ] && npx tsc -p tsconfig.json || true
             cd -
           fi
