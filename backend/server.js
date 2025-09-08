@@ -73,22 +73,45 @@ const server = http.createServer((req,res)=>{
     res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
   }
   
-  // DIAG: Prove which module load is failing (ingest fallback cause)
-  if(req.url==="/api/diag/ingest" && req.method==="GET"){
-    const out = {};
-    const check = (label, mod) => {
-      try { require.resolve(mod); out[label] = 'ok'; }
-      catch(e){ out[label] = String(e && e.message ? e.message : e); }
-    };
-    check('ingest', './express-ingest/ingest');
-    check('tools', './express-ingest/serp-tools.runtime');
-    check('client-dist', './express-ingest/dist/providers/serphouseClient');
-    check('client-src',  './express-ingest/src/providers/serphouseClient');
-    // Common vendor we've seen missing before
-    try { require.resolve('axios'); out.axios = 'ok'; } catch(e){ out.axios = String(e.message); }
-    const body=JSON.stringify(out);
-    res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
-  }
+// DIAG: Prove which module load is failing (ingest fallback cause)
+if(req.url==="/api/diag/ingest" && req.method==="GET"){
+  const out = {};
+  const check = (label, mod) => {
+    try { require.resolve(mod); out[label] = 'ok'; }
+    catch(e){ out[label] = String(e && e.message ? e.message : e); }
+  };
+  check('ingest', './express-ingest/ingest');
+  check('tools', './express-ingest/serp-tools.runtime');
+  check('client-dist', './express-ingest/dist/providers/serphouseClient');
+  check('client-src',  './express-ingest/src/providers/serphouseClient');
+  // Common vendor we've seen missing before
+  try { require.resolve('axios'); out.axios = 'ok'; } catch(e){ out.axios = String(e.message); }
+  const body=JSON.stringify(out);
+  res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
+}
+
+// DIAG: list what's deployed under wwwroot
+if(req.url==="/api/diag/tree" && req.method==="GET"){
+  const fs = require('fs');
+  const path = require('path');
+  const root = __dirname;
+  const p = (...x) => path.join(root, ...x);
+  const exists = (x) => { try { return fs.existsSync(x); } catch { return false; } };
+  const safeList = (x) => { try { return fs.readdirSync(x); } catch { return []; } };
+  const out = {
+    root,
+    has_express_ingest: exists(p('express-ingest')),
+    list_root: safeList(root),
+    list_express_ingest: safeList(p('express-ingest')),
+    list_express_ingest_src: safeList(p('express-ingest','src')),
+    list_express_ingest_dist: safeList(p('express-ingest','dist')),
+    has_serp_tools_runtime: exists(p('express-ingest','serp-tools.runtime.js')),
+    has_client_ts: exists(p('express-ingest','src','providers','serphouseClient.ts')),
+    has_client_js: exists(p('express-ingest','dist','providers','serphouseClient.js'))
+  };
+  const body=JSON.stringify(out);
+  res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
+}
   
   // TEMP: allow SERPHouse routes to respond even if ingest didn't load
   if (req.url && req.url.startsWith('/api/news/serp/')) {
