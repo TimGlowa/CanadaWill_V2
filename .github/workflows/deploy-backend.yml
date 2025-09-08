@@ -39,11 +39,7 @@ jobs:
                 | del(.scripts.postinstall)' \
               backend/package.json > artifacts/package.json
           else
-            cat > artifacts/package.json <<'EOF'
-{ "name":"ingest","version":"1.0.0",
-  "scripts":{"start":"node server.js"},
-  "dependencies":{"express":"^4.19.2"} }
-EOF
+            echo '{"name":"ingest","version":"1.0.0","scripts":{"start":"node server.js"},"dependencies":{"express":"^4.19.2"}}' > artifacts/package.json
           fi
           # Lock file is optional; we will use npm install (not ci)
           [ -f backend/package-lock.json ] && cp backend/package-lock.json artifacts/package-lock.json || true
