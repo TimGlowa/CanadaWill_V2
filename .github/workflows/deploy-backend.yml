@@ -77,11 +77,14 @@ jobs:
         run: |
           set -e
           cd artifacts/express-ingest
-          # ensure tsc and minimal types are present even if not in lock
-          npm install --no-save typescript @types/node @types/express || true
+          # 1) install runtime deps (if any)
           npm install --omit=dev --no-audit --no-fund || true
+          # 2) ensure local TS toolchain (no global npx)
+          npm install --no-save typescript@5 @types/node @types/express
+          # 3) compile ONLY if tsconfig exists; use local tsc path explicitly
           if [ -f tsconfig.json ]; then
-            npx tsc -p tsconfig.json
+            node ./node_modules/typescript/bin/tsc -v
+            node ./node_modules/typescript/bin/tsc -p tsconfig.json
           fi
           # HARD REQUIREMENTS for this deploy:
           test -f serp-tools.runtime.js || { echo "ERROR: missing express-ingest/serp-tools.runtime.js"; exit 1; }
