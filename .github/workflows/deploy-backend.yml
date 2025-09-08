@@ -42,11 +42,7 @@ jobs:
               package.json > artifacts/package.json
             [ -f package-lock.json ] && cp package-lock.json artifacts/package-lock.json || true
           else
-            cat > artifacts/package.json <<'JSON'
-{ "name":"ingest","version":"1.0.0",
-  "scripts":{"start":"node server.js"},
-  "dependencies":{"express":"^4.19.2"} }
-JSON
+            echo '{"name":"ingest","version":"1.0.0","scripts":{"start":"node server.js"},"dependencies":{"express":"^4.19.2"}}' > artifacts/package.json
           fi
 
           echo "Searching for express-ingest candidates..."
