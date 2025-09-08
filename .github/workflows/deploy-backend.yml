@@ -24,7 +24,7 @@ jobs:
           rm -rf artifacts
           mkdir -p artifacts
 
-          # 1) Entry point (known-good): node server.js at wwwroot root
+          # 1) Entry point: node server.js at wwwroot root
           if [ -f backend/server.js ]; then
             cp backend/server.js artifacts/server.js
           elif [ -f server.js ]; then
@@ -44,66 +44,60 @@ jobs:
             echo '{"name":"ingest","version":"1.0.0","scripts":{"start":"node server.js"},"dependencies":{"express":"^4.19.2"}}' > artifacts/package.json
           fi
 
-          # 3) Locate the real express-ingest (must have src/providers and helper)
+          # 3) Locate real express-ingest (must have helper + src or dist)
           CANDIDATES=(
-            CanadWill_Phase2/express-ingest
             backend/express-ingest
+            CanadWill_Phase2/express-ingest
             express-ingest
           )
           EXPRESS_SRC=""
           for d in "${CANDIDATES[@]}"; do
-            if [ -d "$d" ] && [ -f "$d/serp-tools.runtime.js" ] && [ -d "$d/src/providers" ]; then
+            if [ -d "$d" ] && [ -f "$d/serp-tools.runtime.js" ] && { [ -d "$d/src/providers" ] || [ -d "$d/dist/providers" ]; }; then
               EXPRESS_SRC="$d"; break
             fi
           done
           if [ -z "$EXPRESS_SRC" ]; then
-            echo "ERROR: express-ingest with src/providers and serp-tools.runtime.js not found"; exit 1
+            echo "ERROR: express-ingest with helper + (src|dist) not found"; exit 1
           fi
 
-          # 4) Copy full express-ingest tree (must include src and data)
+          # 4) Copy full express-ingest tree
           mkdir -p artifacts/express-ingest
           cp -a "$EXPRESS_SRC"/. artifacts/express-ingest/
 
           echo "===== STAGED TREE (first 3 levels) ====="
           find artifacts -maxdepth 3 -print
 
-      # Install runtime deps at wwwroot root
       - name: Install root deps
         run: |
           set -e
           cd artifacts
           npm install --omit=dev --no-audit --no-fund
 
-      # Install runtime deps for express-ingest and COMPILE TS -> dist
-      - name: Install & build express-ingest
+      - name: Install & build express-ingest (produce dist/)
         run: |
           set -e
           cd artifacts/express-ingest
+          # ensure tsc and minimal types are present even if not in lock
+          npm install --no-save typescript @types/node @types/express || true
           npm install --omit=dev --no-audit --no-fund || true
           if [ -f tsconfig.json ]; then
-            # Install TypeScript and type definitions temporarily for compilation
-            npm install typescript @types/express @types/node --no-save --no-audit --no-fund
             npx tsc -p tsconfig.json
           fi
-          # Hard fail if the compiled client is not present
-          if [ ! -f dist/providers/serphouseClient.js ]; then
-            echo "ERROR: Missing dist/providers/serphouseClient.js after build"; ls -la dist || true; exit 1
-          fi
+          # HARD REQUIREMENTS for this deploy:
+          test -f serp-tools.runtime.js || { echo "ERROR: missing express-ingest/serp-tools.runtime.js"; exit 1; }
+          test -f dist/providers/serphouseClient.js || { echo "ERROR: missing dist/providers/serphouseClient.js after build"; ls -la dist || true; exit 1; }
           cd -
 
-      # Create deploy.zip (exclude Procfile)
-      - name: Create deploy.zip (exclude Procfile)
+      - name: Create deploy.zip (exclude Procfile to avoid overrides)
         run: |
           set -e
           cd artifacts
-          zip -r ../deploy.zip . \
-            -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**" "Procfile"
+          zip -r ../deploy.zip . -x "**/.git/**" "**/.cache/**" "**/node_modules/.cache/**" "Procfile"
           cd -
 
       - name: Deploy to Azure WebApp (ingest)
         uses: azure/webapps-deploy@v3
         with:
           app-name: canadawill-ingest
-          # slot-name not needed for default (production)
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: deploy.zip
