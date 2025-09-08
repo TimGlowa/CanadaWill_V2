@@ -70,3 +70,5 @@ These snapshots and bundles were created during the transition:
 2. Protect `main` branch (require PRs)  
 3. Conduct periodic drift checks vs Azure runtime
 4. Validate sentiment analysis with POST requests to `/api/sentiment/analyze`
+
+<!-- trigger deploy: 2025-09-08 16:51 CT -->
