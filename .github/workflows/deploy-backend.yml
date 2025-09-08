@@ -69,6 +69,18 @@ jobs:
           test -f dist/providers/serphouseClient.js || { echo "ERROR: missing dist/providers/serphouseClient.js after build"; ls -la dist || true; exit 1; }
           cd -
 
+      - name: Align helper + provider paths (KISS)
+        run: |
+          set -e
+          # Ship the helper at wwwroot root (where your live helper has been)
+          cp artifacts/express-ingest/serp-tools.runtime.js artifacts/serp-tools.runtime.js
+          # Place the compiled client exactly where the helper requires it
+          mkdir -p artifacts/dist/providers
+          cp artifacts/express-ingest/dist/providers/serphouseClient.js artifacts/dist/providers/serphouseClient.js
+          # sanity checks
+          test -f artifacts/serp-tools.runtime.js
+          test -f artifacts/dist/providers/serphouseClient.js
+
       - name: Sanitize runtime tree (prevent sub-app detection)
         run: |
           set -e
