@@ -81,8 +81,8 @@ jobs:
           cd artifacts/express-ingest
           npm install --omit=dev --no-audit --no-fund || true
           if [ -f tsconfig.json ]; then
-            # Install TypeScript temporarily for compilation
-            npm install typescript --no-save --no-audit --no-fund
+            # Install TypeScript and type definitions temporarily for compilation
+            npm install typescript @types/express @types/node --no-save --no-audit --no-fund
             npx tsc -p tsconfig.json
           fi
           # Hard fail if the compiled client is not present
