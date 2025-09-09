@@ -1,5 +1,37 @@
 # Development Log
 
+## 2025-09-08 21:01 CT — **RESOLVED: SERPHouse routes live; writes unified to `news`**
+
+**Root cause (confirmed):**
+Deployed build was not registering SERPHouse routes because the running `server.js` did **not** mount the helper; earlier artifacts also lacked the compiled client at the expected path, causing helper `require('./dist/providers/serphouseClient')` to fail.
+
+**Fixes applied (minimal, targeted):**
+
+* Added the **SERPHouse helper mount** in the deployed runtime (so `/api/news/serp/*` can register).
+* **Default container set to `news`** in helper code; env readout now reports `container: "news"`.
+* Added **`axios`** to `backend/package.json` so the compiled client resolves at runtime.
+* Kept **Startup Command = `node server.js`** (Azure) and removed duplicate/legacy deploy workflow to avoid race conditions.
+
+**Verification (evidence from live calls):**
+
+* **Selftest:** `GET /api/news/serp/selftest` → `{"ok":true,"found":true,"keys":["isEnabled","buildEnhancedQuery","buildQueryForOfficial","fetchNews"],"defaultIsFn":false}`
+* **Env:** `GET /api/news/serp/env` → `{"STORAGE":{"hasConn":true,"container":"news"}}`
+* **Backfill:** `GET /api/news/serp/backfill-run?who=danielle-smith&days=365&store=1` → *Backfilling 121 officials → container "news"* (blob writes observed in `news/raw/serp/...`)
+
+**Current state:**
+
+* **Green.** SERPHouse routes are mounted and responsive; dependency resolution is clean; all write paths unified to **`news`**. One deploy workflow on push; app health OK.
+
+**Guards to prevent regressions:**
+
+* Keep **one** deploy workflow on push (no parallel "deploy-root").
+* Retain **Startup Command = `node server.js`** in Azure.
+* Ensure packaged artifact includes:
+
+  * helper at runtime location, and
+  * compiled client at `dist/providers/serphouseClient.js`.
+* CI can optionally fail if those two files or the helper mount are missing (not enabled yet).
+
 ## 2025-09-03 14:34 CT — Task 1 Complete: Roster Enrichment and Current MP Update
 
 **Action**: Successfully completed Task 1 (Roster Enrichment with Represent API Integration) and updated roster with current 2025 elected officials.
