@@ -3,6 +3,41 @@
 This repository is the **canonical source of truth** for the CanadaWill platform as of **29 August 2025**.  
 It consolidates backend ingest services and both frontend dashboards into one repository.
 
+## SERPHouse Capture — Search Rule & Topics (Locked)
+
+**Anchor rule (approved):**  
+**Name + (Role/Title OR Alberta/Canada) + ONE topic + last 365 days**  
+- Role/Title tokens: **MP, MLA, Premier, Minister**  
+- Geo tokens: **Alberta, Canada**
+
+**Topic set (17):**  
+1) Alberta separation  
+2) Alberta independence  
+3) Alberta sovereignty  
+4) Sovereignty Act  
+5) leave Canada  
+6) separate from Canada  
+7) secede from Canada  
+8) remain in Canada  
+9) reject separation  
+10) pro-independence *(or pro-separation)*  
+11) Wexit  
+12) independence referendum  
+13) separation referendum  
+14) Alberta autonomy  
+15) ForeverCanadian  
+16) Forever Canadian  
+17) Alberta Prosperity Project
+
+**Phase-1 Output (per official, 12 months, no cap):**  
+Saves JSON with **date, politician name, title, URL, full snippet** →  
+`news/raw/serp/<slug>/<timestamp>.json`
+
+**How to confirm it's running (ground truth):**  
+- Selftest: `/api/news/serp/selftest` → `ok:true`  
+- Env: `/api/news/serp/env` → `{"STORAGE":{"hasConn":true,"container":"news"}}`  
+- Storage growth: Azure → **canadawillfuncstore2 / news / raw/serp** shows new files landing across multiple slugs within minutes.
+
 ## Structure
 
 ```

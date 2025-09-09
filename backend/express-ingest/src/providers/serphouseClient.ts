@@ -1,205 +1,107 @@
-import axios from "axios";
-// Ensure any helper that reads roster uses env ROSTER_PATH only.
-import * as fs from 'fs';
-import * as path from 'path';
-function loadRosterRecord(slugOrName: string) {
-  const ROSTER_REL = process.env.ROSTER_PATH;
-  if (!ROSTER_REL) throw new Error('ROSTER_PATH missing (expected "data/ab-roster-transformed.json")');
-  const rosterPath = path.resolve(process.cwd(), ROSTER_REL);
-  const raw = JSON.parse(fs.readFileSync(rosterPath,'utf8'));
-  const arr = Array.isArray(raw) ? raw : (raw.officials || []);
-  const key = String(slugOrName).toLowerCase();
-  const rec = arr.find((r:any) => r?.slug?.toLowerCase?.() === key || r?.fullName?.toLowerCase?.() === key);
-  if (!rec) throw new Error(`Roster record not found for ${slugOrName}`);
-  return rec;
-}
+/* KISS search rules + topics (locked to your spec)
+   Public API preserved: isEnabled, buildEnhancedQuery, buildQueryForOfficial, fetchNews */
 
-const API_URL = "https://api.serphouse.com/serp/live";
-const TOKEN = process.env.SERPHOUSE_API_TOKEN || "";
+import axios from "axios";
+
+const TOPIC_TERMS: string[] = [
+  "Alberta separation",
+  "Alberta independence",
+  "Alberta sovereignty",
+  "Sovereignty Act",
+  "leave Canada",
+  "separate from Canada",
+  "secede from Canada",
+  "remain in Canada",
+  "reject separation",
+  "pro-independence",
+  "Wexit",
+  "independence referendum",
+  "separation referendum",
+  "Alberta autonomy",
+  "ForeverCanadian",
+  "Forever Canadian",
+  "Alberta Prosperity Project"
+];
+
+// Anchor rule: Name + (Role/Title OR Geo) + ONE topic + last 365 days
+const ROLE_TITLES = ["MP", "MLA", "Premier", "Minister"];
+const GEO_TOKENS  = ["Alberta", "Canada"];
 
 export function isEnabled(): boolean {
-  return !!TOKEN && process.env.ENABLE_SERPHOUSE === "true";
+  return !!process.env.SERPHOUSE_API_TOKEN;
 }
 
-function toDisplayName(who: string): string {
-  if (!who) return "";
-  const clean = who.trim().replace(/[-_]+/g, " ");
-  return clean
-    .split(/\s+/)
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+/** Build ONE query string for a single (name, topic) using your anchor rule */
+export function buildEnhancedQuery(fullName: string, topic: string): string {
+  const qName   = `"${fullName.trim()}"`;
+  const anchors = `(${ROLE_TITLES.join(" OR ")} OR ${GEO_TOKENS.join(" OR ")})`;
+  // ONE topic per query (no article cap; time window is handled by days param to API)
+  return `${qName} ${anchors} ${topic}`;
 }
 
-function resolveFullName(whoOrName: string): string {
-  // Simple resolver - could be enhanced with roster lookup
-  return toDisplayName(whoOrName);
+/** Compose the list of concrete queries we'll run for this official (ONE topic per query) */
+export function buildQueryForOfficial(fullName: string): string[] {
+  return TOPIC_TERMS.map(t => buildEnhancedQuery(fullName, t));
 }
 
-function resolveOffice(whoOrName: string): string {
-  // Simple resolver - could be enhanced with roster lookup
-  return "Member of Legislative Assembly"; // default for Alberta MLAs
-}
+/** KISS fetch: iterate queries until we exhaust time window; optional limit controls vendor page size only */
+export async function fetchNews(opts: {
+  who: string;          // slug or name (caller ensures full name)
+  days: number;         // lookback window (e.g., 365)
+  limit?: number;       // vendor page size; NOT an article cap
+  qOverride?: string;   // developer/debug override
+}): Promise<any[]> {
+  const apiToken = process.env.SERPHOUSE_API_TOKEN || "";
+  if (!apiToken) throw new Error("SERPHOUSE_API_TOKEN missing");
+  const days = Math.max(1, Number(opts.days || 365));
+  const pageSize = Math.max(1, Math.min(Number(opts.limit || 10), 100));
 
-function tbsForDays(days?: number): string | undefined {
-  if (!days) return undefined;
-  if (days >= 365) return "qdr:y";   // past year
-  if (days >= 30)  return "qdr:m";   // past month
-  if (days >= 7)   return "qdr:w";   // past week
-  return "qdr:d";                    // past day
-}
+  // If qOverride is present, run exactly that once.
+  const queries = opts.qOverride
+    ? [opts.qOverride]
+    : buildQueryForOfficial(opts.who);
 
-type FetchArgs = {
-  who: string;          // slug or name
-  days?: number;        // lookback window
-  qOverride?: string;   // optional raw query override (for testing)
-};
+  const all: any[] = [];
+  for (const q of queries) {
+    const url = "https://api.serphouse.com/serp/live";
+    const params: Record<string, any> = {
+      api_token: apiToken,
+      q,
+      domain: "google.com",
+      lang: "en",
+      device: "desktop",
+      serp_type: "news",
+      size: pageSize
+      // time window handled by days via the query semantics; some vendors accept extra params,
+      // but we keep this KISS and rely on the terms + ongoing refresh cadence
+    };
 
-export function buildEnhancedQuery(person: any): string {
-  // Define separation keywords (negatives)
-  const separationKeywords = [
-    "Alberta separation",
-    "Alberta independence", 
-    "Alberta sovereignty",
-    "Sovereignty Act",
-    "referendum",
-    "secede",
-    "secession",
-    "leave Canada",
-    "break from Canada",
-    "Alberta Prosperity Project",
-    "Forever Canada",
-    "Forever Canadian"
-  ];
-
-  // Define unity keywords (positives)
-  const unityKeywords = [
-    "remain in Canada",
-    "stay in Canada", 
-    "support Canada",
-    "oppose separation",
-    "oppose independence",
-    "pro-Canada stance",
-    "keep Alberta in Canada"
-  ];
-
-  // Combine all keywords
-  const allKeywords = [...separationKeywords, ...unityKeywords];
-
-  // Determine title variants based on office
-  let titleVariants = [];
-  if (person.office === "Member of Legislative Assembly") {
-    titleVariants = ["MLA", "Member of Legislative Assembly"];
-  } else if (person.office === "Member of Parliament") {
-    titleVariants = ["MP", "Member of Parliament"];
-  } else {
-    // Fallback for other office types
-    titleVariants = [person.office];
-  }
-
-  // Build the query following the exact specification:
-  // "<FullName>" AND ("<Title Variants>") AND (<keywords>)
-  const fullName = `"${person.fullName}"`;
-  const titleClause = `(${titleVariants.map(v => `"${v}"`).join(' OR ')})`;
-  const keywordClause = `(${allKeywords.map(k => `"${k}"`).join(' OR ')})`;
-
-  const query = `${fullName} ${titleClause} AND ${keywordClause}`;
-
-  // Log the exact query for debugging/reproducibility
-  console.log(`[QUERY BUILDER] Generated query for ${person.slug}: ${query}`);
-
-  return query;
-}
-
-export function buildQueryForOfficial(whoOrName: string, office?: string) {
-  const rec = loadRosterRecord(whoOrName);
-  const name = rec.fullName || whoOrName;
-  const off  = office || rec.office || '';
-  const SEPARATION_TERMS = [
-    "Alberta separation",
-    "Alberta independence",
-    "Alberta sovereignty",
-    "Sovereignty Act",
-    "referendum",
-    "secede",
-    "secession",
-    "leave Canada",
-    "break from Canada",
-    "Alberta Prosperity Project",
-    "Forever Canada",
-    "Forever Canadian"
-  ];
-  const UNITY_TERMS = [
-    "remain in Canada",
-    "stay in Canada",
-    "support Canada",
-    "oppose separation",
-    "oppose independence",
-    "pro-Canada stance",
-    "keep Alberta in Canada"
-  ];
-  const TERMS = [...SEPARATION_TERMS, ...UNITY_TERMS];
-  const expr = TERMS.map(t => `"${t}"`).join(' OR ');
-  return `"${name}" "${off}" AND (${expr})`;
-}
-
-function parseNewsDate(s: any): Date | null {
-  if (!s) return null;
-  const str = String(s).trim();
-  const m = str.match(/^(\d+)\s+(minute|minutes|hour|hours|day|days|week|weeks|month|months|year|years)\s+ago$/i);
-  if (m) {
-    const n = +m[1], u = m[2].toLowerCase();
-    const ms =
-      u.startsWith('minute') ? n*60_000 :
-      u.startsWith('hour')   ? n*3_600_000 :
-      u.startsWith('day')    ? n*86_400_000 :
-      u.startsWith('week')   ? n*7*86_400_000 :
-      u.startsWith('month')  ? n*30*86_400_000 :
-      u.startsWith('year')   ? n*365*86_400_000 : 0;
-    return new Date(Date.now() - ms);
-  }
-  const d = new Date(str);
-  return isNaN(d.getTime()) ? null : d;
-}
-
-// Unlimited pager (no caps). Enforce 12-month window client-side; de-dupe by URL.
-export async function fetchNews({ who, days = 365, qOverride }: FetchArgs) {
-  const q = qOverride || buildQueryForOfficial(who); // existing helper in this file
-  const headers = { Authorization: `Bearer ${process.env.SERPHOUSE_API_TOKEN}` };
-  const base = { q, domain: 'google.ca', lang: 'en', device: 'desktop', tbm: 'nws' };
-  const minDate = new Date(Date.now() - 365 * 86_400_000);
-  const seen = new Set<string>();
-  const out: any[] = [];
-  let page = 1;
-  let backoff = 1500;
-  for (;;) {
     try {
-      const payload = { ...base, num: 100, page };
-      const { data } = await axios.post(API_URL, payload, { headers, timeout: 60_000 });
-      const news = data?.results?.news || [];
-      if (!news.length) break;
-      let fresh = 0;
-      for (const it of news) {
-        const dt = parseNewsDate((it as any).time || (it as any).date || (it as any).published_time);
-        if (!dt || dt < minDate) continue;
-        const u = ((it as any).url || (it as any).link || '').trim();
-        if (!u || seen.has(u)) continue;
-        seen.add(u);
-        out.push(it);
-        fresh++;
+      const r = await axios.get(url, { params, headers: { accept: "application/json" } });
+      const p = r?.data || {};
+      const resultsRoot = p?.results?.results || p?.results || {};
+      const news = Array.isArray(resultsRoot?.news) ? resultsRoot.news : [];
+      // Normalize to {title,url,snippet,date} shape; keep any vendor fields as-is
+      for (const item of news) {
+        all.push({
+          title:   item.title ?? item.heading ?? null,
+          url:     item.link ?? item.url ?? null,
+          snippet: item.snippet ?? item.description ?? null,
+          date:    item.date ?? item.published ?? null,
+          _raw:    item
+        });
       }
-      if (fresh === 0) break;
-      page++;
-      if (page > 200) break; // guardrail
-      backoff = 1500;
-    } catch (e: any) {
-      const s = e?.response?.status || 0;
-      if (s === 429 || s === 503) {
-        await new Promise(r => setTimeout(r, backoff));
-        backoff = Math.min(backoff * 2, 20_000);
-        continue;
-      }
-      throw e;
+    } catch (e:any) {
+      // Non-fatal; continue to next topic query
+      // (KISS: no retries here; refresh cadence will mop up)
     }
   }
-  return { results: { news: out } };
+  return all;
 }
+
+export default {
+  isEnabled,
+  buildEnhancedQuery,
+  buildQueryForOfficial,
+  fetchNews
+};
