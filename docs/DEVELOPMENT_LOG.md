@@ -50,6 +50,53 @@
 
 ---
 
+## 2025-09-08 20:21 CT — **KISS Diagnosis: Why SERPHouse routes are still missing**
+
+**Observed runtime facts (today):**
+
+* **Startup Command** in Azure is set to `node server.js`.
+* **`/api/whoami`** returns `/home/site/wwwroot/express-ingest/ingest.js` — this indicates `server.js` is running and delegating to the ingest app (normal in this layout), not that the wrong process started.
+* **`/api/news/serp/env`** and **`/api/news/serp/selftest`** return *Route not found* (routes never mounted).
+* **`server.js` (live)** retrieved via the app shows **no call** to mount the SERPHouse helper.
+* **Helper file** (`serp-tools.runtime.js`) is present on disk (retrieval returned 200).
+* **Compiled client** (`dist/providers/serphouseClient.js`) is present on disk (retrieval returned 200).
+* **Kudu** shows **OneDeploy / Run-From-Zip** for recent deployments; build is skipped on the server (RFZ), so the on-disk tree mirrors the shipped ZIP.
+
+**Root cause (no guessing):**
+
+* The **deployed `server.js` does not invoke the SERPHouse helper** (e.g., no `require('./serp-tools.runtime')(app)` or equivalent).
+* Because **no mount call exists in the running `server.js`**, the helper never executes, and **no `/api/news/serp/*` routes are registered**, despite the helper and compiled client files being present on disk.
+
+**What this is *not*:**
+
+* Not an entrypoint error: `server.js` is starting; `whoami` shows ingest because `server.js` delegates to it.
+* Not an Azure "cache" issue: RFZ mounts the uploaded ZIP verbatim; the running files match the package.
+* Not a missing-file issue (at this point): helper and compiled client are present.
+
+**Impact:**
+
+* SERPHouse endpoints (**`/api/news/serp/env`,`/selftest`,`/backfill`,`/refresh`**) are **absent** at runtime.
+* Ingestion via these endpoints cannot proceed; blob writes via the helper path do not occur.
+
+**Evidence anchors (today):**
+
+* Azure App Service Configuration: Startup Command = `node server.js` (confirmed in portal).
+* App responses:
+
+  * `GET /api/whoami` → `/home/site/wwwroot/express-ingest/ingest.js`
+  * `GET /api/news/serp/env` → Route not found
+  * `GET /api/news/serp/selftest` → Route not found
+* File presence checks:
+
+  * `server.js` (live) → **no helper mount call**
+  * `serp-tools.runtime.js` → **present**
+  * `dist/providers/serphouseClient.js` → **present**
+* Kudu deployments: OneDeploy / Run-From-Zip; build skipped.
+
+**Status:** **Open.** The running `server.js` lacks the helper mount; until the mount exists in the deployed `server.js`, the SERPHouse routes will not appear.
+
+---
+
 ## 2025-09-03 16:32 CT — Task 2 Fixes: SERPHouse Query Builder and Data Loading Issues
 
 **Action**: Fixed multiple critical issues in `ingest-minimal.js` that were preventing Task 2 from working correctly.
