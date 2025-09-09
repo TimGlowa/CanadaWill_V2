@@ -19,8 +19,16 @@ if (app && app._router && Array.isArray(app._router.stack)) {
   console.log('[BOOT] Cleared existing /api/news/serp/backfill-patch routes');
 }
 
-console.log('[BOOT] Loading serp-tools.runtime.js...');
-require('./serp-tools.runtime')(app);
+/* AUTOINJECT: mount SERPHouse helper (expects helper+client at wwwroot root)
+   Safe to place at end; requires that `app` is the Express instance in scope. */
+try {
+  // Helper sits at wwwroot root; ingest.js is under /express-ingest
+  require('../serp-tools.runtime')(app);
+  console.log('[BOOT] SERPHouse routes mounted from express-ingest/ingest.js');
+} catch (e) {
+  console.error('[BOOT] SERPHouse mount failed from ingest.js:', (e && e.message) || String(e));
+}
+
 console.log('[BOOT] Loading admin-backfill.runtime.js...');
 require('./src/admin-backfill.runtime')(app);
 console.log('[BOOT] Runtime modules loaded successfully');
