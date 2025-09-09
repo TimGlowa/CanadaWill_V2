@@ -114,5 +114,89 @@ module.exports = (function(orig){
         return res.status(500).json({ ok: false, error: (e && e.message) || String(e) });
       }
     });
+
+    // === Start roster in background ===
+    app.get('/api/news/serp/backfill-roster/start', async (req,res)=>{
+      if(!serph || typeof serph.fetchNews!=='function'){
+        return res.status(500).json({ok:false,error:'serphouseClient not available'});
+      }
+      const days = Number(req.query.days||365);
+      const delayMs = Number(req.query.delayMs||300);
+      const rosterPath = process.env.ROSTER_PATH || 'data/ab-roster-transformed.json';
+      const runId = new Date().toISOString().replace(/[:.]/g,'-');
+      const container = process.env.ARTICLES_CONTAINER || 'news';
+
+      // Load roster
+      const abs = path.join(process.cwd(), rosterPath);
+      if(!fs.existsSync(abs)) return res.status(500).json({ok:false,error:`roster not found: ${rosterPath}`});
+      const roster = JSON.parse(fs.readFileSync(abs,'utf8'));
+      const officials = Array.isArray(roster)? roster : (roster?.officials||[]);
+      const total = officials.length;
+
+      // Kick off background loop (no await)
+      (async ()=>{
+        const { BlobServiceClient } = require('@azure/storage-blob');
+        const bsc = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION);
+        const cc  = bsc.getContainerClient(container);
+        await cc.createIfNotExists(); // ensure container
+        const trackerKey = `tracker/roster-${runId}.json`;
+
+        const state = { ok:true, runId, days, total, processed:0, lastSlug:null, startedAt:new Date().toISOString(), updatedAt:null };
+        async function saveTracker(){
+          state.updatedAt = new Date().toISOString();
+          const buf = Buffer.from(JSON.stringify(state,null,2),'utf8');
+          await cc.getBlockBlobClient(trackerKey).upload(buf, buf.length, { blobHTTPHeaders:{ blobContentType:'application/json' }});
+        }
+        await saveTracker();
+
+        for(const p of officials){
+          const who = p.fullName || p.name || p.slug || '';
+          if(!who) continue;
+          try{
+            const raw = await serph.fetchNews({ who, days });
+            if(Array.isArray(raw)){
+              // relying on existing maybeStoreRaw if available at root; fall back to direct write here:
+              const ts = new Date().toISOString().replace(/[:.]/g,'-');
+              const key = `raw/serp/${(p.slug||who).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}/${ts}.json`;
+              const buf = Buffer.from(JSON.stringify({ who, days, raw }, null, 2),'utf8');
+              await cc.getBlockBlobClient(key).upload(buf, buf.length, { blobHTTPHeaders:{ blobContentType:'application/json' }});
+            }
+          }catch(_){} // continue
+          state.processed += 1;
+          state.lastSlug = p.slug || who;
+          await saveTracker();
+          await sleep(delayMs);
+        }
+      })().catch(()=>{});
+
+      return res.status(202).json({ ok:true, message:'Roster backfill started', runId, days, delayMs, total });
+    });
+
+    // === Simple progress reader ===
+    app.get('/api/news/serp/backfill-roster/progress', async (req,res)=>{
+      try{
+        const runId = String(req.query.runId||'').trim();
+        if(!runId) return res.status(400).json({ok:false,error:'runId required'});
+        const { BlobServiceClient } = require('@azure/storage-blob');
+        const bsc = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION);
+        const cc  = bsc.getContainerClient(process.env.ARTICLES_CONTAINER || 'news');
+        const key = `tracker/roster-${runId}.json`;
+        const dl = await cc.getBlockBlobClient(key).download();
+        const body = await streamToString(dl.readableStreamBody);
+        return res.json(JSON.parse(body));
+      }catch(e){
+        return res.status(404).json({ok:false,error:'not found'});
+      }
+    });
+
+    async function streamToString(readable){
+      return await new Promise((resolve,reject)=>{
+        const chunks=[]; readable.on('data',d=>chunks.push(d));
+        readable.on('end',()=>resolve(Buffer.concat(chunks).toString('utf8')));
+        readable.on('error',reject);
+      });
+    }
+
+    function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
   };
 })(module.exports);
