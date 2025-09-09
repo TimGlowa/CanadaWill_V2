@@ -38,14 +38,12 @@ if (!resolvedPath) {
   log(`[BOOT] all candidate paths failed, no ingest module loaded`);
 }
 
-// KISS: mount SERPHouse helper (helper + compiled client already at wwwroot root)
-if (app) {
-  try {
-    require('./serp-tools.runtime')(app);
-    log('[BOOT] SERPHouse routes mounted');
-  } catch (e) {
-    log(`[BOOT] SERPHouse mount failed: ${(e && e.message) || String(e)}`);
-  }
+// Mount SERPHouse routes (helper + compiled client are already on disk)
+try {
+  require('./serp-tools.runtime')(app);
+  log('[BOOT] SERPHouse routes mounted');
+} catch (e) {
+  log(`[BOOT] SERPHouse mount failed: ${(e && e.message) || String(e)}`);
 }
 
 const server = http.createServer((req,res)=>{
@@ -67,59 +65,6 @@ const server = http.createServer((req,res)=>{
   if(req.url==="/api/buildinfo" && req.method==="GET"){
     try{ const txt=fs.readFileSync(path.join(__dirname,"buildinfo.json"),"utf8"); res.writeHead(200,{"content-type":"application/json"}); return res.end(txt);}
     catch{ res.writeHead(404,{"content-type":"application/json"}); return res.end(JSON.stringify({error:"no buildinfo.json"})); }
-  }
-  if(req.url==="/api/whoami" && req.method==="GET"){
-    const body=JSON.stringify({file:__filename,pid:process.pid});
-    res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
-  }
-  
-// DIAG: Prove which module load is failing (ingest fallback cause)
-if(req.url==="/api/diag/ingest" && req.method==="GET"){
-  const out = {};
-  const check = (label, mod) => {
-    try { require.resolve(mod); out[label] = 'ok'; }
-    catch(e){ out[label] = String(e && e.message ? e.message : e); }
-  };
-  check('ingest', './express-ingest/ingest');
-  check('tools', './express-ingest/serp-tools.runtime');
-  check('client-dist', './express-ingest/dist/providers/serphouseClient');
-  check('client-src',  './express-ingest/src/providers/serphouseClient');
-  // Common vendor we've seen missing before
-  try { require.resolve('axios'); out.axios = 'ok'; } catch(e){ out.axios = String(e.message); }
-  const body=JSON.stringify(out);
-  res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
-}
-
-// DIAG: list what's deployed under wwwroot
-if(req.url==="/api/diag/tree" && req.method==="GET"){
-  const fs = require('fs');
-  const path = require('path');
-  const root = __dirname;
-  const p = (...x) => path.join(root, ...x);
-  const exists = (x) => { try { return fs.existsSync(x); } catch { return false; } };
-  const safeList = (x) => { try { return fs.readdirSync(x); } catch { return []; } };
-  const out = {
-    root,
-    has_express_ingest: exists(p('express-ingest')),
-    list_root: safeList(root),
-    list_express_ingest: safeList(p('express-ingest')),
-    list_express_ingest_src: safeList(p('express-ingest','src')),
-    list_express_ingest_dist: safeList(p('express-ingest','dist')),
-    has_serp_tools_runtime: exists(p('express-ingest','serp-tools.runtime.js')),
-    has_client_ts: exists(p('express-ingest','src','providers','serphouseClient.ts')),
-    has_client_js: exists(p('express-ingest','dist','providers','serphouseClient.js'))
-  };
-  const body=JSON.stringify(out);
-  res.writeHead(200,{"content-type":"application/json"}); return res.end(body);
-}
-  
-  // TEMP: allow SERPHouse routes to respond even if ingest didn't load
-  if (req.url && req.url.startsWith('/api/news/serp/')) {
-    log(`Allowing SERPHouse route to pass through: ${req.method} ${req.url}`);
-    // Let the SERPHouse routes handle this
-    if (app && typeof app === "function") {
-      return app(req, res);
-    }
   }
   
   log(`No app loaded, returning 404 for: ${req.method} ${req.url}`);
