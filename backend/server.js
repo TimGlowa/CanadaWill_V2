@@ -38,13 +38,13 @@ if (!resolvedPath) {
   log(`[BOOT] all candidate paths failed, no ingest module loaded`);
 }
 
-// Mount SERPHouse routes (env, selftest, backfill, refresh)
+// KISS: mount SERPHouse helper (helper + compiled client already at wwwroot root)
 if (app) {
   try {
-    require('./express-ingest/serp-tools.runtime')(app);
-    log('[BOOT] SERPHouse routes mounted from express-ingest/serp-tools.runtime.js');
+    require('./serp-tools.runtime')(app);
+    log('[BOOT] SERPHouse routes mounted');
   } catch (e) {
-    log(`[BOOT] Failed to mount SERPHouse routes: ${e && e.message ? e.message : e}`);
+    log(`[BOOT] SERPHouse mount failed: ${(e && e.message) || String(e)}`);
   }
 }
 
