@@ -437,15 +437,20 @@ Answer ONLY in JSON:
       const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
       
       try {
-        const response = await this.openai.chat.completions.create({
-          model: MODEL,
-          messages: [
-            { role: 'system', content: 'You are a JSON-only response assistant. Answer ONLY in valid JSON format.' },
-            { role: 'user', content: prompt }
-          ],
-          response_format: { type: 'json_object' },
-          signal: controller.signal
-        });
+        const response = await this.openai.chat.completions.create(
+          {
+            model: MODEL,
+            messages: [
+              { role: 'system', content: 'You are a JSON-only response assistant. Answer ONLY in valid JSON format.' },
+              { role: 'user', content: prompt }
+            ],
+            response_format: { type: 'json_object' }
+          },
+          {
+            timeout: TIMEOUT_MS,
+            signal: controller.signal
+          }
+        );
         
         clearTimeout(timeoutId);
         
@@ -485,6 +490,18 @@ Answer ONLY in JSON:
             attempt: attempt + 1,
             timeout_ms: TIMEOUT_MS 
           });
+        } else if (error.status === 400) {
+          console.error("GPT_BAD_REQUEST", { 
+            row_id: `${personName}_${title.substring(0, 20)}`, 
+            detail: error.message?.slice(0, 200) 
+          });
+          // Do not retry 400 - increment errors and continue
+          return { 
+            relevance_score: 0, 
+            relevant: false, 
+            ties_to_politician: false, 
+            reason: `GPT bad request: ${error.message}` 
+          };
         } else if (error.status === 429 || (error.status >= 500 && error.status < 600)) {
           console.error("GPT_BACKOFF", { 
             row_id: `${personName}_${title.substring(0, 20)}`, 
@@ -497,7 +514,7 @@ Answer ONLY in JSON:
             row_id: `${personName}_${title.substring(0, 20)}`, 
             status: error.status || 'unknown',
             code: error.code || 'unknown',
-            message: error.message?.substring(0, 120) || 'unknown error'
+            message: error.message?.substring(0, 120) || 'unknown error' 
           });
         }
         
