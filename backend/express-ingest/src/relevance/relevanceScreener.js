@@ -12,7 +12,7 @@ class RelevanceScreener {
     }
     
     this.blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-    this.containerName = process.env.ARTICLES_CONTAINER || 'articles';
+    this.containerName = process.env.ARTICLES_CONTAINER || 'news';
     
     // Initialize OpenAI client
     if (!process.env.OPENAI_API_KEY) {
