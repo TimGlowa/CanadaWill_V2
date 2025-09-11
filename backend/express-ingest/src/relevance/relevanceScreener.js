@@ -105,25 +105,17 @@ class RelevanceScreener {
         blobFiles.length = Math.min(blobFiles.length, 1); // Only process first blob file in test mode
       }
       
-      // Calculate total articles
-      let totalArticles = 0;
-      for (const blobFile of blobFiles) {
-        const articleCount = await this.countArticlesInBlob(blobFile);
-        if (testMode) {
-          totalArticles += Math.min(articleCount, testLimit);
-        } else {
-          totalArticles += articleCount;
-        }
-      }
-      
-      status.total = totalArticles;
-      status.pending = totalArticles - processedRowIds.size;
+      // Set estimated total based on inventory (no pre-counting)
+      status.total = testMode ? testLimit : 24892; // From inventory pass
+      status.pending = status.total - processedRowIds.size;
+      status.mode = "phaseA";
       await this.updateStatus(status);
       
-      console.log(`📊 Total articles to process: ${status.total}, Already processed: ${processedRowIds.size}, Pending: ${status.pending}`);
+      console.log(`📊 Estimated articles to process: ${status.total}, Already processed: ${processedRowIds.size}, Pending: ${status.pending}`);
       
       // Process each blob file
       for (const blobFile of blobFiles) {
+        status.current_file = blobFile;
         await this.processBlobFile(blobFile, processedRowIds, status, testMode, testLimit);
       }
       
@@ -221,6 +213,10 @@ class RelevanceScreener {
       
       const personName = data.who || 'Unknown';
       
+      // Update current slug in status
+      status.current_slug = slug;
+      await this.updateStatus(status);
+      
       // In test mode, limit the number of articles processed
       const maxArticles = testMode ? Math.min(data.raw.length, testLimit) : data.raw.length;
       console.log(`📊 Processing ${maxArticles} articles from ${data.raw.length} total in file`);
@@ -285,8 +281,8 @@ class RelevanceScreener {
           status.last_row = rowId;
           status.updatedAt = new Date().toISOString();
           
-          // Update status every 1000 rows
-          if (status.processed % 1000 === 0) {
+          // Update status every 500 rows
+          if (status.processed % 500 === 0) {
             await this.updateStatus(status);
             console.log(`📊 Progress: ${status.processed}/${status.total} (${((status.processed/status.total)*100).toFixed(1)}%)`);
           }
