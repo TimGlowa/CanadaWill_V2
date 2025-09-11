@@ -177,21 +177,36 @@ app.post('/api/relevance/start', async (req, res) => {
 
 app.get('/api/relevance/status', async (req, res) => {
   try {
-    const screener = new RelevanceScreener();
-    const status = await screener.getStatus();
-    
-    res.json(status);
-    
-  } catch (error) {
-    console.error('❌ Failed to get relevance status:', error.message);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to get relevance status',
-      message: error.message,
-      timestamp: new Date().toISOString()
-    });
+    const { BlobServiceClient } = require('@azure/storage-blob');
+    const conn = process.env.AZURE_STORAGE_CONNECTION;
+    const svc = BlobServiceClient.fromConnectionString(conn);
+    const container = svc.getContainerClient('news');
+    const blob = container.getBlockBlobClient('analysis/status/relevance_status.json');
+
+    // Optional: fast existence check
+    const exists = await blob.exists();
+    if (!exists) {
+      return res.status(200).json({}); // not written yet
+    }
+
+    const dl = await blob.download();
+    const text = await streamToString(dl.readableStreamBody);
+    const status = text ? JSON.parse(text) : {};
+    return res.status(200).json(status);
+  } catch (e) {
+    // Return a tiny diagnostic so we don't tail logs for days
+    return res.status(200).json({ error: true, message: e.message || String(e) });
   }
 });
+
+async function streamToString(rs) {
+  return await new Promise((resolve, reject) => {
+    const chunks = [];
+    rs.on('data', (d) => chunks.push(d));
+    rs.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    rs.on('error', reject);
+  });
+}
 
 app.post('/api/relevance/test', async (req, res) => {
   try {
