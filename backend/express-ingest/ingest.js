@@ -244,6 +244,32 @@ app.get('/api/relevance/debug-discovery', async (req, res) => {
   }
 });
 
+// Debug GPT endpoint to test a single API call
+app.post('/api/relevance/debug-gpt', async (req, res) => {
+  try {
+    const { title, snippet, personName } = req.body;
+    
+    const screener = new RelevanceScreener();
+    const result = await screener.callGPT5Mini(personName || 'Test Person', title || 'Test Title', snippet || 'Test snippet');
+    
+    res.json({
+      success: true,
+      result: result,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Debug GPT failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Debug GPT failed',
+      message: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Sentiment analysis endpoints
 app.get('/api/sentiment/test', async (req, res) => {
   try {
