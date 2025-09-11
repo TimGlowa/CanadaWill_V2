@@ -345,6 +345,158 @@ app.get('/api/relevance/test-one', async (req, res) => {
   }
 });
 
+/** KISS DIAG: isolate hang inside processBlobFile (Adriana file) **/
+
+// Mode A — parse-only: download + JSON parse + iterate titles/snippets; no GPT, no appends
+app.get('/api/relevance/diag/parse-only', async (req, res) => {
+  try {
+    const { slug, file, limit = 5 } = req.query;
+    
+    if (!slug || !file) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required parameters',
+        message: 'Both slug and file parameters are required'
+      });
+    }
+    
+    console.log(`🔍 DIAG Mode A (parse-only): ${slug}/${file} (limit: ${limit})`);
+    
+    const screener = new RelevanceScreener();
+    const blobPath = `raw/serp/${slug}/${file}`;
+    
+    const debugStatus = {
+      run_id: new Date().toISOString(),
+      processed: 0,
+      errors: 0,
+      updatedAt: new Date().toISOString()
+    };
+    
+    const processedRowIds = new Set();
+    
+    await screener.processBlobFile(blobPath, processedRowIds, debugStatus, true, parseInt(limit), "A_PARSE_ONLY");
+    
+    res.json({
+      success: true,
+      message: `DIAG Mode A completed for ${slug}/${file} (limit: ${limit})`,
+      mode: "A_PARSE_ONLY",
+      slug,
+      file,
+      limit: parseInt(limit),
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ DIAG Mode A failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'DIAG Mode A failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Mode B — append-only: skip GPT; build dummy CSV/JSONL lines; append only
+app.get('/api/relevance/diag/append-only', async (req, res) => {
+  try {
+    const { slug, file, limit = 5 } = req.query;
+    
+    if (!slug || !file) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required parameters',
+        message: 'Both slug and file parameters are required'
+      });
+    }
+    
+    console.log(`🔍 DIAG Mode B (append-only): ${slug}/${file} (limit: ${limit})`);
+    
+    const screener = new RelevanceScreener();
+    const blobPath = `raw/serp/${slug}/${file}`;
+    
+    const debugStatus = {
+      run_id: new Date().toISOString(),
+      processed: 0,
+      errors: 0,
+      updatedAt: new Date().toISOString()
+    };
+    
+    const processedRowIds = new Set();
+    
+    await screener.processBlobFile(blobPath, processedRowIds, debugStatus, true, parseInt(limit), "B_APPEND_ONLY");
+    
+    res.json({
+      success: true,
+      message: `DIAG Mode B completed for ${slug}/${file} (limit: ${limit})`,
+      mode: "B_APPEND_ONLY",
+      slug,
+      file,
+      limit: parseInt(limit),
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ DIAG Mode B failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'DIAG Mode B failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Mode C — GPT-only: call GPT and parse JSON; do not append
+app.get('/api/relevance/diag/gpt-only', async (req, res) => {
+  try {
+    const { slug, file, limit = 5 } = req.query;
+    
+    if (!slug || !file) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required parameters',
+        message: 'Both slug and file parameters are required'
+      });
+    }
+    
+    console.log(`🔍 DIAG Mode C (gpt-only): ${slug}/${file} (limit: ${limit})`);
+    
+    const screener = new RelevanceScreener();
+    const blobPath = `raw/serp/${slug}/${file}`;
+    
+    const debugStatus = {
+      run_id: new Date().toISOString(),
+      processed: 0,
+      errors: 0,
+      updatedAt: new Date().toISOString()
+    };
+    
+    const processedRowIds = new Set();
+    
+    await screener.processBlobFile(blobPath, processedRowIds, debugStatus, true, parseInt(limit), "C_GPT_ONLY");
+    
+    res.json({
+      success: true,
+      message: `DIAG Mode C completed for ${slug}/${file} (limit: ${limit})`,
+      mode: "C_GPT_ONLY",
+      slug,
+      file,
+      limit: parseInt(limit),
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ DIAG Mode C failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'DIAG Mode C failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Debug endpoint to test blob discovery
 app.get('/api/relevance/debug-discovery', async (req, res) => {
   try {

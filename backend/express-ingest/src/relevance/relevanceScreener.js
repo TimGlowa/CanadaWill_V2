@@ -192,7 +192,7 @@ class RelevanceScreener {
     }
   }
 
-  async processBlobFile(blobPath, processedRowIds, status, testMode = false, testLimit = 10) {
+  async processBlobFile(blobPath, processedRowIds, status, testMode = false, testLimit = 10, diagMode = null) {
     console.log(`📄 Processing blob file: ${blobPath}`);
     
     try {
@@ -202,8 +202,17 @@ class RelevanceScreener {
       const filename = pathParts[3];
       const fileIndex = filename.replace('.json', '');
       
-      // Download and parse blob content
-      const content = await this.downloadBlob(blobPath);
+      // Phase A: Download and parse blob content with timeout
+      console.info("PHASE:A_PARSE_START", { slug, file: filename });
+      
+      const parseTimeout = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('PARSE_TIMEOUT')), 10000)
+      );
+      
+      const content = await Promise.race([
+        this.downloadBlob(blobPath),
+        parseTimeout
+      ]);
       const data = JSON.parse(content);
       
       /** KISS instrumentation for one blob (no assumptions) **/
@@ -222,6 +231,9 @@ class RelevanceScreener {
         console.warn("STRUCT_EMPTY_OR_MISSING", { slug, file: filename });
         return;
       }
+      
+      // Phase A complete
+      console.info("PHASE:A_PARSE_OK", { rawLen: data.raw.length });
       
       const personName = data.who || 'Unknown';
       
@@ -259,16 +271,6 @@ class RelevanceScreener {
           const url = String(article.url || '');
           const date = article.date ? String(article.date) : '';
           
-          // Log BEFORE GPT
-          console.info("PRE", { 
-            rowId, 
-            hasTitle: !!title, 
-            hasSnippet: !!snippet, 
-            urlLen: url.length,
-            personName,
-            titlePreview: title.substring(0, 50) + "..."
-          });
-          
           // Extract article data
           const articleData = {
             row_id: rowId,
@@ -280,20 +282,80 @@ class RelevanceScreener {
             url: url
           };
           
-          // Call GPT-5-mini for relevance screening
-          const gptResult = await this.callGPT5Mini(personName, title, snippet);
+          let finalResult = articleData;
           
-          // Combine results
-          const finalResult = {
-            ...articleData,
-            relevance_score: gptResult.relevance_score,
-            relevant: gptResult.relevant,
-            ties_to_politician: gptResult.ties_to_politician,
-            reason: gptResult.reason
-          };
+          // Diagnostic mode logic
+          if (diagMode === "A_PARSE_ONLY") {
+            // Mode A: Just parse, no GPT, no append
+            console.info("DIAG:A_SKIP_GPT_APPEND", { row_id: rowId });
+            continue;
+          }
           
-          // Append to output files
-          await this.appendToAppendBlobs(finalResult);
+          if (diagMode === "B_APPEND_ONLY") {
+            // Mode B: Skip GPT, build dummy result, append only
+            console.info("PHASE:B_APPEND_START", { row_id: rowId });
+            
+            finalResult = {
+              ...articleData,
+              relevance_score: 0.5,
+              relevant: false,
+              ties_to_politician: "DIAG_MODE_B",
+              reason: "Diagnostic mode B - dummy data"
+            };
+            
+            // Append with timeout
+            const appendTimeout = new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('APPEND_TIMEOUT')), 10000)
+            );
+            
+            await Promise.race([
+              this.appendToAppendBlobs(finalResult),
+              appendTimeout
+            ]);
+            
+            console.info("PHASE:B_APPEND_OK", { row_id: rowId });
+            
+          } else if (diagMode === "C_GPT_ONLY") {
+            // Mode C: Call GPT, no append
+            console.info("PHASE:C_GPT_START", { row_id: rowId });
+            
+            // Call GPT with timeout
+            const gptTimeout = new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('GPT_TIMEOUT')), 12000)
+            );
+            
+            const gptResult = await Promise.race([
+              this.callGPT5Mini(personName, title, snippet),
+              gptTimeout
+            ]);
+            
+            finalResult = {
+              ...articleData,
+              relevance_score: gptResult.relevance_score,
+              relevant: gptResult.relevant,
+              ties_to_politician: gptResult.ties_to_politician,
+              reason: gptResult.reason
+            };
+            
+            console.info("PHASE:C_GPT_OK", { row_id: rowId });
+            
+          } else {
+            // Normal production mode
+            // Call GPT-5-mini for relevance screening
+            const gptResult = await this.callGPT5Mini(personName, title, snippet);
+            
+            // Combine results
+            finalResult = {
+              ...articleData,
+              relevance_score: gptResult.relevance_score,
+              relevant: gptResult.relevant,
+              ties_to_politician: gptResult.ties_to_politician,
+              reason: gptResult.reason
+            };
+            
+            // Append to output files
+            await this.appendToAppendBlobs(finalResult);
+          }
           
           // Update status
           status.processed++;
@@ -308,9 +370,22 @@ class RelevanceScreener {
           }
           
         } catch (error) {
-          console.error(`Error processing article ${rowId}:`, error.message);
-          status.errors++;
-          status.updatedAt = new Date().toISOString();
+          if (error.message === 'PARSE_TIMEOUT') {
+            console.error("PARSE_TIMEOUT", { slug, file: filename });
+            return;
+          } else if (error.message === 'APPEND_TIMEOUT') {
+            console.error("APPEND_TIMEOUT", { row_id: rowId });
+            status.errors++;
+            status.updatedAt = new Date().toISOString();
+          } else if (error.message === 'GPT_TIMEOUT') {
+            console.error("GPT_TIMEOUT", { row_id: rowId });
+            status.errors++;
+            status.updatedAt = new Date().toISOString();
+          } else {
+            console.error(`Error processing article ${rowId}:`, error.message);
+            status.errors++;
+            status.updatedAt = new Date().toISOString();
+          }
         }
       }
       
