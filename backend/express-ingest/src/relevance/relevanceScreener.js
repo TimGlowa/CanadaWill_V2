@@ -66,7 +66,7 @@ class RelevanceScreener {
     }
   }
 
-  async startRelevanceScreening(testMode = false, testLimit = 10) {
+  async startRelevanceScreening(testMode = false, testLimit = null) {
     const runId = new Date().toISOString();
     const mode = testMode ? 'TEST' : 'FULL';
     console.log(`🚀 Starting ${mode} relevance screening run: ${runId}`);
@@ -176,9 +176,9 @@ class RelevanceScreener {
     const containerClient = this.blobServiceClient.getContainerClient(this.containerName);
     const blobFiles = [];
     
-    console.log(`🔍 Discovering blobs in container '${this.containerName}' with prefix 'raw/serp/myles-mcdougall/'`);
+    console.log(`🔍 Discovering blobs in container '${this.containerName}' with prefix 'raw/serp/'`);
     
-    for await (const blob of containerClient.listBlobsFlat({ prefix: 'raw/serp/myles-mcdougall/' })) {
+    for await (const blob of containerClient.listBlobsFlat({ prefix: 'raw/serp/' })) {
       console.log(`📁 Found blob: ${blob.name}`);
       if (blob.name.endsWith('.json')) {
         blobFiles.push(blob.name);
