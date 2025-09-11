@@ -276,7 +276,6 @@ Answer ONLY in JSON:
         const response = await this.openai.chat.completions.create({
           model: 'gpt-5-mini',
           messages: [{ role: 'user', content: prompt }],
-          temperature: 0,
           response_format: { type: 'json_object' }
         });
         
