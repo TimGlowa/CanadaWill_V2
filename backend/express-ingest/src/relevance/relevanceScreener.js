@@ -204,19 +204,36 @@ class RelevanceScreener {
         }
         
         try {
+          // Extract fields WITH COERCION (no throws)
+          const personName = String(data.who || '');
+          const title = String(article.title || '');
+          const snippet = String(article.snippet || '');
+          const url = String(article.url || '');
+          const date = article.date ? String(article.date) : '';
+          
+          // Log BEFORE GPT
+          console.info("PRE", { 
+            rowId, 
+            hasTitle: !!title, 
+            hasSnippet: !!snippet, 
+            urlLen: url.length,
+            personName,
+            titlePreview: title.substring(0, 50) + "..."
+          });
+          
           // Extract article data
           const articleData = {
             row_id: rowId,
             run_id: status.run_id,
             person_name: personName,
-            date: article.date || null,
-            article_title: article.title || '',
-            snippet: article.snippet || '',
-            url: article.url || ''
+            date: date,
+            article_title: title,
+            snippet: snippet,
+            url: url
           };
           
           // Call GPT-5-mini for relevance screening
-          const gptResult = await this.callGPT5Mini(personName, article.title, article.snippet);
+          const gptResult = await this.callGPT5Mini(personName, title, snippet);
           
           // Combine results
           const finalResult = {
@@ -282,8 +299,26 @@ Answer ONLY in JSON:
         const content = response.choices[0].message.content;
         console.log(`📤 Raw GPT-5-mini response: ${content}`);
         
-        const result = JSON.parse(content);
-        console.log(`✅ Successfully parsed JSON:`, result);
+        // Log RAW model output string BEFORE parsing
+        console.info("RAW", { 
+          rowId: `${personName}_${title.substring(0, 20)}`, 
+          rawLen: content.length, 
+          raw: content 
+        });
+        
+        // Parse with guard
+        let result;
+        try { 
+          result = JSON.parse(content);
+          console.log(`✅ Successfully parsed JSON:`, result);
+        } catch(e) {
+          console.error("PARSE_FAIL", { 
+            rowId: `${personName}_${title.substring(0, 20)}`, 
+            msg: e.message, 
+            raw: content 
+          });
+          throw e;
+        }
         
         // Validate result structure
         if (typeof result.relevance_score !== 'number' || 
