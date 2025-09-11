@@ -113,14 +113,41 @@ class RelevanceScreener {
       
       console.log(`📊 Estimated articles to process: ${status.total}, Already processed: ${processedRowIds.size}, Pending: ${status.pending}`);
       
-      // Process each blob file
-      for (const blobFile of blobFiles) {
-        status.current_file = blobFile;
-        await this.processBlobFile(blobFile, processedRowIds, status, testMode, testLimit);
+      /** PROD DRIVER: sequential, awaited, logged **/
+      
+      console.info("RUN_START", { run_id: status.run_id });
+      
+      for (const blobPath of blobFiles) {
+        console.info("RUN_BLOB_PICKED", { blobPath });
+        
+        try {
+          console.info("RUN_CALL_START", { blobPath });
+          
+          // IMPORTANT: await the worker
+          const result = await this.processBlobFile(blobPath, processedRowIds, status, testMode, testLimit);
+          
+          // processBlobFile should NOT overwrite status; it should return a delta
+          // If your worker already increments status internally, you can skip these adds.
+          if (result && typeof result.processed === "number") status.processed += result.processed;
+          if (result && typeof result.errors === "number")    status.errors    += result.errors;
+          
+          console.info("RUN_CALL_DONE", { blobPath, processed: status.processed, errors: status.errors });
+          
+          // Write status after each blob (blob-backed)
+          status.current_file = blobPath;
+          status.updatedAt = new Date().toISOString();
+          await this.statusBlob.uploadData(Buffer.from(JSON.stringify(status)), { overwrite: true });
+          console.info("STATUS_WRITE_OK", { processed: status.processed });
+          
+        } catch (e) {
+          status.errors++;
+          console.error("RUN_CALL_FAIL", { blobPath, msg: e.message, stack: e.stack });
+          status.updatedAt = new Date().toISOString();
+          await this.statusBlob.uploadData(Buffer.from(JSON.stringify(status)), { overwrite: true });
+        }
       }
       
-      status.updatedAt = new Date().toISOString();
-      await this.updateStatus(status);
+      console.info("RUN_DONE", { processed: status.processed, errors: status.errors });
       
       console.log(`✅ ${mode} relevance screening completed!`);
       console.log(`📊 Final stats: ${status.processed} processed, ${status.errors} errors`);
@@ -194,6 +221,10 @@ class RelevanceScreener {
 
   async processBlobFile(blobPath, processedRowIds, status, testMode = false, testLimit = 10, diagMode = null) {
     console.log(`📄 Processing blob file: ${blobPath}`);
+    
+    // Track local counters for this blob
+    let blobProcessed = 0;
+    let blobErrors = 0;
     
     try {
       // Parse blob path to extract slug and filename
@@ -350,17 +381,10 @@ class RelevanceScreener {
             await this.appendToAppendBlobs(finalResult);
           }
           
-          // Update status
-          status.processed++;
-          status.pending--;
+          // Update local counters
+          blobProcessed++;
           status.last_row = rowId;
           status.updatedAt = new Date().toISOString();
-          
-          // Update status every 500 rows
-          if (status.processed % 500 === 0) {
-            await this.updateStatus(status);
-            console.log(`📊 Progress: ${status.processed}/${status.total} (${((status.processed/status.total)*100).toFixed(1)}%)`);
-          }
           
         } catch (error) {
           if (error.message === 'PARSE_TIMEOUT') {
@@ -368,24 +392,27 @@ class RelevanceScreener {
             return;
           } else if (error.message === 'APPEND_TIMEOUT') {
             console.error("APPEND_TIMEOUT", { row_id: rowId });
-            status.errors++;
-            status.updatedAt = new Date().toISOString();
+            blobErrors++;
           } else if (error.message === 'GPT_TIMEOUT') {
             console.error("GPT_TIMEOUT", { row_id: rowId });
-            status.errors++;
-            status.updatedAt = new Date().toISOString();
+            blobErrors++;
           } else {
             console.error(`Error processing article ${rowId}:`, error.message);
-            status.errors++;
-            status.updatedAt = new Date().toISOString();
+            blobErrors++;
           }
         }
       }
       
     } catch (error) {
       console.error(`Error processing blob file ${blobPath}:`, error.message);
-      status.errors++;
+      blobErrors++;
     }
+    
+    // Return the delta for this blob
+    return {
+      processed: blobProcessed,
+      errors: blobErrors
+    };
   }
 
   async callGPT5Mini(personName, title, snippet) {
