@@ -52,14 +52,14 @@ class RelevanceScreener {
       await this.jsonlAppendBlob.createIfNotExists();
       
       // Check if CSV needs header (get blob properties to see if it's empty)
-      const csvProperties = await this.csvAppendBlob.getProperties();
-      if (csvProperties.contentLength === 0) {
+      const csvProperties = await this.csvAppendBlob.getProperties().catch(() => null);
+      if (!csvProperties || (csvProperties.contentLength ?? 0) === 0) {
         const csvHeader = "row_id,run_id,person_name,date,article_title,snippet,url,relevance_score,relevant,ties_to_politician,reason\n";
-        await this.csvAppendBlob.appendBlock(csvHeader, Buffer.byteLength(csvHeader));
+        await this.csvAppendBlob.appendBlock(Buffer.from(csvHeader, "utf8"), Buffer.byteLength(csvHeader, "utf8"));
         console.log(`✅ Added CSV header to ${this.csvAppendBlob.url}`);
       }
       
-      console.log(`✅ Append blobs ready: CSV (${csvProperties.contentLength} bytes), JSONL`);
+      console.log(`✅ Append blobs ready: CSV (${csvProperties?.contentLength || 0} bytes), JSONL`);
     } catch (error) {
       console.error(`❌ Failed to ensure append blobs exist:`, error.message);
       throw error;
@@ -387,27 +387,46 @@ Answer ONLY in JSON:
   }
 
   async appendToAppendBlobs(result) {
-    // Prepare CSV row
-    const csvRow = [
-      result.row_id,
-      result.run_id,
-      result.person_name,
-      result.date,
-      result.article_title,
-      result.snippet,
-      result.url,
-      result.relevance_score,
-      result.relevant,
-      result.ties_to_politician,
-      result.reason
-    ].map(field => `"${String(field || '').replace(/"/g, '""')}"`).join(',') + '\n';
-    
-    // Prepare JSONL row
-    const jsonlRow = JSON.stringify(result) + '\n';
-    
-    // Append to append blobs
-    await this.csvAppendBlob.appendBlock(csvRow, Buffer.byteLength(csvRow));
-    await this.jsonlAppendBlob.appendBlock(jsonlRow, Buffer.byteLength(jsonlRow));
+    // Build fields safely (no throws)
+    const row_id = result.row_id;
+    const title = String(result.article_title ?? "");
+    const snippet = String(result.snippet ?? "");
+    const url = String(result.url ?? "");
+    const date = result.date ? String(result.date) : "";
+    const person = result.person_name;
+
+    // Build CSV line with safe escaping
+    function esc(s) { return `"${String(s).replace(/"/g, '""')}"`; }
+    const csvLine = [
+      row_id, result.run_id, person, date, title, snippet, url,
+      result.relevance_score, result.relevant, result.ties_to_politician, result.reason
+    ].map(esc).join(",") + "\n";
+
+    // Build JSONL object
+    const jsonlObj = {
+      row_id, run_id: result.run_id, person_name: person, date,
+      article_title: title, snippet, url,
+      relevance_score: result.relevance_score,
+      relevant: result.relevant,
+      ties_to_politician: result.ties_to_politician,
+      reason: result.reason
+    };
+    const jsonlLine = JSON.stringify(jsonlObj) + "\n";
+
+    // Append with precise logging
+    try {
+      await this.csvAppendBlob.appendBlock(Buffer.from(csvLine, "utf8"), Buffer.byteLength(csvLine, "utf8"));
+    } catch (e) {
+      console.error("APPEND_FAIL_CSV", { row_id, msg: e.message, code: e.code, stack: e.stack });
+      throw e; // Re-throw so calling code can handle the error
+    }
+
+    try {
+      await this.jsonlAppendBlob.appendBlock(Buffer.from(jsonlLine, "utf8"), Buffer.byteLength(jsonlLine, "utf8"));
+    } catch (e) {
+      console.error("APPEND_FAIL_JSONL", { row_id, msg: e.message, code: e.code, stack: e.stack });
+      throw e; // Re-throw so calling code can handle the error
+    }
   }
 
   async updateStatus(status) {
