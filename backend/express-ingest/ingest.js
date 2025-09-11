@@ -236,28 +236,106 @@ app.post('/api/relevance/test', async (req, res) => {
 
 app.post('/api/relevance/start', async (req, res) => {
   try {
-    console.log(`🚀 Starting FULL relevance screening production run...`);
+    console.log('🚀 Starting Phase A relevance screening...');
     
     const screener = new RelevanceScreener();
-    const result = await screener.startRelevanceScreening(false);
     
-    res.json({
-      success: true,
-      message: 'Relevance screening production run completed',
-      result: result,
-      timestamp: new Date().toISOString()
+    // Initialize status and write it once
+    const status = {
+      run_id: new Date().toISOString(),
+      total: 24892,
+      processed: 0,
+      pending: 24892,
+      errors: 0,
+      last_row: null,
+      startedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      mode: "phaseA"
+    };
+    
+    // Write initial status
+    await screener.statusBlob.uploadData(Buffer.from(JSON.stringify(status)), { overwrite: true });
+    
+    // Start driver in background (fire-and-forget)
+    startDriverInBackground(screener, status).catch(e => console.error("DRIVER_FATAL", e));
+    
+    res.status(202).json({ 
+      success: true, 
+      message: "Phase A started", 
+      run_id: status.run_id 
     });
-    
   } catch (error) {
-    console.error('❌ Relevance screening production failed:', error.message);
+    console.error('❌ Failed to start relevance screening:', error.message);
     res.status(500).json({
       success: false,
-      error: 'Relevance screening production failed',
-      message: error.message,
-      timestamp: new Date().toISOString()
+      error: 'Failed to start relevance screening',
+      message: error.message
     });
   }
 });
+
+// Background driver function
+async function startDriverInBackground(screener, status) {
+  try {
+    console.info("DRIVER_LIST_START", { prefix: "raw/serp/" });
+    const t0 = Date.now();
+    
+    // Materialize blob list to array
+    const paths = [];
+    for await (const item of screener.containerClient.listBlobsByHierarchy("/", { prefix: "raw/serp/" })) {
+      if (!item.isPrefix && item.name.endsWith(".json")) {
+        paths.push(item.name);
+      }
+    }
+    
+    console.info("DRIVER_LIST_OK", { ms: Date.now()-t0, count: paths.length, sample: paths.slice(0,3) });
+    
+    // Load processed row IDs for resume
+    const processedRowIds = await screener.loadProcessedRowIds();
+    console.log(`📊 Resuming with ${processedRowIds.size} already processed articles`);
+    
+    // Driver loop with watchdog timeouts
+    for (const blobPath of paths) {
+      console.info("RUN_BLOB_PICKED", { blobPath });
+      
+      // Per-blob watchdog: if the worker never resolves, move on
+      const PER_BLOB_MS = 90000;
+      const watchdog = new Promise((_, rej) => setTimeout(() => rej(new Error("DRIVER_BLOB_TIMEOUT")), PER_BLOB_MS));
+      
+      console.info("RUN_CALL_START", { blobPath });
+      try {
+        const result = await Promise.race([
+          screener.processBlobFile(blobPath, processedRowIds, status, false),
+          watchdog
+        ]);
+        
+        console.info("RUN_CALL_DONE", { blobPath, delta: result });
+        
+        // Update status with result
+        if (result && typeof result.processed === "number") status.processed += result.processed;
+        if (result && typeof result.errors === "number") status.errors += result.errors;
+        
+      } catch (e) {
+        console.error("RUN_CALL_FAIL", { blobPath, msg: e.message });
+        status.errors++;
+      }
+      
+      // Write status after each blob
+      status.current_file = blobPath;
+      status.updatedAt = new Date().toISOString();
+      await screener.statusBlob.uploadData(Buffer.from(JSON.stringify(status)), { overwrite: true });
+      console.info("STATUS_WRITE_OK", { processed: status.processed, errors: status.errors });
+    }
+    
+    console.info("RUN_DONE", { processed: status.processed, errors: status.errors });
+    
+  } catch (error) {
+    console.error("DRIVER_FATAL", error.message);
+    status.errors++;
+    status.updatedAt = new Date().toISOString();
+    await screener.statusBlob.uploadData(Buffer.from(JSON.stringify(status)), { overwrite: true });
+  }
+}
 
 // Inventory endpoint - count blobs and articles, reconcile with roster
 app.post('/api/relevance/inventory', async (req, res) => {
