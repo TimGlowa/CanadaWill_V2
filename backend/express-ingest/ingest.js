@@ -497,6 +497,91 @@ app.get('/api/relevance/diag/gpt-only', async (req, res) => {
   }
 });
 
+// Test endpoint to run production driver on one blob only
+app.get('/api/relevance/test-driver', async (req, res) => {
+  try {
+    const { slug, file } = req.query;
+    
+    if (!slug || !file) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required parameters',
+        message: 'Both slug and file parameters are required'
+      });
+    }
+    
+    console.log(`🔍 Testing production driver on: ${slug}/${file}`);
+    
+    const screener = new RelevanceScreener();
+    
+    // Create a minimal status object
+    const debugStatus = {
+      run_id: new Date().toISOString(),
+      total: 100,
+      processed: 0,
+      pending: 100,
+      errors: 0,
+      last_row: null,
+      startedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      mode: "phaseA"
+    };
+    
+    // Create empty processed set
+    const processedRowIds = new Set();
+    
+    // Run the production driver logic on just this one blob
+    const blobPath = `raw/serp/${slug}/${file}`;
+    
+    console.info("RUN_START", { run_id: debugStatus.run_id });
+    console.info("RUN_BLOB_PICKED", { blobPath });
+    
+    try {
+      console.info("RUN_CALL_START", { blobPath });
+      
+      const result = await screener.processBlobFile(blobPath, processedRowIds, debugStatus, false, 10);
+      
+      if (result && typeof result.processed === "number") debugStatus.processed += result.processed;
+      if (result && typeof result.errors === "number") debugStatus.errors += result.errors;
+      
+      console.info("RUN_CALL_DONE", { blobPath, processed: debugStatus.processed, errors: debugStatus.errors });
+      
+      // Write status
+      debugStatus.current_file = blobPath;
+      debugStatus.updatedAt = new Date().toISOString();
+      await screener.statusBlob.uploadData(Buffer.from(JSON.stringify(debugStatus)), { overwrite: true });
+      console.info("STATUS_WRITE_OK", { processed: debugStatus.processed });
+      
+    } catch (e) {
+      debugStatus.errors++;
+      console.error("RUN_CALL_FAIL", { blobPath, msg: e.message, stack: e.stack });
+      debugStatus.updatedAt = new Date().toISOString();
+      await screener.statusBlob.uploadData(Buffer.from(JSON.stringify(debugStatus)), { overwrite: true });
+    }
+    
+    console.info("RUN_DONE", { processed: debugStatus.processed, errors: debugStatus.errors });
+    
+    res.json({
+      success: true,
+      message: `Driver test completed for ${slug}/${file}`,
+      slug,
+      file,
+      processed: debugStatus.processed,
+      errors: debugStatus.errors,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Driver test failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Driver test failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Debug endpoint to test blob discovery
 app.get('/api/relevance/debug-discovery', async (req, res) => {
   try {
