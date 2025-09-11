@@ -259,6 +259,32 @@ app.post('/api/relevance/start', async (req, res) => {
   }
 });
 
+// Inventory endpoint - count blobs and articles, reconcile with roster
+app.post('/api/relevance/inventory', async (req, res) => {
+  try {
+    console.log(`📊 Starting inventory pass...`);
+    
+    const screener = new RelevanceScreener();
+    const result = await screener.runInventoryPass();
+    
+    res.json({
+      success: true,
+      message: 'Inventory pass completed',
+      result: result,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Inventory pass failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Inventory pass failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Debug endpoint to test blob discovery
 app.get('/api/relevance/debug-discovery', async (req, res) => {
   try {

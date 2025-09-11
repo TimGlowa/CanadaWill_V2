@@ -470,6 +470,192 @@ Answer ONLY in JSON:
     });
   }
 
+  async runInventoryPass() {
+    console.log('📊 Starting inventory pass...');
+    
+    // Discover all blobs
+    const blobFiles = await this.discoverBlobFiles();
+    console.log(`📁 Found ${blobFiles.length} blob files`);
+    
+    // Per-slug rollup
+    const slugData = {};
+    let totalFiles = 0;
+    let totalArticles = 0;
+    let totalMalformed = 0;
+    let totalEmpty = 0;
+    
+    // Process each blob
+    for (const blobPath of blobFiles) {
+      try {
+        totalFiles++;
+        
+        // Extract slug from path: raw/serp/{slug}/{filename}.json
+        const pathParts = blobPath.split('/');
+        const slug = pathParts[2];
+        
+        if (!slugData[slug]) {
+          slugData[slug] = {
+            slug: slug,
+            who: 'Unknown',
+            files_count: 0,
+            articles_sum: 0,
+            empty_files_count: 0,
+            malformed_count: 0
+          };
+        }
+        
+        slugData[slug].files_count++;
+        
+        // Download and parse JSON
+        try {
+          const content = await this.downloadBlob(blobPath);
+          const data = JSON.parse(content);
+          
+          // Update who field if available
+          if (data.who && slugData[slug].who === 'Unknown') {
+            slugData[slug].who = data.who;
+          }
+          
+          // Check for malformed data
+          if (!data.raw || !Array.isArray(data.raw)) {
+            slugData[slug].malformed_count++;
+            totalMalformed++;
+            console.log(`⚠️ Malformed JSON in ${blobPath}: missing or invalid raw array`);
+            continue;
+          }
+          
+          const articleCount = data.raw.length;
+          slugData[slug].articles_sum += articleCount;
+          totalArticles += articleCount;
+          
+          if (articleCount === 0) {
+            slugData[slug].empty_files_count++;
+            totalEmpty++;
+          }
+          
+        } catch (parseError) {
+          slugData[slug].malformed_count++;
+          totalMalformed++;
+          console.log(`❌ Failed to parse ${blobPath}:`, parseError.message);
+        }
+        
+      } catch (downloadError) {
+        console.log(`❌ Failed to download ${blobPath}:`, downloadError.message);
+        totalMalformed++;
+      }
+    }
+    
+    // Load roster for reconciliation
+    let expectedSlugs = new Set();
+    let missingSlugs = [];
+    let extraSlugs = [];
+    
+    try {
+      const rosterPath = 'data/ab-roster-transformed.json';
+      const rosterContent = await this.downloadBlob(rosterPath);
+      const roster = JSON.parse(rosterContent);
+      
+      // Extract slugs from roster (assuming it has a slug field)
+      if (Array.isArray(roster)) {
+        roster.forEach(person => {
+          if (person.slug) {
+            expectedSlugs.add(person.slug);
+          }
+        });
+      }
+      
+      // Find missing and extra slugs
+      const seenSlugs = new Set(Object.keys(slugData));
+      missingSlugs = [...expectedSlugs].filter(slug => !seenSlugs.has(slug));
+      extraSlugs = [...seenSlugs].filter(slug => !expectedSlugs.has(slug));
+      
+    } catch (rosterError) {
+      console.log(`⚠️ Could not load roster for reconciliation:`, rosterError.message);
+    }
+    
+    // Write reports
+    await this.writeInventoryReports(slugData, {
+      total_slugs_seen: Object.keys(slugData).length,
+      total_files: totalFiles,
+      total_articles: totalArticles,
+      total_empty: totalEmpty,
+      total_malformed: totalMalformed,
+      missing_slugs_count: missingSlugs.length,
+      extra_slugs_count: extraSlugs.length
+    }, missingSlugs, extraSlugs);
+    
+    // Update status
+    const status = {
+      run_id: new Date().toISOString(),
+      mode: 'inventory',
+      total_slugs_seen: Object.keys(slugData).length,
+      total_files: totalFiles,
+      total_articles: totalArticles,
+      total_empty: totalEmpty,
+      total_malformed: totalMalformed,
+      missing_slugs_count: missingSlugs.length,
+      extra_slugs_count: extraSlugs.length,
+      startedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    
+    await this.updateStatus(status);
+    
+    console.log(`✅ Inventory pass completed:`);
+    console.log(`   - Total slugs: ${Object.keys(slugData).length}`);
+    console.log(`   - Total files: ${totalFiles}`);
+    console.log(`   - Total articles: ${totalArticles}`);
+    console.log(`   - Empty files: ${totalEmpty}`);
+    console.log(`   - Malformed files: ${totalMalformed}`);
+    console.log(`   - Missing slugs: ${missingSlugs.length}`);
+    console.log(`   - Extra slugs: ${extraSlugs.length}`);
+    
+    return status;
+  }
+
+  async writeInventoryReports(slugData, summary, missingSlugs, extraSlugs) {
+    try {
+      // Ensure inventory directory exists
+      const inventoryContainer = this.blobServiceClient.getContainerClient(this.containerName);
+      
+      // Write inventory by slug CSV
+      const slugCsvHeader = 'slug,who,files_count,articles_sum,empty_files_count,malformed_count\n';
+      let slugCsvContent = slugCsvHeader;
+      
+      Object.values(slugData).forEach(slug => {
+        const row = `${slug.slug},"${slug.who}",${slug.files_count},${slug.articles_sum},${slug.empty_files_count},${slug.malformed_count}\n`;
+        slugCsvContent += row;
+      });
+      
+      const slugCsvBlob = inventoryContainer.getBlockBlobClient('analysis/inventory/inventory_by_slug.csv');
+      await slugCsvBlob.uploadData(Buffer.from(slugCsvContent, 'utf8'), { overwrite: true });
+      
+      // Write summary CSV
+      const summaryCsvHeader = 'total_slugs_seen,total_files,total_articles,total_empty,total_malformed,missing_slugs_count,extra_slugs_count\n';
+      const summaryCsvRow = `${summary.total_slugs_seen},${summary.total_files},${summary.total_articles},${summary.total_empty},${summary.total_malformed},${summary.missing_slugs_count},${summary.extra_slugs_count}\n`;
+      const summaryCsvContent = summaryCsvHeader + summaryCsvRow;
+      
+      const summaryCsvBlob = inventoryContainer.getBlockBlobClient('analysis/inventory/summary.csv');
+      await summaryCsvBlob.uploadData(Buffer.from(summaryCsvContent, 'utf8'), { overwrite: true });
+      
+      // Write missing slugs CSV
+      const missingSlugsContent = missingSlugs.join('\n') + '\n';
+      const missingSlugsBlob = inventoryContainer.getBlockBlobClient('analysis/inventory/missing_slugs.csv');
+      await missingSlugsBlob.uploadData(Buffer.from(missingSlugsContent, 'utf8'), { overwrite: true });
+      
+      // Write extra slugs CSV
+      const extraSlugsContent = extraSlugs.join('\n') + '\n';
+      const extraSlugsBlob = inventoryContainer.getBlockBlobClient('analysis/inventory/extra_slugs.csv');
+      await extraSlugsBlob.uploadData(Buffer.from(extraSlugsContent, 'utf8'), { overwrite: true });
+      
+      console.log(`✅ Inventory reports written to analysis/inventory/`);
+      
+    } catch (error) {
+      console.error(`❌ Failed to write inventory reports:`, error.message);
+      throw error;
+    }
+  }
+
   // Azure Blob Storage helper methods
   async blobExists(blobPath) {
     try {
