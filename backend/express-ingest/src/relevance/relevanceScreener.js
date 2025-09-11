@@ -12,7 +12,10 @@ class RelevanceScreener {
     }
     
     this.blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-    this.containerName = process.env.ARTICLES_CONTAINER || 'news';
+    this.containerName = process.env.ARTICLES_CONTAINER || 'articles';
+    
+    // Ensure container exists
+    this.ensureContainerExists();
     
     // Initialize OpenAI client
     if (!process.env.OPENAI_API_KEY) {
@@ -25,6 +28,16 @@ class RelevanceScreener {
     this.statusFilePath = path.join(__dirname, '..', '..', 'relevance_status.json');
     
     console.log('RelevanceScreener initialized');
+  }
+
+  async ensureContainerExists() {
+    try {
+      const containerClient = this.blobServiceClient.getContainerClient(this.containerName);
+      await containerClient.createIfNotExists();
+      console.log(`✅ Container '${this.containerName}' exists or created`);
+    } catch (error) {
+      console.warn(`Warning: Could not ensure container '${this.containerName}' exists:`, error.message);
+    }
   }
 
   async startRelevanceScreening(testMode = false, testLimit = 10) {
