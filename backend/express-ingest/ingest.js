@@ -314,6 +314,14 @@ app.get('/api/relevance/test-one', async (req, res) => {
     // Create empty processed set for debug mode
     const processedRowIds = new Set();
     
+    console.log('Debug: About to call processBlobFile with:', {
+      blobPath,
+      processedRowIdsSize: processedRowIds.size,
+      debugStatus,
+      testMode: true,
+      testLimit: parseInt(limit)
+    });
+    
     // Process just this one blob with limit
     await screener.processBlobFile(blobPath, processedRowIds, debugStatus, true, parseInt(limit));
     
