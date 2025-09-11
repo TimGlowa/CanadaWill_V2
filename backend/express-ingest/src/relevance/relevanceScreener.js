@@ -319,15 +319,8 @@ class RelevanceScreener {
             // Mode C: Call GPT, no append
             console.info("PHASE:C_GPT_START", { row_id: rowId });
             
-            // Call GPT with timeout
-            const gptTimeout = new Promise((_, reject) => 
-              setTimeout(() => reject(new Error('GPT_TIMEOUT')), 12000)
-            );
-            
-            const gptResult = await Promise.race([
-              this.callGPT5Mini(personName, title, snippet),
-              gptTimeout
-            ]);
+            // Call GPT (now has built-in timeout and retries)
+            const gptResult = await this.callGPT5Mini(personName, title, snippet);
             
             finalResult = {
               ...articleData,
@@ -396,6 +389,11 @@ class RelevanceScreener {
   }
 
   async callGPT5Mini(personName, title, snippet) {
+    const MODEL = "gpt-5-mini";
+    const TIMEOUT_MS = 30000;          // 30s end-to-end
+    const RETRIES = 2;                 // total 3 attempts
+    const BACKOFF_MS = [1500, 4000];   // retry delays
+    
     const prompt = `Person: ${personName}
 Title: ${title}
 Snippet: ${snippet}
@@ -405,42 +403,40 @@ Question: Is this article about Alberta separation, independence, secession, sta
 Answer ONLY in JSON:
 {"relevance_score":0-100,"relevant":true|false,"ties_to_politician":true|false,"reason":"30-50 words"}`;
 
-    let retries = 0;
-    const maxRetries = 2;
-    
     console.log(`🤖 Calling GPT-5-mini for: "${title}"`);
-    console.log(`📝 Prompt: ${prompt.substring(0, 200)}...`);
-
-    while (retries <= maxRetries) {
+    
+    for (let attempt = 0; attempt <= RETRIES; attempt++) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+      
       try {
         const response = await this.openai.chat.completions.create({
-          model: 'gpt-5-mini',
-          messages: [{ role: 'user', content: prompt }],
-          response_format: { type: 'json_object' }
+          model: MODEL,
+          messages: [
+            { role: 'system', content: 'You are a JSON-only response assistant. Answer ONLY in valid JSON format.' },
+            { role: 'user', content: prompt }
+          ],
+          response_format: { type: 'json_object' },
+          signal: controller.signal
         });
+        
+        clearTimeout(timeoutId);
         
         const content = response.choices[0].message.content;
         console.log(`📤 Raw GPT-5-mini response: ${content}`);
         
-        // Log RAW model output string BEFORE parsing
-        console.info("RAW", { 
-          rowId: `${personName}_${title.substring(0, 20)}`, 
-          rawLen: content.length, 
-          raw: content 
-        });
-        
-        // Parse with guard
+        // Parse JSON with explicit error handling
         let result;
         try { 
           result = JSON.parse(content);
           console.log(`✅ Successfully parsed JSON:`, result);
-        } catch(e) {
-          console.error("PARSE_FAIL", { 
-            rowId: `${personName}_${title.substring(0, 20)}`, 
-            msg: e.message, 
-            raw: content 
+        } catch(parseError) {
+          console.error("GPT_PARSE_FAIL", { 
+            row_id: `${personName}_${title.substring(0, 20)}`, 
+            msg: parseError.message, 
+            raw: content.substring(0, 120) + "..." 
           });
-          throw e;
+          throw new Error(`JSON parse failed: ${parseError.message}`);
         }
         
         // Validate result structure
@@ -454,12 +450,32 @@ Answer ONLY in JSON:
         return result;
         
       } catch (error) {
-        retries++;
-        console.error(`❌ GPT-5-mini attempt ${retries} failed for "${title}":`, error.message);
+        clearTimeout(timeoutId);
         
-        if (retries > maxRetries) {
-          console.error(`❌ GPT-5-mini failed after ${maxRetries} retries for ${personName}:`, error.message);
-          console.error(`📤 Last raw response was logged above`);
+        if (error.name === 'AbortError') {
+          console.error("GPT_TIMEOUT", { 
+            row_id: `${personName}_${title.substring(0, 20)}`, 
+            attempt: attempt + 1,
+            timeout_ms: TIMEOUT_MS 
+          });
+        } else if (error.status === 429 || (error.status >= 500 && error.status < 600)) {
+          console.error("GPT_BACKOFF", { 
+            row_id: `${personName}_${title.substring(0, 20)}`, 
+            status: error.status,
+            attempt: attempt + 1,
+            message: error.message 
+          });
+        } else {
+          console.error("GPT_FAIL", { 
+            row_id: `${personName}_${title.substring(0, 20)}`, 
+            status: error.status || 'unknown',
+            code: error.code || 'unknown',
+            message: error.message?.substring(0, 120) || 'unknown error'
+          });
+        }
+        
+        if (attempt >= RETRIES) {
+          console.error(`❌ GPT-5-mini failed after ${RETRIES + 1} attempts for ${personName}`);
           // Return default values on failure
           return {
             relevance_score: 0,
@@ -469,9 +485,9 @@ Answer ONLY in JSON:
           };
         }
         
-        // Exponential backoff
-        const delay = Math.pow(2, retries) * 1000;
-        console.warn(`GPT call failed, retrying in ${delay}ms (attempt ${retries}/${maxRetries})`);
+        // Wait before retry
+        const delay = BACKOFF_MS[attempt];
+        console.warn(`GPT call failed, retrying in ${delay}ms (attempt ${attempt + 1}/${RETRIES + 1})`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
     }
