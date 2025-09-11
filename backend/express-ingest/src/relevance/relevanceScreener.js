@@ -268,6 +268,9 @@ Answer ONLY in JSON:
     let retries = 0;
     const maxRetries = 2;
     
+    console.log(`🤖 Calling GPT-5-mini for: "${title}"`);
+    console.log(`📝 Prompt: ${prompt.substring(0, 200)}...`);
+
     while (retries <= maxRetries) {
       try {
         const response = await this.openai.chat.completions.create({
@@ -278,7 +281,10 @@ Answer ONLY in JSON:
         });
         
         const content = response.choices[0].message.content;
+        console.log(`📤 Raw GPT-5-mini response: ${content}`);
+        
         const result = JSON.parse(content);
+        console.log(`✅ Successfully parsed JSON:`, result);
         
         // Validate result structure
         if (typeof result.relevance_score !== 'number' || 
@@ -292,8 +298,11 @@ Answer ONLY in JSON:
         
       } catch (error) {
         retries++;
+        console.error(`❌ GPT-5-mini attempt ${retries} failed for "${title}":`, error.message);
+        
         if (retries > maxRetries) {
-          console.error(`GPT-5-mini failed after ${maxRetries} retries for ${personName}:`, error.message);
+          console.error(`❌ GPT-5-mini failed after ${maxRetries} retries for ${personName}:`, error.message);
+          console.error(`📤 Last raw response was logged above`);
           // Return default values on failure
           return {
             relevance_score: 0,
