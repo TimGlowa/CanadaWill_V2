@@ -219,6 +219,31 @@ app.post('/api/relevance/test', async (req, res) => {
   }
 });
 
+// Debug endpoint to test blob discovery
+app.get('/api/relevance/debug-discovery', async (req, res) => {
+  try {
+    const screener = new RelevanceScreener();
+    const blobFiles = await screener.discoverBlobFiles();
+    
+    res.json({
+      success: true,
+      container: screener.containerName,
+      blobFiles: blobFiles,
+      count: blobFiles.length,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Debug discovery failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Debug discovery failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Sentiment analysis endpoints
 app.get('/api/sentiment/test', async (req, res) => {
   try {
