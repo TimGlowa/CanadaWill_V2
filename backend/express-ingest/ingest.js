@@ -303,8 +303,19 @@ app.get('/api/relevance/test-one', async (req, res) => {
     const screener = new RelevanceScreener();
     const blobPath = `raw/serp/${slug}/${file}`;
     
+    // Create a minimal status object for debug mode
+    const debugStatus = {
+      run_id: new Date().toISOString(),
+      processed: 0,
+      errors: 0,
+      updatedAt: new Date().toISOString()
+    };
+    
+    // Create empty processed set for debug mode
+    const processedRowIds = new Set();
+    
     // Process just this one blob with limit
-    await screener.processBlobFile(blobPath, { testMode: true, testLimit: parseInt(limit) });
+    await screener.processBlobFile(blobPath, processedRowIds, debugStatus, true, parseInt(limit));
     
     res.json({
       success: true,
