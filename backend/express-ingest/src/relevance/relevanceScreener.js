@@ -12,7 +12,7 @@ class RelevanceScreener {
     }
     
     this.blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-    this.containerName = process.env.ARTICLES_CONTAINER || 'articles';
+    this.containerName = process.env.ARTICLES_CONTAINER || 'news';
     
     // Ensure container exists
     this.ensureContainerExists();
@@ -144,9 +144,9 @@ class RelevanceScreener {
     const containerClient = this.blobServiceClient.getContainerClient(this.containerName);
     const blobFiles = [];
     
-    console.log(`🔍 Discovering blobs in container '${this.containerName}' with prefix 'raw/serp/'`);
+    console.log(`🔍 Discovering blobs in container '${this.containerName}' with prefix 'raw/serp/myles-mcdougall/'`);
     
-    for await (const blob of containerClient.listBlobsFlat({ prefix: 'raw/serp/' })) {
+    for await (const blob of containerClient.listBlobsFlat({ prefix: 'raw/serp/myles-mcdougall/' })) {
       console.log(`📁 Found blob: ${blob.name}`);
       if (blob.name.endsWith('.json')) {
         blobFiles.push(blob.name);
