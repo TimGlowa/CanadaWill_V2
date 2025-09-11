@@ -24,10 +24,15 @@ class RelevanceScreener {
     
     this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     
-    // Status file path
-    this.statusFilePath = path.join(__dirname, '..', '..', 'relevance_status.json');
+    // Initialize append blob clients for outputs
+    this.containerClient = this.blobServiceClient.getContainerClient(this.containerName);
+    this.csvAppendBlob = this.containerClient.getAppendBlobClient('analysis/master_relevance.csv');
+    this.jsonlAppendBlob = this.containerClient.getAppendBlobClient('analysis/master_relevance.jsonl');
     
-    console.log('RelevanceScreener initialized');
+    // In-memory status (no filesystem writes)
+    this.currentStatus = null;
+    
+    console.log('RelevanceScreener initialized with append blob clients');
   }
 
   async ensureContainerExists() {
@@ -40,13 +45,37 @@ class RelevanceScreener {
     }
   }
 
+  async ensureAppendBlobsExist() {
+    try {
+      // Create append blobs if they don't exist
+      await this.csvAppendBlob.createIfNotExists();
+      await this.jsonlAppendBlob.createIfNotExists();
+      
+      // Check if CSV needs header (get blob properties to see if it's empty)
+      const csvProperties = await this.csvAppendBlob.getProperties();
+      if (csvProperties.contentLength === 0) {
+        const csvHeader = "row_id,run_id,person_name,date,article_title,snippet,url,relevance_score,relevant,ties_to_politician,reason\n";
+        await this.csvAppendBlob.appendBlock(csvHeader, Buffer.byteLength(csvHeader));
+        console.log(`✅ Added CSV header to ${this.csvAppendBlob.url}`);
+      }
+      
+      console.log(`✅ Append blobs ready: CSV (${csvProperties.contentLength} bytes), JSONL`);
+    } catch (error) {
+      console.error(`❌ Failed to ensure append blobs exist:`, error.message);
+      throw error;
+    }
+  }
+
   async startRelevanceScreening(testMode = false, testLimit = 10) {
     const runId = new Date().toISOString();
     const mode = testMode ? 'TEST' : 'FULL';
     console.log(`🚀 Starting ${mode} relevance screening run: ${runId}`);
     
     try {
-      // Initialize status
+      // Ensure append blobs exist
+      await this.ensureAppendBlobsExist();
+      
+      // Initialize in-memory status
       const status = {
         run_id: runId,
         total: 0,
@@ -59,6 +88,9 @@ class RelevanceScreener {
         testMode: testMode,
         testLimit: testLimit
       };
+      
+      // Store status in memory
+      this.currentStatus = status;
       
       // Load existing processed row_ids for resume capability
       const processedRowIds = await this.loadProcessedRowIds();
@@ -245,7 +277,7 @@ class RelevanceScreener {
           };
           
           // Append to output files
-          await this.appendToOutputFiles(finalResult);
+          await this.appendToAppendBlobs(finalResult);
           
           // Update status
           status.processed++;
@@ -354,7 +386,7 @@ Answer ONLY in JSON:
     }
   }
 
-  async appendToOutputFiles(result) {
+  async appendToAppendBlobs(result) {
     // Prepare CSV row
     const csvRow = [
       result.row_id,
@@ -368,55 +400,23 @@ Answer ONLY in JSON:
       result.relevant,
       result.ties_to_politician,
       result.reason
-    ].map(field => `"${String(field || '').replace(/"/g, '""')}"`).join(',');
+    ].map(field => `"${String(field || '').replace(/"/g, '""')}"`).join(',') + '\n';
     
     // Prepare JSONL row
-    const jsonlRow = JSON.stringify(result);
+    const jsonlRow = JSON.stringify(result) + '\n';
     
-    // Check if files exist and add headers if needed
-    const csvPath = 'news/analysis/master_relevance.csv';
-    const jsonlPath = 'news/analysis/master_relevance.jsonl';
-    
-    const csvExists = await this.blobExists(csvPath);
-    const jsonlExists = await this.blobExists(jsonlPath);
-    
-    // Add headers if files don't exist
-    if (!csvExists) {
-      const csvHeader = 'row_id,run_id,person_name,date,article_title,snippet,url,relevance_score,relevant,ties_to_politician,reason\n';
-      await this.uploadBlob(csvPath, csvHeader);
-    }
-    
-    if (!jsonlExists) {
-      // JSONL doesn't need headers, start with empty content
-      await this.uploadBlob(jsonlPath, '');
-    }
-    
-    // Append to CSV
-    await this.appendToBlob(csvPath, csvRow + '\n');
-    
-    // Append to JSONL
-    await this.appendToBlob(jsonlPath, jsonlRow + '\n');
+    // Append to append blobs
+    await this.csvAppendBlob.appendBlock(csvRow, Buffer.byteLength(csvRow));
+    await this.jsonlAppendBlob.appendBlock(jsonlRow, Buffer.byteLength(jsonlRow));
   }
 
   async updateStatus(status) {
-    try {
-      fs.writeFileSync(this.statusFilePath, JSON.stringify(status, null, 2));
-    } catch (error) {
-      console.warn('Warning: Could not update status file:', error.message);
-    }
+    // Update in-memory status
+    this.currentStatus = status;
   }
 
   async getStatus() {
-    try {
-      if (fs.existsSync(this.statusFilePath)) {
-        const content = fs.readFileSync(this.statusFilePath, 'utf8');
-        return JSON.parse(content);
-      }
-    } catch (error) {
-      console.warn('Warning: Could not read status file:', error.message);
-    }
-    
-    return {
+    return this.currentStatus || {
       run_id: null,
       total: 0,
       processed: 0,
