@@ -29,8 +29,8 @@ class RelevanceScreener {
     this.csvAppendBlob = this.containerClient.getAppendBlobClient('analysis/master_relevance.csv');
     this.jsonlAppendBlob = this.containerClient.getAppendBlobClient('analysis/master_relevance.jsonl');
     
-    // In-memory status (no filesystem writes)
-    this.currentStatus = null;
+    // Status blob client
+    this.statusBlob = this.containerClient.getBlockBlobClient('analysis/status/relevance_status.json');
     
     console.log('RelevanceScreener initialized with append blob clients');
   }
@@ -89,8 +89,8 @@ class RelevanceScreener {
         testLimit: testLimit
       };
       
-      // Store status in memory
-      this.currentStatus = status;
+      // Store initial status in blob
+      await this.updateStatus(status);
       
       // Load existing processed row_ids for resume capability
       const processedRowIds = await this.loadProcessedRowIds();
@@ -411,21 +411,44 @@ Answer ONLY in JSON:
   }
 
   async updateStatus(status) {
-    // Update in-memory status
-    this.currentStatus = status;
+    try {
+      await this.statusBlob.uploadData(Buffer.from(JSON.stringify(status)), { overwrite: true });
+    } catch (error) {
+      console.warn('Warning: Could not update status blob:', error.message);
+    }
   }
 
   async getStatus() {
-    return this.currentStatus || {
-      run_id: null,
-      total: 0,
-      processed: 0,
-      pending: 0,
-      errors: 0,
-      last_row: null,
-      startedAt: null,
-      updatedAt: null
-    };
+    try {
+      const downloadResponse = await this.statusBlob.download();
+      const content = await this.streamToString(downloadResponse.readableStreamBody);
+      return JSON.parse(content);
+    } catch (error) {
+      console.warn('Warning: Could not read status blob:', error.message);
+      return {
+        run_id: null,
+        total: 0,
+        processed: 0,
+        pending: 0,
+        errors: 0,
+        last_row: null,
+        startedAt: null,
+        updatedAt: null
+      };
+    }
+  }
+
+  async streamToString(readableStream) {
+    return new Promise((resolve, reject) => {
+      const chunks = [];
+      readableStream.on('data', (data) => {
+        chunks.push(data.toString());
+      });
+      readableStream.on('end', () => {
+        resolve(chunks.join(''));
+      });
+      readableStream.on('error', reject);
+    });
   }
 
   // Azure Blob Storage helper methods
