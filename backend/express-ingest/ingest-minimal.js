@@ -7,6 +7,9 @@ app.use(express.json());
 // Import sentiment analyzer
 const SentimentAnalyzer = require('./src/sentiment/sentimentAnalyzer');
 
+// Import relevance screener
+const RelevanceScreener = require('./src/relevance/relevanceScreener');
+
 // Import SERP unlimited route
 const serpUnlimited = require('./routes/serp-unlimited');
 
@@ -587,6 +590,76 @@ app.get('/api/serp/test-fixed', async (req, res) => {
   }
 });
 
+// Relevance screening endpoints
+app.post('/api/relevance/start', async (req, res) => {
+  try {
+    console.log('🚀 Starting relevance screening...');
+    
+    const screener = new RelevanceScreener();
+    const result = await screener.startRelevanceScreening();
+    
+    res.json({
+      success: true,
+      message: 'Relevance screening started successfully',
+      result: result,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Relevance screening failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Relevance screening failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+app.get('/api/relevance/status', async (req, res) => {
+  try {
+    const screener = new RelevanceScreener();
+    const status = await screener.getStatus();
+    
+    res.json(status);
+    
+  } catch (error) {
+    console.error('❌ Failed to get relevance status:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get relevance status',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+app.post('/api/relevance/test', async (req, res) => {
+  try {
+    const { limit = 10 } = req.body;
+    console.log(`🧪 Starting relevance screening test with ${limit} articles...`);
+    
+    const screener = new RelevanceScreener();
+    const result = await screener.startRelevanceScreening(true, limit);
+    
+    res.json({
+      success: true,
+      message: `Relevance screening test completed with ${limit} articles`,
+      result: result,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Relevance screening test failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Relevance screening test failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Sentiment analysis endpoints
 app.get('/api/sentiment/test', async (req, res) => {
   try {
@@ -1040,7 +1113,7 @@ app.use('*', (req, res) => {
     error: 'Route not found', 
     path: req.originalUrl, 
     method: req.method,
-    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/sentiment/debug-articles', '/api/sentiment/count-all-articles', '/api/sentiment/article-table', '/api/whoami']
+    availableRoutes: ['/api/test', '/api/health', '/api/serp/test', '/api/sentiment/test', '/api/sentiment/analyze', '/api/sentiment/test-danielle-smith', '/api/sentiment/debug-articles', '/api/sentiment/count-all-articles', '/api/sentiment/article-table', '/api/relevance/start', '/api/relevance/test', '/api/relevance/status', '/api/whoami']
   });
 });
 
