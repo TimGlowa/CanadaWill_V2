@@ -234,6 +234,31 @@ app.post('/api/relevance/test', async (req, res) => {
   }
 });
 
+app.post('/api/relevance/start', async (req, res) => {
+  try {
+    console.log(`🚀 Starting FULL relevance screening production run...`);
+    
+    const screener = new RelevanceScreener();
+    const result = await screener.startRelevanceScreening(false);
+    
+    res.json({
+      success: true,
+      message: 'Relevance screening production run completed',
+      result: result,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Relevance screening production failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Relevance screening production failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Debug endpoint to test blob discovery
 app.get('/api/relevance/debug-discovery', async (req, res) => {
   try {
