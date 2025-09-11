@@ -1,0 +1,4011 @@
+{
+  "summary": {
+    "totalArticles": 24892,
+    "processedFiles": 126,
+    "errorCount": 0,
+    "uniquePublications": 800,
+    "analysisDate": "2025-09-10T15:21:26.407Z"
+  },
+  "publications": [
+    {
+      "publication": "CBC",
+      "articleCount": 5818,
+      "percentage": "23.37"
+    },
+    {
+      "publication": "The Globe and Mail",
+      "articleCount": 1692,
+      "percentage": "6.80"
+    },
+    {
+      "publication": "Edmonton Journal",
+      "articleCount": 1249,
+      "percentage": "5.02"
+    },
+    {
+      "publication": "Calgary Herald",
+      "articleCount": 1127,
+      "percentage": "4.53"
+    },
+    {
+      "publication": "Global News",
+      "articleCount": 1053,
+      "percentage": "4.23"
+    },
+    {
+      "publication": "CTV News",
+      "articleCount": 772,
+      "percentage": "3.10"
+    },
+    {
+      "publication": "National Post",
+      "articleCount": 582,
+      "percentage": "2.34"
+    },
+    {
+      "publication": "Alberta Politics",
+      "articleCount": 512,
+      "percentage": "2.06"
+    },
+    {
+      "publication": "CityNews Edmonton",
+      "articleCount": 474,
+      "percentage": "1.90"
+    },
+    {
+      "publication": "CityNews Calgary",
+      "articleCount": 376,
+      "percentage": "1.51"
+    },
+    {
+      "publication": "Toronto Star",
+      "articleCount": 339,
+      "percentage": "1.36"
+    },
+    {
+      "publication": "St. Albert Gazette",
+      "articleCount": 329,
+      "percentage": "1.32"
+    },
+    {
+      "publication": "Daveberta",
+      "articleCount": 297,
+      "percentage": "1.19"
+    },
+    {
+      "publication": "Lethbridge News Now",
+      "articleCount": 288,
+      "percentage": "1.16"
+    },
+    {
+      "publication": "The Economic Times",
+      "articleCount": 287,
+      "percentage": "1.15"
+    },
+    {
+      "publication": "Yahoo News Canada",
+      "articleCount": 272,
+      "percentage": "1.09"
+    },
+    {
+      "publication": "Canada's National Observer",
+      "articleCount": 268,
+      "percentage": "1.08"
+    },
+    {
+      "publication": "MSN",
+      "articleCount": 227,
+      "percentage": "0.91"
+    },
+    {
+      "publication": "APTN News",
+      "articleCount": 200,
+      "percentage": "0.80"
+    },
+    {
+      "publication": "rdnewsnow.com",
+      "articleCount": 197,
+      "percentage": "0.79"
+    },
+    {
+      "publication": "The Hill Times",
+      "articleCount": 181,
+      "percentage": "0.73"
+    },
+    {
+      "publication": "Western Standard",
+      "articleCount": 180,
+      "percentage": "0.72"
+    },
+    {
+      "publication": "The Albertan",
+      "articleCount": 171,
+      "percentage": "0.69"
+    },
+    {
+      "publication": "Politico",
+      "articleCount": 168,
+      "percentage": "0.67"
+    },
+    {
+      "publication": "The Conversation",
+      "articleCount": 167,
+      "percentage": "0.67"
+    },
+    {
+      "publication": "Shootin' the Breeze",
+      "articleCount": 164,
+      "percentage": "0.66"
+    },
+    {
+      "publication": "PressProgress",
+      "articleCount": 163,
+      "percentage": "0.65"
+    },
+    {
+      "publication": "DiscoverAirdrie",
+      "articleCount": 156,
+      "percentage": "0.63"
+    },
+    {
+      "publication": "Macleans.ca",
+      "articleCount": 145,
+      "percentage": "0.58"
+    },
+    {
+      "publication": "Rabble.ca",
+      "articleCount": 140,
+      "percentage": "0.56"
+    },
+    {
+      "publication": "Rocky Mountain Outlook",
+      "articleCount": 139,
+      "percentage": "0.56"
+    },
+    {
+      "publication": "Sherwood Park News",
+      "articleCount": 132,
+      "percentage": "0.53"
+    },
+    {
+      "publication": "The Stettler Independent",
+      "articleCount": 116,
+      "percentage": "0.47"
+    },
+    {
+      "publication": "CHAT News Today",
+      "articleCount": 116,
+      "percentage": "0.47"
+    },
+    {
+      "publication": "TownAndCountryToday.com",
+      "articleCount": 114,
+      "percentage": "0.46"
+    },
+    {
+      "publication": "Todayville",
+      "articleCount": 111,
+      "percentage": "0.45"
+    },
+    {
+      "publication": "Red Deer Advocate",
+      "articleCount": 95,
+      "percentage": "0.38"
+    },
+    {
+      "publication": "Rebel News",
+      "articleCount": 91,
+      "percentage": "0.37"
+    },
+    {
+      "publication": "The New York Times",
+      "articleCount": 90,
+      "percentage": "0.36"
+    },
+    {
+      "publication": "The Narwhal",
+      "articleCount": 89,
+      "percentage": "0.36"
+    },
+    {
+      "publication": "Times of India",
+      "articleCount": 88,
+      "percentage": "0.35"
+    },
+    {
+      "publication": "The Tyee",
+      "articleCount": 87,
+      "percentage": "0.35"
+    },
+    {
+      "publication": "Bloomberg.com",
+      "articleCount": 87,
+      "percentage": "0.35"
+    },
+    {
+      "publication": "Newsweek",
+      "articleCount": 86,
+      "percentage": "0.35"
+    },
+    {
+      "publication": "DeSmog",
+      "articleCount": 85,
+      "percentage": "0.34"
+    },
+    {
+      "publication": "Policy Options",
+      "articleCount": 81,
+      "percentage": "0.33"
+    },
+    {
+      "publication": "Financial Post",
+      "articleCount": 77,
+      "percentage": "0.31"
+    },
+    {
+      "publication": "Canadian Dimension",
+      "articleCount": 77,
+      "percentage": "0.31"
+    },
+    {
+      "publication": "Radio-Canada",
+      "articleCount": 74,
+      "percentage": "0.30"
+    },
+    {
+      "publication": "LakelandToday.ca",
+      "articleCount": 72,
+      "percentage": "0.29"
+    },
+    {
+      "publication": "The Guardian",
+      "articleCount": 72,
+      "percentage": "0.29"
+    },
+    {
+      "publication": "EverythingGP",
+      "articleCount": 71,
+      "percentage": "0.29"
+    },
+    {
+      "publication": "Juno News",
+      "articleCount": 70,
+      "percentage": "0.28"
+    },
+    {
+      "publication": "Jacobin",
+      "articleCount": 69,
+      "percentage": "0.28"
+    },
+    {
+      "publication": "Time Magazine",
+      "articleCount": 68,
+      "percentage": "0.27"
+    },
+    {
+      "publication": "CochraneNow",
+      "articleCount": 65,
+      "percentage": "0.26"
+    },
+    {
+      "publication": "BBC",
+      "articleCount": 61,
+      "percentage": "0.25"
+    },
+    {
+      "publication": "The Progress Report",
+      "articleCount": 58,
+      "percentage": "0.23"
+    },
+    {
+      "publication": "ICT News",
+      "articleCount": 58,
+      "percentage": "0.23"
+    },
+    {
+      "publication": "The Hill",
+      "articleCount": 57,
+      "percentage": "0.23"
+    },
+    {
+      "publication": "CNN",
+      "articleCount": 55,
+      "percentage": "0.22"
+    },
+    {
+      "publication": "Ricochet Media",
+      "articleCount": 54,
+      "percentage": "0.22"
+    },
+    {
+      "publication": "iPolitics",
+      "articleCount": 54,
+      "percentage": "0.22"
+    },
+    {
+      "publication": "Reuters",
+      "articleCount": 53,
+      "percentage": "0.21"
+    },
+    {
+      "publication": "Medicine Hat News",
+      "articleCount": 53,
+      "percentage": "0.21"
+    },
+    {
+      "publication": "Alberta Native News",
+      "articleCount": 52,
+      "percentage": "0.21"
+    },
+    {
+      "publication": "CityNews Toronto",
+      "articleCount": 52,
+      "percentage": "0.21"
+    },
+    {
+      "publication": "Western Wheel",
+      "articleCount": 52,
+      "percentage": "0.21"
+    },
+    {
+      "publication": "The Hub | More Signal. Less Noise.",
+      "articleCount": 50,
+      "percentage": "0.20"
+    },
+    {
+      "publication": "Angus Reid Institute",
+      "articleCount": 50,
+      "percentage": "0.20"
+    },
+    {
+      "publication": "Fort McMurray Today",
+      "articleCount": 48,
+      "percentage": "0.19"
+    },
+    {
+      "publication": "Green Matters",
+      "articleCount": 48,
+      "percentage": "0.19"
+    },
+    {
+      "publication": "New York Post",
+      "articleCount": 48,
+      "percentage": "0.19"
+    },
+    {
+      "publication": "True North News",
+      "articleCount": 43,
+      "percentage": "0.17"
+    },
+    {
+      "publication": "thecanadianpressnews.ca",
+      "articleCount": 41,
+      "percentage": "0.16"
+    },
+    {
+      "publication": "OkotoksOnline",
+      "articleCount": 41,
+      "percentage": "0.16"
+    },
+    {
+      "publication": "LiveWire Calgary",
+      "articleCount": 39,
+      "percentage": "0.16"
+    },
+    {
+      "publication": "Government of Alberta",
+      "articleCount": 39,
+      "percentage": "0.16"
+    },
+    {
+      "publication": "Benefits and Pensions Monitor",
+      "articleCount": 38,
+      "percentage": "0.15"
+    },
+    {
+      "publication": "CentralAlbertaOnline.com",
+      "articleCount": 36,
+      "percentage": "0.14"
+    },
+    {
+      "publication": "CityNews Halifax",
+      "articleCount": 36,
+      "percentage": "0.14"
+    },
+    {
+      "publication": "Los Angeles Times",
+      "articleCount": 36,
+      "percentage": "0.14"
+    },
+    {
+      "publication": "Castanet",
+      "articleCount": 35,
+      "percentage": "0.14"
+    },
+    {
+      "publication": "StrathmoreNow",
+      "articleCount": 34,
+      "percentage": "0.14"
+    },
+    {
+      "publication": "The Alberta Worker",
+      "articleCount": 34,
+      "percentage": "0.14"
+    },
+    {
+      "publication": "HighRiverOnline",
+      "articleCount": 34,
+      "percentage": "0.14"
+    },
+    {
+      "publication": "The Sprawl",
+      "articleCount": 33,
+      "percentage": "0.13"
+    },
+    {
+      "publication": "The Gateway Online",
+      "articleCount": 33,
+      "percentage": "0.13"
+    },
+    {
+      "publication": "Ponoka News",
+      "articleCount": 32,
+      "percentage": "0.13"
+    },
+    {
+      "publication": "Northwest Progressive Institute",
+      "articleCount": 32,
+      "percentage": "0.13"
+    },
+    {
+      "publication": "Fraser Institute",
+      "articleCount": 31,
+      "percentage": "0.12"
+    },
+    {
+      "publication": "Vancouver Sun",
+      "articleCount": 31,
+      "percentage": "0.12"
+    },
+    {
+      "publication": "www.israelhayom.com",
+      "articleCount": 31,
+      "percentage": "0.12"
+    },
+    {
+      "publication": "Alberta Teachers' Association",
+      "articleCount": 30,
+      "percentage": "0.12"
+    },
+    {
+      "publication": "LacombeOnline.com",
+      "articleCount": 29,
+      "percentage": "0.12"
+    },
+    {
+      "publication": "The Western Producer",
+      "articleCount": 27,
+      "percentage": "0.11"
+    },
+    {
+      "publication": "World Socialist Web Site",
+      "articleCount": 27,
+      "percentage": "0.11"
+    },
+    {
+      "publication": "NOW Toronto",
+      "articleCount": 27,
+      "percentage": "0.11"
+    },
+    {
+      "publication": "The Maple",
+      "articleCount": 26,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "Hindustan Times",
+      "articleCount": 26,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "The Times of India",
+      "articleCount": 26,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "Whitecourt Star",
+      "articleCount": 25,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "The Washington Post",
+      "articleCount": 25,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "The Energy Mix",
+      "articleCount": 25,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "ReNew Canada",
+      "articleCount": 24,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "WestCentralOnline",
+      "articleCount": 24,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "The Walrus",
+      "articleCount": 24,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "The Macdonald-Laurier Institute",
+      "articleCount": 24,
+      "percentage": "0.10"
+    },
+    {
+      "publication": "Lacombe Express",
+      "articleCount": 23,
+      "percentage": "0.09"
+    },
+    {
+      "publication": "GZERO Media",
+      "articleCount": 23,
+      "percentage": "0.09"
+    },
+    {
+      "publication": "www.readtheline.ca",
+      "articleCount": 23,
+      "percentage": "0.09"
+    },
+    {
+      "publication": "University of Alberta",
+      "articleCount": 22,
+      "percentage": "0.09"
+    },
+    {
+      "publication": "Energeticcity",
+      "articleCount": 22,
+      "percentage": "0.09"
+    },
+    {
+      "publication": "Edmonton Sun",
+      "articleCount": 22,
+      "percentage": "0.09"
+    },
+    {
+      "publication": "Canada.ca",
+      "articleCount": 22,
+      "percentage": "0.09"
+    },
+    {
+      "publication": "Claresholm Local Press",
+      "articleCount": 21,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "Calgary Sun",
+      "articleCount": 21,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "centralalbertaonline.com",
+      "articleCount": 20,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "Prince George Citizen",
+      "articleCount": 20,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "The Gauntlet",
+      "articleCount": 20,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "Financial Times",
+      "articleCount": 20,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "constructconnect.com",
+      "articleCount": 19,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "The Lethbridge Herald",
+      "articleCount": 19,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "Pipestone Flyer",
+      "articleCount": 19,
+      "percentage": "0.08"
+    },
+    {
+      "publication": "Indianz.Com",
+      "articleCount": 18,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "The Logic",
+      "articleCount": 18,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "Substack",
+      "articleCount": 18,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "The Wall Street Journal",
+      "articleCount": 18,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "Calgary Citizen",
+      "articleCount": 18,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "Weekly Voice",
+      "articleCount": 17,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "650 CKOM",
+      "articleCount": 17,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "True North | Breaking Canadian News and Opinion",
+      "articleCount": 17,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "The Breach",
+      "articleCount": 17,
+      "percentage": "0.07"
+    },
+    {
+      "publication": "PressReader",
+      "articleCount": 16,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "daveberta.ca",
+      "articleCount": 16,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Winnipeg Sun",
+      "articleCount": 16,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "canadian affairs",
+      "articleCount": 16,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Bloomberg",
+      "articleCount": 16,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Indo-Canadian Voice",
+      "articleCount": 15,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Business in Vancouver",
+      "articleCount": 15,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "The Community Press",
+      "articleCount": 15,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Regina Leader Post",
+      "articleCount": 15,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Meridian Source",
+      "articleCount": 15,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Wetaskiwin Times",
+      "articleCount": 14,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Montreal Gazette",
+      "articleCount": 14,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Windspeaker.com",
+      "articleCount": 14,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Yukon News",
+      "articleCount": 14,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "BNN Bloomberg",
+      "articleCount": 14,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "Penticton Herald",
+      "articleCount": 14,
+      "percentage": "0.06"
+    },
+    {
+      "publication": "620 CKRM",
+      "articleCount": 13,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "Department of Foreign Affairs",
+      "articleCount": 13,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "The Indian Express",
+      "articleCount": 13,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "Alberta Federation of Labour",
+      "articleCount": 13,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "CSIS | Center for Strategic and International Studies",
+      "articleCount": 12,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "The Times",
+      "articleCount": 12,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "Chosun Biz",
+      "articleCount": 12,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "Caliber.Az",
+      "articleCount": 12,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "Al Jazeera",
+      "articleCount": 12,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "Big West Country 92.9 FM",
+      "articleCount": 12,
+      "percentage": "0.05"
+    },
+    {
+      "publication": "Cochrane Eagle",
+      "articleCount": 11,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "PR Newswire Canada",
+      "articleCount": 11,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "www.canadiangamingbusiness.com",
+      "articleCount": 11,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "paNOW",
+      "articleCount": 11,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Latin Times",
+      "articleCount": 11,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Winnipeg Free Press",
+      "articleCount": 11,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Fort Saskatchewan Record",
+      "articleCount": 11,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Tribune India",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "River Country 94.9",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Daily Hive Vancouver",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Nunatsiaq News",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Times Colonist",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Cult MTL",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Delta Optimist",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "thegatewayonline.ca",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "pvbuzz media",
+      "articleCount": 10,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Newswire Canada",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Airdrie City View",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Grande Prairie Daily Herald Tribune",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Squamish Chief",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Vernon Morning Star",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "The Star Phoenix",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Benefits Canada.com",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "National Association of Federal Retirees",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Beritaja.com",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "National Newswatch",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "CityNews Vancouver",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Daily Record",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "OpIndia",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "The Independent",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "New Canadian Media",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Football League World",
+      "articleCount": 9,
+      "percentage": "0.04"
+    },
+    {
+      "publication": "Troy Media",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "CBA National Magazine",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Poker Industry PRO",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "The Economist",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Wealth Professional Canada",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "338Canada.ca",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "RealAgriculture",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "VictoriaNow",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Broadcast Dialogue",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Canadian Architect",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Sylvan Lake News",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Bridge City News",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "The Indian Panorama",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "PwC",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "HRD America",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Digital Journal",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Chatelaine",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "CFJC Today Kamloops",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Kurdistan24",
+      "articleCount": 8,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Dignity Memorial",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Taproot Edmonton",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Coast Reporter",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "High River Times",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Canadian Taxpayers Federation",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Gaming News Canada",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "AP News",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "The Telegraph",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Crude Oil Prices Today | OilPrice.com",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Research Co.",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "South China Morning Post",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Golf Canada",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Farms.com",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Xtra Magazine",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Saanich News",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "The Writ",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "Policy Alternatives",
+      "articleCount": 7,
+      "percentage": "0.03"
+    },
+    {
+      "publication": "The New Indian Express",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "CKPG Today",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Leduc Representative",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Investment Executive",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Bowen Island Undercurrent",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "McMaster University",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Hungarian Conservative",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Worldcrunch",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Inside Halton",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "ontario.ca",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "The Deep Dive",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Powell River Peak",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "National Firearms Association",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Prince Albert Daily Herald",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "ca.finance.yahoo.com",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Hockey Canada",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Maple Ridge-Pitt Meadows News",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "CityNews Ottawa",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Toronto Sun",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "The Mirror",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "The Environment Journal",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "کوردستان 24",
+      "articleCount": 6,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Catholic News Agency",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "TheIndependent.ca",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "MLT Aikins",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Edify Edmonton",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Canadian HR Reporter",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Pensions &amp; Investments",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "CityNews Kitchener",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "980 CJME",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "North Shore News",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Richmond News",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Vancouver Is Awesome",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Daily Express US",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Policy Magazine",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "DiscoverHumboldt",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "The Canadian Encyclopedia",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "NewmarketToday.ca",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "CPAC - Watch for Democracy",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Bashaw Star",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Nanton News",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Gauntlet",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Sky Sports",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Michael Geist -",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Plymouth Live",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "readtheline.ca",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Conservative Party of Canada",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Abacus Data",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "BetaKit",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Electric Autonomy Canada",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "NPR",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Canadian Anti-Hate Network",
+      "articleCount": 5,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "techlifetoday",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "HuffPost",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "BC Gov News",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Cabin Radio",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Phys.org",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "KSOM",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Legacy.com",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Alberta Farmer Express",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Retail Council of Canada",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Casino.org",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "CHCH",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "News.iAsk.ca",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "The Chilliwack Progress",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Mount Royal University",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Pique Newsmagazine",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "VICE",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Yahoo Canada Finance",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Hiiraan",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "canadiangamingbusiness.com",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Baaz | Substack",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "INC News",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Ottawa Citizen",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Education News Canada",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "EL PAÍS English",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Chick-fil-A",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Castlegar Source",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Rigzone",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Canadian Mortgage Trends",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "NetNewsLedger",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Business Standard",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Resource-Recycling",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Daily Mail",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "Spruce Grove Examiner",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "rudaw.net",
+      "articleCount": 4,
+      "percentage": "0.02"
+    },
+    {
+      "publication": "CUPE Alberta -",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "To Do Canada",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "ImmigCanada",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "ReachFM",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "NanaimoNewsNOW",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "South Peace News",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Canadian Energy Centre",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Slam Wrestling",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Rimbey Review",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Crowsnest Pass Herald",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "NNSL Media",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "iGaming Business",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Yogonet",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "CDC Gaming",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Upstream Online",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Vancouver Island Free Daily",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Hindu",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Info Petite Nation",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "ClearBlue Markets",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "BOE Report",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Vauxhall Advance",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Strathmore Times",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Frontiers",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "ELLE Canada Magazine",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "SaskToday.ca",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Malaysian Reserve",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Straits Times",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "CityNews Winnipeg",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Hong Kong Watch",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Loadstar",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "ABC News",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Spring Magazine",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Jerusalem Post",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "City of Calgary Newsroom",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Newspapers.com",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Dentons",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Flin Flon Reminder",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Spec",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Australian Broadcasting Corporation",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "TSN",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Hortidaily",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Cold Lake Sun",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Britannica",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "BayToday.ca",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "EFL Analysis",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Sun",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "La Nouvelle Beaumont News",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Dawn",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "RBC",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Insurance Business America",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Ballotpedia",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "DOB Energy",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "ThinkGeoEnergy",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Canadian Cattlemen",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "talkSPORT",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Bristol Live",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "farmnewsNOW",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Hong Kong Free Press HKFP",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Aviation A2Z",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "betterdwelling.com",
+      "articleCount": 3,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Canadian Accountant",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "StratCann",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "EnergyNow",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "67 Hail Hail",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Mugglehead Magazine",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Energi Media",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Wildfire Today",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Advisor.ca",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Edmonton Global",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Cantech Letter",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Jurist.org",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "World Oil",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Anadolu Ajansı",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Egan Funeral Home",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Surrey Now-Leader",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "National Today",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Daily Express",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Victoria News",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Orthodox Times",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Business Wire",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Yahoo Finance",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "iPhone in Canada",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "DiscoverMooseJaw",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "INsauga",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "VOA - Voice of America English News",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Horizon Weekly",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "HeartlandNews.ca",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Canadian Jewish News",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Central Tibetan Administration",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Lakeland Connect",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Burns Lake Lakes District News",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Al Hakam",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "International Campaign to Abolish Nuclear Weapons",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "India Today",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Trinidad and Tobago Newsday",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Freedom Leaf",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Mondaq",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Belleville Intelligencer",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Animal Justice",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "SteinbachOnline",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Fort Macleod Gazette",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "PNI Atlantic News",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Australian",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "About Netflix",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "HR Law Canada",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Canadian Elite Basketball League (CEBL)",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Reader's Digest Canada",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Canadian Running Magazine",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Charlatan, Carleton's independent newspaper",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "University Affairs",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "OpenCanada",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "POLITICO.eu",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Canadian Health Coalition",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "RNZ",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "C2C Journal",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Jasper Local",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Narcity",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "DurhamRegion.com",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Skies Mag",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Sport360",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Manila Times",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "GlobeNewswire",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Invest Alberta",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "playbackonline.ca",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "OHS Canada Magazine",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "NationTalk",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "ThePrint",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Bachtrack",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Chronicle-Journal",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Ludwig van Toronto",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Paul Wells | Substack",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "PDC",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Sports Mole",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Star",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "www.yahoo.com",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Immigration.ca",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "DW",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Castor Advance",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Caul's Funeral Home",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "New York Daily News",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Ottawa Business Journal",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Winthrop Transcript",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Construction &amp; Demolition Recycling",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Sydney Morning Herald",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Eagle Valley News",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "www.christiandaily.com",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Foreign Policy",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Mint",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "NDTV",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Calgary Journal",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Environmental Defence",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Canadian Manufacturing",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Albany Advertiser",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "SGGP English Edition",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "GMA Network",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Elections Alberta",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Bow Valley Crag &amp; Canyon",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Action Canada for Sexual Health and Rights",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "GSA (.gov)",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Birmingham Live",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Wales Online",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Celts Are Here",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "orfonline.org",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "MillenniumPost",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Seed World",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Sikh24.com",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Fairview Post",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "The Streetjournal",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "حکومەتی هەرێمی كوردستان",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Gov.pl",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Muslim Link",
+      "articleCount": 2,
+      "percentage": "0.01"
+    },
+    {
+      "publication": "Campaign US",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Schulich School of Medicine &amp; Dentistry",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "www.attitude.co.uk",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Metro.co.uk",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Babushahi News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Devon Dispatch",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Walmart Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Today's Parent",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "University of Toronto",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Quinte News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Rocky Mountain Goat",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CBS News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Terrace Standard",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Coalition for Firearm Rights",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "KTLA",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "On-Site Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Leicester Mercury",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Railway Age",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "89.3 The Raven",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "ResearchGate",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "U.S. News &amp; World Report",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Connect CRE Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "thedeepdive.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "KelownaNow",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Legal Sports Report",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Covers.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "EGR North America",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Coinbase",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CN Rail",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Devdiscourse",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Fiji Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "City of Lethbridge",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Durham Radio News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Newsmax",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Brandon Sun",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Record",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Drumheller Online",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Vulcan Advocate",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "About Islam",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Bowers Funeral Service",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Northern Miner",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "SCOREGolf",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Country 94",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Freeskier",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Golfweek",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Caribbean National Weekly",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "London Free Press",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Senior",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Courier",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Vertical Mag",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Halifax Examiner",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Duluth News Tribune",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Mining.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Langley Advance Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Millstone News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Polity.org.za",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Greenock Telegraph",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "TheNational.scot",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "thegauntlet.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Action4Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "larongeNOW",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Transport Action Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "SnowBrains",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The City of Calgary",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "PortageOnline",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "My Lethbridge Now",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Cycling Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "France 24",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Tree Frog creative",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Fairfield Sun Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "BurlingtonToday.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Driving",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "PanARMENIAN.Net",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Phayul",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Catholic Register",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "ایران اینترنشنال",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Catholic Review",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Guns.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "www.centralalbertaonline.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Kingstonist News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "IMDb",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "IF Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Midwestern Newspapers",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Saugeen Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Sports Betting Dime",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Oak Bay News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "HonestReporting Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canada's NDP",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Free Press",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "espritdecorps",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Peace Brigades International-Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Daily Wire",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Ceasefire.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Collision Repair Mag",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Guardian Nigeria News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Arise News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Suburban Newspaper",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Punjab News Express",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Occupational Safety",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "AUPE",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Marxist.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Coast Mountain News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "MorungExpress",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "International Consortium of Investigative Journalists - ICIJ",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "AccuWeather",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Jamaica Gleaner",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CHEK News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "www.plant.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Rockford Register Star",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Estonian World Review",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Vernon Matters",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "upi",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "SportsPro",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Blaze Media",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CHVN Radio",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "BasketballBuzz",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Hockey League",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Haskett Funeral Homes",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Barksdale Air Force Base (.mil)",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Loudwire",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "MJBizDaily",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Southgate News Herald",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Baird Maritime",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Ubyssey",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Jasper Fitzhugh",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Mortgage Professional America",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Cambridge University Press &amp; Assessment",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CMAJ Open",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "University of Saskatchewan",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "SAP News Center",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Kyiv Independent",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Anti-Defamation League",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "War on the Rocks",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Ditch",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Library of Congress (.gov)",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Human Rights Watch",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Fordham International Law Journal",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Balkan Insight",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Jamestown Foundation",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Native News Online",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Carnegie Endowment for International Peace",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "High North News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Wavell Room",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "19FortyFive",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Pinsent Masons",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The London School of Economics and Political Science",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Policy Exchange",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Atlantic Council",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Autosport",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "European Consortium for Political Research (ECPR)",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Herald",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Ibrox News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Fraser Valley Today",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "106.9 The X",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "GearJunkie",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Auto Dealer",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "thephilbiznews",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CODE Sports",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Pipeline Online",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Grocery Business Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "BreakingNews.ie",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Ford From the Road",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Shelby County Reporter",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "News Ghana",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Football Insider",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Liverpool Echo",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Bleacher Report",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Billboard Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "HPAC Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Newsroom Calgary",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Global Taiwan Institute",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "IndieWire",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Playbill",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Snopes.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Olympics.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "OrilliaMatters.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Diamond Schmitt",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "National Council of Resistance of Iran - NCRI",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "West Ham Zone",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Goodison News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Variety",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "OneFootball",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "LondonWorld",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Yorkshire Post",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "agendaNi",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The72",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "TheHardTackle.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Irish News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Christian Institute",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "La Scena Musicale",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "TVGuide.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Yahoo Entertainment",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Yahoo Finance UK",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "LawNow Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Georgia Straight",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Pointer",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "POLITICO Pro",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Lawyer Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "وكالة أنباء البحرين",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Boundary Creek Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "TVO Today",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CFWE",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Duke Today",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Newsclick",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The News International",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Kashmir Horizon",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Kashmir Convener",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "24 News HD",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Evan J. Strong Funeral Home",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Avenue Calgary",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Broadview Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Data Centre Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Pharmaceutical Online",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "PocketGamer.biz",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Village Report",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Potato News Today",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "PotatoPro",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "SenCanada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Philanthropy News Digest",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "World Nuclear News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Osler, Hoskin &amp; Harcourt LLP",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The National Telegraph",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Southern Poverty Law Center",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Journal",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "necrocanada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Alexander &amp; Houle Funeral Home",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Deadline",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "BP Sports Niagara",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Fair Observer",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Ladysmith Chemainus Chronicle",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Abbotsford News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "www.greenpeace.org",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Science | AAAS",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Grist.org",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "New Statesman",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CIC News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Liberal Party of Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "EnergyNow.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Daily Beast",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Leger",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Victoria Buzz",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Cryptopolitan",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Business Today",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Mitrade",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Clean Energy Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "PBS",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "NBC News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Japan Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Vox",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Foundation for Economic Education",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Yahoo Lifestyle Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CityNews Montreal",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "springmag.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Fox News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Cointelegraph",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Financial Express",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CCN.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Outlook India",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Times Now",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Firstpost",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Week",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Republic World",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "AFR",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Gazette • Western University's Newspaper",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Federalist",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Spiked",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Pulp and Paper Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Kiddaan",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Yahoo Canada Sports",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Wealth Professional",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "RealClearMarkets",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The True North Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "www.crea.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Land Line Media",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The West Australian",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Farm Weekly",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "North Island Gazette",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Manitoba Co-operator",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Philstar.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Bilyonaryo Business News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Farmonaut",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "ABP Daily",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "cfweradio.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Construction Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "PembinaValleyOnline",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Brisbane Times",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Horse Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "This Magazine",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "USW Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "backpagefootball.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Inequality.org",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Yahoo Life UK",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Deepdale Digest",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Celtic Way",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "FootballFanCast",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Goal.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "RSVP Live",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Mayerthorpe Freelancer",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Chamber of Commerce",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Simon Fraser University",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "www.connectedtoindia.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Church News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Alberta Innovates",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Intelligent Living",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Brampton Guardian",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The PIE News",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Algemeiner.com",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Metalocus",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Philippine Canadian Inquirer",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The Real News Network",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Canadian Geographic",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Infotel.ca",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "CJPME",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The New Arab",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "Obesity Canada",
+      "articleCount": 1,
+      "percentage": "0.00"
+    },
+    {
+      "publication": "The961",
+      "articleCount": 1,
+      "percentage": "0.00"
+    }
+  ]
+}

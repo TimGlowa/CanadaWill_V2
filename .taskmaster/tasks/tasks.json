@@ -76,7 +76,7 @@
             "description": "Enhance the query builder to always include full name AND title variants for officials, with specific handling for MLAs and MPs.",
             "dependencies": [],
             "details": "Modify the existing query builder to ensure it always includes both the full name AND appropriate title variants. For MLAs, include both 'MLA' and 'Member of Legislative Assembly' as variants. For MPs, include both 'MP' and 'Member of Parliament' as variants. Implement proper boolean logic with AND/OR operators to ensure the query structure follows the pattern: (full_name) AND (title variants) AND (keywords).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Create unit tests to verify the query builder correctly handles different official types. Test with sample MLA and MP data to confirm proper inclusion of title variants. Validate the boolean logic structure of generated queries."
           },
           {
@@ -87,7 +87,7 @@
               "2.1"
             ],
             "details": "Update the query builder to include separation keywords (e.g., 'separation', 'independence', 'sovereignty') and unity keywords (e.g., 'remain', 'unity', 'federation') from PRD v2.8. Ensure these keywords are properly incorporated into the query structure with appropriate boolean operators. The final query should follow the pattern: (full_name) AND (title variants) AND (separation OR independence OR sovereignty OR remain OR unity OR federation).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test the updated query builder with various combinations of keywords to ensure all required terms are included. Verify the boolean logic correctly implements the OR relationship between keywords and the AND relationship with name and title."
           },
           {
@@ -110,7 +110,7 @@
               "2.3"
             ],
             "details": "Configure the Azure Blob Storage client with proper authentication using environment variables. Implement the specified path structure: articles/raw/serp/{slug}/{YYYY-MM-DD}.json for storing backfill results. Add comprehensive error handling for storage operations and implement logging for both successful and failed storage operations. Ensure the storage client can handle large volumes of data and implement retry logic for transient failures.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test the storage functionality with mock data to verify correct path construction and error handling. Validate the authentication mechanism with both valid and invalid credentials. Test the retry logic by simulating transient storage failures."
           },
           {
@@ -480,7 +480,7 @@
     ],
     "metadata": {
       "created": "2025-09-03T13:43:35.790Z",
-      "updated": "2025-09-03T19:40:39.064Z",
+      "updated": "2025-09-03T21:35:28.820Z",
       "description": "Tasks for master context"
     }
   }

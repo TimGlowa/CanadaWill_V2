@@ -1,0 +1,801 @@
+Publication,Article Count,Percentage
+"CBC",5818,23.37
+"The Globe and Mail",1692,6.80
+"Edmonton Journal",1249,5.02
+"Calgary Herald",1127,4.53
+"Global News",1053,4.23
+"CTV News",772,3.10
+"National Post",582,2.34
+"Alberta Politics",512,2.06
+"CityNews Edmonton",474,1.90
+"CityNews Calgary",376,1.51
+"Toronto Star",339,1.36
+"St. Albert Gazette",329,1.32
+"Daveberta",297,1.19
+"Lethbridge News Now",288,1.16
+"The Economic Times",287,1.15
+"Yahoo News Canada",272,1.09
+"Canada's National Observer",268,1.08
+"MSN",227,0.91
+"APTN News",200,0.80
+"rdnewsnow.com",197,0.79
+"The Hill Times",181,0.73
+"Western Standard",180,0.72
+"The Albertan",171,0.69
+"Politico",168,0.67
+"The Conversation",167,0.67
+"Shootin' the Breeze",164,0.66
+"PressProgress",163,0.65
+"DiscoverAirdrie",156,0.63
+"Macleans.ca",145,0.58
+"Rabble.ca",140,0.56
+"Rocky Mountain Outlook",139,0.56
+"Sherwood Park News",132,0.53
+"The Stettler Independent",116,0.47
+"CHAT News Today",116,0.47
+"TownAndCountryToday.com",114,0.46
+"Todayville",111,0.45
+"Red Deer Advocate",95,0.38
+"Rebel News",91,0.37
+"The New York Times",90,0.36
+"The Narwhal",89,0.36
+"Times of India",88,0.35
+"The Tyee",87,0.35
+"Bloomberg.com",87,0.35
+"Newsweek",86,0.35
+"DeSmog",85,0.34
+"Policy Options",81,0.33
+"Financial Post",77,0.31
+"Canadian Dimension",77,0.31
+"Radio-Canada",74,0.30
+"LakelandToday.ca",72,0.29
+"The Guardian",72,0.29
+"EverythingGP",71,0.29
+"Juno News",70,0.28
+"Jacobin",69,0.28
+"Time Magazine",68,0.27
+"CochraneNow",65,0.26
+"BBC",61,0.25
+"The Progress Report",58,0.23
+"ICT News",58,0.23
+"The Hill",57,0.23
+"CNN",55,0.22
+"Ricochet Media",54,0.22
+"iPolitics",54,0.22
+"Reuters",53,0.21
+"Medicine Hat News",53,0.21
+"Alberta Native News",52,0.21
+"CityNews Toronto",52,0.21
+"Western Wheel",52,0.21
+"The Hub | More Signal. Less Noise.",50,0.20
+"Angus Reid Institute",50,0.20
+"Fort McMurray Today",48,0.19
+"Green Matters",48,0.19
+"New York Post",48,0.19
+"True North News",43,0.17
+"thecanadianpressnews.ca",41,0.16
+"OkotoksOnline",41,0.16
+"LiveWire Calgary",39,0.16
+"Government of Alberta",39,0.16
+"Benefits and Pensions Monitor",38,0.15
+"CentralAlbertaOnline.com",36,0.14
+"CityNews Halifax",36,0.14
+"Los Angeles Times",36,0.14
+"Castanet",35,0.14
+"StrathmoreNow",34,0.14
+"The Alberta Worker",34,0.14
+"HighRiverOnline",34,0.14
+"The Sprawl",33,0.13
+"The Gateway Online",33,0.13
+"Ponoka News",32,0.13
+"Northwest Progressive Institute",32,0.13
+"Fraser Institute",31,0.12
+"Vancouver Sun",31,0.12
+"www.israelhayom.com",31,0.12
+"Alberta Teachers' Association",30,0.12
+"LacombeOnline.com",29,0.12
+"The Western Producer",27,0.11
+"World Socialist Web Site",27,0.11
+"NOW Toronto",27,0.11
+"The Maple",26,0.10
+"Hindustan Times",26,0.10
+"The Times of India",26,0.10
+"Whitecourt Star",25,0.10
+"The Washington Post",25,0.10
+"The Energy Mix",25,0.10
+"ReNew Canada",24,0.10
+"WestCentralOnline",24,0.10
+"The Walrus",24,0.10
+"The Macdonald-Laurier Institute",24,0.10
+"Lacombe Express",23,0.09
+"GZERO Media",23,0.09
+"www.readtheline.ca",23,0.09
+"University of Alberta",22,0.09
+"Energeticcity",22,0.09
+"Edmonton Sun",22,0.09
+"Canada.ca",22,0.09
+"Claresholm Local Press",21,0.08
+"Calgary Sun",21,0.08
+"centralalbertaonline.com",20,0.08
+"Prince George Citizen",20,0.08
+"The Gauntlet",20,0.08
+"Financial Times",20,0.08
+"constructconnect.com",19,0.08
+"The Lethbridge Herald",19,0.08
+"Pipestone Flyer",19,0.08
+"Indianz.Com",18,0.07
+"The Logic",18,0.07
+"Substack",18,0.07
+"The Wall Street Journal",18,0.07
+"Calgary Citizen",18,0.07
+"Weekly Voice",17,0.07
+"650 CKOM",17,0.07
+"True North | Breaking Canadian News and Opinion",17,0.07
+"The Breach",17,0.07
+"PressReader",16,0.06
+"daveberta.ca",16,0.06
+"Winnipeg Sun",16,0.06
+"canadian affairs",16,0.06
+"Bloomberg",16,0.06
+"Indo-Canadian Voice",15,0.06
+"Business in Vancouver",15,0.06
+"The Community Press",15,0.06
+"Regina Leader Post",15,0.06
+"Meridian Source",15,0.06
+"Wetaskiwin Times",14,0.06
+"Montreal Gazette",14,0.06
+"Windspeaker.com",14,0.06
+"Yukon News",14,0.06
+"BNN Bloomberg",14,0.06
+"Penticton Herald",14,0.06
+"620 CKRM",13,0.05
+"Department of Foreign Affairs",13,0.05
+"The Indian Express",13,0.05
+"Alberta Federation of Labour",13,0.05
+"CSIS | Center for Strategic and International Studies",12,0.05
+"The Times",12,0.05
+"Chosun Biz",12,0.05
+"Caliber.Az",12,0.05
+"Al Jazeera",12,0.05
+"Big West Country 92.9 FM",12,0.05
+"Cochrane Eagle",11,0.04
+"PR Newswire Canada",11,0.04
+"www.canadiangamingbusiness.com",11,0.04
+"paNOW",11,0.04
+"Latin Times",11,0.04
+"Winnipeg Free Press",11,0.04
+"Fort Saskatchewan Record",11,0.04
+"Tribune India",10,0.04
+"River Country 94.9",10,0.04
+"Daily Hive Vancouver",10,0.04
+"Nunatsiaq News",10,0.04
+"Times Colonist",10,0.04
+"Cult MTL",10,0.04
+"Delta Optimist",10,0.04
+"thegatewayonline.ca",10,0.04
+"pvbuzz media",10,0.04
+"Newswire Canada",9,0.04
+"Airdrie City View",9,0.04
+"Grande Prairie Daily Herald Tribune",9,0.04
+"Squamish Chief",9,0.04
+"Vernon Morning Star",9,0.04
+"The Star Phoenix",9,0.04
+"Benefits Canada.com",9,0.04
+"National Association of Federal Retirees",9,0.04
+"Beritaja.com",9,0.04
+"National Newswatch",9,0.04
+"CityNews Vancouver",9,0.04
+"Daily Record",9,0.04
+"OpIndia",9,0.04
+"The Independent",9,0.04
+"New Canadian Media",9,0.04
+"Football League World",9,0.04
+"Troy Media",8,0.03
+"CBA National Magazine",8,0.03
+"Poker Industry PRO",8,0.03
+"The Economist",8,0.03
+"Wealth Professional Canada",8,0.03
+"338Canada.ca",8,0.03
+"RealAgriculture",8,0.03
+"VictoriaNow",8,0.03
+"Broadcast Dialogue",8,0.03
+"Canadian Architect",8,0.03
+"Sylvan Lake News",8,0.03
+"Bridge City News",8,0.03
+"The Indian Panorama",8,0.03
+"PwC",8,0.03
+"HRD America",8,0.03
+"Digital Journal",8,0.03
+"Chatelaine",8,0.03
+"CFJC Today Kamloops",8,0.03
+"Kurdistan24",8,0.03
+"Dignity Memorial",7,0.03
+"Taproot Edmonton",7,0.03
+"Coast Reporter",7,0.03
+"High River Times",7,0.03
+"Canadian Taxpayers Federation",7,0.03
+"Gaming News Canada",7,0.03
+"AP News",7,0.03
+"The Telegraph",7,0.03
+"Crude Oil Prices Today | OilPrice.com",7,0.03
+"Research Co.",7,0.03
+"South China Morning Post",7,0.03
+"Golf Canada",7,0.03
+"Farms.com",7,0.03
+"Xtra Magazine",7,0.03
+"Saanich News",7,0.03
+"The Writ",7,0.03
+"Policy Alternatives",7,0.03
+"The New Indian Express",6,0.02
+"CKPG Today",6,0.02
+"Leduc Representative",6,0.02
+"Investment Executive",6,0.02
+"Bowen Island Undercurrent",6,0.02
+"McMaster University",6,0.02
+"Hungarian Conservative",6,0.02
+"Worldcrunch",6,0.02
+"Inside Halton",6,0.02
+"ontario.ca",6,0.02
+"The Deep Dive",6,0.02
+"Powell River Peak",6,0.02
+"National Firearms Association",6,0.02
+"Prince Albert Daily Herald",6,0.02
+"ca.finance.yahoo.com",6,0.02
+"Hockey Canada",6,0.02
+"Maple Ridge-Pitt Meadows News",6,0.02
+"CityNews Ottawa",6,0.02
+"Toronto Sun",6,0.02
+"The Mirror",6,0.02
+"The Environment Journal",6,0.02
+"کوردستان 24",6,0.02
+"Catholic News Agency",5,0.02
+"TheIndependent.ca",5,0.02
+"MLT Aikins",5,0.02
+"Edify Edmonton",5,0.02
+"Canadian HR Reporter",5,0.02
+"Pensions &amp; Investments",5,0.02
+"CityNews Kitchener",5,0.02
+"980 CJME",5,0.02
+"North Shore News",5,0.02
+"Richmond News",5,0.02
+"Vancouver Is Awesome",5,0.02
+"Daily Express US",5,0.02
+"Policy Magazine",5,0.02
+"DiscoverHumboldt",5,0.02
+"The Canadian Encyclopedia",5,0.02
+"NewmarketToday.ca",5,0.02
+"CPAC - Watch for Democracy",5,0.02
+"Bashaw Star",5,0.02
+"Nanton News",5,0.02
+"Gauntlet",5,0.02
+"Sky Sports",5,0.02
+"Michael Geist -",5,0.02
+"Plymouth Live",5,0.02
+"readtheline.ca",5,0.02
+"Conservative Party of Canada",5,0.02
+"Abacus Data",5,0.02
+"BetaKit",5,0.02
+"Electric Autonomy Canada",5,0.02
+"NPR",5,0.02
+"Canadian Anti-Hate Network",5,0.02
+"techlifetoday",4,0.02
+"HuffPost",4,0.02
+"BC Gov News",4,0.02
+"Cabin Radio",4,0.02
+"Phys.org",4,0.02
+"KSOM",4,0.02
+"Legacy.com",4,0.02
+"Alberta Farmer Express",4,0.02
+"Retail Council of Canada",4,0.02
+"Casino.org",4,0.02
+"CHCH",4,0.02
+"News.iAsk.ca",4,0.02
+"The Chilliwack Progress",4,0.02
+"Mount Royal University",4,0.02
+"Pique Newsmagazine",4,0.02
+"VICE",4,0.02
+"Yahoo Canada Finance",4,0.02
+"Hiiraan",4,0.02
+"canadiangamingbusiness.com",4,0.02
+"Baaz | Substack",4,0.02
+"INC News",4,0.02
+"Ottawa Citizen",4,0.02
+"Education News Canada",4,0.02
+"EL PAÍS English",4,0.02
+"Chick-fil-A",4,0.02
+"Castlegar Source",4,0.02
+"Rigzone",4,0.02
+"Canadian Mortgage Trends",4,0.02
+"NetNewsLedger",4,0.02
+"Business Standard",4,0.02
+"Resource-Recycling",4,0.02
+"Daily Mail",4,0.02
+"Spruce Grove Examiner",4,0.02
+"rudaw.net",4,0.02
+"CUPE Alberta -",3,0.01
+"To Do Canada",3,0.01
+"ImmigCanada",3,0.01
+"ReachFM",3,0.01
+"NanaimoNewsNOW",3,0.01
+"South Peace News",3,0.01
+"Canadian Energy Centre",3,0.01
+"Slam Wrestling",3,0.01
+"Rimbey Review",3,0.01
+"Crowsnest Pass Herald",3,0.01
+"NNSL Media",3,0.01
+"iGaming Business",3,0.01
+"Yogonet",3,0.01
+"CDC Gaming",3,0.01
+"Upstream Online",3,0.01
+"Vancouver Island Free Daily",3,0.01
+"The Hindu",3,0.01
+"Info Petite Nation",3,0.01
+"ClearBlue Markets",3,0.01
+"BOE Report",3,0.01
+"Vauxhall Advance",3,0.01
+"Strathmore Times",3,0.01
+"Frontiers",3,0.01
+"ELLE Canada Magazine",3,0.01
+"SaskToday.ca",3,0.01
+"The Malaysian Reserve",3,0.01
+"The Straits Times",3,0.01
+"CityNews Winnipeg",3,0.01
+"Hong Kong Watch",3,0.01
+"The Loadstar",3,0.01
+"ABC News",3,0.01
+"Spring Magazine",3,0.01
+"The Jerusalem Post",3,0.01
+"City of Calgary Newsroom",3,0.01
+"Newspapers.com",3,0.01
+"Dentons",3,0.01
+"Flin Flon Reminder",3,0.01
+"The Spec",3,0.01
+"Australian Broadcasting Corporation",3,0.01
+"TSN",3,0.01
+"Hortidaily",3,0.01
+"Cold Lake Sun",3,0.01
+"Britannica",3,0.01
+"BayToday.ca",3,0.01
+"EFL Analysis",3,0.01
+"The Sun",3,0.01
+"La Nouvelle Beaumont News",3,0.01
+"Dawn",3,0.01
+"RBC",3,0.01
+"Insurance Business America",3,0.01
+"Ballotpedia",3,0.01
+"DOB Energy",3,0.01
+"ThinkGeoEnergy",3,0.01
+"Canadian Cattlemen",3,0.01
+"talkSPORT",3,0.01
+"Bristol Live",3,0.01
+"farmnewsNOW",3,0.01
+"Hong Kong Free Press HKFP",3,0.01
+"Aviation A2Z",3,0.01
+"betterdwelling.com",3,0.01
+"Canadian Accountant",2,0.01
+"StratCann",2,0.01
+"EnergyNow",2,0.01
+"67 Hail Hail",2,0.01
+"Mugglehead Magazine",2,0.01
+"Energi Media",2,0.01
+"Wildfire Today",2,0.01
+"Advisor.ca",2,0.01
+"Edmonton Global",2,0.01
+"Cantech Letter",2,0.01
+"Jurist.org",2,0.01
+"World Oil",2,0.01
+"Anadolu Ajansı",2,0.01
+"Egan Funeral Home",2,0.01
+"Surrey Now-Leader",2,0.01
+"National Today",2,0.01
+"Daily Express",2,0.01
+"Victoria News",2,0.01
+"Orthodox Times",2,0.01
+"Business Wire",2,0.01
+"Yahoo Finance",2,0.01
+"iPhone in Canada",2,0.01
+"DiscoverMooseJaw",2,0.01
+"INsauga",2,0.01
+"VOA - Voice of America English News",2,0.01
+"Horizon Weekly",2,0.01
+"HeartlandNews.ca",2,0.01
+"The Canadian Jewish News",2,0.01
+"Central Tibetan Administration",2,0.01
+"Lakeland Connect",2,0.01
+"Burns Lake Lakes District News",2,0.01
+"Al Hakam",2,0.01
+"International Campaign to Abolish Nuclear Weapons",2,0.01
+"India Today",2,0.01
+"Trinidad and Tobago Newsday",2,0.01
+"Freedom Leaf",2,0.01
+"Mondaq",2,0.01
+"Belleville Intelligencer",2,0.01
+"Animal Justice",2,0.01
+"SteinbachOnline",2,0.01
+"Fort Macleod Gazette",2,0.01
+"PNI Atlantic News",2,0.01
+"The Australian",2,0.01
+"About Netflix",2,0.01
+"HR Law Canada",2,0.01
+"Canadian Elite Basketball League (CEBL)",2,0.01
+"Reader's Digest Canada",2,0.01
+"Canadian Running Magazine",2,0.01
+"The Charlatan, Carleton's independent newspaper",2,0.01
+"University Affairs",2,0.01
+"OpenCanada",2,0.01
+"POLITICO.eu",2,0.01
+"Canadian Health Coalition",2,0.01
+"RNZ",2,0.01
+"C2C Journal",2,0.01
+"Jasper Local",2,0.01
+"Narcity",2,0.01
+"DurhamRegion.com",2,0.01
+"Skies Mag",2,0.01
+"Sport360",2,0.01
+"The Manila Times",2,0.01
+"GlobeNewswire",2,0.01
+"Invest Alberta",2,0.01
+"playbackonline.ca",2,0.01
+"OHS Canada Magazine",2,0.01
+"NationTalk",2,0.01
+"ThePrint",2,0.01
+"Bachtrack",2,0.01
+"The Chronicle-Journal",2,0.01
+"Ludwig van Toronto",2,0.01
+"Paul Wells | Substack",2,0.01
+"PDC",2,0.01
+"Sports Mole",2,0.01
+"The Star",2,0.01
+"www.yahoo.com",2,0.01
+"Immigration.ca",2,0.01
+"DW",2,0.01
+"Castor Advance",2,0.01
+"Caul's Funeral Home",2,0.01
+"New York Daily News",2,0.01
+"Ottawa Business Journal",2,0.01
+"Winthrop Transcript",2,0.01
+"Construction &amp; Demolition Recycling",2,0.01
+"The Sydney Morning Herald",2,0.01
+"Eagle Valley News",2,0.01
+"www.christiandaily.com",2,0.01
+"Foreign Policy",2,0.01
+"Mint",2,0.01
+"NDTV",2,0.01
+"Calgary Journal",2,0.01
+"Environmental Defence",2,0.01
+"Canadian Manufacturing",2,0.01
+"The Albany Advertiser",2,0.01
+"SGGP English Edition",2,0.01
+"GMA Network",2,0.01
+"Elections Alberta",2,0.01
+"Bow Valley Crag &amp; Canyon",2,0.01
+"Action Canada for Sexual Health and Rights",2,0.01
+"GSA (.gov)",2,0.01
+"Birmingham Live",2,0.01
+"Wales Online",2,0.01
+"Celts Are Here",2,0.01
+"orfonline.org",2,0.01
+"MillenniumPost",2,0.01
+"Seed World",2,0.01
+"Sikh24.com",2,0.01
+"Fairview Post",2,0.01
+"The Streetjournal",2,0.01
+"حکومەتی هەرێمی كوردستان",2,0.01
+"Gov.pl",2,0.01
+"Muslim Link",2,0.01
+"Campaign US",1,0.00
+"Schulich School of Medicine &amp; Dentistry",1,0.00
+"www.attitude.co.uk",1,0.00
+"Metro.co.uk",1,0.00
+"Babushahi News",1,0.00
+"Devon Dispatch",1,0.00
+"Walmart Canada",1,0.00
+"Today's Parent",1,0.00
+"University of Toronto",1,0.00
+"Quinte News",1,0.00
+"The Rocky Mountain Goat",1,0.00
+"CBS News",1,0.00
+"Terrace Standard",1,0.00
+"Canadian Coalition for Firearm Rights",1,0.00
+"KTLA",1,0.00
+"On-Site Magazine",1,0.00
+"Leicester Mercury",1,0.00
+"Railway Age",1,0.00
+"89.3 The Raven",1,0.00
+"ResearchGate",1,0.00
+"U.S. News &amp; World Report",1,0.00
+"Connect CRE Canada",1,0.00
+"thedeepdive.ca",1,0.00
+"KelownaNow",1,0.00
+"Legal Sports Report",1,0.00
+"Covers.com",1,0.00
+"EGR North America",1,0.00
+"Coinbase",1,0.00
+"CN Rail",1,0.00
+"Devdiscourse",1,0.00
+"The Fiji Times",1,0.00
+"City of Lethbridge",1,0.00
+"Durham Radio News",1,0.00
+"Newsmax",1,0.00
+"Brandon Sun",1,0.00
+"The Record",1,0.00
+"Drumheller Online",1,0.00
+"Vulcan Advocate",1,0.00
+"About Islam",1,0.00
+"Bowers Funeral Service",1,0.00
+"The Northern Miner",1,0.00
+"SCOREGolf",1,0.00
+"Country 94",1,0.00
+"Freeskier",1,0.00
+"Golfweek",1,0.00
+"Caribbean National Weekly",1,0.00
+"London Free Press",1,0.00
+"The Senior",1,0.00
+"The Courier",1,0.00
+"Vertical Mag",1,0.00
+"Halifax Examiner",1,0.00
+"Duluth News Tribune",1,0.00
+"Mining.com",1,0.00
+"Langley Advance Times",1,0.00
+"Millstone News",1,0.00
+"Polity.org.za",1,0.00
+"Greenock Telegraph",1,0.00
+"TheNational.scot",1,0.00
+"thegauntlet.ca",1,0.00
+"Action4Canada",1,0.00
+"larongeNOW",1,0.00
+"Transport Action Canada",1,0.00
+"SnowBrains",1,0.00
+"The City of Calgary",1,0.00
+"PortageOnline",1,0.00
+"My Lethbridge Now",1,0.00
+"Canadian Cycling Magazine",1,0.00
+"France 24",1,0.00
+"Tree Frog creative",1,0.00
+"Fairfield Sun Times",1,0.00
+"BurlingtonToday.com",1,0.00
+"Driving",1,0.00
+"PanARMENIAN.Net",1,0.00
+"Phayul",1,0.00
+"The Catholic Register",1,0.00
+"ایران اینترنشنال",1,0.00
+"Catholic Review",1,0.00
+"Guns.com",1,0.00
+"www.centralalbertaonline.com",1,0.00
+"Kingstonist News",1,0.00
+"IMDb",1,0.00
+"IF Magazine",1,0.00
+"Midwestern Newspapers",1,0.00
+"Saugeen Times",1,0.00
+"Sports Betting Dime",1,0.00
+"Oak Bay News",1,0.00
+"HonestReporting Canada",1,0.00
+"Canada's NDP",1,0.00
+"The Free Press",1,0.00
+"espritdecorps",1,0.00
+"Peace Brigades International-Canada",1,0.00
+"The Daily Wire",1,0.00
+"Ceasefire.ca",1,0.00
+"Collision Repair Mag",1,0.00
+"The Guardian Nigeria News",1,0.00
+"Arise News",1,0.00
+"The Suburban Newspaper",1,0.00
+"Punjab News Express",1,0.00
+"Canadian Occupational Safety",1,0.00
+"AUPE",1,0.00
+"Marxist.ca",1,0.00
+"Coast Mountain News",1,0.00
+"MorungExpress",1,0.00
+"International Consortium of Investigative Journalists - ICIJ",1,0.00
+"AccuWeather",1,0.00
+"Jamaica Gleaner",1,0.00
+"CHEK News",1,0.00
+"www.plant.ca",1,0.00
+"Rockford Register Star",1,0.00
+"Estonian World Review",1,0.00
+"Vernon Matters",1,0.00
+"upi",1,0.00
+"SportsPro",1,0.00
+"Blaze Media",1,0.00
+"CHVN Radio",1,0.00
+"BasketballBuzz",1,0.00
+"Canadian Hockey League",1,0.00
+"Haskett Funeral Homes",1,0.00
+"Barksdale Air Force Base (.mil)",1,0.00
+"Loudwire",1,0.00
+"MJBizDaily",1,0.00
+"Southgate News Herald",1,0.00
+"Baird Maritime",1,0.00
+"The Ubyssey",1,0.00
+"Jasper Fitzhugh",1,0.00
+"Mortgage Professional America",1,0.00
+"Cambridge University Press &amp; Assessment",1,0.00
+"CMAJ Open",1,0.00
+"University of Saskatchewan",1,0.00
+"SAP News Center",1,0.00
+"The Kyiv Independent",1,0.00
+"Anti-Defamation League",1,0.00
+"War on the Rocks",1,0.00
+"The Ditch",1,0.00
+"Library of Congress (.gov)",1,0.00
+"Human Rights Watch",1,0.00
+"Fordham International Law Journal",1,0.00
+"Balkan Insight",1,0.00
+"The Jamestown Foundation",1,0.00
+"Native News Online",1,0.00
+"Carnegie Endowment for International Peace",1,0.00
+"High North News",1,0.00
+"Wavell Room",1,0.00
+"19FortyFive",1,0.00
+"Pinsent Masons",1,0.00
+"The London School of Economics and Political Science",1,0.00
+"Policy Exchange",1,0.00
+"Atlantic Council",1,0.00
+"Autosport",1,0.00
+"European Consortium for Political Research (ECPR)",1,0.00
+"The Herald",1,0.00
+"Ibrox News",1,0.00
+"Fraser Valley Today",1,0.00
+"106.9 The X",1,0.00
+"GearJunkie",1,0.00
+"Canadian Auto Dealer",1,0.00
+"thephilbiznews",1,0.00
+"CODE Sports",1,0.00
+"Pipeline Online",1,0.00
+"Grocery Business Magazine",1,0.00
+"BreakingNews.ie",1,0.00
+"Ford From the Road",1,0.00
+"Shelby County Reporter",1,0.00
+"News Ghana",1,0.00
+"Football Insider",1,0.00
+"Liverpool Echo",1,0.00
+"Bleacher Report",1,0.00
+"Billboard Canada",1,0.00
+"HPAC Magazine",1,0.00
+"Newsroom Calgary",1,0.00
+"Global Taiwan Institute",1,0.00
+"IndieWire",1,0.00
+"Playbill",1,0.00
+"Snopes.com",1,0.00
+"Olympics.com",1,0.00
+"OrilliaMatters.com",1,0.00
+"Diamond Schmitt",1,0.00
+"National Council of Resistance of Iran - NCRI",1,0.00
+"West Ham Zone",1,0.00
+"Goodison News",1,0.00
+"Variety",1,0.00
+"OneFootball",1,0.00
+"LondonWorld",1,0.00
+"Yorkshire Post",1,0.00
+"agendaNi",1,0.00
+"The72",1,0.00
+"TheHardTackle.com",1,0.00
+"The Irish News",1,0.00
+"The Christian Institute",1,0.00
+"La Scena Musicale",1,0.00
+"TVGuide.com",1,0.00
+"Yahoo Entertainment",1,0.00
+"Yahoo Finance UK",1,0.00
+"LawNow Magazine",1,0.00
+"The Georgia Straight",1,0.00
+"The Pointer",1,0.00
+"POLITICO Pro",1,0.00
+"Canadian Lawyer Magazine",1,0.00
+"وكالة أنباء البحرين",1,0.00
+"Boundary Creek Times",1,0.00
+"TVO Today",1,0.00
+"CFWE",1,0.00
+"Duke Today",1,0.00
+"Newsclick",1,0.00
+"The News International",1,0.00
+"The Kashmir Horizon",1,0.00
+"Kashmir Convener",1,0.00
+"24 News HD",1,0.00
+"Evan J. Strong Funeral Home",1,0.00
+"Avenue Calgary",1,0.00
+"Broadview Magazine",1,0.00
+"Data Centre Magazine",1,0.00
+"Pharmaceutical Online",1,0.00
+"PocketGamer.biz",1,0.00
+"Village Report",1,0.00
+"Potato News Today",1,0.00
+"PotatoPro",1,0.00
+"SenCanada",1,0.00
+"Philanthropy News Digest",1,0.00
+"World Nuclear News",1,0.00
+"Osler, Hoskin &amp; Harcourt LLP",1,0.00
+"The National Telegraph",1,0.00
+"Southern Poverty Law Center",1,0.00
+"The Journal",1,0.00
+"necrocanada",1,0.00
+"Alexander &amp; Houle Funeral Home",1,0.00
+"Deadline",1,0.00
+"BP Sports Niagara",1,0.00
+"Fair Observer",1,0.00
+"Ladysmith Chemainus Chronicle",1,0.00
+"The Abbotsford News",1,0.00
+"www.greenpeace.org",1,0.00
+"Science | AAAS",1,0.00
+"Grist.org",1,0.00
+"New Statesman",1,0.00
+"CIC News",1,0.00
+"Liberal Party of Canada",1,0.00
+"EnergyNow.com",1,0.00
+"The Daily Beast",1,0.00
+"Leger",1,0.00
+"Victoria Buzz",1,0.00
+"Cryptopolitan",1,0.00
+"Business Today",1,0.00
+"Mitrade",1,0.00
+"Clean Energy Canada",1,0.00
+"PBS",1,0.00
+"NBC News",1,0.00
+"The Japan Times",1,0.00
+"Vox",1,0.00
+"Foundation for Economic Education",1,0.00
+"Yahoo Lifestyle Canada",1,0.00
+"CityNews Montreal",1,0.00
+"springmag.ca",1,0.00
+"Fox News",1,0.00
+"Cointelegraph",1,0.00
+"Financial Express",1,0.00
+"CCN.com",1,0.00
+"Outlook India",1,0.00
+"Times Now",1,0.00
+"Firstpost",1,0.00
+"The Week",1,0.00
+"Republic World",1,0.00
+"AFR",1,0.00
+"The Gazette • Western University's Newspaper",1,0.00
+"The Federalist",1,0.00
+"Spiked",1,0.00
+"Pulp and Paper Canada",1,0.00
+"Kiddaan",1,0.00
+"Yahoo Canada Sports",1,0.00
+"Wealth Professional",1,0.00
+"RealClearMarkets",1,0.00
+"The True North Times",1,0.00
+"www.crea.ca",1,0.00
+"Land Line Media",1,0.00
+"The West Australian",1,0.00
+"Farm Weekly",1,0.00
+"North Island Gazette",1,0.00
+"Manitoba Co-operator",1,0.00
+"Philstar.com",1,0.00
+"Bilyonaryo Business News",1,0.00
+"Farmonaut",1,0.00
+"ABP Daily",1,0.00
+"cfweradio.ca",1,0.00
+"Construction Canada",1,0.00
+"PembinaValleyOnline",1,0.00
+"Brisbane Times",1,0.00
+"Horse Canada",1,0.00
+"This Magazine",1,0.00
+"USW Canada",1,0.00
+"backpagefootball.com",1,0.00
+"Inequality.org",1,0.00
+"Yahoo Life UK",1,0.00
+"Deepdale Digest",1,0.00
+"The Celtic Way",1,0.00
+"FootballFanCast",1,0.00
+"Goal.com",1,0.00
+"RSVP Live",1,0.00
+"Mayerthorpe Freelancer",1,0.00
+"Canadian Chamber of Commerce",1,0.00
+"Simon Fraser University",1,0.00
+"www.connectedtoindia.com",1,0.00
+"Church News",1,0.00
+"Alberta Innovates",1,0.00
+"Intelligent Living",1,0.00
+"Brampton Guardian",1,0.00
+"The PIE News",1,0.00
+"Algemeiner.com",1,0.00
+"Metalocus",1,0.00
+"Philippine Canadian Inquirer",1,0.00
+"The Real News Network",1,0.00
+"Canadian Geographic",1,0.00
+"Infotel.ca",1,0.00
+"CJPME",1,0.00
+"The New Arab",1,0.00
+"Obesity Canada",1,0.00
+"The961",1,0.00

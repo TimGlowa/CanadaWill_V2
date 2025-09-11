@@ -1,0 +1,889 @@
+{
+  "backupDate": "2025-09-11T02:14:26.376Z",
+  "description": "Complete backup of article data for all 121 Alberta officials",
+  "statistics": {
+    "totalOfficials": 121,
+    "officialsWithArticles": 6,
+    "officialsWithoutArticles": 115,
+    "totalArticles": 59,
+    "totalSize": 75073,
+    "dateRange": {
+      "earliest": "2025-07-20",
+      "latest": "2025-08-15"
+    },
+    "sources": [
+      "CBC News",
+      "New York Post",
+      "National Observer",
+      "Yahoo Entertainment",
+      "Financial Post",
+      "Freerepublic.com",
+      "gcaptain.com",
+      "Rigzone",
+      "National Post"
+    ],
+    "officials": [
+      {
+        "slug": "adriana-lagrange",
+        "name": "Adriana LaGrange",
+        "articleCount": 2,
+        "fileSize": 2301,
+        "hasArticles": true
+      },
+      {
+        "slug": "amanda-chapman",
+        "name": "Amanda Chapman",
+        "articleCount": 0,
+        "fileSize": 183,
+        "hasArticles": false
+      },
+      {
+        "slug": "andrew-boitchenko",
+        "name": "Andrew Boitchenko",
+        "articleCount": 0,
+        "fileSize": 189,
+        "hasArticles": false
+      },
+      {
+        "slug": "angela-pitt",
+        "name": "Angela Pitt",
+        "articleCount": 0,
+        "fileSize": 177,
+        "hasArticles": false
+      },
+      {
+        "slug": "arnold-viersen",
+        "name": "Arnold Viersen",
+        "articleCount": 0,
+        "fileSize": 183,
+        "hasArticles": false
+      },
+      {
+        "slug": "blaine-calkins",
+        "name": "Blaine Calkins",
+        "articleCount": 0,
+        "fileSize": 183,
+        "hasArticles": false
+      },
+      {
+        "slug": "blake-desjarlais",
+        "name": "Blake Desjarlais",
+        "articleCount": 0,
+        "fileSize": 187,
+        "hasArticles": false
+      },
+      {
+        "slug": "blake-richards",
+        "name": "Blake Richards",
+        "articleCount": 0,
+        "fileSize": 183,
+        "hasArticles": false
+      },
+      {
+        "slug": "brandon-lunty",
+        "name": "Brandon Lunty",
+        "articleCount": 0,
+        "fileSize": 181,
+        "hasArticles": false
+      },
+      {
+        "slug": "brian-jeankc",
+        "name": "Brian Jean, KC",
+        "articleCount": 0,
+        "fileSize": 181,
+        "hasArticles": false
+      },
+      {
+        "slug": "brooks-arcandpaul",
+        "name": "Brooks Arcand-Paul",
+        "articleCount": 0,
+        "fileSize": 190,
+        "hasArticles": false
+      },
+      {
+        "slug": "chantelle-dejonge",
+        "name": "Chantelle de Jonge",
+        "articleCount": 0,
+        "fileSize": 190,
+        "hasArticles": false
+      },
+      {
+        "slug": "chelsae-petrovic",
+        "name": "Chelsae Petrovic",
+        "articleCount": 0,
+        "fileSize": 187,
+        "hasArticles": false
+      },
+      {
+        "slug": "chris-warkentin",
+        "name": "Chris Warkentin",
+        "articleCount": 0,
+        "fileSize": 185,
+        "hasArticles": false
+      },
+      {
+        "slug": "christina-gray",
+        "name": "Christina Gray",
+        "articleCount": 1,
+        "fileSize": 1206,
+        "hasArticles": true
+      },
+      {
+        "slug": "court-ellingson",
+        "name": "Court Ellingson",
+        "articleCount": 0,
+        "fileSize": 185,
+        "hasArticles": false
+      },
+      {
+        "slug": "dale-nally",
+        "name": "Dale Nally",
+        "articleCount": 2,
+        "fileSize": 2096,
+        "hasArticles": true
+      },
+      {
+        "slug": "damien-kurek",
+        "name": "Damien Kurek",
+        "articleCount": 6,
+        "fileSize": 6584,
+        "hasArticles": true
+      },
+      {
+        "slug": "dan-williams",
+        "name": "Dan Williams",
+        "articleCount": 0,
+        "fileSize": 179,
+        "hasArticles": false
+      },
+      {
+        "slug": "dane-lloyd",
+        "name": "Dane Lloyd",
+        "articleCount": 0,
+        "fileSize": 175,
+        "hasArticles": false
+      },
+      {
+        "slug": "danielle-smith",
+        "name": "Danielle Smith",
+        "articleCount": 44,
+        "fileSize": 43767,
+        "hasArticles": true
+      },
+      {
+        "slug": "david-eggen",
+        "name": "David Eggen",
+        "articleCount": 0,
+        "fileSize": 177,
+        "hasArticles": false
+      },
+      {
+        "slug": "david-shepherd",
+        "name": "David Shepherd",
+        "articleCount": 0,
+        "fileSize": 183,
+        "hasArticles": false
+      },
+      {
+        "slug": "demetrios-nicolaides",
+        "name": "Demetrios Nicolaides",
+        "articleCount": 0,
+        "fileSize": 195,
+        "hasArticles": false
+      },
+      {
+        "slug": "devin-dreeshen",
+        "name": "Devin Dreeshen",
+        "articleCount": 4,
+        "fileSize": 4247,
+        "hasArticles": true
+      },
+      {
+        "slug": "diana-batten",
+        "name": "Diana Batten",
+        "articleCount": 0,
+        "fileSize": 179,
+        "hasArticles": false
+      },
+      {
+        "slug": "earl-dreeshen",
+        "name": "Earl Dreeshen",
+        "articleCount": 0,
+        "fileSize": 181,
+        "hasArticles": false
+      },
+      {
+        "slug": "eric-bouchard",
+        "name": "Eric Bouchard",
+        "articleCount": 0,
+        "fileSize": 181,
+        "hasArticles": false
+      },
+      {
+        "slug": "garnett-genuis",
+        "name": "Garnett Genuis",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "garth-rowswell",
+        "name": "Garth Rowswell",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "george-chahal",
+        "name": "George Chahal",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "gerald-soroka",
+        "name": "Gerald Soroka",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "glen-motz",
+        "name": "Glen Motz",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "glenn-vandijken",
+        "name": "Glenn van Dijken",
+        "articleCount": 0,
+        "fileSize": 121,
+        "hasArticles": false
+      },
+      {
+        "slug": "grant-hunter",
+        "name": "Grant Hunter",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "greg-mclean",
+        "name": "Greg McLean",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "gurinder-brar",
+        "name": "Gurinder Brar",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "gurtej-brarmemberelect",
+        "name": "Gurtej Brar - Member-elect",
+        "articleCount": 0,
+        "fileSize": 138,
+        "hasArticles": false
+      },
+      {
+        "slug": "heather-mcpherson",
+        "name": "Heather McPherson",
+        "articleCount": 0,
+        "fileSize": 124,
+        "hasArticles": false
+      },
+      {
+        "slug": "heather-sweet",
+        "name": "Heather Sweet",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "irfan-sabir",
+        "name": "Irfan Sabir",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "jackie-armstronghomeniuk",
+        "name": "Jackie Armstrong-Homeniuk",
+        "articleCount": 0,
+        "fileSize": 139,
+        "hasArticles": false
+      },
+      {
+        "slug": "jackie-lovely",
+        "name": "Jackie Lovely",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "janet-eremenko",
+        "name": "Janet Eremenko",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "janis-irwin",
+        "name": "Janis Irwin",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "jason-nixon",
+        "name": "Jason Nixon",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "jason-stephan",
+        "name": "Jason Stephan",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "jasrajsingh-hallan",
+        "name": "Jasraj Singh Hallan",
+        "articleCount": 0,
+        "fileSize": 127,
+        "hasArticles": false
+      },
+      {
+        "slug": "jasvir-deol",
+        "name": "Jasvir Deol",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "jennifer-johnson",
+        "name": "Jennifer Johnson",
+        "articleCount": 0,
+        "fileSize": 122,
+        "hasArticles": false
+      },
+      {
+        "slug": "jodi-calahoostonehouse",
+        "name": "Jodi Calahoo Stonehouse",
+        "articleCount": 0,
+        "fileSize": 135,
+        "hasArticles": false
+      },
+      {
+        "slug": "joe-ceci",
+        "name": "Joe Ceci",
+        "articleCount": 0,
+        "fileSize": 106,
+        "hasArticles": false
+      },
+      {
+        "slug": "john-barlow",
+        "name": "John Barlow",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "joseph-schow",
+        "name": "Joseph Schow",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "julia-hayter",
+        "name": "Julia Hayter",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "justin-wright",
+        "name": "Justin Wright",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "kathleen-ganley",
+        "name": "Kathleen Ganley",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "kelly-mccauley",
+        "name": "Kelly McCauley",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "kyle-kasawski",
+        "name": "Kyle Kasawski",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "laila-goodridge",
+        "name": "Laila Goodridge",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "len-webber",
+        "name": "Len Webber",
+        "articleCount": 0,
+        "fileSize": 110,
+        "hasArticles": false
+      },
+      {
+        "slug": "lizette-tejada",
+        "name": "Lizette Tejada",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "lori-sigurdson",
+        "name": "Lori Sigurdson",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "lorne-dach",
+        "name": "Lorne Dach",
+        "articleCount": 0,
+        "fileSize": 110,
+        "hasArticles": false
+      },
+      {
+        "slug": "luanne-metz",
+        "name": "Luanne Metz",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "marie-renaud",
+        "name": "Marie Renaud",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "marlin-schmidt",
+        "name": "Marlin Schmidt",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "martin-long",
+        "name": "Martin Long",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "martin-shields",
+        "name": "Martin Shields",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "matt-jeneroux",
+        "name": "Matt Jeneroux",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "matt-jones",
+        "name": "Matt Jones",
+        "articleCount": 0,
+        "fileSize": 110,
+        "hasArticles": false
+      },
+      {
+        "slug": "michael-cooper",
+        "name": "Michael Cooper",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "michellerempel-garner",
+        "name": "Michelle Rempel Garner",
+        "articleCount": 0,
+        "fileSize": 133,
+        "hasArticles": false
+      },
+      {
+        "slug": "mickey-amerykc",
+        "name": "Mickey Amery, KC",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "mike-ellis",
+        "name": "Mike Ellis",
+        "articleCount": 0,
+        "fileSize": 110,
+        "hasArticles": false
+      },
+      {
+        "slug": "mike-lake",
+        "name": "Mike Lake",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "muhammad-yaseen",
+        "name": "Muhammad Yaseen",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "myles-mcdougall",
+        "name": "Myles McDougall",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "nagwan-alguneid",
+        "name": "Nagwan Al-Guneid",
+        "articleCount": 0,
+        "fileSize": 121,
+        "hasArticles": false
+      },
+      {
+        "slug": "naheed-nenshimemberelect",
+        "name": "Naheed Nenshi - Member-elect",
+        "articleCount": 0,
+        "fileSize": 142,
+        "hasArticles": false
+      },
+      {
+        "slug": "nate-glubish",
+        "name": "Nate Glubish",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "nate-horner",
+        "name": "Nate Horner",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "nathan-ip",
+        "name": "Nathan Ip",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "nathan-neudorf",
+        "name": "Nathan Neudorf",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "nicole-goehring",
+        "name": "Nicole Goehring",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "nolan-dyck",
+        "name": "Nolan Dyck",
+        "articleCount": 0,
+        "fileSize": 110,
+        "hasArticles": false
+      },
+      {
+        "slug": "parmeet-boparai",
+        "name": "Parmeet Boparai",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "pat-kelly",
+        "name": "Pat Kelly",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "peggy-wright",
+        "name": "Peggy Wright",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "pete-guthrie",
+        "name": "Pete Guthrie",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "peter-singh",
+        "name": "Peter Singh",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "rachael-thomas",
+        "name": "Rachael Thomas",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "rajan-sawhney",
+        "name": "Rajan Sawhney",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "rakhi-pancholi",
+        "name": "Rakhi Pancholi",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "randy-boissonnault",
+        "name": "Randy Boissonnault",
+        "articleCount": 0,
+        "fileSize": 126,
+        "hasArticles": false
+      },
+      {
+        "slug": "rebecca-schulz",
+        "name": "Rebecca Schulz",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "rhiannon-hoyle",
+        "name": "Rhiannon Hoyle",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "ric-mciver",
+        "name": "Ric McIver",
+        "articleCount": 0,
+        "fileSize": 110,
+        "hasArticles": false
+      },
+      {
+        "slug": "rick-wilson",
+        "name": "Rick Wilson",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "rj-sigurdson",
+        "name": "R.J. Sigurdson",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "rob-miyashiro",
+        "name": "Rob Miyashiro",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "ron-liepert",
+        "name": "Ron Liepert",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "ron-wiebe",
+        "name": "Ron Wiebe",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "samir-kayande",
+        "name": "Samir Kayande",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "sarah-elmeligi",
+        "name": "Sarah Elmeligi",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "sarah-hoffman",
+        "name": "Sarah Hoffman",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "scott-cyr",
+        "name": "Scott Cyr",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "scott-sinclair",
+        "name": "Scott Sinclair",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "searle-turton",
+        "name": "Searle Turton",
+        "articleCount": 0,
+        "fileSize": 116,
+        "hasArticles": false
+      },
+      {
+        "slug": "shane-getson",
+        "name": "Shane Getson",
+        "articleCount": 0,
+        "fileSize": 114,
+        "hasArticles": false
+      },
+      {
+        "slug": "shannon-stubbs",
+        "name": "Shannon Stubbs",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      },
+      {
+        "slug": "sharif-haji",
+        "name": "Sharif Haji",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "shuvaloy-majumdar",
+        "name": "Shuvaloy Majumdar",
+        "articleCount": 0,
+        "fileSize": 124,
+        "hasArticles": false
+      },
+      {
+        "slug": "stephanie-kusie",
+        "name": "Stephanie Kusie",
+        "articleCount": 0,
+        "fileSize": 120,
+        "hasArticles": false
+      },
+      {
+        "slug": "tany-yao",
+        "name": "Tany Yao",
+        "articleCount": 0,
+        "fileSize": 106,
+        "hasArticles": false
+      },
+      {
+        "slug": "tanya-fir",
+        "name": "Tanya Fir",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "tara-sawyermemberelect",
+        "name": "Tara Sawyer - Member-elect",
+        "articleCount": 0,
+        "fileSize": 138,
+        "hasArticles": false
+      },
+      {
+        "slug": "tim-uppal",
+        "name": "Tim Uppal",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "todd-loewen",
+        "name": "Todd Loewen",
+        "articleCount": 0,
+        "fileSize": 112,
+        "hasArticles": false
+      },
+      {
+        "slug": "tom-kmiec",
+        "name": "Tom Kmiec",
+        "articleCount": 0,
+        "fileSize": 108,
+        "hasArticles": false
+      },
+      {
+        "slug": "ziad-aboultaif",
+        "name": "Ziad Aboultaif",
+        "articleCount": 0,
+        "fileSize": 118,
+        "hasArticles": false
+      }
+    ]
+  },
+  "fileStructure": {
+    "articlesDirectory": "articles/",
+    "fileFormat": "JSON",
+    "namingConvention": "{slug}.json",
+    "totalFiles": 121
+  },
+  "usage": {
+    "restoreInstructions": "Extract zip file and process articles through sentiment analysis pipeline",
+    "integrationPoints": [
+      "src/sentiment/sentimentAnalyzer.js",
+      "stances/index.json",
+      "Public dashboard for stance display"
+    ]
+  }
+}

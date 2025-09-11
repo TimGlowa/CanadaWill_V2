@@ -1,5 +1,208 @@
 # Development Log
 
+## 2025-09-10 21:15 CT — **Articles data backup created - news articles frozen in time**
+
+**What was done:**
+- Created comprehensive backup of all JSON article files from Azure container
+- Generated detailed `ARTICLES_BACKUP_README_2025-09-10.md` with statistics and documentation
+- Created zip archive `articles-backup-2025-09-10.zip` (61KB compressed)
+- Committed backup to Git with tag `articles-backup-2025-09-10`
+- Preserved all collected news article data for sentiment analysis processing
+
+**Backup statistics:**
+- **Total Officials**: 121 (all MLAs and MPs)
+- **Officials with Articles**: 6 (5% coverage)
+- **Total Articles**: 59 articles
+- **Date Range**: July 20 - August 15, 2025
+- **File Size**: 75KB uncompressed, 61KB compressed
+- **Sources**: 9 unique news sources (CBC News, Yahoo Entertainment, National Observer, etc.)
+
+**Key officials with articles:**
+- **Danielle Smith** (Premier): 44 articles (74% of all articles)
+- **Damien Kurek** (MP): 6 articles
+- **Devin Dreeshen** (MLA): 4 articles  
+- **Dale Nally** (MLA): 2 articles
+- **Adriana LaGrange** (MLA): 2 articles
+- **Christina Gray** (MLA): 1 article
+
+**Backup contents:**
+- Complete directory structure with 121 JSON files
+- Comprehensive README with usage instructions
+- Detailed summary.json with statistics and metadata
+- Backup script for future use
+- All files ready for sentiment analysis processing
+
+**Purpose:**
+- Preserve collected news article data before processing
+- Provide rollback capability if data is lost or corrupted
+- Enable offline analysis and development
+- KISS solution using Git tags and zip compression
+
+**Evidence:**
+- Git commit `fb6b687` with complete articles backup
+- Git tag `articles-backup-2025-09-10` marking stable checkpoint
+- Zip archive contains all 121 JSON files plus documentation
+- Ready for integration with sentiment analysis pipeline
+
+## 2025-09-10 21:09 CT — **Azure code backup created - stable checkpoint for rollback**
+
+**What was done:**
+- Created comprehensive backup of Azure-deployed code in `backend/express-ingest/`
+- Generated detailed `BACKUP_README_2025-09-10.md` documenting current system state
+- Committed backup to Git with tag `azure-backup-2025-09-10`
+- Captured working sentiment analysis pipeline and enhanced query builder
+
+**Backup contents:**
+- Complete Express.js API with sentiment analysis endpoints
+- Enhanced query builder implementing PRD v4.0 strategy
+- Three-agent AI pipeline (relevance, stance scoring, verification)
+- Azure Blob Storage integration with proper data organization
+- Working endpoints: health, sentiment test/analyze, SERPHouse integration
+- Test utilities and debugging endpoints
+- All configuration files and dependencies
+
+**Current system status (frozen in backup):**
+- ✅ Azure App Service running (`canadawill-ingest`)
+- ✅ Health endpoint responding
+- ✅ Sentiment analyzer initialized
+- ✅ SERPHouse API integration working
+- ✅ Azure Blob Storage connected
+- ❌ Missing node_modules in production (OpenAI, Anthropic SDKs)
+- ❌ CI/CD pipeline not installing dependencies properly
+
+**Backup purpose:**
+- Rollback capability if future changes break system
+- Reference point for continued development
+- Documentation of working state before major changes
+- KISS solution using Git tags for version control
+
+**Evidence:**
+- Git commit `009bf69` with comprehensive backup
+- Git tag `azure-backup-2025-09-10` marking stable checkpoint
+- Complete documentation in `BACKUP_README_2025-09-10.md`
+- All source code and configuration preserved
+
+## 2025-09-09 18:19 CT — **Phase-1 ingest running; storage writes confirmed; roster now backgrounded**
+
+**What changed (today):**
+
+* Added missing runtime SDK: **@azure/storage-blob** to backend package (fix for "no writes").
+* Restored **storing endpoints** and added **background roster runner** + **progress tracker**:
+
+  * **Start:** `/api/news/serp/backfill-roster/start?days=365&delayMs=300`
+  * **Progress:** `/api/news/serp/backfill-roster/progress?runId=<id>`
+* Fixed roster path: **ROSTER_PATH=express-ingest/data/ab-roster-transformed.json** (portal).
+* Kept container default = **news**; writes target `news/raw/serp/<slug>/<timestamp>.json`.
+
+**Evidence (ground truth):**
+
+* **Storage:** new slug folders present under **news/raw/serp** (e.g., `danielle-smith`, `jasraj-hallan`, `blake-richards`, `pierre-poilievre`, `eleanor-olszewski`).
+* **Single-person proof:** 7-day run wrote ~**5.2 MB** blob (`count=1383`) for *danielle-smith*.
+* **SERPHouse usage:** credits increased today (dashboard spike).
+* **Readiness:** selftest **ok:true**; env shows `{"hasConn":true,"container":"news"}`.
+* **HTTP stability:** long roster runs moved off the request thread (fix for prior 504s).
+
+**Roster run IDs (today):**
+
+* **A:** `2025-09-09T22-48-50-539Z` — **stuck** at `processed:0` (ignore).
+* **B:** `2025-09-09T22-56-09-535Z` — **active**; progress advancing.
+
+**Progress snapshot (Run B):**
+
+* JSON at **23:09:08.842Z** → `{ total:121, processed:4, lastSlug:"eleanor-olszewski" }`
+* Elapsed: **12m 59.292s** from start (22:56:09.550Z).
+* Rate: **3.25 min/official** (≈ **18.5 officials/hour**).
+* Remaining: **117** officials at that instant.
+
+**Root causes closed:**
+
+1. **No writes** due to missing storage SDK → **fixed** by adding `@azure/storage-blob`.
+2. Using **non-storing route** → **fixed** by restoring storing endpoints.
+3. **Request timeouts** on roster runs → **fixed** by backgrounding with a tracker.
+
+**How to monitor (KISS):**
+
+* **Progress:** `/api/news/serp/backfill-roster/progress?runId=<id>` → watch `processed` climb and `updatedAt` change.
+* **Storage growth:** Azure → **canadawillfuncstore2 / news / raw/serp/** → new JSON files appear under many slugs during the run.
+* If `processed` stalls and `updatedAt` stops changing, start a new run and note the new **runId**.
+
+**Current status:** **Running** (Run B). Writes landing in **news**; progress increasing; timeouts eliminated.
+
+## 2025-09-10 07:16 CT — **Phase-1 roster backfill completed successfully**
+
+**Status:** ✅ Roster backfill completed (Phase 1)
+
+**Run Details:**
+* **Run ID:** `2025-09-09T22-56-09-535Z`
+* **Scope:** 121 officials, **window:** last 365 days, **container:** `news`
+* **Progress endpoint:** `/api/news/serp/backfill-roster/progress`
+  * **total:** 121 • **processed:** 121 • **lastSlug:** `martin-long`
+
+**Timing (UTC):**
+* **Start:** `2025-09-09 22:56:09.550`
+* **End:** `2025-09-10 05:54:02.003`
+* **Duration:** ~ **6h 57m 52s**
+
+**Outputs:**
+* Per-official JSON blobs written under `news/raw/serp/<slug>/YYYY-MM-DDTHH-MM-SS-mmmZ.json`
+* **Errors:** none reported by progress monitor; run completed cleanly
+
+**Notes / Known issues:**
+* Earlier runs (before this log) allowed saves where `date` was null or outside the 12-month window and admitted election-only articles. This is already flagged and awaiting your direction for cleanup and gating.
+
+**Next actions (pending your approval):**
+* Enforce **hard 365-day gate** and **on-topic check** at write time.
+* Purge any blobs that violate those two rules (historical or election-only).
+
+## 2025-09-09 13:46 CT — **No files in news after backfill – root cause identified**
+
+**What we did (today):**
+
+* Ran readiness: selftest OK, env shows `{"STORAGE":{"hasConn":true,"container":"news"}}`.
+* Kicked off backfill (12 months, store on).
+* Checked Storage → canadawillfuncstore2 / news → no blobs (screenshot 13:45 CT).
+
+**What this means:**
+
+The collector started (selftest/env OK), but the store-to-blob step did not execute.
+
+**Why (root cause, evidence-based):**
+
+In our runtime, storing requires two conditions:
+
+1. `AZURE_STORAGE_CONNECTION` present (env check = true), and
+2. The Azure Storage SDK loads (`@azure/storage-blob`).
+
+After we sanitized `express-ingest/package.json` and moved runtime deps to `backend/package.json`, we added `axios` but did not add `@azure/storage-blob`.
+
+When that library is missing, the helper short-circuits storing (no exception; it simply returns without writing).
+
+This exactly matches today's symptom: collector runs; no blobs appear; no crash.
+
+**Not the cause:**
+
+* Container name (set to news).
+* Credentials presence (env shows hasConn:true).
+* Entry point (app responds; selftest OK).
+* RFZ/OneDeploy (site is serving the new build).
+
+**Impact:**
+
+Phase-1 fetches ran, but nothing was written to Storage. No raw JSON exists for today's run.
+
+**Fix (KISS):**
+
+Add `@azure/storage-blob` as a runtime dependency where the app installs and runs (the same place we added axios), redeploy, and re-run backfill with store=1.
+
+Verify by watching `news/raw/serp/<slug>/` populate within 1–2 minutes.
+
+**Next verification after fix:**
+
+1. `/api/news/serp/selftest` → still ok:true.
+2. `/api/news/serp/env` → container:"news".
+3. Start backfill (365 days, store=1).
+4. Storage → news/raw/serp shows new timestamped JSON per slug (ground truth)
+
 ## 2025-09-08 21:01 CT — **RESOLVED: SERPHouse routes live; writes unified to `news`**
 
 **Root cause (confirmed):**
@@ -4036,3 +4239,81 @@ SERP payload keys varied; parsers expected the wrong shape, returning empty arra
 
 **Fallback 404 gate too early**
 Catch-all fallback returned "Not found (fallback)" before helper routes could respond, hiding the underlying require failure.
+
+## 2025-09-10 14:11 CT — **Complete Handover Summary (README replacement)**
+
+**Development Log Update (Chronological, CT)**
+
+**2025-09-08 16:43 CT** — Root cause isolated for missing SERPHouse routes: wrong artifact and helper/dist/providers/serphouseClient.js absent; app started express-ingest/ingest.js, diagnostics unavailable.
+
+**2025-09-08 ~20:29 CT** — SERPHouse routes confirmed working:
+- GET /api/serp/test → success JSON
+- GET /api/news/serp/backfill-run?who=danielle-smith&days=365&store=1 → executed and stored
+- GET /api/health → healthy JSON
+
+Notes: container default set to "news" and working; axios missing surfaced later and was fixed.
+
+**2025-09-08 20:42 CT** — Env readout confirmed container name "news"; alignment issue ("articles" vs "news") resolved to "news".
+
+**2025-09-09 13:45–15:06 CT** — Backfill attempts produced timeouts/504s intermittently; Kudu VFS unauthenticated (401) when checked via browser; storage SDK missing identified; added @azure/storage-blob; health remained OK.
+
+**2025-09-09 17:31 CT** — Single official backfill returned:
+```json
+{"ok":true,"who":"danielle-smith","days":7,"count":1383,"stored":{"stored":true,"container":"news","key":"raw/serp/danielle-smith/2025-09-09T22-26-45-660Z.json"}}
+```
+Confirms storage write to container "news".
+
+**2025-09-09 17:48 CT** — Roster backfill started:
+```json
+{"ok":true,"message":"Roster backfill started","runId":"2025-09-09T22-48-50-539Z","days":365,"delayMs":300,"total":121}
+```
+
+**2025-09-09 17:59–18:03 CT** — Progress samples:
+- processed: 1 (lastSlug: "jasraj-hallan")
+- processed: 2 (lastSlug: "pierre-poilievre")
+
+**2025-09-10 00:54 CT** — Roster backfill complete:
+```json
+{"ok":true,"runId":"2025-09-09T22-56-09-535Z","days":365,"total":121,"processed":121,"lastSlug":"martin-long","startedAt":"2025-09-09T22:56:09.550Z","updatedAt":"2025-09-10T05:54:02.003Z"}
+```
+
+**2025-09-10 07:16 CT** — Development log entry marked: Phase 1 SERPHouse scrape complete for 121 officials with storage in "news"; ready to proceed to filtering/triage without deletions.
+
+**Earlier deploy & CI issues (CT where known or date-only):**
+
+**2025-09-08 (multiple)** — Deployment failed with:
+Error: Publish profile is invalid for app-name and slot-name provided. (app-name/secret mismatch)
+
+**2025-09-08 (multiple)** — npm step logged:
+This is not the tsc command you are looking for (TypeScript missing via npx); resolved by installing typescript.
+
+**2025-09-08–09** — Whoami showed /home/site/wwwroot/express-ingest/ingest.js; Procfile/package.json toggles didn't switch runtime; eventual routes available from server.js after fixes/asset corrections.
+
+**2025-09-09** — Axios missing error on /api/news/serp/selftest fixed by adding dependency; env endpoint continued to reflect "STORAGE":{"hasConn":true,"container":"news"}.
+
+**Scope/guardrails recorded (CT):**
+
+**2025-09-09–10** — User direction re: date gates and retention: do not delete; move off-topic items to to_be_deleted for later review; fixed reference date 2025-09-10; reruns permitted; expansion to mayors requested; BI view to remain KISS; backups required.
+
+**Working style (user):**
+- Explicit instruction adherence; no unapproved assumptions
+- Facts only; deterministic behaviors; CT timestamps
+- Keep audit trails; review "to be deleted" before removal
+
+## 2025-09-10 21:06 CT — **Complete Handover Summary (final)**
+
+**Design scope locked**: F2 triage uses reference date **2025-09-10**; off-topic items move to `to_be_deleted/*`; no deletions. Labels set to Pro Canada, Pro Separation, No Comment; statehood maps to Pro Separation unless explicit pro-Canada rebuttal.
+
+**Infra truth confirmed**: RG `CanadaWill-prod2-rg`; App Insights `canadawill-ingest`; Storage `canadawillfuncstore2`; container `news`.
+
+**CI/CD confirmed**: Active workflows `deploy-backend.yml`, `ci.yml`, `auto-merge-enable.yml`; deploy via publish profile secret; Node 20.19.4; workflow stages `server.js` as prod entry.
+
+**Providers set**: SERPHouse only in production; NewsAPI/NewsDataIO optional but not configured; keys intentionally absent.
+
+**Storage schema fixed**: `raw/serp/<slug>/<ISO>.json`; review queue `to_be_deleted/<slug>/<ISO>.json`.
+
+**Telemetry**: App Insights required; Functions `host.json` sampling exclusion noted as legacy with no effect on Express.
+
+**KISS next steps defined**: Telemetry lock, F2 triage routing, mayors gating, observability checks, verification checklist.
+
+**Still needed from Azure portal**: Log Stream (20-40 lines), Kudu filenames, full YAML workflows.

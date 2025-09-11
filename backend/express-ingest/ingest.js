@@ -285,6 +285,47 @@ app.post('/api/relevance/inventory', async (req, res) => {
   }
 });
 
+/** Debug endpoint **/
+app.get('/api/relevance/test-one', async (req, res) => {
+  try {
+    const { slug, file, limit = 5 } = req.query;
+    
+    if (!slug || !file) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required parameters',
+        message: 'Both slug and file parameters are required'
+      });
+    }
+    
+    console.log(`🔍 Debug test: processing ${limit} articles from ${slug}/${file}`);
+    
+    const screener = new RelevanceScreener();
+    const blobPath = `raw/serp/${slug}/${file}`;
+    
+    // Process just this one blob with limit
+    await screener.processBlobFile(blobPath, { testMode: true, testLimit: parseInt(limit) });
+    
+    res.json({
+      success: true,
+      message: `Debug test completed for ${slug}/${file} (limit: ${limit})`,
+      slug,
+      file,
+      limit: parseInt(limit),
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('❌ Debug test failed:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Debug test failed',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Debug endpoint to test blob discovery
 app.get('/api/relevance/debug-discovery', async (req, res) => {
   try {

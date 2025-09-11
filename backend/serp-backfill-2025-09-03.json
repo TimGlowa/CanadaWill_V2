@@ -1,0 +1,970 @@
+[
+  {
+    "slug": "jasraj-hallan",
+    "name": "Jasraj Hallan",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 41,
+    "timestamp": "2025-09-03T23:12:04.438Z"
+  },
+  {
+    "slug": "pierre-poilievre",
+    "name": "Pierre Poilievre",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:12:12.863Z"
+  },
+  {
+    "slug": "blake-richards",
+    "name": "Blake Richards",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:12:22.186Z"
+  },
+  {
+    "slug": "eleanor-olszewski",
+    "name": "Eleanor Olszewski",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:12:33.403Z"
+  },
+  {
+    "slug": "stephanie-kusie",
+    "name": "Stephanie Kusie",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 40,
+    "timestamp": "2025-09-03T23:12:46.145Z"
+  },
+  {
+    "slug": "garnett-genuis",
+    "name": "Garnett Genuis",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:13:00.350Z"
+  },
+  {
+    "slug": "john-barlow",
+    "name": "John Barlow",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:13:14.663Z"
+  },
+  {
+    "slug": "matt-jeneroux",
+    "name": "Matt Jeneroux",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 33,
+    "timestamp": "2025-09-03T23:13:22.283Z"
+  },
+  {
+    "slug": "david-mckenzie",
+    "name": "David McKenzie",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:13:32.665Z"
+  },
+  {
+    "slug": "glen-motz",
+    "name": "Glen Motz",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 45,
+    "timestamp": "2025-09-03T23:13:40.428Z"
+  },
+  {
+    "slug": "chris-warkentin",
+    "name": "Chris Warkentin",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 49,
+    "timestamp": "2025-09-03T23:13:58.177Z"
+  },
+  {
+    "slug": "dalwinder-gill",
+    "name": "Dalwinder Gill",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 21,
+    "timestamp": "2025-09-03T23:14:05.735Z"
+  },
+  {
+    "slug": "shuvaloy-majumdar",
+    "name": "Shuvaloy Majumdar",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 48,
+    "timestamp": "2025-09-03T23:14:17.466Z"
+  },
+  {
+    "slug": "rachael-thomas",
+    "name": "Rachael Thomas",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:14:32.073Z"
+  },
+  {
+    "slug": "arnold-viersen",
+    "name": "Arnold Viersen",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:15:06.564Z"
+  },
+  {
+    "slug": "michael-cooper",
+    "name": "Michael Cooper",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:15:22.964Z"
+  },
+  {
+    "slug": "heather-mcpherson",
+    "name": "Heather McPherson",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:15:33.286Z"
+  },
+  {
+    "slug": "burton-bailey",
+    "name": "Burton Bailey",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:15:57.439Z"
+  },
+  {
+    "slug": "billy-morin",
+    "name": "Billy Morin",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:16:19.268Z"
+  },
+  {
+    "slug": "tom-kmiec",
+    "name": "Tom Kmiec",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 45,
+    "timestamp": "2025-09-03T23:16:27.974Z"
+  },
+  {
+    "slug": "jagsharan-singh-mahal",
+    "name": "Jagsharan Singh Mahal",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 14,
+    "timestamp": "2025-09-03T23:16:35.245Z"
+  },
+  {
+    "slug": "tim-uppal",
+    "name": "Tim Uppal",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:16:47.434Z"
+  },
+  {
+    "slug": "kerry-diotte",
+    "name": "Kerry Diotte",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:16:55.206Z"
+  },
+  {
+    "slug": "david-bexte",
+    "name": "David Bexte",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 32,
+    "timestamp": "2025-09-03T23:17:10.712Z"
+  },
+  {
+    "slug": "laila-goodridge",
+    "name": "Laila Goodridge",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 48,
+    "timestamp": "2025-09-03T23:17:34.017Z"
+  },
+  {
+    "slug": "mike-lake",
+    "name": "Mike Lake",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:17:43.345Z"
+  },
+  {
+    "slug": "michelle-rempel-garner",
+    "name": "Michelle Rempel Garner",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:17:59.156Z"
+  },
+  {
+    "slug": "kelly-mccauley",
+    "name": "Kelly McCauley",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:18:06.377Z"
+  },
+  {
+    "slug": "pat-kelly",
+    "name": "Pat Kelly",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:18:15.765Z"
+  },
+  {
+    "slug": "greg-mclean",
+    "name": "Greg McLean",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:18:30.003Z"
+  },
+  {
+    "slug": "bob-zimmer",
+    "name": "Bob Zimmer",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:18:38.229Z"
+  },
+  {
+    "slug": "amanpreet-s-gill",
+    "name": "Amanpreet S. Gill",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 28,
+    "timestamp": "2025-09-03T23:18:45.871Z"
+  },
+  {
+    "slug": "corey-hogan",
+    "name": "Corey Hogan",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:18:56.153Z"
+  },
+  {
+    "slug": "ziad-aboultaif",
+    "name": "Ziad Aboultaif",
+    "office": "Member of Parliament",
+    "success": true,
+    "count": 20,
+    "timestamp": "2025-09-03T23:19:05.572Z"
+  },
+  {
+    "slug": "pete-guthrie",
+    "name": "Pete Guthrie",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:19:15.377Z"
+  },
+  {
+    "slug": "angela-pitt",
+    "name": "Angela Pitt",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:19:49.573Z"
+  },
+  {
+    "slug": "glenn-vandijken",
+    "name": "Glenn van Dijken",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:20:03.379Z"
+  },
+  {
+    "slug": "sarah-elmeligi",
+    "name": "Sarah Elmeligi",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 36,
+    "timestamp": "2025-09-03T23:20:12.022Z"
+  },
+  {
+    "slug": "scott-cyr",
+    "name": "Scott Cyr",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 49,
+    "timestamp": "2025-09-03T23:20:20.731Z"
+  },
+  {
+    "slug": "danielle-smith",
+    "name": "Danielle Smith",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:20:44.590Z"
+  },
+  {
+    "slug": "diana-batten",
+    "name": "Diana Batten",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 44,
+    "timestamp": "2025-09-03T23:20:54.316Z"
+  },
+  {
+    "slug": "amanda-chapman",
+    "name": "Amanda Chapman",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:21:03.968Z"
+  },
+  {
+    "slug": "irfan-sabir",
+    "name": "Irfan Sabir",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:21:11.736Z"
+  },
+  {
+    "slug": "demetrios-nicolaides",
+    "name": "Demetrios Nicolaides",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:21:38.454Z"
+  },
+  {
+    "slug": "joe-ceci",
+    "name": "Joe Ceci",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:21:45.730Z"
+  },
+  {
+    "slug": "mickey-amerykc",
+    "name": "Mickey Amery, KC",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:21:53.442Z"
+  },
+  {
+    "slug": "janet-eremenko",
+    "name": "Janet Eremenko",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 14,
+    "timestamp": "2025-09-03T23:22:00.916Z"
+  },
+  {
+    "slug": "peter-singh",
+    "name": "Peter Singh",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:22:09.921Z"
+  },
+  {
+    "slug": "julia-hayter",
+    "name": "Julia Hayter",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 34,
+    "timestamp": "2025-09-03T23:22:33.545Z"
+  },
+  {
+    "slug": "samir-kayande",
+    "name": "Samir Kayande",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 14,
+    "timestamp": "2025-09-03T23:22:42.020Z"
+  },
+  {
+    "slug": "parmeet-boparai",
+    "name": "Parmeet Boparai",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 11,
+    "timestamp": "2025-09-03T23:22:49.323Z"
+  },
+  {
+    "slug": "myles-mcdougall",
+    "name": "Myles McDougall",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 40,
+    "timestamp": "2025-09-03T23:22:57.039Z"
+  },
+  {
+    "slug": "court-ellingson",
+    "name": "Court Ellingson",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:23:08.810Z"
+  },
+  {
+    "slug": "nagwan-alguneid",
+    "name": "Nagwan Al-Guneid",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 38,
+    "timestamp": "2025-09-03T23:23:19.006Z"
+  },
+  {
+    "slug": "ric-mciver",
+    "name": "Ric McIver",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:23:29.260Z"
+  },
+  {
+    "slug": "lizette-tejada",
+    "name": "Lizette Tejada",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 27,
+    "timestamp": "2025-09-03T23:23:42.468Z"
+  },
+  {
+    "slug": "eric-bouchard",
+    "name": "Eric Bouchard",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 33,
+    "timestamp": "2025-09-03T23:23:56.287Z"
+  },
+  {
+    "slug": "kathleen-ganley",
+    "name": "Kathleen Ganley",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:24:05.608Z"
+  },
+  {
+    "slug": "muhammad-yaseen",
+    "name": "Muhammad Yaseen",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:24:15.790Z"
+  },
+  {
+    "slug": "gurinder-brar",
+    "name": "Gurinder Brar",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 34,
+    "timestamp": "2025-09-03T23:24:23.441Z"
+  },
+  {
+    "slug": "rajan-sawhney",
+    "name": "Rajan Sawhney",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:24:39.737Z"
+  },
+  {
+    "slug": "tanya-fir",
+    "name": "Tanya Fir",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:25:06.995Z"
+  },
+  {
+    "slug": "rebecca-schulz",
+    "name": "Rebecca Schulz",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:25:26.220Z"
+  },
+  {
+    "slug": "matt-jones",
+    "name": "Matt Jones",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:25:36.563Z"
+  },
+  {
+    "slug": "luanne-metz",
+    "name": "Luanne Metz",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 36,
+    "timestamp": "2025-09-03T23:25:45.345Z"
+  },
+  {
+    "slug": "mike-ellis",
+    "name": "Mike Ellis",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:25:53.658Z"
+  },
+  {
+    "slug": "jackie-lovely",
+    "name": "Jackie Lovely",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:26:03.883Z"
+  },
+  {
+    "slug": "joseph-schow",
+    "name": "Joseph Schow",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:26:14.259Z"
+  },
+  {
+    "slug": "todd-loewen",
+    "name": "Todd Loewen",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:26:35.136Z"
+  },
+  {
+    "slug": "chantelle-dejonge",
+    "name": "Chantelle de Jonge",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 34,
+    "timestamp": "2025-09-03T23:26:47.932Z"
+  },
+  {
+    "slug": "justin-wright",
+    "name": "Justin Wright",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:26:58.125Z"
+  },
+  {
+    "slug": "andrew-boitchenko",
+    "name": "Andrew Boitchenko",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 24,
+    "timestamp": "2025-09-03T23:27:54.167Z"
+  },
+  {
+    "slug": "nate-horner",
+    "name": "Nate Horner",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:28:09.891Z"
+  },
+  {
+    "slug": "peggy-wright",
+    "name": "Peggy Wright",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:28:19.230Z"
+  },
+  {
+    "slug": "nicole-goehring",
+    "name": "Nicole Goehring",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 44,
+    "timestamp": "2025-09-03T23:28:34.019Z"
+  },
+  {
+    "slug": "david-shepherd",
+    "name": "David Shepherd",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:28:54.619Z"
+  },
+  {
+    "slug": "sharif-haji",
+    "name": "Sharif Haji",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 46,
+    "timestamp": "2025-09-03T23:29:08.414Z"
+  },
+  {
+    "slug": "gurtej-brarmemberelect",
+    "name": "Gurtej Brar - Member-elect",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 0,
+    "timestamp": "2025-09-03T23:29:16.640Z"
+  },
+  {
+    "slug": "sarah-hoffman",
+    "name": "Sarah Hoffman",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:29:26.877Z"
+  },
+  {
+    "slug": "marlin-schmidt",
+    "name": "Marlin Schmidt",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:29:35.560Z"
+  },
+  {
+    "slug": "janis-irwin",
+    "name": "Janis Irwin",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:29:43.326Z"
+  },
+  {
+    "slug": "heather-sweet",
+    "name": "Heather Sweet",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:29:52.663Z"
+  },
+  {
+    "slug": "lorne-dach",
+    "name": "Lorne Dach",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 13,
+    "timestamp": "2025-09-03T23:29:59.848Z"
+  },
+  {
+    "slug": "jasvir-deol",
+    "name": "Jasvir Deol",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 13,
+    "timestamp": "2025-09-03T23:30:07.185Z"
+  },
+  {
+    "slug": "christina-gray",
+    "name": "Christina Gray",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:30:29.820Z"
+  },
+  {
+    "slug": "david-eggen",
+    "name": "David Eggen",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:30:44.086Z"
+  },
+  {
+    "slug": "lori-sigurdson",
+    "name": "Lori Sigurdson",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 39,
+    "timestamp": "2025-09-03T23:30:53.880Z"
+  },
+  {
+    "slug": "jodi-calahoostonehouse",
+    "name": "Jodi Calahoo Stonehouse",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 45,
+    "timestamp": "2025-09-03T23:31:02.797Z"
+  },
+  {
+    "slug": "rhiannon-hoyle",
+    "name": "Rhiannon Hoyle",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 45,
+    "timestamp": "2025-09-03T23:31:16.823Z"
+  },
+  {
+    "slug": "nathan-ip",
+    "name": "Nathan Ip",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:31:39.195Z"
+  },
+  {
+    "slug": "naheed-nenshimemberelect",
+    "name": "Naheed Nenshi - Member-elect",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:31:51.885Z"
+  },
+  {
+    "slug": "brooks-arcandpaul",
+    "name": "Brooks Arcand-Paul",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 32,
+    "timestamp": "2025-09-03T23:31:59.840Z"
+  },
+  {
+    "slug": "rakhi-pancholi",
+    "name": "Rakhi Pancholi",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:32:09.060Z"
+  },
+  {
+    "slug": "brian-jeankc",
+    "name": "Brian Jean, KC",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 0,
+    "timestamp": "2025-09-03T23:32:16.213Z"
+  },
+  {
+    "slug": "tany-yao",
+    "name": "Tany Yao",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 28,
+    "timestamp": "2025-09-03T23:32:24.407Z"
+  },
+  {
+    "slug": "jackie-armstronghomeniuk",
+    "name": "Jackie Armstrong-Homeniuk",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 25,
+    "timestamp": "2025-09-03T23:32:33.931Z"
+  },
+  {
+    "slug": "nolan-dyck",
+    "name": "Nolan Dyck",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 39,
+    "timestamp": "2025-09-03T23:32:41.727Z"
+  },
+  {
+    "slug": "ron-wiebe",
+    "name": "Ron Wiebe",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 47,
+    "timestamp": "2025-09-03T23:32:49.502Z"
+  },
+  {
+    "slug": "rj-sigurdson",
+    "name": "R.J. Sigurdson",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:32:58.793Z"
+  },
+  {
+    "slug": "devin-dreeshen",
+    "name": "Devin Dreeshen",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:33:09.673Z"
+  },
+  {
+    "slug": "shane-getson",
+    "name": "Shane Getson",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 38,
+    "timestamp": "2025-09-03T23:33:19.754Z"
+  },
+  {
+    "slug": "jennifer-johnson",
+    "name": "Jennifer Johnson",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:33:34.041Z"
+  },
+  {
+    "slug": "brandon-lunty",
+    "name": "Brandon Lunty",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 14,
+    "timestamp": "2025-09-03T23:33:48.319Z"
+  },
+  {
+    "slug": "scott-sinclair",
+    "name": "Scott Sinclair",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:33:58.635Z"
+  },
+  {
+    "slug": "nathan-neudorf",
+    "name": "Nathan Neudorf",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:34:06.843Z"
+  },
+  {
+    "slug": "rob-miyashiro",
+    "name": "Rob Miyashiro",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 47,
+    "timestamp": "2025-09-03T23:34:15.614Z"
+  },
+  {
+    "slug": "chelsae-petrovic",
+    "name": "Chelsae Petrovic",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:34:35.902Z"
+  },
+  {
+    "slug": "rick-wilson",
+    "name": "Rick Wilson",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:34:49.511Z"
+  },
+  {
+    "slug": "dale-nally",
+    "name": "Dale Nally",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:34:57.803Z"
+  },
+  {
+    "slug": "tara-sawyermemberelect",
+    "name": "Tara Sawyer - Member-elect",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 0,
+    "timestamp": "2025-09-03T23:35:04.570Z"
+  },
+  {
+    "slug": "dan-williams",
+    "name": "Dan Williams",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:35:12.966Z"
+  },
+  {
+    "slug": "adriana-lagrange",
+    "name": "Adriana LaGrange",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:35:23.346Z"
+  },
+  {
+    "slug": "jason-stephan",
+    "name": "Jason Stephan",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:35:31.044Z"
+  },
+  {
+    "slug": "jason-nixon",
+    "name": "Jason Nixon",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:35:44.293Z"
+  },
+  {
+    "slug": "kyle-kasawski",
+    "name": "Kyle Kasawski",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:35:52.125Z"
+  },
+  {
+    "slug": "searle-turton",
+    "name": "Searle Turton",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 48,
+    "timestamp": "2025-09-03T23:36:01.805Z"
+  },
+  {
+    "slug": "marie-renaud",
+    "name": "Marie Renaud",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:36:09.481Z"
+  },
+  {
+    "slug": "nate-glubish",
+    "name": "Nate Glubish",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:36:17.789Z"
+  },
+  {
+    "slug": "grant-hunter",
+    "name": "Grant Hunter",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:36:29.028Z"
+  },
+  {
+    "slug": "garth-rowswell",
+    "name": "Garth Rowswell",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 14,
+    "timestamp": "2025-09-03T23:36:38.234Z"
+  },
+  {
+    "slug": "martin-long",
+    "name": "Martin Long",
+    "office": "Member of Legislative Assembly",
+    "success": true,
+    "count": 50,
+    "timestamp": "2025-09-03T23:36:48.712Z"
+  }
+]

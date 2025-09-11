@@ -1,0 +1,64 @@
+{
+  "slug": "devin-dreeshen",
+  "name": "Devin Dreeshen",
+  "from": "2025-07-19",
+  "newsapi": {
+    "status": "ok",
+    "totalResults": 4,
+    "articles": [
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "U.S. blocking Canadian access to road southern Alberta county has long relied on",
+        "description": "Alberta's County of Warner and Montana's Toole County have partnered for decades to share oversight and use of Border Road in northern Montana, which runs just in front of many Canadians' properties. But Albertan access to the road will be restricted beginnin…",
+        "url": "https://www.cbc.ca/news/canada/calgary/u-s-blocking-canadian-access-to-road-southern-alberta-county-has-long-relied-on-1.7602645",
+        "urlToImage": "https://i.cbc.ca/1.7602709.1754513731!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/border-road.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-14T13:00:00Z",
+        "content": "Along the Canada-U.S. border runs a remote stretch of road that some County of Warner residents in southern Alberta have used freely for decades.\r\nThere's just one problem. It's on the American side … [+4803 chars]"
+      },
+      {
+        "source": {
+          "id": "financial-post",
+          "name": "Financial Post"
+        },
+        "author": "The Canadian Press",
+        "title": "Alberta creates accident exclusion zone, fines to curb predatory tow trucks",
+        "description": "EDMONTON — Alberta’s government is creating fines and rules meant to curb predatory tow truck drivers. Starting Friday, there will be 200-metre exclusion zones around accident scenes for tow truck operators, who must stay back unless police or drivers involve…",
+        "url": "https://financialpost.com/pmn/alberta-creates-accident-exclusion-zone-fines-to-curb-predatory-tow-trucks",
+        "urlToImage": null,
+        "publishedAt": "2025-08-06T18:47:08Z",
+        "content": "EDMONTON Albertas government is creating fines and rules meant to curb predatory tow truck drivers.\r\nTHIS CONTENT IS RESERVED FOR SUBSCRIBERS ONLY\r\nSubscribe now to read the latest news in your city … [+4621 chars]"
+      },
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "City's doubled investment in pavement quality means more road work than usual in Calgary",
+        "description": "For commuters in Calgary, it's hard not to notice the road work happening across the city. Paving is set to happen at 320 locations throughout Calgary this year, with 30 road paving projects currently planned, in progress or complete.",
+        "url": "https://www.cbc.ca/news/canada/calgary/calgary-road-paving-highway-pavement-construction-1.7599112",
+        "urlToImage": "https://i.cbc.ca/1.7599321.1754010389!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/road-work.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-01T17:06:41Z",
+        "content": "For commuters in Calgary, it's hard not to notice the road work happening across the city.\r\nThe city says it expects to have 530 lane kilometres paved at 320 locations\r\n this season throughout Calgar… [+4007 chars]"
+      },
+      {
+        "source": {
+          "id": null,
+          "name": "National Post"
+        },
+        "author": "National Post Staff",
+        "title": "Everything you need to know about Ontario's bike-lane ruling",
+        "description": "The decision marks a significant victory for bike-lane advocates and raises questions about similar policies across Canada that seek the removal of bike lanes",
+        "url": "https://nationalpost.com/news/what-to-know-about-ontario-bike-lane-ruling",
+        "urlToImage": "https://smartcdn.gprod.postmedia.digital/nationalpost/wp-content/uploads/2025/08/bike-lane-TO.jpg",
+        "publishedAt": "2025-08-02T11:00:13Z",
+        "content": "When did Toronto build these bike lanes?\r\nSince 2016, the city of Toronto has been expanding bike lanes in the city. In a 2024 report, the city outlined the investment for bike lanes and bike share, … [+3470 chars]"
+      }
+    ]
+  },
+  "newsdata": {}
+}

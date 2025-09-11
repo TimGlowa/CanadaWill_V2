@@ -172,3 +172,5 @@ Articles are filtered for relevance to:
 ---
 
 *This backup represents a complete snapshot of news article data collected for all 121 Alberta officials, providing the foundation for the sentiment analysis and stance detection system.*
+
+

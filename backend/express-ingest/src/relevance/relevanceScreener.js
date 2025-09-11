@@ -206,8 +206,20 @@ class RelevanceScreener {
       const content = await this.downloadBlob(blobPath);
       const data = JSON.parse(content);
       
-      if (!data.raw || !Array.isArray(data.raw)) {
-        console.warn(`Warning: No raw array found in ${blobPath}`);
+      /** KISS instrumentation for one blob (no assumptions) **/
+      
+      // 1) Immediately after JSON parse:
+      console.info("BLOB_OPEN", {
+        slug, file: filename, // from path
+        who: data?.who ?? null,
+        hasRaw: Array.isArray(data?.raw),
+        rawType: typeof data?.raw,
+        rawLen: Array.isArray(data?.raw) ? data.raw.length : -1
+      });
+      
+      // 2) Early guard: if no usable array, log and return (do NOT swallow silently)
+      if (!Array.isArray(data?.raw) || data.raw.length === 0) {
+        console.warn("STRUCT_EMPTY_OR_MISSING", { slug, file: filename });
         return;
       }
       
@@ -219,6 +231,12 @@ class RelevanceScreener {
       
       // In test mode, limit the number of articles processed
       const maxArticles = testMode ? Math.min(data.raw.length, testLimit) : data.raw.length;
+      
+      // 3) Before the for-loop, log the loop plan
+      console.info("ITER_PLAN", {
+        slug, file: filename, startIndex: 0, endIndex: maxArticles - 1
+      });
+      
       console.log(`📊 Processing ${maxArticles} articles from ${data.raw.length} total in file`);
       
       // Process each article in the raw array
@@ -226,10 +244,12 @@ class RelevanceScreener {
         const article = data.raw[articleIndex];
         const rowId = `${slug}_${fileIndex}_${articleIndex}`;
         
-        // Skip if already processed
-        if (processedRowIds.has(rowId)) {
-          continue;
-        }
+        // 4) Inside the loop, first thing each iteration:
+        const skip = processedRowIds.has(rowId);
+        console.info("ITER_STEP", {
+          row_id: rowId, i: articleIndex, skip, hasTitle: !!article?.title, hasSnippet: !!article?.snippet
+        });
+        if (skip) { continue; }
         
         try {
           // Extract fields WITH COERCION (no throws)

@@ -1,0 +1,25 @@
+{
+  "slug": "christina-gray",
+  "name": "Christina Gray",
+  "from": "2025-07-19",
+  "newsapi": {
+    "status": "ok",
+    "totalResults": 1,
+    "articles": [
+      {
+        "source": {
+          "id": "cbc-news",
+          "name": "CBC News"
+        },
+        "author": null,
+        "title": "Alberta government changes expense disclosure policy, removes eight years of records",
+        "description": "Key changes to Alberta’s expense disclosure policy mean that the receipts of senior government officials, including the premier, will no longer be public.",
+        "url": "https://www.cbc.ca/news/canada/edmonton/alberta-government-changes-expense-disclosure-policy-removes-eight-years-of-records-1.7604279",
+        "urlToImage": "https://i.cbc.ca/1.7377283.1731013656!/cumulusImage/httpImage/image.jpg_gen/derivatives/16x9_1180/alberta-legislature.jpg?im=Resize%3D620",
+        "publishedAt": "2025-08-10T12:00:00Z",
+        "content": "While many Albertans were preparing for a long weekend last Friday, the provincial government published changes to its rules for disclosing expense claims made by senior officials.\r\nThe new policy, p… [+5967 chars]"
+      }
+    ]
+  },
+  "newsdata": {}
+}
